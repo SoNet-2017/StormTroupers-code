@@ -1,0 +1,118 @@
+body{
+    background-color: #636466;
+    padding-bottom: 50px;
+}
+
+h1{
+    padding-top: 20px;
+}
+
+#mainContainer{
+    background-color: #b7c3b8;
+    min-height: 500px;
+    padding: 30px;
+}
+
+#adJoinMain{
+    padding-top: 30px;
+    background-color: #636466;
+    text-align: center;
+    width: 100%;
+}
+
+#adJoinMain h1, h2{
+    font-family: "ADAM.CG PRO";
+    color: white;
+    position: relative;
+    /*db928b  red*/
+}
+
+#adJoinMain label{
+    color: #636466;
+}
+
+#advancedJoinContainer{
+
+    /*Per centrare il contenuto*/
+    display:flex;
+    justify-content:left;
+    align-items:center;
+}
+
+#advancedJoinContainer input{
+    width: 80%;
+}
+
+#advancedJoinContainer label{
+    color: white;
+}
+
+#checkCarContainer{
+    display: inline-block;
+    justify-content:left;
+    align-items:center;
+    text-align: left;
+}
+
+#advancedJoinCheckboxes{
+    display: inline-block;
+    justify-content:left;
+    align-items:center;
+    text-align: left;
+}
+
+#advancedJoinCheckboxes{
+    color: #636466;
+}
+
+#advancedJoinCheckboxes2{
+    display: inline-block;
+    justify-content:left;
+    align-items:center;
+    text-align: left;
+}
+
+#advancedJoinCheckboxes2{
+    color: #636466;
+}
+
+h4{
+    text-align: left;
+    color: #636466;
+}
+
+textarea{
+    width: 100%;
+    height: 150px;
+    padding: 12px 20px;
+    font-size: 16px;
+    resize: none;
+    background-color: white;
+    border-radius: 4px;
+}
+
+#returnLogin{
+    background-color: white;
+}
+
+#returnLogin a{
+    text-decoration: none;
+    color: #636466;
+}
+
+#advancedJoinButton{
+    background-color: white;
+}
+
+#advancedJoinButton a{
+    text-decoration: none;
+    color: #636466;
+}
+
+#chePayment{
+    display: inline-block;
+    justify-content:left;
+    align-items:center;
+    text-align: left;
+}
+

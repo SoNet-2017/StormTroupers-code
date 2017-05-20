@@ -1,0 +1,176 @@
+@font-face {
+    font-family: "ADAM.CG PRO";
+    src: url("../../font/ADAM.CG PRO.otf");
+}
+
+
+h1{
+    padding: 20px;
+    color: white;
+    font-family: "ADAM.CG PRO";
+}
+
+#loginMain{
+    padding-top: 30px;
+    background-color: #636466;
+    text-align: center;
+    width: 100%;
+}
+
+#loginMain h1, h2{
+    font-family: "ADAM.CG PRO";
+    color: white;
+    position: relative;
+    /*db928b  red*/
+}
+
+#loginMain img{
+    max-width: 300px;
+    height: auto;
+}
+
+#login{
+    background-color: #b7c3b8;
+    height: 500px;
+    /*Per centrare il contenuto*/
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+#login button{
+    background-color: white;
+}
+
+#join button{
+    background-color: white;
+}
+
+#join button a{
+    text-decoration: none;
+    color: #636466;
+}
+
+#loginBox{
+    text-align: left;
+    padding-top: 30px;
+    padding-right: 30px;
+    padding-left: 30px;
+    padding-bottom: 30px;
+}
+
+#join{
+    background-color: #b7c3b8;
+    height: 500px;
+    /*Per centrare il contenuto*/
+    justify-content:center;
+    align-items:center;
+    display: none;
+}
+
+#joinBox{
+    text-align: left;
+    padding-top: 30px;
+    padding-right: 30px;
+    padding-left: 30px;
+    padding-bottom: 30px;
+}
+
+#spotPhrase{
+    color: white;
+    padding: 30px;
+}
+
+#searchImage{
+    /* The image used */
+    background-image: url("../../images/Kim-Jong-n2000.jpg");
+
+    /* Set a specific height */
+    min-height: 300px;
+
+    /* Create the parallax scrolling effect */
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+
+    /*Per centrare il contenuto*/
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+#searchItem{
+    color: #636466;
+    background-color: white;
+    height: 300px;
+    /*Per centrare il contenuto*/
+    display:flex;
+    justify-content:center;
+    text-align: center;
+    align-items:center;
+}
+
+#searchItem i{
+    padding-bottom: 10px;
+}
+
+#flowImage{
+    /* The image used */
+    background-image: url("../../images/troopers.jpg");
+
+    /* Set a specific height */
+    min-height: 300px;
+
+    /* Create the parallax scrolling effect */
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+
+    /*Per centrare il contenuto*/
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+#flowItem{
+    color: #636466;
+    background-color: white;
+    height: 300px;
+    /*Per centrare il contenuto*/
+    display:flex;
+    justify-content:center;
+    text-align: center;
+    align-items:center;
+}
+
+#flowItem i{
+    padding-bottom: 10px;
+}
+
+#hpInfo{
+    height: 100px;
+    /*Per centrare il contenuto*/
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+#hpInfo a{
+    text-decoration: none;
+    color: white;
+}
+
+#hpInfo a:hover{
+    text-decoration: underline;
+}
+
+#loginImg{
+    content: url("../../images/StormTroupersLogo.png");
+}
+
+#joinImg{
+    content: url("../../images/StormTroupersLogo.png");
+}
+

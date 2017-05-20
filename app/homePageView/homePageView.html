@@ -1,0 +1,29 @@
+<div class="w3-bar w3-top" id="topBarHome">
+    <a class="w3-bar-item w3-button" id="homeLinkHome" ><i class="glyphicon glyphicon-home"></i></a>
+    <a class="w3-bar-item w3-button" id="userLinkHome"><i class="glyphicon glyphicon-user"></i></a>
+    <a class="w3-bar-item w3-button" id="projectsLinkHome"><i class="glyphicon glyphicon-film"></i></a>
+
+    <form id="searchFormHome" class="w3-container w3-bar-item" role="search">
+        <label class="glyphicon glyphicon-search"><input class="w3-input w3-border" type="text" id="searchBarHome"></label>
+    </form>
+
+    <div class="w3-bar-item w3-dropdown-click" id="typeSearchHome">
+        <button class="w3-button">Type of search</button>
+        <div class="w3-dropdown-content w3-bar-block w3-border">
+            <a href="#" class="w3-bar-item w3-button"><i class="glyphicon glyphicon-user"></i> Search Troupers</a>
+            <a href="#" class="w3-bar-item w3-button"><i class="glyphicon glyphicon-project"></i> Search Projects</a>
+        </div>
+    </div>
+
+    <div class="w3-bar-item w3-dropdown-click w3-right" id="logoBarHome">
+        <img id="logoBarImgHome">
+        <div class="w3-dropdown-content w3-bar-block w3-border">
+            <a href="#" class="w3-bar-item w3-button"><i class="glyphicon glyphicon-user"></i> Your Public Profile</a>
+            <a href="#" class="w3-bar-item w3-button"><i class="glyphicon glyphicon-pencil"></i> Edit Profil</a>
+            <a href="#" class="w3-bar-item w3-button"><i class="glyphicon glyphicon-off"></i> Logout</a>
+        </div>
+    </div>
+    <h4 class="w3-bar-item w3-right" id="userNameHome">{{profile.name}}</h4>
+
+</div>
+
