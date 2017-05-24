@@ -5,9 +5,11 @@
         <div class="w3-col s6 m6 l6 w3-left w3-animate-opacity" id="loginBox">
             <input class="w3-input w3-border" id="loginEmail" placeholder="E-mail" type="email" ng-model="user.email">
             <br>
-            <input type="password" class="w3-input w3-border" placeholder="Password" id="loginPassword" ng-model="user.password">
+            <input type="password" class="w3-input w3-border" placeholder="Password" id="loginPassword"
+                   ng-model="user.password">
             <br>
-            <button class="w3-btn" id="loginButton" ng-click="signIn()">Login</button> or...<button class="w3-btn" id="joinShift" ng-click="passToJoin()">Join the dark side</button>
+            <button class="w3-btn" id="loginButton" ng-click="signIn()">Login</button>
+            or...<a id="joinShift" ng-click="passToJoin()">Join the dark side</a>
         </div>
         <div class="w3-col s6 m6 l6 w3-center w3-animate-left" id="loginImage">
             <img id="loginImg">
@@ -31,9 +33,11 @@
             <br>
             <div class="w3-row-padding">
                 <div class="w3-half">
-                    <input class="w3-radio" type="radio" name="gender" value="male" id="joinMale"><label>Male</label>
+                    <input class="w3-radio" type="radio" ng-model="gender" value="male"
+                           id="joinMale"><label>Male</label>
                     <br>
-                    <input class="w3-radio" type="radio" name="gender" value="female" id="joinFemale"><label>Female</label>
+                    <input class="w3-radio" type="radio" ng-model="gender" value="female"
+                           id="joinFemale"><label>Female</label>
                 </div>
                 <div class="w3-half">
                     <label>Date of birth
@@ -42,68 +46,70 @@
                 </div>
             </div>
             <br>
-            <button class="w3-btn" id="joinButton" ng-click="join()">Join the dark side</button> or...<button class="w3-btn" id="loginShift" ng-click="passToLogin()">Login</button>
+            <button class="w3-btn" id="joinButton" ng-click="join()">Join the dark side</button>
+            or...<a id="loginShift" ng-click="passToLogin()">Login</a>
         </div>
     </div>
+</div>
 
-    <div class="w3-container" id="spotPhrase">
-        <h3>StormTroupers is an online network for the independent film community.
+<div class="w3-container" id="spotPhrase">
+    <h3>StormTroupers is an online network for the independent film community.
+        <br>
+        Helping get films made since 1977.</h3>
+</div>
+
+
+<div class="w3-container" id="searchImage">
+    <h2>THE SEARCH</h2>
+</div>
+
+<div class="w3-container w3-card-2 w3-row-padding" id="searchItem">
+    <div class="w3-third">
+        <i class="w3-jumbo glyphicon glyphicon-search"></i>
+        <br>
+        <h4>Look for filmakers
             <br>
-            Helping get films made since 1977.</h3>
+            Look for existing projects and gigs</h4>
     </div>
-
-
-    <div class="w3-container" id="searchImage">
-        <h2>THE SEARCH</h2>
+    <div class="w3-third">
+        <i class="w3-jumbo glyphicon glyphicon-user"></i>
+        <br>
+        <h4>Find the troupe</h4>
     </div>
-
-    <div class="w3-container w3-card-2 w3-row-padding" id="searchItem">
-        <div class="w3-third">
-            <i class="w3-jumbo glyphicon glyphicon-search"></i>
-            <br>
-            <h4>Look for filmakers
-                <br>
-                Look for existing projects and gigs</h4>
-        </div>
-        <div class="w3-third">
-            <i class="w3-jumbo glyphicon glyphicon-user"></i>
-            <br>
-            <h4>Find the troupe</h4>
-        </div>
-        <div class="w3-third">
-            <i class="w3-jumbo glyphicon glyphicon-film"></i>
-            <br>
-            <h4>Shoot</h4>
-        </div>
+    <div class="w3-third">
+        <i class="w3-jumbo glyphicon glyphicon-film"></i>
+        <br>
+        <h4>Shoot</h4>
     </div>
+</div>
 
-    <div class="w3-container" id="flowImage">
-        <h2>FOLLOW THE FLOW</h2>
-    </div>
+<div class="w3-container" id="flowImage">
+    <h2>FOLLOW THE FLOW</h2>
+</div>
 
-    <div class="w3-container w3-card-2 w3-row-padding" id="flowItem">
-        <div class="w3-third">
-            <i class="w3-jumbo glyphicon glyphicon-plus"></i>
-            <br>
-            <h4>Create and share a project with your troupe</h4>
-        </div>
-        <div class="w3-third">
-            <i class="w3-jumbo glyphicon glyphicon-edit"></i>
-            <br>
-            <h4>Edit the templates we offer you:
-                write your screenplay,
-                learn the script,
-                give life shot by shot to your story!</h4>
-        </div>
-        <div class="w3-third">
-            <i class="w3-jumbo glyphicon glyphicon-calendar"></i>
-            <br>
-            <h4>Synchronize the workflow with the production calendar
-                providing personal memo and autogenerated callsheets!</h4>
-        </div>
+<div class="w3-container w3-card-2 w3-row-padding" id="flowItem">
+    <div class="w3-third">
+        <i class="w3-jumbo glyphicon glyphicon-plus"></i>
+        <br>
+        <h4>Create and share a project with your troupe</h4>
     </div>
+    <div class="w3-third">
+        <i class="w3-jumbo glyphicon glyphicon-edit"></i>
+        <br>
+        <h4>Edit the templates we offer you:
+            write your screenplay,
+            learn the script,
+            give life shot by shot to your story!</h4>
+    </div>
+    <div class="w3-third">
+        <i class="w3-jumbo glyphicon glyphicon-calendar"></i>
+        <br>
+        <h4>Synchronize the workflow with the production calendar
+            providing personal memo and autogenerated callsheets!</h4>
+    </div>
+</div>
 
-    <div class="w3-container" id="hpInfo">
-        <h4><a href="https://sonet-2017.github.io/StormTroupers/">About us</a></h4>
-    </div>
+<div class="w3-container" id="hpInfo">
+    <h4><a href="https://sonet-2017.github.io/StormTroupers/">About us</a></h4>
+</div>
 </div>
