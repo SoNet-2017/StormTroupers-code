@@ -78,6 +78,11 @@ h1{
 #spotPhrase{
     color: white;
     padding: 30px;
+    /*Per centrare il contenuto*/
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    text-align: center;
 }
 
 #searchImage{
@@ -114,6 +119,14 @@ h1{
     padding-bottom: 10px;
 }
 
+#searchItem h4{
+    /*Per centrare il contenuto*/
+    display:flex;
+    justify-content:center;
+    text-align: center;
+    align-items:center;
+}
+
 #flowImage{
     /* The image used */
     background-image: url("../../images/troopers.jpg");
@@ -148,6 +161,14 @@ h1{
     padding-bottom: 10px;
 }
 
+#flowItem h4{
+    /*Per centrare il contenuto*/
+    display:flex;
+    justify-content:center;
+    text-align: center;
+    align-items:center;
+}
+
 #hpInfo{
     height: 100px;
     /*Per centrare il contenuto*/
@@ -172,4 +193,26 @@ h1{
 #joinImg{
     content: url("../../images/StormTroupersLogo.png");
 }
+
+#joinShift{
+    color: #636466;
+    text-decoration: none;
+}
+
+#joinShift:hover{
+    text-decoration: underline;
+    cursor: hand; !important;
+}
+
+#loginShift{
+    color: #636466;
+    text-decoration: none;
+}
+
+#loginShift:hover{
+    text-decoration: underline;
+    cursor: hand; !important;
+}
+
+
 
