@@ -9,10 +9,12 @@ angular.module('myApp.loginView', ['ngRoute'])
         });
     }])
 
-    .controller('loginCtrl', ['$scope','Auth', '$location', function($scope, Auth, $location) {
+    .controller('loginCtrl', ['$scope','Auth', '$location', '$firebaseObject', function($scope, Auth, $location, $firebaseObject) {
         $scope.dati={};
         $scope.user={};
         $scope.auth=Auth;
+
+        var database = firebase.database();
 
         //funzione per caricare il login o il join
         $scope.passToJoin=function(){
@@ -37,7 +39,31 @@ angular.module('myApp.loginView', ['ngRoute'])
 
             $scope.auth.$signInWithEmailAndPassword($scope.user.email, $scope.user.password).then(function(firebaseUser) {
                 console.log("signed");
-                $location.path("/homePageView");
+                localStorage.UID=firebaseUser.uid;
+                console.log(localStorage.UID);
+
+                var obj=$firebaseObject(database.ref('users/'+localStorage.UID));
+                obj.$loaded().then(function () {
+                    $scope.profile=obj;
+                    localStorage.attName=obj.name;
+                    localStorage.attLast=obj.lastName;
+                    localStorage.attEmail=obj.email;
+                    localStorage.attCountry=obj.country;
+                    localStorage.attProvince=obj.province;
+                    localStorage.attCity=obj.city;
+                    localStorage.attBirth=obj.dateOfBirth;
+                    localStorage.attGender=obj.gender;
+                    localStorage.attDesc=obj.description;
+                    localStorage.attPhone=obj.phone;
+                    localStorage.attShowOption=obj.permissionToShowPhone;
+                    localStorage.attCar=obj.car;
+                    localStorage.attPayment=obj.payment;
+
+                    $location.path("/homePageView");
+                }).catch(function (error) {
+                    $scope.error=error;
+                })
+
             }).catch(function(error) {
                 console.log("errore");
                 $scope.error = error;
