@@ -1,3 +1,5 @@
+<script src="selectCountryProvinceRegion.js"></script>
+
 <div class="w3-container" id="adJoinMain">
     <h1>STORM<strong>TROUPERS</strong></h1>
     <h2>Working info</h2>
@@ -16,12 +18,35 @@
         </div>
         <br>
         <div class="w3-container">
-            <div class="w3-col s8 m8 l8 w3-left w3-animate-opacity" >
-                <input id="country" type="text" class="w3-input w3-border" placeholder="Country" required>
-                <br>
-                <input id="province" type="text" class="w3-input w3-border" placeholder="Province" required>
-                <br>
-                <input id="city" type="text" class="w3-input w3-border" placeholder="City" required>
+            <div class="w3-col s8 m8 l8 w3-left w3-animate-opacity">
+                <!--<form>
+                    Region&raquo; <select onchange="set_country(this,country,city_state)" size="1" name="region">
+                    <option value="" selected="selected">SELECT REGION</option>
+                    <option value=""></option>
+                    <script type="text/javascript">
+                        setRegions(this);
+                    </script>
+                </select>
+                    Country&raquo; <select name="country" size="1" disabled="disabled"
+                                           onchange="set_city_state(this,city_state)"></select>
+                    City/State&raquo; <select name="city_state" size="1" disabled="disabled"
+                                              onchange="print_city_state(country,this)"></select>
+                </form>-->
+                <form id="selectCountryProvinceCity">
+                    <select id="country" ng-model="selectedCountry" ng-options="x for x in countries"
+                            class="w3-border w3-col s4 m4 l4" required>
+                        <option value="" selected="selected">Select Country</option>
+                    </select>
+                    <select id="province" ng-model="selectedProvince" class="w3-border w3-col s4 m4 l4"
+                            required>
+                        <option value="" selected="selected">Select Province</option>
+                    </select>
+                    <select id="city" ng-model="selectedCity" class="w3-border w3-col s4 m4 l4"
+                            required>
+                        <option value="" selected="selected">Select City</option>
+                    </select>
+                </form>
+
             </div>
         </div>
         <br><br>
@@ -29,17 +54,17 @@
             <div class="w3-col s4 m4 l4 w3-left w3-animate-opacity" id="checkCarContainer">
                 <h4>Do you have a car?</h4>
                 <form class="w3-container" role="form" id="checkCar">
-                    <input type="radio" value="1" class="w3-radio" id="carYes"><label>Yes</label>
+                    <input type="radio" value="1" class="w3-radio" ng-model="carInfo" id="carYes"><label>Yes</label>
                     <br>
-                    <input type="radio" value="0" class="w3-radio" id="carNo"><label>No</label>
+                    <input type="radio" value="0" class="w3-radio" ng-model="carInfo" id="carNo"><label>No</label>
                 </form>
             </div>
             <div class="w3-col s4 m4 l4 w3-left w3-animate-opacity" id="chePayment">
                 <h4>Do you work only under payment?</h4>
                 <form class="w3-container" id="payRequest">
-                    <input type="radio" value="1" class="w3-radio" id="payYes"><label>Yes</label>
+                    <input type="radio" value="1" class="w3-radio" ng-model="payment" id="payYes"><label>Yes</label>
                     <br>
-                    <input type="radio" value="0" class="w3-radio" id="payNo"><label>No</label>
+                    <input type="radio" value="0" class="w3-radio" ng-model="payment" id="payNo"><label>No</label>
                 </form>
             </div>
             <div class="w3-col s4 m4 l4 w3-left w3-animate-opacity"></div>
@@ -57,7 +82,8 @@
                         <br>
                         <input id="checkDP" type="checkbox" class="w3-check"><label>Camera Crew/DP</label>
                         <br>
-                        <input id="checkArt" type="checkbox" class="w3-check"><label>Crew art/Design/Scenic/Construction</label>
+                        <input id="checkArt" type="checkbox" class="w3-check"><label>Crew
+                        art/Design/Scenic/Construction</label>
                         <br>
                         <input id="checkDirect" type="checkbox" class="w3-check"><label>Director</label>
                         <br>

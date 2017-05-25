@@ -28,7 +28,7 @@ angular.module('myApp.loginView', ['ngRoute'])
 
         //funzione per aprire la pagina con le informazioni approfondite per l'iscrizione
         $scope.adJoin=function(){
-            console.log("arrivato");
+            console.log("arrivato a advanced join");
             $location.path("/advancedJoinView");
         };
 
@@ -77,7 +77,7 @@ angular.module('myApp.loginView', ['ngRoute'])
 
             //quando si crea l'utente si ha un login automatico che interferisce con la scrittura dei dati d'iscrizione sul database,
             //allora salvo tutti i dati della prima pagina d'iscrizione in localStorage per poi recuperarli e creare il database nell'advancedJoin
-            var joinM=document.getElementById("joinEmail").value;
+            var joinEm=document.getElementById("joinEmail").value;
             var joinP=document.getElementById("joinPassword").value;
             var firstName = document.getElementById('joinName').value;
             var lastNameR = document.getElementById('joinLastName').value;
@@ -88,7 +88,7 @@ angular.module('myApp.loginView', ['ngRoute'])
                 jGender=document.getElementById("joinFemale").value;
             }
             var birth = document.getElementById('dateOfBirth').value;
-            localStorage.joinEmail=joinM;
+            localStorage.joinEmail=joinEm;
             localStorage.joinPassword=joinP;
             localStorage.joinName=firstName;
             localStorage.joinLast=lastNameR;
@@ -96,8 +96,7 @@ angular.module('myApp.loginView', ['ngRoute'])
             localStorage.joinBirth=birth;
 
 
-
-            $scope.auth.$createUserWithEmailAndPassword(joinM, joinP).then(function (userData) {
+            $scope.auth.$createUserWithEmailAndPassword(joinEm, joinP).then(function (userData) {
                 $scope.message = "User created with uid: " + userData.uid;
                 localStorage.UID = userData.uid;
                 console.log(userData.uid);
