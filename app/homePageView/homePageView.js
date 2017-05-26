@@ -24,9 +24,10 @@ angular.module('myApp.homePageView', ['ngRoute'])
 
         console.log(localStorage.attName);
         console.log(localStorage.attLast);
+        console.log(localStorage.attEmail);
 
         document.getElementById("userNameHome").innerHTML=localStorage.attName;
-        document.getElementById("userNameAndLastHome").innerHTML=localStorage.attName;
+        document.getElementById("userNameAndLastHome").innerHTML=localStorage.attName+" "+localStorage.attLast;
 
         $scope.showLogoItem=function () {
             var x = document.getElementById("logoBarContentHome");
