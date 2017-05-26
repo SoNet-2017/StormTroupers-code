@@ -56,6 +56,12 @@ h1{
     padding-right: 30px;
     padding-left: 30px;
     padding-bottom: 30px;
+    color: #636466;
+}
+
+#loginButton{
+    color: #636466;
+    margin-right: 10px;
 }
 
 #join{
@@ -73,6 +79,12 @@ h1{
     padding-right: 30px;
     padding-left: 30px;
     padding-bottom: 30px;
+    color: #636466;
+}
+
+#joinButton{
+    color: #636466;
+    margin-right: 10px;
 }
 
 #spotPhrase{
@@ -197,21 +209,23 @@ h1{
 #joinShift{
     color: #636466;
     text-decoration: none;
+    margin-left: 5px;
 }
 
 #joinShift:hover{
     text-decoration: underline;
-    cursor: hand; !important;
+    cursor: pointer;
 }
 
 #loginShift{
     color: #636466;
     text-decoration: none;
+    margin-left: 5px;
 }
 
 #loginShift:hover{
     text-decoration: underline;
-    cursor: hand; !important;
+    cursor: pointer;
 }
 
 

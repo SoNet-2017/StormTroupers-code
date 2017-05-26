@@ -16,7 +16,8 @@ angular.module('myApp', [
     'myApp.loginView',
     'myApp.advancedJoinView',
     'myApp.authentication',
-    'myApp.homePageView'
+    'myApp.homePageView',
+    'myApp.users'
 ])
 
     .config(['$locationProvider', '$routeProvider', function($locationProvider, $routeProvider) {

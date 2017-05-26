@@ -18,8 +18,9 @@ angular.module('myApp.homePageView', ['ngRoute'])
         });
     }])
 
-    .controller('homePageCtrl', ['$scope', '$location', 'Auth', '$firebaseObject', function ($scope,$location, Auth, $firebaseObject) {
+    .controller('homePageCtrl', ['$scope', '$location', 'Auth', '$firebaseObject','Users', 'currentAuth', '$firebaseAuth', function ($scope,$location, Auth, $firebaseObject, Users, currentAuth, $firebaseAuth) {
         $scope.dati={};
+        $scope.auth=Auth;
 
         console.log(localStorage.attName);
 
@@ -45,9 +46,25 @@ angular.module('myApp.homePageView', ['ngRoute'])
         var UID=localStorage.UID;
         var database=firebase.database();
 
-        var obj = $firebaseObject(database.ref('/users'+UID));
+        var obj = $firebaseObject(database.ref('users/'+UID));
         obj.$loaded().then(function () {
             $scope.profile=obj;
+        }).catch(function (error) {
+            $scope.error=error;
         });
+
+        $scope.logout = function () {
+            Users.registerLogout(currentAuth.uid);
+            $firebaseAuth().$signOut();
+            $firebaseAuth().$onAuthStateChanged(function(firebaseUser) {
+                if (firebaseUser) {
+                    console.log("User is yet signed in as:", firebaseUser.uid);
+                } else {
+                    $location.path("/loginView");
+                }
+            });
+
+
+        };
 
     }]);

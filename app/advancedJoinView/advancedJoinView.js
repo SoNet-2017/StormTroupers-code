@@ -127,7 +127,8 @@ angular.module('myApp.advancedJoinView', ['ngRoute'])
                 car: carR,
                 payment: payR,
                 roles: roles,
-                desciption: descriptionR
+                desciption: descriptionR,
+                logged: true
             }).then(function () {
                 console.log("sono qui" + UID);
                 var obj=$firebaseObject(database.ref('users/'+UID));

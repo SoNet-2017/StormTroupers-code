@@ -22,12 +22,13 @@
 
 #projectsLinkHome{
     color: #636466;
+    /*padding-right: 200px;*/
 }
 
-#searchIconHome{
-    color: #636466;
+#searchItemHome{
+    max-width: 30%;
+
 }
 
-#searchIconHome:hover{
-    text-decoration: none;
-}
+
+

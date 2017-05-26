@@ -9,7 +9,7 @@ angular.module('myApp.loginView', ['ngRoute'])
         });
     }])
 
-    .controller('loginCtrl', ['$scope','Auth', '$location', '$firebaseObject', function($scope, Auth, $location, $firebaseObject) {
+    .controller('loginCtrl', ['$scope','Auth', '$location', '$firebaseObject', 'Users', function($scope, Auth, $location, $firebaseObject, Users) {
         $scope.dati={};
         $scope.user={};
         $scope.auth=Auth;
@@ -42,27 +42,35 @@ angular.module('myApp.loginView', ['ngRoute'])
                 localStorage.UID=firebaseUser.uid;
                 console.log(localStorage.UID);
 
-                var obj=$firebaseObject(database.ref('users/'+localStorage.UID));
-                obj.$loaded().then(function () {
-                    $scope.profile=obj;
-                    localStorage.attName=obj.name;
-                    localStorage.attLast=obj.lastName;
-                    localStorage.attEmail=obj.email;
-                    localStorage.attCountry=obj.country;
-                    localStorage.attProvince=obj.province;
-                    localStorage.attCity=obj.city;
-                    localStorage.attBirth=obj.dateOfBirth;
-                    localStorage.attGender=obj.gender;
-                    localStorage.attDesc=obj.description;
-                    localStorage.attPhone=obj.phone;
-                    localStorage.attShowOption=obj.permissionToShowPhone;
-                    localStorage.attCar=obj.car;
-                    localStorage.attPayment=obj.payment;
+                database.ref('users/'+localStorage.UID).set({
+                    logged: true
+                }).then(function () {
+                    var obj=$firebaseObject(database.ref('users/'+localStorage.UID));
+                    obj.$loaded().then(function () {
+                        $scope.profile=obj;
+                        localStorage.attName=obj.name;
+                        localStorage.attLast=obj.lastName;
+                        localStorage.attEmail=obj.email;
+                        localStorage.attCountry=obj.country;
+                        localStorage.attProvince=obj.province;
+                        localStorage.attCity=obj.city;
+                        localStorage.attBirth=obj.dateOfBirth;
+                        localStorage.attGender=obj.gender;
+                        localStorage.attDesc=obj.description;
+                        localStorage.attPhone=obj.phone;
+                        localStorage.attShowOption=obj.permissionToShowPhone;
+                        localStorage.attCar=obj.car;
+                        localStorage.attPayment=obj.payment;
 
-                    $location.path("/homePageView");
+                        $location.path("/homePageView");
+                    }).catch(function (error) {
+                        $scope.error=error;
+                    })
                 }).catch(function (error) {
                     $scope.error=error;
                 })
+
+
 
             }).catch(function(error) {
                 console.log("errore");
