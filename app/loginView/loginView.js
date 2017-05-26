@@ -42,7 +42,7 @@ angular.module('myApp.loginView', ['ngRoute'])
                 localStorage.UID=firebaseUser.uid;
                 console.log(localStorage.UID);
 
-                database.ref('users/'+localStorage.UID).set({
+                database.ref('users/'+localStorage.UID).update({
                     logged: true
                 }).then(function () {
                     var obj=$firebaseObject(database.ref('users/'+localStorage.UID));
