@@ -34,18 +34,19 @@
                 </form>-->
                 <form id="selectCountryProvinceCity">
                     <select id="country" ng-model="selectedCountry" ng-options="x for x in countries"
-                            class="w3-border w3-col s4 m4 l4" required>
+                            class="form-control w3-col s4 m4 l4" required>
                         <option value="" selected="selected">Select Country</option>
                     </select>
-                    <select id="province" ng-model="selectedProvince" class="w3-border w3-col s4 m4 l4"
+                    <select id="province" ng-model="selectedProvince" class="form-control w3-col s4 m4 l4"
                             required>
-                        <option value="" selected="selected">Select Province</option>
+                        <option value="" selected="selected">Select Region or State</option>
                     </select>
-                    <select id="city" ng-model="selectedCity" class="w3-border w3-col s4 m4 l4"
+                    <select id="city" ng-model="selectedCity" class="form-control w3-col s4 m4 l4"
                             required>
                         <option value="" selected="selected">Select City</option>
                     </select>
                 </form>
+
 
             </div>
         </div>

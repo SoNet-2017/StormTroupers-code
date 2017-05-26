@@ -1,9 +1,62 @@
+.w3-top{
+    overflow: visible;
+}
+
 #topBarHome{
     background-color: #b7c3b8;
+    /*Per centrare il contenuto*/
+    display:flex;
+
+    align-items:center;
+    height: 60px;
 }
 
 #logoBarImgHome{
-    content: url("/images/StormTroupersLogo.png");
+    content: url("../../images/StormTroupersLogo.png");
     width: 50px;
     height: 50px;
 }
+
+#logoBarImgContainerHome{
+    position: absolute;
+    right: 0px;
+    margin-right: 20px;
+}
+
+#logoBarHome{
+    position: absolute;
+    right: 50px;
+    margin-right: 20px;
+}
+
+#homeLinkHome{
+    color: #636466;
+}
+
+#userLinkHome{
+    color: #636466;
+}
+
+#projectsLinkHome{
+    color: #636466;
+    /*padding-right: 200px;*/
+}
+
+#searchItemHome{
+    max-width: 30%;
+
+}
+
+#bodyHome{
+    margin-top: 100px;
+}
+
+#sideUserHome{
+    background-color: white;
+}
+
+#userNameAndLastHome{
+    color: #636466;
+}
+
+

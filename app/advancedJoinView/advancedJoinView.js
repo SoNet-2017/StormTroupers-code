@@ -127,11 +127,26 @@ angular.module('myApp.advancedJoinView', ['ngRoute'])
                 car: carR,
                 payment: payR,
                 roles: roles,
-                desciption: descriptionR
+                desciption: descriptionR,
+                logged: true
             }).then(function () {
-                console.log("sono qui dopo createUserDB" + UID);
+                console.log("sono qui" + UID);
                 var obj=$firebaseObject(database.ref('users/'+UID));
                 obj.$loaded().then(function () {
+                    $scope.profile=obj;
+                    localStorage.attName=obj.name;
+                    localStorage.attLast=obj.lastName;
+                    localStorage.attEmail=obj.email;
+                    localStorage.attCountry=obj.country;
+                    localStorage.attProvince=obj.province;
+                    localStorage.attCity=obj.city;
+                    localStorage.attBirth=obj.dateOfBirth;
+                    localStorage.attGender=obj.gender;
+                    localStorage.attDesc=obj.description;
+                    localStorage.attPhone=obj.phone;
+                    localStorage.attShowOption=obj.permissionToShowPhone;
+                    localStorage.attCar=obj.car;
+                    localStorage.attPayment=obj.payment;
                     $scope.openHome();
                 }).catch(function (error) {
                     $scope.error=error;
