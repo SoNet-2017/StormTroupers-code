@@ -11,6 +11,10 @@
     height: 60px;
 }
 
+#userNameHome{
+    font-family: "ADAM.CG PRO";
+}
+
 #logoBarImgHome{
     content: url("../../images/StormTroupersLogo.png");
     width: 50px;
@@ -39,7 +43,6 @@
 
 #projectsLinkHome{
     color: #636466;
-    /*padding-right: 200px;*/
 }
 
 #searchItemHome{
@@ -53,10 +56,23 @@
 
 #sideUserHome{
     background-color: white;
+    /*Per centrare il contenuto*/
+    text-align: center;
+    align-items:center;
+    vertical-align: middle;
+
 }
 
 #userNameAndLastHome{
     color: #636466;
+    font-family: "ADAM.CG PRO";
+}
+
+#userPhotoHome{
+    content: url("../../images/StormTroupersLogo.png");
+    width: 200px;
+    height: 200px;
+    margin-bottom: 20px;
 }
 
 

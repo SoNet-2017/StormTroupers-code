@@ -17,7 +17,8 @@ angular.module('myApp', [
     'myApp.advancedJoinView',
     'myApp.authentication',
     'myApp.homePageView',
-    'myApp.users'
+    'myApp.users',
+    'myApp.fileUpload'
 ])
 
     .config(['$locationProvider', '$routeProvider', function($locationProvider, $routeProvider) {
