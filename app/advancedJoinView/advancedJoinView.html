@@ -32,16 +32,33 @@
                     City/State&raquo; <select name="city_state" size="1" disabled="disabled"
                                               onchange="print_city_state(country,this)"></select>
                 </form>-->
-                <form id="selectCountryProvinceCity">
-                    <select id="country" ng-model="selectedCountry" ng-options="x for x in countries"
-                            class="form-control w3-col s4 m4 l4" required>
+
+                <div>
+                    <select id="country" ng-model="provinces" ng-options="country for (country, provinces) in countries" class="form-control w3-col s4 m4 l4" required>
                         <option value="" selected="selected">Select Country</option>
                     </select>
-                    <select id="province" ng-model="selectedProvince" class="form-control w3-col s4 m4 l4"
+                </div>
+                <div>
+                    <select id="province" ng-disabled="!provinces" ng-model="cities" ng-options="province for (province, city) in provinces" class="form-control w3-col s4 m4 l4">
+                    <option value="" selected="selected">Select Province</option>
+                </select>
+                </div>
+                <div>
+                    <select id="city" ng-disabled="!cities" ng-model="city" ng-options="city for city in cities" class="form-control w3-col s4 m4 l4">
+                    <option value="" selected="selected">Select City</option>
+                </select>
+                </div>
+
+                <form id="selectCountryProvinceCity">
+                    <select id="country1" ng-model="selectedCountry" ng-options="x for x in countries"
+                            class="form-control w3-col s4 m4 l4" ng-change="loadProvinces(this,selectedCountry)" required>
+                        <option value="" selected="selected">Select Country</option>
+                    </select>
+                    <select id="province1" ng-model="selectedProvince" class="form-control w3-col s4 m4 l4"
                             required>
                         <option value="" selected="selected">Select Region or State</option>
                     </select>
-                    <select id="city" ng-model="selectedCity" class="form-control w3-col s4 m4 l4"
+                    <select id="city1" ng-model="selectedCity" class="form-control w3-col s4 m4 l4"
                             required>
                         <option value="" selected="selected">Select City</option>
                     </select>
