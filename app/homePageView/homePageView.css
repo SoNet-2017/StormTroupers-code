@@ -55,12 +55,12 @@
 }
 
 #sideUserHome{
-    background-color: white;
     /*Per centrare il contenuto*/
     text-align: center;
     align-items:center;
     vertical-align: middle;
-
+    background-color: #b7c3b8;
+    padding-bottom: 20px;
 }
 
 #userNameAndLastHome{
@@ -73,6 +73,21 @@
     width: 200px;
     height: 200px;
     margin-bottom: 20px;
+    padding: 10px 10px 10px 10px;
+    border-radius: 7px;
 }
 
+#sideUserHome a {
+    color: #636466;
+    font-size: 15pt;
+    position: relative;
+
+}
+
+#sideUserHome a:hover{
+    color: #636466;
+    background-color: transparent;
+    border-radius: 5px;
+    cursor: pointer;
+}
 
