@@ -14,7 +14,10 @@ angular.module('myApp.loginView', ['ngRoute'])
         $scope.user={};
         $scope.auth=Auth;
 
+
         var database = firebase.database();
+
+
 
         //funzione per caricare il login o il join
         $scope.passToJoin=function(){
@@ -42,12 +45,14 @@ angular.module('myApp.loginView', ['ngRoute'])
                 localStorage.UID=firebaseUser.uid;
                 console.log(localStorage.UID);
 
+
                 database.ref('users/'+localStorage.UID).update({
                     logged: true
                 }).then(function () {
                     var obj=$firebaseObject(database.ref('users/'+localStorage.UID));
                     obj.$loaded().then(function () {
                         $scope.profile=obj;
+
                         localStorage.attName=obj.name;
                         localStorage.attLast=obj.lastName;
                         localStorage.attEmail=obj.email;
@@ -61,6 +66,7 @@ angular.module('myApp.loginView', ['ngRoute'])
                         localStorage.attShowOption=obj.permissionToShowPhone;
                         localStorage.attCar=obj.car;
                         localStorage.attPayment=obj.payment;
+                        localStorage.attRoles=JSON.stringify(Object.values(obj.roles));
 
                         $location.path("/homePageView");
                     }).catch(function (error) {
