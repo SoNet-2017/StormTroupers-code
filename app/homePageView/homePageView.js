@@ -26,8 +26,8 @@ angular.module('myApp.homePageView', ['ngRoute'])
         console.log(localStorage.attLast);
         console.log(localStorage.attEmail);
 
-        document.getElementById("userNameHome").innerHTML=localStorage.attName;
-        document.getElementById("userNameAndLastHome").innerHTML=localStorage.attName+" "+localStorage.attLast;
+
+
 
         $scope.showLogoItem=function () {
             var x = document.getElementById("logoBarContentHome");
@@ -56,6 +56,18 @@ angular.module('myApp.homePageView', ['ngRoute'])
         var obj = $firebaseObject(database.ref('users/'+UID));
         obj.$loaded().then(function () {
             $scope.profile=obj;
+            console.log(obj.$value);
+            var role = Object.values(obj.roles);
+            for(var i=0; i<role.length; i++){
+                console.log(role[i]);
+                document.getElementById("userRolesHome").innerHTML+=role[i];
+                if(i<role.length-1) {
+                    document.getElementById("userRolesHome").innerHTML+=", ";
+                }
+            }
+            document.getElementById("userNameHome").innerHTML=obj.name;
+            document.getElementById("userNameAndLastHome").innerHTML=obj.name+" "+obj.lastName;
+
         }).catch(function (error) {
             $scope.error=error;
         });

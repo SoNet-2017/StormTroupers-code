@@ -136,6 +136,8 @@ angular.module('myApp.advancedJoinView', ['ngRoute'])
             var genderR = localStorage.joinGender;
             var phoneR = document.getElementById("phone").value;
             var permissionPhone;
+            var d=new Date();
+            var dateOfJ=d.getTime();
             if (document.getElementById("checkPermPhone").checked) {
                 permissionPhone = 1;
             } else {
@@ -224,6 +226,7 @@ angular.module('myApp.advancedJoinView', ['ngRoute'])
                 payment: payR,
                 roles: roles,
                 desciption: descriptionR,
+                dateOfJoin: dateOfJ,
                 logged: true
             }).then(function () {
                 console.log("sono qui" + UID);
@@ -243,6 +246,7 @@ angular.module('myApp.advancedJoinView', ['ngRoute'])
                     localStorage.attShowOption = obj.permissionToShowPhone;
                     localStorage.attCar = obj.car;
                     localStorage.attPayment = obj.payment;
+                    localStorage.attRoles=JSON.stringify(obj.roles);
                     $scope.openHome();
                 }).catch(function (error) {
                     $scope.error = error;
