@@ -1,11 +1,11 @@
 'use strict';
 
-angular.module('myApp.homePageView', ['ngRoute'])
+angular.module('myApp.searchPageView', ['ngRoute'])
 
     .config(['$routeProvider', function($routeProvider) {
-        $routeProvider.when('/homePageView', {
-            templateUrl: 'homePageView/homePageView.html',
-            controller: 'homePageCtrl',
+        $routeProvider.when('/searchPageView', {
+            templateUrl: 'searchPageView/searchPageView.html',
+            controller: 'searchPageCtrl',
             resolve: {
                 // controller will not be loaded until $requireSignIn resolves
                 // Auth refers to our $firebaseAuth wrapper in the factory below
@@ -18,16 +18,20 @@ angular.module('myApp.homePageView', ['ngRoute'])
         });
     }])
 
-    .controller('homePageCtrl', ['$scope', '$location', 'Auth', '$firebaseObject','Users', 'currentAuth', '$firebaseAuth', function ($scope,$location, Auth, $firebaseObject, Users, currentAuth, $firebaseAuth) {
+    .controller('searchPageCtrl', ['$scope', '$location', 'Auth', '$firebaseObject','Users', 'currentAuth', '$firebaseAuth', function ($scope,$location, Auth, $firebaseObject, Users, currentAuth, $firebaseAuth) {
         $scope.dati={};
         $scope.auth=Auth;
+
+        $scope.slider = {
+            value: 10
+        };
 
         console.log(localStorage.attName);
         console.log(localStorage.attLast);
         console.log(localStorage.attEmail);
 
-
-
+        document.getElementById("userNameHome").innerHTML=localStorage.attName;
+        document.getElementById("userNameAndLastHome").innerHTML=localStorage.attName+" "+localStorage.attLast;
 
         $scope.showLogoItem=function () {
             var x = document.getElementById("logoBarContentHome");
@@ -45,10 +49,6 @@ angular.module('myApp.homePageView', ['ngRoute'])
                 x.className = x.className.replace(" w3-show", "");
         };
 
-        $scope.goToSearchCrew=function () {
-            $location.path("/searchPageView");
-        };
-
 
         var UID=localStorage.UID;
         var database=firebase.database();
@@ -56,18 +56,6 @@ angular.module('myApp.homePageView', ['ngRoute'])
         var obj = $firebaseObject(database.ref('users/'+UID));
         obj.$loaded().then(function () {
             $scope.profile=obj;
-            console.log(obj.$value);
-            var role = Object.values(obj.roles);
-            for(var i=0; i<role.length; i++){
-                console.log(role[i]);
-                document.getElementById("userRolesHome").innerHTML+=role[i];
-                if(i<role.length-1) {
-                    document.getElementById("userRolesHome").innerHTML+=", ";
-                }
-            }
-            document.getElementById("userNameHome").innerHTML=obj.name;
-            document.getElementById("userNameAndLastHome").innerHTML=obj.name+" "+obj.lastName;
-
         }).catch(function (error) {
             $scope.error=error;
         });
