@@ -1,11 +1,11 @@
 'use strict';
 
-angular.module('myApp.homePageView', ['ngRoute'])
+angular.module('myApp.searchPageView', ['ngRoute'])
 
     .config(['$routeProvider', function($routeProvider) {
-        $routeProvider.when('/homePageView', {
-            templateUrl: 'homePageView/homePageView.html',
-            controller: 'homePageCtrl',
+        $routeProvider.when('/searchPageView', {
+            templateUrl: 'searchPageView/searchPageView.html',
+            controller: 'searchPageCtrl',
             resolve: {
                 // controller will not be loaded until $requireSignIn resolves
                 // Auth refers to our $firebaseAuth wrapper in the factory below
@@ -18,9 +18,13 @@ angular.module('myApp.homePageView', ['ngRoute'])
         });
     }])
 
-    .controller('homePageCtrl', ['$scope', '$location', 'Auth', '$firebaseObject','Users', 'currentAuth', '$firebaseAuth', function ($scope,$location, Auth, $firebaseObject, Users, currentAuth, $firebaseAuth) {
+    .controller('searchPageCtrl', ['$scope', '$location', 'Auth', '$firebaseObject','Users', 'currentAuth', '$firebaseAuth', function ($scope,$location, Auth, $firebaseObject, Users, currentAuth, $firebaseAuth) {
         $scope.dati={};
         $scope.auth=Auth;
+
+        $scope.slider = {
+            value: 10
+        };
 
         console.log(localStorage.attName);
         console.log(localStorage.attLast);
@@ -43,10 +47,6 @@ angular.module('myApp.homePageView', ['ngRoute'])
                 x.className += " w3-show";
             else
                 x.className = x.className.replace(" w3-show", "");
-        };
-
-        $scope.goToSearchCrew=function () {
-            $location.path("/searchPageView");
         };
 
 

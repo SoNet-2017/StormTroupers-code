@@ -85,10 +85,42 @@
 
 }
 
+
 #sideUserHome a:hover{
     color: #636466;
     background-color: transparent;
     border-radius: 5px;
     cursor: pointer;
+}
+
+#searchCrewTools{
+
+    text-align: left;
+    align-items:left;
+    vertical-align: middle;
+    background-color: #b7c3b8;
+    margin-left: 1%;
+    padding: 5px 5px 20px 15px;
+
+}
+
+#searchCrewResults{
+
+    text-align: center;
+    align-items: center;
+    vertical-align: middle;
+    background-color: #b7c3b8;
+    padding-bottom: 20px;
+    margin-left: 1%;
+}
+
+#searchCrewKeyword{
+    margin-left: 0px;
+    margin-right: 10px;
+}
+
+#searchCrewCity{
+    margin-left: 0px;
+    margin-right: 10px;
 }
 

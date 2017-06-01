@@ -18,7 +18,9 @@ angular.module('myApp', [
     'myApp.authentication',
     'myApp.homePageView',
     'myApp.users',
-    'myApp.fileUpload'
+    'myApp.fileUpload',
+    'myApp.searchPageView',
+    'rzModule'
 ])
 
     .config(['$locationProvider', '$routeProvider', function($locationProvider, $routeProvider) {
