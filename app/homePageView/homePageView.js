@@ -45,6 +45,10 @@ angular.module('myApp.homePageView', ['ngRoute'])
                 x.className = x.className.replace(" w3-show", "");
         };
 
+        $scope.goToDashboard=function () {
+            $location.path("/homePageView")
+        };
+
         $scope.goToSearchCrew=function () {
             $location.path("/searchPageView");
         };

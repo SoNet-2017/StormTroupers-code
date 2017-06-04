@@ -49,6 +49,10 @@ angular.module('myApp.searchPageView', ['ngRoute'])
                 x.className = x.className.replace(" w3-show", "");
         };
 
+        $scope.goToDashboard=function () {
+            $location.path("/homePageView")
+        };
+
 
         var UID=localStorage.UID;
         var database=firebase.database();
@@ -56,6 +60,16 @@ angular.module('myApp.searchPageView', ['ngRoute'])
         var obj = $firebaseObject(database.ref('users/'+UID));
         obj.$loaded().then(function () {
             $scope.profile=obj;
+            var role = Object.values(obj.roles);
+            for(var i=0; i<role.length; i++){
+                console.log(role[i]);
+                document.getElementById("userRolesHome").innerHTML+=role[i];
+                if(i<role.length-1) {
+                    document.getElementById("userRolesHome").innerHTML+=", ";
+                }
+            }
+            document.getElementById("userNameHome").innerHTML=obj.name;
+            document.getElementById("userNameAndLastHome").innerHTML=obj.name+" "+obj.lastName;
         }).catch(function (error) {
             $scope.error=error;
         });
