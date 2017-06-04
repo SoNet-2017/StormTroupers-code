@@ -3,6 +3,25 @@
     src: url("../../font/ADAM.CG PRO.otf");
 }
 
+#alertBox{
+    display: flex;
+    justify-content: center;
+    background-color: indianred;
+    opacity:0.8;
+    color: white;
+}
+#alertBox h4{
+    color: white;
+}
+
+#alertIcon{
+    display: flex;
+    justify-content: left;
+    padding: 7.5px;
+    vertical-align: middle;
+}
+
+
 h1{
     padding: 20px;
     color: white;
