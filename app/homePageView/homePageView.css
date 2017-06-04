@@ -61,6 +61,11 @@
     vertical-align: middle;
     background-color: #b7c3b8;
     padding-bottom: 20px;
+    margin-right: 1%;
+}
+
+#sideUserHome h6{
+    color: #636466;
 }
 
 #userNameAndLastHome{
@@ -88,6 +93,99 @@
     color: #636466;
     background-color: transparent;
     border-radius: 5px;
+    cursor: pointer;
+}
+
+#aroundYouContainer{
+    /*Per centrare il contenuto*/
+    text-align: center;
+    align-items:center;
+    vertical-align: middle;
+    background-color: #b7c3b8;
+    padding-bottom: 20px;
+
+}
+
+#aroundYouContainer h2{
+    color: #636466;
+}
+
+#newProjectShow{
+    /*Per centrare il contenuto*/
+    display: flex;
+    justify-content: center;
+    background-color: #636466;
+    margin-right: 5%;
+}
+
+#newProjectShow h4{
+    font-family: "ADAM.CG PRO";
+    color: white;
+}
+
+#newUsersShow{
+    /*Per centrare il contenuto*/
+    text-align: center;
+    align-items:center;
+    vertical-align: middle;
+    background-color: #636466;
+}
+
+#newUserTitle{
+    display: flex;
+    justify-content: center;
+}
+
+#newUsersShow h4{
+    font-family: "ADAM.CG PRO";
+    color: white;
+}
+
+#newUsersShow li{
+    list-style: none;
+}
+
+#newUImg{
+    content: url("../../images/StormTroupersLogo.png");
+    max-height: 75px;
+}
+
+#newUImgContainer{
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    align-items:center;
+    vertical-align: middle;
+}
+
+#newUDesc{
+    color: #636466;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    align-items:center;
+    vertical-align: middle;
+}
+
+#newUDesc h4{
+    color: #636466;
+}
+
+#linkNewU{
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    align-items:center;
+    vertical-align: middle;
+}
+
+#linkNewU a{
+    text-decoration: none;
+    color: #636466;
+    margin: 10px;
+}
+
+#linkNewU a:hover{
     cursor: pointer;
 }
 
