@@ -18,7 +18,7 @@ angular.module('myApp.homePageView', ['ngRoute'])
         });
     }])
 
-    .controller('homePageCtrl', ['$scope', '$location', 'Auth', '$firebaseObject','Users', 'currentAuth', '$firebaseAuth', function ($scope,$location, Auth, $firebaseObject, Users, currentAuth, $firebaseAuth) {
+    .controller('homePageCtrl', ['$scope', '$location', 'Auth', '$firebaseObject','Users', 'currentAuth', '$firebaseAuth', '$firebaseArray', function ($scope,$location, Auth, $firebaseObject, Users, currentAuth, $firebaseAuth, $firebaseArray) {
         $scope.dati={};
         $scope.auth=Auth;
 
@@ -46,6 +46,10 @@ angular.module('myApp.homePageView', ['ngRoute'])
                 x.className = x.className.replace(" w3-show", "");
         };
 
+        $scope.goToDashboard=function () {
+            $location.path("/homePageView")
+        };
+
         $scope.goToSearchCrew=function () {
             $location.path("/searchPageView");
         };
@@ -53,6 +57,11 @@ angular.module('myApp.homePageView', ['ngRoute'])
 
         var UID=localStorage.UID;
         var database=firebase.database();
+        var usersBase=database.ref('users/');
+        var userQuery=usersBase.orderByChild("dateOfJoin").limitToLast(3);
+        $scope.filterUsers=$firebaseArray(userQuery);
+
+
 
         var obj = $firebaseObject(database.ref('users/'+UID));
         obj.$loaded().then(function () {
