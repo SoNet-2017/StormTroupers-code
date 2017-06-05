@@ -60,7 +60,7 @@ angular.module('myApp.searchPageView', ['ngRoute'])
         console.log(localStorage.attName);
         console.log(localStorage.attLast);
         console.log(localStorage.attEmail);
-
+/*
         document.getElementById("userNameHome").innerHTML=localStorage.attName;
         document.getElementById("userNameAndLastHome").innerHTML=localStorage.attName+" "+localStorage.attLast;*/
 
@@ -107,7 +107,6 @@ angular.module('myApp.searchPageView', ['ngRoute'])
                     document.getElementById("userRolesHome").innerHTML+=", ";
                 }
             }
-            console.log(obj.name);
             document.getElementById("userNameHome").innerHTML=obj.name;
             document.getElementById("userNameAndLastHome").innerHTML=obj.name+" "+obj.lastName;
         }).catch(function (error) {
