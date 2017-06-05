@@ -79,6 +79,10 @@
     border-radius: 7px;
 }
 
+#sideUserHome p{
+    color: #636466;
+}
+
 #sideUserHome a {
     color: #636466;
     font-size: 15pt;

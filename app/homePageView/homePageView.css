@@ -33,6 +33,21 @@
     margin-right: 20px;
 }
 
+#logoBarContentHome{
+    position:absolute;
+    top: 60px;
+    right:0px;
+    width: 200px;
+}
+
+#logoBarContentHome a{
+    padding-left: 5px;
+}
+
+#logoBarContentHome i{
+    margin-right: 5px;
+}
+
 #homeLinkHome{
     color: #636466;
 }
@@ -66,7 +81,7 @@
     margin-right: 1%;
 }
 
-#sideUserHome h6{
+#sideUserHome p{
     color: #636466;
 }
 
@@ -145,6 +160,7 @@
 
 #newUsersShow li{
     list-style: none;
+    margin-left: -40px;
 }
 
 #newUImg{

@@ -58,7 +58,7 @@ angular.module('myApp.homePageView', ['ngRoute'])
         var UID=localStorage.UID;
         var database=firebase.database();
         var usersBase=database.ref('users/');
-        var userQuery=usersBase.orderByChild("dateOfJoin").limitToLast(3);
+        var userQuery=usersBase.orderByChild("dateOfJoin").limitToLast(5);
         $scope.filterUsers=$firebaseArray(userQuery);
 
 
