@@ -22,6 +22,7 @@ angular.module('myApp.homePageView', ['ngRoute'])
         $scope.dati={};
         $scope.auth=Auth;
 
+
         console.log(localStorage.attName);
         console.log(localStorage.attLast);
         console.log(localStorage.attEmail);

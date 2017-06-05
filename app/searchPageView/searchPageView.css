@@ -52,6 +52,7 @@
 
 #bodyHome{
     margin-top: 100px;
+    margin-bottom: 50px;
 }
 
 #sideUserHome{
@@ -100,7 +101,7 @@
     vertical-align: middle;
     background-color: #b7c3b8;
     margin-left: 1%;
-    padding: 5px 5px 20px 15px;
+    padding: 5px 20px 20px 15px;
 
 }
 
@@ -112,6 +113,7 @@
     background-color: #b7c3b8;
     padding-bottom: 20px;
     margin-left: 1%;
+    padding: 5px 20px 20px 15px;
 }
 
 #searchCrewKeyword{
@@ -122,5 +124,101 @@
 #searchCrewCity{
     margin-left: 0px;
     margin-right: 10px;
+}
+
+.custom-slider.rzslider .rz-pointer { /*sta roba non funziona un cazzo, per ora, magari poi funziona */
+    width: 8px;
+    height: 16px;
+    top: auto; /* to remove the default positioning */
+    bottom: 0;
+    background-color: #333;
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+}
+
+#advancedJoinCheckboxes{
+    display: inline-block;
+    justify-content:left;
+    align-items:center;
+    text-align: left;
+    font-size: 8pt;
+}
+
+#advancedJoinCheckboxes{
+    color: #636466;
+}
+
+#advancedJoinCheckboxes2{
+    display: inline-block;
+    justify-content:left;
+    align-items:center;
+    text-align: left;
+    font-size: 8pt;
+}
+
+#advancedJoinCheckboxes2{
+    color: #636466;
+}
+
+#searchCrewActorSpecific{
+    margin-left: 0px;
+    margin-right: 0px;
+    background-color: lightcoral;
+    border-color: black;
+    border-width: 3px;
+    border-radius: 5px;
+    padding-bottom:10px;
+    padding-top: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.searchPageInputFields {
+    color: white;
+    background-color: rgba(80,80,80,165);
+    border-style: none;
+    border-width: 1px;
+    border-radius: 5px;
+    text-align: right;
+    vert-align: bottom;
+    width: 100%;
+    height: 32px;
+    padding-right: 10px;
+    padding-left: 10px;
+
+}
+
+/*#searchPageInputFields::-webkit-input-placeholder{
+    color: white;
+}
+
+/*
+#chePayment{
+    display: inline-block;
+    justify-content:center;
+    align-items:center;
+    text-align: left;
+}
+
+#payNo {
+    margin-left: 15px;
+}
+*/
+
+#searchCrewButtonContainer {
+    width: 100%;
+    display: inline-block;
+    align-items: center;
+    horiz-align: center;
+}
+
+
+#searchCrewButton {
+    display: flex;
+    color: white;
+    background-color: black;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
 }
 

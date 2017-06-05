@@ -23,7 +23,27 @@ angular.module('myApp.searchPageView', ['ngRoute'])
         $scope.auth=Auth;
 
         $scope.slider = {
-            value: 10
+            minValue: 0,
+            maxValue: 100,
+            value: 0,
+            options: {
+                floor: 0,
+                ceil: 100,
+                step: 10,
+                showTicks: true
+            }
+        };
+
+        $scope.slider2 = {
+            minValue: 0,
+            maxValue: 10,
+            value: 0,
+            options: {
+                floor: 0,
+                ceil: 10,
+                step: 1,
+                showTicks: true
+            }
         };
 
         console.log(localStorage.attName);
@@ -47,6 +67,10 @@ angular.module('myApp.searchPageView', ['ngRoute'])
                 x.className += " w3-show";
             else
                 x.className = x.className.replace(" w3-show", "");
+        };
+
+        $scope.goToSearchCrew=function () {
+            $location.path("/searchPageView");
         };
 
         $scope.goToDashboard=function () {
