@@ -1,11 +1,11 @@
 'use strict';
 
-angular.module('myApp.searchPageView', ['ngRoute'])
+angular.module('myApp.homePageView', ['ngRoute'])
 
     .config(['$routeProvider', function($routeProvider) {
-        $routeProvider.when('/searchPageView', {
-            templateUrl: 'searchPageView/searchPageView.html',
-            controller: 'searchPageCtrl',
+        $routeProvider.when('/homePageView', {
+            templateUrl: 'homePageView/homePageView.html',
+            controller: 'homePageCtrl',
             resolve: {
                 // controller will not be loaded until $requireSignIn resolves
                 // Auth refers to our $firebaseAuth wrapper in the factory below
@@ -18,20 +18,40 @@ angular.module('myApp.searchPageView', ['ngRoute'])
         });
     }])
 
-    .controller('searchPageCtrl', ['$scope', '$location', 'Auth', '$firebaseObject','Users', 'currentAuth', '$firebaseAuth', function ($scope,$location, Auth, $firebaseObject, Users, currentAuth, $firebaseAuth) {
+    .controller('homePageCtrl', ['$scope', '$location', 'Auth', '$firebaseObject','Users', 'currentAuth', '$firebaseAuth', function ($scope,$location, Auth, $firebaseObject, Users, currentAuth, $firebaseAuth) {
         $scope.dati={};
         $scope.auth=Auth;
 
         $scope.slider = {
-            value: 10
+            minValue: 0,
+            maxValue: 100,
+            value: 0,
+            options: {
+                floor: 0,
+                ceil: 100,
+                step: 10,
+                showTicks: true
+            }
+        };
+
+        $scope.slider2 = {
+            minValue: 0,
+            maxValue: 10,
+            value: 0,
+            options: {
+                floor: 0,
+                ceil: 10,
+                step: 1,
+                showTicks: true
+            }
         };
 
         console.log(localStorage.attName);
         console.log(localStorage.attLast);
         console.log(localStorage.attEmail);
 
-        document.getElementById("userNameHome").innerHTML=localStorage.attName;
-        document.getElementById("userNameAndLastHome").innerHTML=localStorage.attName+" "+localStorage.attLast;
+
+
 
         $scope.showLogoItem=function () {
             var x = document.getElementById("logoBarContentHome");
@@ -49,6 +69,10 @@ angular.module('myApp.searchPageView', ['ngRoute'])
                 x.className = x.className.replace(" w3-show", "");
         };
 
+        $scope.goToSearchCrew=function () {
+            $location.path("/searchPageView");
+        };
+
 
         var UID=localStorage.UID;
         var database=firebase.database();
@@ -56,6 +80,18 @@ angular.module('myApp.searchPageView', ['ngRoute'])
         var obj = $firebaseObject(database.ref('users/'+UID));
         obj.$loaded().then(function () {
             $scope.profile=obj;
+            console.log(obj.$value);
+            var role = Object.values(obj.roles);
+            for(var i=0; i<role.length; i++){
+                console.log(role[i]);
+                document.getElementById("userRolesHome").innerHTML+=role[i];
+                if(i<role.length-1) {
+                    document.getElementById("userRolesHome").innerHTML+=", ";
+                }
+            }
+            document.getElementById("userNameHome").innerHTML=obj.name;
+            document.getElementById("userNameAndLastHome").innerHTML=obj.name+" "+obj.lastName;
+
         }).catch(function (error) {
             $scope.error=error;
         });
