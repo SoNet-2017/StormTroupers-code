@@ -107,7 +107,7 @@
                     <br>
                     <input id="checkStyle" type="checkbox" class="w3-check"> <label>Stylist/Vanities</label>
                     <br>
-                    <input id="checkActor" type="checkbox" class="w3-check"> <label>Talent/Actors</label>
+                    <input id="checkActor" type="checkbox" class="w3-check" ng-model="showActorSpec" ng-init="showActorSpec = false"> <label>Talent/Actors</label>
                     <br>
                     <input id="checkCast" type="checkbox" class="w3-check"> <label>Talent/Casting</label>
                 </form>
@@ -116,23 +116,46 @@
         <br>
         <label> </label>
         <br>
-        <div id="searchCrewActorSpecific">
+        <div id="searchCrewActorSpecific" ng-if="showActorSpec" class="w3-animate-opacity">
             <strong>*Actor Specific Filters</strong>
             <br>
             <br>
             <strong>Age</strong>
+            <!--
             <br>
-            <input type="number" name="actorAge" value="18" class="searchPageInputFields"><br>
+            <input type="number" name="actorAge" value="18" class="searchPageInputFields" min="0" max="100"><br>
+            <br>-->
+            <br>
+            <rzslider rz-slider-model="slider3.minValue"
+                      rz-slider-high="slider3.maxValue"
+                      rz-slider-options="slider3.options"></rzslider>
             <br>
             <strong>Ethnicity</strong>
             <br>
+            <!--
             <input type="text" name="actorAge" value="Diversamente Bianco" class="searchPageInputFields"><br>
+            -->
+            <select class="w3-select" name="option">
+                <option value="0">Any</option>
+                <option value="1">African</option>
+                <option value="2">Asian</option>
+                <option value="3">Hybrid</option>
+                <option value="4">Orc</option>
+                <option value="5">Lurid</option>
+                <option value="6">Apache Helicopter</option>
+            </select>
+            <!--TUTTO COPIANICOLLATO DA BACKSTAGE, ALLA FACCIA LORO-->
+            <div class="filter__option">
+                <div class="filter-label">Ethnicities:</div>
+                <select id="multiselect-ethnicities" multiple="multiple" style="display: none;" name="ethnicities"><option value="2" label="Caucasian" title="Caucasian"></option><option value="3" label="African American" title="African American"></option><option value="4" label="Latino/Hispanic" title="Latino/Hispanic"></option><option value="5" label="Asian" title="Asian"></option><option value="6" label="South Asian" title="South Asian"></option><option value="7" label="Native American" title="Native American"></option><option value="8" label="Middle Eastern" title="Middle Eastern"></option><option value="9" label="Southeast Asian / Pacific Islander" title="Southeast Asian / Pacific Islander"></option><option value="10" label="Ethnically Ambiguous / Mixed Race" title="Ethnically Ambiguous / Mixed Race"></option><option value="11" label="African Descent" title="African Descent"></option></select><div class="btn-group open"><button type="button" class="multiselect dropdown-toggle btn btn-default" data-toggle="dropdown" title="Select Ethnicities" aria-expanded="true"><span class="multiselect-selected-text">Select Ethnicities</span> <b class="caret"></b></button><ul class="multiselect-container dropdown-menu"><li><a tabindex="0"><label class="checkbox" title="Caucasian"><input type="checkbox" value="2"> Caucasian</label></a></li><li><a tabindex="0"><label class="checkbox" title="African American"><input type="checkbox" value="3"> African American</label></a></li><li class=""><a tabindex="0"><label class="checkbox" title="Latino/Hispanic"><input type="checkbox" value="4"> Latino/Hispanic</label></a></li><li class=""><a tabindex="0"><label class="checkbox" title="Asian"><input type="checkbox" value="5"> Asian</label></a></li><li class=""><a tabindex="0"><label class="checkbox" title="South Asian"><input type="checkbox" value="6"> South Asian</label></a></li><li class=""><a tabindex="0"><label class="checkbox" title="Native American"><input type="checkbox" value="7"> Native American</label></a></li><li><a tabindex="0"><label class="checkbox" title="Middle Eastern"><input type="checkbox" value="8"> Middle Eastern</label></a></li><li><a tabindex="0"><label class="checkbox" title="Southeast Asian / Pacific Islander"><input type="checkbox" value="9"> Southeast Asian / Pacific Islander</label></a></li><li><a tabindex="0"><label class="checkbox" title="Ethnically Ambiguous / Mixed Race"><input type="checkbox" value="10"> Ethnically Ambiguous / Mixed Race</label></a></li><li><a tabindex="0"><label class="checkbox" title="African Descent"><input type="checkbox" value="11"> African Descent</label></a></li></ul></div>
+            </div>
+            <!--FIN QUA-->
             <br>
             <strong>Gender</strong>
             <div style="color: #636466; margin-left: 5px;">
-            <input id="checkFem" type="checkbox" class="w3-check"> <label>Female</label>
+            <input id="checkFem" type="checkbox" class="w3-check" checked> <label>Female</label>
             <br>
-            <input id="checkMal" type="checkbox" class="w3-check"> <label>Male</label>
+            <input id="checkMal" type="checkbox" class="w3-check" checked> <label>Male</label>
             <br>
             <input id="checkUnd" type="checkbox" class="w3-check"> <label>Apache Helicopter</label>
             <br>
@@ -160,9 +183,9 @@
         <strong>Paid/Free v2</strong>
         <br>
         <div style="color: #636466; margin-left: 15px;">
-            <input id="checkPay" type="checkbox" class="w3-check"> <label>Paid</label>
+            <input id="checkPay" type="checkbox" class="w3-check" checked> <label>Paid</label>
             <br>
-            <input id="checkFre" type="checkbox" class="w3-check"> <label>Free</label>
+            <input id="checkFre" type="checkbox" class="w3-check" checked> <label>Free</label>
             <br>
         </div>
         <br>

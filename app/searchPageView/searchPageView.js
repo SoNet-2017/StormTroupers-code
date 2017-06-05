@@ -45,7 +45,22 @@ angular.module('myApp.searchPageView', ['ngRoute'])
                 showTicks: true
             }
         };
-/*
+
+        $scope.slider3 = {
+            minValue: 18,
+            maxValue: 90,
+            options: {
+                floor: 0,
+                ceil: 100,
+                step: 1,
+                noSwitching: true
+            }
+        };
+
+        console.log(localStorage.attName);
+        console.log(localStorage.attLast);
+        console.log(localStorage.attEmail);
+
         document.getElementById("userNameHome").innerHTML=localStorage.attName;
         document.getElementById("userNameAndLastHome").innerHTML=localStorage.attName+" "+localStorage.attLast;*/
 
@@ -63,6 +78,10 @@ angular.module('myApp.searchPageView', ['ngRoute'])
                 x.className += " w3-show";
             else
                 x.className = x.className.replace(" w3-show", "");
+        };
+
+        $scope.goToDashboard=function () {
+            $location.path("/homePageView")
         };
 
         $scope.goToSearchCrew=function () {
