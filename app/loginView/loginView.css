@@ -3,24 +3,57 @@
     src: url("../../font/ADAM.CG PRO.otf");
 }
 
-#alertBox{
+#alertLoginBox{
     display: flex;
     justify-content: center;
     background-color: indianred;
     opacity:0.8;
     color: white;
 }
-#alertBox h4{
+#alertLoginBox h4{
     color: white;
 }
 
-#alertIcon{
+#alertJoinBox{
+    display: flex;
+    justify-content: center;
+    background-color: indianred;
+    opacity:0.8;
+    color: white;
+}
+#alertJoinBox h4{
+    color: white;
+}
+
+#alertJoinBox2{
+    display: flex;
+    justify-content: center;
+    background-color: indianred;
+    opacity:0.8;
+    color: white;
+}
+#alertJoinBox2 h4{
+    color: white;
+}
+
+#alertLoginIcon{
     display: flex;
     justify-content: left;
     padding: 7.5px;
     vertical-align: middle;
 }
-
+#alertJoinIcon{
+    display: flex;
+    justify-content: left;
+    padding: 7.5px;
+    vertical-align: middle;
+}
+#alertJoinIcon2{
+    display: flex;
+    justify-content: left;
+    padding: 7.5px;
+    vertical-align: middle;
+}
 
 h1{
     padding: 20px;

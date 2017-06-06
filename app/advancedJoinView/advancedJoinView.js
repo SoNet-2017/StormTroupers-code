@@ -143,12 +143,18 @@ angular.module('myApp.advancedJoinView', ['ngRoute'])
             } else {
                 permissionPhone = 0;
             }
-            console.log("COUNTRY: " + document.getElementById("country").value);
-            console.log("COUNTRY: " + document.getElementById("province").value);
-            console.log("COUNTRY: " + document.getElementById("city").value);
-            var countryR = document.getElementById("country").value;
-            var provinceR = document.getElementById("province").value;
-            var cityR = document.getElementById("city").value;
+
+            // per eliminare "string: Couuntry" ecc...
+            var countryNotParsed = document.getElementById("country").value.split(':');
+            var countryR = countryNotParsed[1];
+            var provinceNotParsed = document.getElementById("province").value.split(':');
+            var provinceR = provinceNotParsed[1];
+            var cityNotParsed = document.getElementById("city").value.split(':');
+            var cityR = cityNotParsed[1];
+            console.log("PARSED COUNTRY: " + countryR);
+            console.log("PARSED PROVINCE: " + provinceR);
+            console.log("PARSED CITY: " + cityR);
+
             var carR;
             if (document.getElementById("carYes").checked) {
                 carR = 1;
@@ -236,7 +242,7 @@ angular.module('myApp.advancedJoinView', ['ngRoute'])
                     localStorage.attName = obj.name;
                     localStorage.attLast = obj.lastName;
                     localStorage.attEmail = obj.email;
-                    localStorage.attCountry = obj.country;
+                    localStorage.attCountry = obj.country.split(":");
                     localStorage.attProvince = obj.province;
                     localStorage.attCity = obj.city;
                     localStorage.attBirth = obj.dateOfBirth;

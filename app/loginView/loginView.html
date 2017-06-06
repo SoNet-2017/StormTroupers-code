@@ -1,23 +1,39 @@
 <div class="w3-container" id="loginMain">
     <h1>STORM<strong>TROUPERS</strong></h1>
-    <!--<div ng-show="loginForm.email.$touched && loginForm.email.$invalid">-->
-    <div ng-show="joinForm.joinName.$touched && joinForm.joinName.$invalid">
-        <div id="alertBox" class="w3-panel w3-round-large w3-row">
-            <div id="alertIcon" class="w3-col s1 m1 l1 w3-left">
+    <!--<div ng-show="">-->
+    <div id="alertBoxLoginDiv">
+        <div id="alertLoginBox" class="w3-panel w3-round-large w3-row" ng-show="(loginForm.email.$touched && loginForm.email.$invalid) || (loginForm.password.$touched && loginForm.password.$invalid)">
+            <div id="alertLoginIcon" class="w3-col s1 m1 l1 w3-left">
                 <i class="w3-xlarge glyphicon glyphicon-exclamation-sign"></i>
             </div>
-            <h4 class="w3-col s11 m11 l11">This field is required.</h4>
+            <h4 id="loginErrorText" class="w3-col s11 m11 l11">Email and password are required.</h4>
 
         </div>
     </div>
 
-    <div class="w3-container w3-card-2" id="login">
+    <div id="alertBoxJoinDiv">
+        <div id="alertJoinBox" class="w3-panel w3-round-large w3-row" ng-show="(joinForm.joinName.$touched && joinForm.joinName.$invalid) || (joinForm.joinLastName.$touched && joinForm.joinLastName.$invalid)">
+            <div id="alertJoinIcon" class="w3-col s1 m1 l1 w3-left">
+                <i class="w3-xlarge glyphicon glyphicon-exclamation-sign"></i>
+            </div>
+            <h4 class="w3-col s11 m11 l11">Name and surname are required.</h4>
+        </div>
+        <div id="alertJoinBox2" class="w3-panel w3-round-large w3-row" ng-show="(joinForm.joinEmail.$touched && joinForm.joinEmail.$invalid)">
+            <div id="alertJoinIcon2" class="w3-col s1 m1 l1 w3-left">
+                <i class="w3-xlarge glyphicon glyphicon-exclamation-sign"></i>
+            </div>
+            <h4 class="w3-col s11 m11 l11 w3-right">The submitted e-mail is invalid.</h4>
+            <h4 id="joinErrorText" class="w3-col s11 m11 l11"></h4>
+        </div>
+    </div>
+
+    <div class="w3-container w3-card-2" id="login" ng-model="login">
 
             <div class="w3-col s6 m6 l6 w3-left w3-animate-opacity" id="loginBox">
-                <form name="loginForm">
+                <form name="loginForm" ng-model="loginForm">
                 <input class="w3-input w3-border" id="loginEmail" placeholder="E-mail" type="email" name="email" ng-model="user.email" required>
                 <br>
-                <input type="password" class="w3-input w3-border" placeholder="Password" id="loginPassword"
+                <input type="password" class="w3-input w3-border" placeholder="Password" name="password" id="loginPassword"
                        ng-model="user.password">
                 <br>
                 <button class="w3-btn" id="loginButton" ng-click="signIn()">Login</button>
@@ -32,13 +48,13 @@
     </div>
 
 
-    <div class="w3-container w3-card-2" id="join">
+    <div class="w3-container w3-card-2" id="join" ng-model="join">
 
         <div class="w3-col s6 m6 l6 w3-center w3-animate-right" id="joinImage">
             <img id="joinImg">
         </div>
         <div class="w3-col s6 m6 l6 w3-left w3-animate-opacity" id="joinBox">
-            <form name="joinForm">
+            <form name="joinForm" ng-model="joinForm">
             <input id="joinName" name="joinName" ng-model="joinName" type="text" class="w3-input w3-border" placeholder="Name" required>
             <br>
             <input id="joinLastName" name="joinLastName" ng-model="joinLastName" type="text" class="w3-input w3-border" placeholder="Last Name" required>
