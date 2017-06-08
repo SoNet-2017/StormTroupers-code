@@ -119,3 +119,16 @@ textarea{
 #selectCountryProvinceCity select{
     color: #636466;
 }
+
+#raceBox{
+    margin-left: 0px;
+    margin-right: 0px;
+    background-color: rgb(150,170,150);
+    border-color: black;
+    border-width: 3px;
+    border-radius: 5px;
+    padding-bottom:10px;
+    padding-top: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
+}

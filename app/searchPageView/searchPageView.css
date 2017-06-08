@@ -146,9 +146,6 @@
     align-items:center;
     text-align: left;
     font-size: 8pt;
-}
-
-#advancedJoinCheckboxes{
     color: #636466;
 }
 
@@ -158,6 +155,24 @@
     align-items:center;
     text-align: left;
     font-size: 8pt;
+}
+
+#raceCheckBoxes{
+    display: inline-block;
+    justify-content:left;
+    align-items:center;
+    text-align: left;
+    font-size: 8pt;
+    color: #636466;
+}
+
+#raceCheckBoxes2{
+    display: inline-block;
+    justify-content:left;
+    align-items:center;
+    text-align: left;
+    font-size: 8pt;
+    color: #636466;
 }
 
 #advancedJoinCheckboxes2{
@@ -183,7 +198,7 @@
     border-style: none;
     border-width: 1px;
     border-radius: 5px;
-    text-align: right;
+    text-align: left;
     vert-align: bottom;
     width: 100%;
     height: 32px;
@@ -226,3 +241,65 @@
     margin-right: auto;
 }
 
+#foundUsersShow{
+    /*Per centrare il contenuto*/
+    text-align: center;
+    align-items:center;
+    vertical-align: middle;
+    background-color: #636466;
+    padding-top: 35px;
+}
+
+#foundUsersShow h4{
+    font-family: "ADAM.CG PRO";
+    color: white;
+}
+
+#foundUsersShow li{
+    list-style: none;
+    margin-left: -40px;
+}
+
+#foundUImg{
+    content: url("../../images/StormTroupersLogo.png");
+    max-height: 75px;
+}
+
+#foundUImgContainer{
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    align-items:center;
+    vertical-align: middle;
+}
+
+#foundUDesc{
+    color: #636466;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    align-items:center;
+    vertical-align: middle;
+}
+
+#foundUDesc h4{
+    color: #636466;
+}
+
+#linkNewU{
+    display: flex;
+    justify-content: right;
+    text-align: right;
+    align-items:right;
+    vertical-align: middle;
+}
+
+#linkNewU a{
+    text-decoration: none;
+    color: #636466;
+    margin: 10px;
+}
+
+#linkNewU a:hover{
+    cursor: pointer;
+}

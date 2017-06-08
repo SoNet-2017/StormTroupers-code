@@ -158,7 +158,7 @@ angular.module('myApp.advancedJoinView', ['ngRoute'])
             var carR;
             if (document.getElementById("carYes").checked) {
                 carR = 1;
-            } else if (document.getElementById("carNo").checked) {
+            } else if (document.getElementById("carNo").checked) { //ELSEIF è strettamente necessario raga?
                 carR = 0;
             }
             var payR;
@@ -213,6 +213,33 @@ angular.module('myApp.advancedJoinView', ['ngRoute'])
             if (document.getElementById("checkCast").checked) {
                 roles.push("Talent/Casting - People");
             }
+
+            var race = null;
+            if (document.getElementById("etnCauc").checked) {
+                race = "Caucasian";
+            }
+            if (document.getElementById("etnHisp").checked) {
+                race = "Hispanic";
+            }
+            if (document.getElementById("etnSAsi").checked) {
+                race = "South_Asian";
+            }
+            if (document.getElementById("etnNati").checked) {
+                race = "Native_American";
+            }
+            if (document.getElementById("etnAfri").checked) {
+                race = "African";
+            }
+            if (document.getElementById("etnMidd").checked) {
+                race = "Middle_Eastern";
+            }
+            if (document.getElementById("etnSEAs").checked) {
+                race = "South_East_Asian";
+            }
+            if (document.getElementById("etnAmbi").checked) {
+                race = "Mixed";
+            }
+
             var database = firebase.database();
 
             //bisogna usare il codice univoco del userID generato da firebase per un lavoro migliore
@@ -231,7 +258,8 @@ angular.module('myApp.advancedJoinView', ['ngRoute'])
                 car: carR,
                 payment: payR,
                 roles: roles,
-                desciption: descriptionR,
+                race: race,
+                description: descriptionR, //c'era scritto "desciption" e l'ho corretto, ma non so se ho fatto bene?
                 dateOfJoin: dateOfJ,
                 logged: true
             }).then(function () {

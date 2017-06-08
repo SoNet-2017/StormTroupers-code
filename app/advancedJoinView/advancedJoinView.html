@@ -60,10 +60,10 @@
         </div>
         <br><br>
         <div class="w3-container">
-            <div class="w3-col s7 m7 l7 w3-left w3-animate-opacity">
+            <div class="w3-col s12 m12 l12 w3-left w3-animate-opacity">
                 <h4>Choose the areas that suit you the most</h4>
                 <br>
-                <div class="w3-col s4 m4 l4 w3-animate-opacity" id="advancedJoinCheckboxes">
+                <div class="w3-col s3 m3 l3 w3-animate-opacity" id="advancedJoinCheckboxes">
                     <form class="w3-container">
                         <input id="checkAnim" type="checkbox" class="w3-check"><label> Animation</label>
                         <br>
@@ -93,13 +93,45 @@
                         <br>
                         <input id="checkStyle" type="checkbox" class="w3-check"><label> Stylist/Vanities</label>
                         <br>
-                        <input id="checkActor" type="checkbox" class="w3-check"><label> Talent/Actors</label>
+                        <input id="checkActor" type="checkbox" class="w3-check" ng-model="showActorSpec" ng-init="showActorSpec = false"><label> Talent/Actors</label>
                         <br>
                         <input id="checkCast" type="checkbox" class="w3-check"><label> Talent/Casting - People</label>
                     </form>
                 </div>
+
+                <h4 ng-if="showActorSpec">If you are an actor, please specify your ethnicity</h4>
+                <div class="w3-col s6 m6 l6 w3-left w3-animate-opacity" ng-if="showActorSpec" id="raceBox">
+                    <div class="w3-col s3 m3 l3 w3-animate-opacity" id="raceCheckBoxes">
+                        <form class="w3-container">
+                            <input type="radio" value="1" class="w3-radio" ng-model="etn" id="etnCauc"> <label>Caucasian</label>
+                            <br>
+                            <input type="radio" value="2" class="w3-radio" ng-model="etn" id="etnHisp"><label>Latino/Hispanic</label>
+                            <br>
+                            <input type="radio" value="3" class="w3-radio" ng-model="etn" id="etnSAsi"> <label>South Asian</label>
+                            <br>
+                            <input type="radio" value="4" class="w3-radio" ng-model="etn" id="etnNati"> <label>Native American</label>
+
+                        </form>
+                    </div>
+                    <div class="w3-col s3 m3 l3 w3-animate-opacity" id="raceCheckBoxes2">
+                        <form class="w3-container">
+                            <input type="radio" value="5" class="w3-radio" ng-model="etn" id="etnAfri"> <label>African Descent</label>
+                            <br>
+                            <input type="radio" value="6" class="w3-radio" ng-model="etn" id="etnMidd"><label>Middle Eastern</label>
+                            <br>
+                            <input type="radio" value="7" class="w3-radio" ng-model="etn" id="etnSEAs"><label>S/E Asian/Pacific Islander</label>
+                            <br>
+                            <input type="radio" value="8" class="w3-radio" ng-model="etn" id="etnAmbi"><label>Ethnically Ambiguous</label>
+
+                        </form>
+                    </div>
+                </div>
             </div>
-            <div class="w3-col s5 m5 l5 w3-left w3-animate-opacity" id="aboutMe">
+
+            <br>
+            <div class="w3-col s12 m12 l12 w3-left w3-animate-opacity" id="aboutMe">
+                <br>
+                <br>
                 <h4>About me</h4>
                 <br>
                 <form id="aboutMeForm">

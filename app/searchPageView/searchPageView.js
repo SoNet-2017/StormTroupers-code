@@ -18,7 +18,7 @@ angular.module('myApp.searchPageView', ['ngRoute'])
         });
     }])
 
-    .controller('searchPageCtrl', ['$scope', '$location', 'Auth', '$firebaseObject','Users', 'currentAuth', '$firebaseAuth', function ($scope,$location, Auth, $firebaseObject, Users, currentAuth, $firebaseAuth) {
+    .controller('searchPageCtrl', ['$scope', '$location', 'Auth', '$firebaseObject','Users', 'currentAuth', '$firebaseAuth', '$firebaseArray', function ($scope,$location, Auth, $firebaseObject, Users, currentAuth, $firebaseAuth, $firebaseArray) {
         $scope.dati={};
         $scope.auth=Auth;
 
@@ -88,20 +88,58 @@ angular.module('myApp.searchPageView', ['ngRoute'])
             $location.path("/searchPageView");
         };
 
-        $scope.goToDashboard=function () {
-            $location.path("/homePageView")
-        };
 
 
+        //ORIGINAL WORKING VERSION
         var UID=localStorage.UID;
         var database=firebase.database();
+        var usersBase=database.ref('users/');
+        var userQuery=usersBase.orderByChild("dateOfJoin").limitToLast(5);
+      /*
+        var newShit=$firebaseArray(userQuery);
+        var randomizedUserArray = new Array();
+        var rand;
+        //console.log ("COSO CHE MI INTERESSA -------->"+$scope.newShit.toString());
+
+        var ok;
+
+        for (var n=0; n<5; n++) {
+
+            do {
+                rand = Math.floor((Math.random() * 10) + 1);
+                randomizedUserArray[n] = newShit[rand];
+
+                ok=true;
+
+                for (var m=0; m<n; m++) {
+                    if (randomizedUserArray[n]==randomizedUserArray[m]) {
+                        ok=false;
+                        break;
+                    }
+                }
+
+            }
+            while (ok==false)
+
+        }
+
+        $scope.newnewArray=randomizedUserArray;
+
+        $scope.filterUsers=$scope.newnewArray;*/
+
+      var result=$firebaseArray(userQuery);
+      result.$loaded(function (x) {
+          $scope.oneResult=x[0];
+      }).catch(function (error) {
+          $scope.error=error;
+      });
 
         var obj = $firebaseObject(database.ref('users/'+UID));
         obj.$loaded().then(function () {
             $scope.profile=obj;
             var role = Object.values(obj.roles);
             for(var i=0; i<role.length; i++){
-                console.log(role[i]);
+               // console.log(role[i]);
                 document.getElementById("userRolesHome").innerHTML+=role[i];
                 if(i<role.length-1) {
                     document.getElementById("userRolesHome").innerHTML+=", ";
