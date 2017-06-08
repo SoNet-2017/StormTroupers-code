@@ -23,13 +23,6 @@ angular.module('myApp.homePageView', ['ngRoute'])
         $scope.auth=Auth;
 
 
-        console.log(localStorage.attName);
-        console.log(localStorage.attLast);
-        console.log(localStorage.attEmail);
-
-
-
-
         $scope.showLogoItem=function () {
             var x = document.getElementById("logoBarContentHome");
             if (x.className.indexOf("w3-show") == -1)
@@ -58,7 +51,7 @@ angular.module('myApp.homePageView', ['ngRoute'])
         var UID=localStorage.UID;
         var database=firebase.database();
         var usersBase=database.ref('users/');
-        var userQuery=usersBase.orderByChild("dateOfJoin").limitToLast(5);
+        var userQuery=usersBase.orderByChild("dateOfJoin").limitToLast(3);
         $scope.filterUsers=$firebaseArray(userQuery);
 
 
@@ -66,10 +59,8 @@ angular.module('myApp.homePageView', ['ngRoute'])
         var obj = $firebaseObject(database.ref('users/'+UID));
         obj.$loaded().then(function () {
             $scope.profile=obj;
-            console.log(obj.$value);
             var role = Object.values(obj.roles);
             for(var i=0; i<role.length; i++){
-                console.log(role[i]);
                 document.getElementById("userRolesHome").innerHTML+=role[i];
                 if(i<role.length-1) {
                     document.getElementById("userRolesHome").innerHTML+=", ";

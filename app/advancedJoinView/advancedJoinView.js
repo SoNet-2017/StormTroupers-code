@@ -168,6 +168,7 @@ angular.module('myApp.advancedJoinView', ['ngRoute'])
                 payR = 0;
             }
             var descriptionR = document.getElementById("aboutMeText").value;
+            var race = "None";
 
             //costruisco un vettore roles per creare un elenco di stringhe dentro il JSON
             var roles = [];
@@ -209,36 +210,35 @@ angular.module('myApp.advancedJoinView', ['ngRoute'])
             }
             if (document.getElementById("checkActor").checked) {
                 roles.push("Talent/Actors");
+                if (document.getElementById("etnCauc").checked) {
+                    race = "Caucasian";
+                }
+                if (document.getElementById("etnHisp").checked) {
+                    race = "Hispanic";
+                }
+                if (document.getElementById("etnSAsi").checked) {
+                    race = "South_Asian";
+                }
+                if (document.getElementById("etnNati").checked) {
+                    race = "Native_American";
+                }
+                if (document.getElementById("etnAfri").checked) {
+                    race = "African";
+                }
+                if (document.getElementById("etnMidd").checked) {
+                    race = "Middle_Eastern";
+                }
+                if (document.getElementById("etnSEAs").checked) {
+                    race = "South_East_Asian";
+                }
+                if (document.getElementById("etnAmbi").checked) {
+                    race = "Mixed";
+                }
             }
             if (document.getElementById("checkCast").checked) {
                 roles.push("Talent/Casting - People");
             }
 
-            var race = null;
-            if (document.getElementById("etnCauc").checked) {
-                race = "Caucasian";
-            }
-            if (document.getElementById("etnHisp").checked) {
-                race = "Hispanic";
-            }
-            if (document.getElementById("etnSAsi").checked) {
-                race = "South_Asian";
-            }
-            if (document.getElementById("etnNati").checked) {
-                race = "Native_American";
-            }
-            if (document.getElementById("etnAfri").checked) {
-                race = "African";
-            }
-            if (document.getElementById("etnMidd").checked) {
-                race = "Middle_Eastern";
-            }
-            if (document.getElementById("etnSEAs").checked) {
-                race = "South_East_Asian";
-            }
-            if (document.getElementById("etnAmbi").checked) {
-                race = "Mixed";
-            }
 
             var database = firebase.database();
 

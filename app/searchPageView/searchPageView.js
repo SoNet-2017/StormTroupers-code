@@ -95,6 +95,7 @@ angular.module('myApp.searchPageView', ['ngRoute'])
         var database=firebase.database();
         var usersBase=database.ref('users/');
         var userQuery=usersBase.orderByChild("dateOfJoin").limitToLast(5);
+        $scope.filterUsers=$firebaseArray(userQuery);
       /*
         var newShit=$firebaseArray(userQuery);
         var randomizedUserArray = new Array();
@@ -125,14 +126,15 @@ angular.module('myApp.searchPageView', ['ngRoute'])
 
         $scope.newnewArray=randomizedUserArray;
 
-        $scope.filterUsers=$scope.newnewArray;*/
+
+
 
       var result=$firebaseArray(userQuery);
       result.$loaded(function (x) {
           $scope.oneResult=x[0];
       }).catch(function (error) {
           $scope.error=error;
-      });
+      });*/
 
         var obj = $firebaseObject(database.ref('users/'+UID));
         obj.$loaded().then(function () {
