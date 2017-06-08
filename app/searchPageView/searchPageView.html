@@ -135,21 +135,33 @@
             <!--
             <input type="text" name="actorAge" value="Diversamente Bianco" class="searchPageInputFields"><br>
             -->
-            <select class="w3-select" name="option">
-                <option value="0">Any</option>
-                <option value="1">African</option>
-                <option value="2">Asian</option>
-                <option value="3">Hybrid</option>
-                <option value="4">Orc</option>
-                <option value="5">Lurid</option>
-                <option value="6">Apache Helicopter</option>
-            </select>
-            <!--TUTTO COPIANICOLLATO DA BACKSTAGE, ALLA FACCIA LORO-->
-            <div class="filter__option">
-                <div class="filter-label">Ethnicities:</div>
-                <select id="multiselect-ethnicities" multiple="multiple" style="display: none;" name="ethnicities"><option value="2" label="Caucasian" title="Caucasian"></option><option value="3" label="African American" title="African American"></option><option value="4" label="Latino/Hispanic" title="Latino/Hispanic"></option><option value="5" label="Asian" title="Asian"></option><option value="6" label="South Asian" title="South Asian"></option><option value="7" label="Native American" title="Native American"></option><option value="8" label="Middle Eastern" title="Middle Eastern"></option><option value="9" label="Southeast Asian / Pacific Islander" title="Southeast Asian / Pacific Islander"></option><option value="10" label="Ethnically Ambiguous / Mixed Race" title="Ethnically Ambiguous / Mixed Race"></option><option value="11" label="African Descent" title="African Descent"></option></select><div class="btn-group open"><button type="button" class="multiselect dropdown-toggle btn btn-default" data-toggle="dropdown" title="Select Ethnicities" aria-expanded="true"><span class="multiselect-selected-text">Select Ethnicities</span> <b class="caret"></b></button><ul class="multiselect-container dropdown-menu"><li><a tabindex="0"><label class="checkbox" title="Caucasian"><input type="checkbox" value="2"> Caucasian</label></a></li><li><a tabindex="0"><label class="checkbox" title="African American"><input type="checkbox" value="3"> African American</label></a></li><li class=""><a tabindex="0"><label class="checkbox" title="Latino/Hispanic"><input type="checkbox" value="4"> Latino/Hispanic</label></a></li><li class=""><a tabindex="0"><label class="checkbox" title="Asian"><input type="checkbox" value="5"> Asian</label></a></li><li class=""><a tabindex="0"><label class="checkbox" title="South Asian"><input type="checkbox" value="6"> South Asian</label></a></li><li class=""><a tabindex="0"><label class="checkbox" title="Native American"><input type="checkbox" value="7"> Native American</label></a></li><li><a tabindex="0"><label class="checkbox" title="Middle Eastern"><input type="checkbox" value="8"> Middle Eastern</label></a></li><li><a tabindex="0"><label class="checkbox" title="Southeast Asian / Pacific Islander"><input type="checkbox" value="9"> Southeast Asian / Pacific Islander</label></a></li><li><a tabindex="0"><label class="checkbox" title="Ethnically Ambiguous / Mixed Race"><input type="checkbox" value="10"> Ethnically Ambiguous / Mixed Race</label></a></li><li><a tabindex="0"><label class="checkbox" title="African Descent"><input type="checkbox" value="11"> African Descent</label></a></li></ul></div>
+            <div class="w3-col s12 m12 l12 w3-left w3-animate-opacity">
+
+                <div class="w3-col s6 m6 l6 w3-animate-opacity" id="raceCheckBoxes">
+                    <form class="w3-container">
+                        <input id="etnCauc" type="checkbox" class="w3-check" checked> <label>Caucasian</label>
+                        <br>
+                        <input id="etnHisp" type="checkbox" class="w3-check"> <label>Latino/Hispanic</label>
+                        <br>
+                        <input id="etnSAsi" type="checkbox" class="w3-check"> <label>South Asian</label>
+                        <br>
+                        <input id="etnNati" type="checkbox" class="w3-check"> <label>Native American</label>
+
+                    </form>
+                </div>
+                <div class="w3-col s6 m6 l6 w3-animate-opacity" id="raceCheckBoxes2">
+                    <form class="w3-container">
+                        <input id="etnAfri" type="checkbox" class="w3-check"> <label>African Descent</label>
+                        <br>
+                        <input id="etnMidd" type="checkbox" class="w3-check"> <label>Middle Eastern</label>
+                        <br>
+                        <input id="etnPaci" type="checkbox" class="w3-check"> <label>S/E Asian/Pacific Islander</label>
+                        <br>
+                        <input id="entAmbi" type="checkbox" class="w3-check"> <label>Ethnically Ambiguous</label>
+
+                    </form>
+                </div>
             </div>
-            <!--FIN QUA-->
             <br>
             <strong>Gender</strong>
             <div style="color: #636466; margin-left: 5px;">
@@ -162,6 +174,7 @@
             </div>
         </div>
         <br>
+        <!--
         <strong>Paid/Free v1</strong>
         <br>
         <div class="w3-col s12 m12 l12 w3-left w3-animate-opacity" id="chePayment" style="color: #636466;">
@@ -180,6 +193,7 @@
         <br>
         <br>
         <br>
+        -->
         <strong>Paid/Free v2</strong>
         <br>
         <div style="color: #636466; margin-left: 15px;">
@@ -201,11 +215,36 @@
     </div>
 
     <div id="searchCrewResults" class="w3-col l5 m5 s5 w3-card-2">
-        <h3 style="text-align: center; font-family: 'ADAM.CG PRO'; font-size: ; color: #636466;">
+        <h3 style="text-align: center; font-family: 'ADAM.CG PRO';  color: #636466;">
             These are the people you're looking for
         </h3>
+
         <hr>
-        You must first set some search parameters, you stupid motherfucking asshole!
+        <div id="foundUsersShow" class="w3-container w3-card-2 w3-col l12 m12 s12">
+            <div class="w3-container">
+                <ul>
+                    <li ng-repeat="user in oneResult">
+                        <div class=" w3-container w3-card-2 w3-white" style="padding: 10px">
+                            <div class="w3-left" id="foundUImgContainer">
+                                <img id="foundUImg" alt="Avatar" class="w3-left w3-circle">
+                            </div>
+                            <div id="foundUDesc">
+                                <div class="w3-container w3-row">
+                                    <h4>{{user.name}} {{user.lastName}}</h4>
+                                </div>
+                            </div>
+                            <div class="w3-container w3-row" id="linkNewU">
+                                <a><i class="glyphicon glyphicon-user w3-xlarge"></i></a>
+                                <a><i class="glyphicon glyphicon-comment w3-xlarge"></i></a>
+                                <a><i class="glyphicon glyphicon-plus w3-xlarge"></i></a>
+                            </div>
+                        </div>
+                        <br>
+                    </li>
+                </ul>
+            </div>
+
+        </div>
     </div>
 </div>
 
