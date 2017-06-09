@@ -47,6 +47,10 @@ angular.module('myApp.homePageView', ['ngRoute'])
             $location.path("/searchPageView");
         };
 
+        $scope.goToEditProfile=function () {
+            $location.path("/editProfileView");
+        };
+
 
         var UID=localStorage.UID;
         var database=firebase.database();
@@ -68,6 +72,7 @@ angular.module('myApp.homePageView', ['ngRoute'])
             }
             document.getElementById("userNameHome").innerHTML=obj.name;
             document.getElementById("userNameAndLastHome").innerHTML=obj.name+" "+obj.lastName;
+
 
         }).catch(function (error) {
             $scope.error=error;

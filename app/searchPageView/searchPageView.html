@@ -32,8 +32,8 @@
         <h4 id="userNameHome" ng-click="showLogoItem()"></h4>
         <div class="w3-dropdown-content w3-bar-block w3-border w3-right" id="logoBarContentHome">
             <a href="#" class="w3-bar-item w3-button"><i class="glyphicon glyphicon-user"></i> Your Public Profile</a>
-            <a href="#" class="w3-bar-item w3-button"><i class="glyphicon glyphicon-pencil"></i> Edit Profile</a>
-            <a href="#" ng-click="logout()" class="w3-bar-item w3-button"><i class="glyphicon glyphicon-off"></i> Logout</a>
+            <a ng-click="goToEditProfile()" class="w3-bar-item w3-button"><i class="glyphicon glyphicon-pencil"></i> Edit Profile</a>
+            <a ng-click="logout()" class="w3-bar-item w3-button"><i class="glyphicon glyphicon-off"></i> Logout</a>
         </div>
     </div>
 
@@ -52,7 +52,7 @@
         <br>
         <a class="w3-bar-item" id="userProjectHome">My Projects <i class="glyphicon glyphicon-film w3-large"></i></a><br><br>
         <a class="w3-bar-item" id="userTroupeHome">My Troupers <i class="glyphicon glyphicon-user w3-large"></i></a><br><br>
-        <a class="w3-bar-item" id="editProfileLinkHome">Edit Profile <i class="glyphicon glyphicon-cog w3-large"></i></a>
+        <a ng-click="goToEditProfile()" class="w3-bar-item" id="editProfileLinkHome">Edit Profile <i class="glyphicon glyphicon-cog w3-large"></i></a>
     </div>
 
     <div id="searchCrewTools" class="w3-col l3 m3 s3 w3-card-2">

@@ -32,7 +32,7 @@
         <h4 id="userNameHome" ng-click="showLogoItem()"></h4>
         <div class="w3-dropdown-content w3-bar-block w3-border w3-right" id="logoBarContentHome">
             <a href="#" class="w3-bar-item w3-button"><i class="glyphicon glyphicon-user w3-large"></i> Your Public Profile</a>
-            <a href="#" class="w3-bar-item w3-button"><i class="glyphicon glyphicon-pencil w3-large"></i> Edit Profile</a>
+            <a ng-click="goToEditProfile()" class="w3-bar-item w3-button"><i class="glyphicon glyphicon-pencil w3-large"></i> Edit Profile</a>
             <a ng-click="logout()" class="w3-bar-item w3-button"><i class="glyphicon glyphicon-off w3-large"></i> Logout</a>
         </div>
     </div>
@@ -52,7 +52,7 @@
         <br>
         <a class="w3-bar-item" id="userProjectHome">My Projects <i class="glyphicon glyphicon-film w3-large"></i></a><br><br>
         <a class="w3-bar-item" id="userTroupeHome">My Troupers <i class="glyphicon glyphicon-user w3-large"></i></a><br><br>
-        <a class="w3-bar-item" id="editProfileLinkHome">Edit Profile <i class="glyphicon glyphicon-cog w3-large"></i></a>
+        <a ng-click="goToEditProfile()" class="w3-bar-item" id="editProfileLinkHome">Edit Profile <i class="glyphicon glyphicon-cog w3-large"></i></a>
     </div>
 
     <div id="aroundYouContainer" class="w3-col l8 m8 s8 w3-card-2">

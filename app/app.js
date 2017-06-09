@@ -17,6 +17,7 @@ angular.module('myApp', [
     'myApp.advancedJoinView',
     'myApp.authentication',
     'myApp.homePageView',
+    'myApp.editProfileView',
     'myApp.users',
     'myApp.fileUpload',
     'myApp.searchPageView',
