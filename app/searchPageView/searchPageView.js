@@ -94,67 +94,109 @@ angular.module('myApp.searchPageView', ['ngRoute'])
 
 
 
-        //ORIGINAL WORKING VERSION
         var UID=localStorage.UID;
         var database=firebase.database();
         var usersBase=database.ref('users/');
-        var userQuery=usersBase.orderByChild("dateOfJoin").limitToLast(5);
+        var userQuery=usersBase.orderByChild("dateOfJoin");
         $scope.filterUsers=$firebaseArray(userQuery);
-      /*
-        var newShit=$firebaseArray(userQuery);
-        var randomizedUserArray = new Array();
-        var rand;
-        //console.log ("COSO CHE MI INTERESSA -------->"+$scope.newShit.toString());
-
-        var ok;
-
-        for (var n=0; n<5; n++) {
-
-            do {
-                rand = Math.floor((Math.random() * 10) + 1);
-                randomizedUserArray[n] = newShit[rand];
-
-                ok=true;
-
-                for (var m=0; m<n; m++) {
-                    if (randomizedUserArray[n]==randomizedUserArray[m]) {
-                        ok=false;
-                        break;
-                    }
-                }
-
-            }
-            while (ok==false)
-
-        }
-
-        $scope.newnewArray=randomizedUserArray;
 
 
 
 
-      var result=$firebaseArray(userQuery);
-      result.$loaded(function (x) {
-          $scope.oneResult=x[0];
-      }).catch(function (error) {
-          $scope.error=error;
-      });*/
 
         var obj = $firebaseObject(database.ref('users/'+UID));
         obj.$loaded().then(function () {
             $scope.profile=obj;
             var role = Object.values(obj.roles);
             for(var i=0; i<role.length; i++){
-               // console.log(role[i]);
                 document.getElementById("userRolesHome").innerHTML+=role[i];
                 if(i<role.length-1) {
                     document.getElementById("userRolesHome").innerHTML+=", ";
                 }
             }
 
+            $scope.filterSearch={};
+
         }).catch(function (error) {
             $scope.error=error;
         });
+
+
+
+
+
+        $scope.launchSearch = function () {
+            //resetta il filtersearch
+            $scope.filterSearch={};
+
+                //checca che cazzo hai messo nei filtri
+            /*
+            var checkKeyword=false;
+            //step1 checcka la keyword in nome e cognome
+            if (document.getElementsByName("searchKeyword").value!=="") { //checca solo se hei scritto qualcosa nel campo
+                checkKeyword=true;
+                console.log="checkKeyword=true";
+            }
+            else {
+                console.log="checkKeyword=false";
+            }
+            */
+
+            //step27 checca il sesso
+            var includeF=false;
+            var includeM=false;
+            if (document.getElementById("checkFem").checked) {
+                includeF=true;
+            }
+            if (document.getElementById("checkMal").checked) {
+                includeM=true;
+            }
+
+            //parte il coso per davvero
+            var length=$scope.filterUsers.length;
+            var j=0;
+            for(var i=0; i<length; i++){ //si scorre tutto l'array
+
+                /*
+                if (checkKeyword===true) {
+                    var wtc = document.getElementsByName("searchKeyword").value;
+                    var pos1 =  $scope.filterUsers[i].name.search(wtc);
+                    var pos2 =  $scope.filterUsers[i].lastName.search(wtc);
+                    if(pos1!==-1 || pos2!==-1) {
+                        $scope.filterSearch[j]=$scope.filterUsers[i];
+                        j++;
+                    }
+                }
+                */
+
+                if (includeF===true) {
+                    if($scope.filterUsers[i].gender==="female"){
+                        $scope.filterSearch[j]=$scope.filterUsers[i];
+                        j++;
+                    }
+                }
+
+                if (includeM===true) {
+                    if($scope.filterUsers[i].gender==="male"){
+                        $scope.filterSearch[j]=$scope.filterUsers[i];
+                        j++;
+                    }
+                }
+
+                //ricerca di prova in base al nome TENIAMOLA LI'
+                /*
+                if($scope.filterUsers[i].name==="Branda"){
+                    arr[j]=$scope.filterUsers[i];
+                    $scope.filterSearch[j]=$scope.filterUsers[i];
+                    console.log($scope.filterSearch[j]);
+                    j++;
+                }
+                */
+
+            }
+
+
+        };
 
         $scope.logout = function () {
             Users.registerLogout(currentAuth.uid);
