@@ -21,6 +21,7 @@ angular.module('myApp', [
     'myApp.users',
     'myApp.fileUpload',
     'myApp.searchPageView',
+    'myApp.myProjectsView',
     'rzModule'
 ])
 

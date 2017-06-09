@@ -115,96 +115,59 @@
 }
 /* Fine parte comune*/
 
-#aroundYouContainer{
+#projectXPanel{
+    background-color: ghostwhite;
+    opacity: 0.9;
+}
+
+#projectXimg{
+    content: url("../../images/StormTroupersLogo.png");
+    width: 150px;
+    height: 150px;
+    margin: 10px;
+    margin-right: 15px;
+    padding: 10px 10px 10px 10px;
+    border-radius: 7px;
+}
+
+#projectXLink h4{
+    padding-top: 15px;
+}
+#projectXLink hr{
+    margin-top: 0px;
+    margin-bottom: 10px;
+    display: block;
+    border-style: inset;
+    border-width: 1px;
+}
+
+ #projectXLink a{
+     color: #636466;
+     text-align: center;
+}
+
+#projectXLink a:hover{
+    cursor: pointer;
+    text-decoration: none;
+    color: #b7c3b8;
+}
+
+
+#myProjectsContainer{
     /*Per centrare il contenuto*/
     text-align: center;
     align-items:center;
     vertical-align: middle;
     background-color: #b7c3b8;
     padding-bottom: 20px;
-
 }
 
-#aroundYouContainer h2{
+#myProjectsContainer h2{
     color: #636466;
 }
 
-#newProjectShow{
-    /*Per centrare il contenuto*/
-    display: flex;
-    justify-content: center;
-    background-color: #636466;
-    margin-right: 5%;
-}
-
-#newProjectShow h4{
-    font-family: "ADAM.CG PRO";
-    color: white;
-}
-
-#newUsersShow{
-    /*Per centrare il contenuto*/
-    text-align: center;
-    align-items:center;
-    vertical-align: middle;
-    background-color: #636466;
-}
-
-#newUserTitle{
-    display: flex;
-    justify-content: center;
-}
-
-#newUsersShow h4{
-    font-family: "ADAM.CG PRO";
-    color: white;
-}
-
-#newUsersShow li{
-    list-style: none;
-    margin-left: -40px;
-}
-
-#newUImg{
+#troupeUserImg{
     content: url("../../images/StormTroupersLogo.png");
-    max-height: 75px;
-}
-
-#newUImgContainer{
-    display: flex;
-    justify-content: center;
-    text-align: center;
-    align-items:center;
-    vertical-align: middle;
-}
-
-#newUDesc{
-    color: #636466;
-    display: flex;
-    justify-content: center;
-    text-align: center;
-    align-items:center;
-    vertical-align: middle;
-}
-
-#newUDesc h4{
-    color: #636466;
-}
-
-#linkNewU{
-    display: flex;
-    justify-content: center;
-    text-align: center;
-    align-items:center;
-    vertical-align: middle;
-}
-
-#linkNewU a{
-    text-decoration: none;
-    color: #636466;
-    margin: 10px;
-}
-
-#linkNewU a:hover{
-    cursor: pointer;
+    max-height: 50px;
+    margin: 5px;
 }

@@ -1,11 +1,15 @@
+/**
+ * Created by matil_000 on 09/06/2017.
+ */
+
 'use strict';
 
-angular.module('myApp.homePageView', ['ngRoute'])
+angular.module('myApp.myProjectsView', ['ngRoute'])
 
     .config(['$routeProvider', function($routeProvider) {
-        $routeProvider.when('/homePageView', {
-            templateUrl: 'homePageView/homePageView.html',
-            controller: 'homePageCtrl',
+        $routeProvider.when('/myProjectsView', {
+            templateUrl: 'myProjectsView/myProjectsView.html',
+            controller: 'myProjectsViewCtrl',
             resolve: {
                 // controller will not be loaded until $requireSignIn resolves
                 // Auth refers to our $firebaseAuth wrapper in the factory below
@@ -18,7 +22,7 @@ angular.module('myApp.homePageView', ['ngRoute'])
         });
     }])
 
-    .controller('homePageCtrl', ['$scope', '$location', 'Auth', '$firebaseObject','Users', 'currentAuth', '$firebaseAuth', '$firebaseArray', function ($scope,$location, Auth, $firebaseObject, Users, currentAuth, $firebaseAuth, $firebaseArray) {
+    .controller('myProjectsViewCtrl', ['$scope', '$location', 'Auth', '$firebaseObject','Users', 'currentAuth', '$firebaseAuth', '$firebaseArray', function ($scope,$location, Auth, $firebaseObject, Users, currentAuth, $firebaseAuth, $firebaseArray) {
         $scope.dati={};
         $scope.auth=Auth;
 
@@ -51,7 +55,8 @@ angular.module('myApp.homePageView', ['ngRoute'])
             $location.path("/editProfileView");
         };
 
-        $scope.goToMyProjects=function () {
+        // CAMBIARE URL
+        $scope.goToProjectX=function() {
             $location.path("/myProjectsView");
         }
 
@@ -73,19 +78,7 @@ angular.module('myApp.homePageView', ['ngRoute'])
                     document.getElementById("userRolesHome").innerHTML+=", ";
                 }
             }
-            $scope.filterSearch={};
 
-            var length=$scope.filterUsers.length;
-            var arr=[];
-            var j=0;
-            for(var i=0; i<length; i++){
-                if($scope.filterUsers[i].name==="Zante"){
-                    arr[j]=$scope.filterUsers[i];
-                    $scope.filterSearch[j]=$scope.filterUsers[i];
-                    console.log($scope.filterSearch[j]);
-                    j++;
-                }
-            }
 
 
 
