@@ -66,8 +66,6 @@ angular.module('myApp.editProfileView', ['ngRoute'])
                     document.getElementById("userRolesHome").innerHTML+=", ";
                 }
             }
-            document.getElementById("userNameHome").innerHTML=obj.name;
-            document.getElementById("userNameAndLastHome").innerHTML=obj.name+" "+obj.lastName;
 
         }).catch(function (error) {
             $scope.error=error;

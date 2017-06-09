@@ -70,8 +70,21 @@ angular.module('myApp.homePageView', ['ngRoute'])
                     document.getElementById("userRolesHome").innerHTML+=", ";
                 }
             }
-            document.getElementById("userNameHome").innerHTML=obj.name;
-            document.getElementById("userNameAndLastHome").innerHTML=obj.name+" "+obj.lastName;
+            $scope.filterSearch={};
+
+            var length=$scope.filterUsers.length;
+            var arr=[];
+            var j=0;
+            for(var i=0; i<length; i++){
+                if($scope.filterUsers[i].name==="Zante"){
+                    arr[j]=$scope.filterUsers[i];
+                    $scope.filterSearch[j]=$scope.filterUsers[i];
+                    console.log($scope.filterSearch[j]);
+                    j++;
+                }
+            }
+
+
 
 
         }).catch(function (error) {
