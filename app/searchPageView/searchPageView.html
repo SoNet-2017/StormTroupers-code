@@ -70,7 +70,7 @@
         <input type="text" name="searchCity" value="" class="searchPageInputFields" placeholder="City"><br>
         <br>
         <strong>Range</strong> (Km)
-        <rzslider rz-slider-model="slider.value" style="display: inline-block"
+        <rzslider rz-slider-model="slider.value" style="display: inline-block; z-index: 0"
                   rz-slider-options="slider.options"></rzslider>
         <br>
         <br>
@@ -210,7 +210,7 @@
         <br>
         <hr>
         <div id="searchCrewButtonContainer">
-            <button class="w3-button w3-round-large" id="searchCrewButton">SEARCH!</button>
+            <button class="w3-button w3-round-large" id="searchCrewButton" ng-click="launchSearch()">SEARCH!</button>
         </div>
     </div>
 
@@ -223,7 +223,7 @@
         <div id="foundUsersShow" class="w3-container w3-card-2 w3-col l12 m12 s12">
             <div class="w3-container">
                 <ul>
-                    <li ng-repeat="user in filterUsers">
+                    <li ng-repeat="user in filterSearch">
                         <div class=" w3-container w3-card-2 w3-white" style="padding: 10px">
                             <div class="w3-left" id="foundUImgContainer">
                                 <img id="foundUImg" alt="Avatar" class="w3-left w3-circle">

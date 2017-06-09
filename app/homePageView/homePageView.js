@@ -58,7 +58,7 @@ angular.module('myApp.homePageView', ['ngRoute'])
         var UID=localStorage.UID;
         var database=firebase.database();
         var usersBase=database.ref('users/');
-        var userQuery=usersBase.orderByChild("dateOfJoin").limitToLast(3);
+        var userQuery=usersBase.orderByChild("dateOfJoin").limitToLast(10);
         $scope.filterUsers=$firebaseArray(userQuery);
 
 
@@ -75,11 +75,95 @@ angular.module('myApp.homePageView', ['ngRoute'])
             }
             $scope.filterSearch={};
 
+            /*
+             var length=$scope.filterUsers.length;
+             var arr=[];
+             var j=0;
+             for(var i=0; i<length; i++){
+             if($scope.filterUsers[i].name=="Branda"){
+             arr[j]=$scope.filterUsers[i];
+             $scope.filterSearch[j]=$scope.filterUsers[i];
+             console.log($scope.filterSearch[j]);
+             j++;
+             }
+
+             }
+             */
+
+            //seconda versione algoritmo (Algoritmo Cazzo di Marte)
+            var tempCont;
+            var rand1=0;
+            var rand2=0;
+            for (var n=0; n<10; n++) { //mescola il mazzo di carte, scambiando le carte a due a due n_max volte
+                rand1 = Math.floor((Math.random() * 10) + 1);
+                rand2 = Math.floor((Math.random() * 10) + 1);
+                tempCont=$scope.filterUsers[rand1];
+                $scope.filterUsers[rand1]=$scope.filterUsers[rand2];
+                $scope.filterUsers[rand2]=tempCont;
+            }
+
+            for (var n=0; n<5; n++) { //pesca le prime 5 carte del mazzo
+                $scope.filterSearch[n] = $scope.filterUsers[n];
+            }
+
+
+            /* VECCHIO ALGORITMO ALTAMENTE INEFFICIENTE
+             var rand=0;
+             var ok=true;
+            for (var n=0; n<5; n++) {
+
+                do {
+                    rand = Math.floor((Math.random() * 10) + 1);
+                    $scope.filterSearch[n] = $scope.filterUsers[rand];
+
+                    ok=true;
+
+                    for (var m=0; m<n; m++) {
+                        if ($scope.filterSearch[n]==$scope.filterSearch[m]) {
+                            ok=false;
+                            break;
+                        }
+                    }
+
+                }
+                while (ok==false)
+
+            }
+
+            */
+
+
+        }).catch(function (error) {
+            $scope.error=error;
+        });
+
+            /*
+        var UID=localStorage.UID;
+        var database=firebase.database();
+        var usersBase=database.ref('users/');
+        var userQuery=usersBase.orderByChild("dateOfJoin").limitToLast(3);
+        $scope.filterUsers=$firebaseArray(userQuery);
+
+
+
+        var obj = $firebaseObject(database.ref('users/'+UID));
+        obj.$loaded().then(function () {
+            $scope.profile=obj;
+            var role = Object.values(obj.roles);
+            for(var i=0; i<role.length; i++){
+                document.getElementById("userRolesHome").innerHTML+=role[i];
+                if(i<role.length-1) {
+                    document.getElementById("userRolesHome").innerHTML+=", ";
+                }
+            }
+
+            $scope.filterSearch={};
+
             var length=$scope.filterUsers.length;
             var arr=[];
             var j=0;
             for(var i=0; i<length; i++){
-                if($scope.filterUsers[i].name==="Zante"){
+                if($scope.filterUsers[i].name==="Branda"){
                     arr[j]=$scope.filterUsers[i];
                     $scope.filterSearch[j]=$scope.filterUsers[i];
                     console.log($scope.filterSearch[j]);
@@ -93,6 +177,7 @@ angular.module('myApp.homePageView', ['ngRoute'])
         }).catch(function (error) {
             $scope.error=error;
         });
+        */
 
         $scope.logout = function () {
             Users.registerLogout(currentAuth.uid);
