@@ -153,6 +153,7 @@ angular.module('myApp.homePageView', ['ngRoute'])
                     document.getElementById("userRolesHome").innerHTML+=", ";
                 }
             }
+
             $scope.filterSearch={};
 
             var length=$scope.filterUsers.length;
