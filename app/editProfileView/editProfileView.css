@@ -115,6 +115,8 @@
 }
 /* Fine parte comune*/
 
-#editProfileContainer{
+#editBlockContainer{
+    padding-top: 30px;
+    padding-bottom: 30px;
     background-color: #b7c3b8;
 }
