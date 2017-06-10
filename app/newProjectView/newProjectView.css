@@ -117,9 +117,6 @@
 
 #projectXPanel{
     background-color: ghostwhite;
-    border-color: #636466;
-    border-style: solid;
-    border-radius: 5mm;
 }
 
 #projectXimg{
@@ -179,4 +176,10 @@
 }
 #troupeUserImgLink{
     cursor: pointer;
+}
+
+#projectPicture{
+    content: url("../../images/upload_pic.jpg");
+    max-width: 90%;
+    padding-right: 20px;
 }

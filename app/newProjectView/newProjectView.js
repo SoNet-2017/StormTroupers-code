@@ -4,12 +4,12 @@
 
 'use strict';
 
-angular.module('myApp.myProjectsView', ['ngRoute'])
+angular.module('myApp.newProjectView', ['ngRoute'])
 
     .config(['$routeProvider', function($routeProvider) {
-        $routeProvider.when('/myProjectsView', {
-            templateUrl: 'myProjectsView/myProjectsView.html',
-            controller: 'myProjectsViewCtrl',
+        $routeProvider.when('/newProjectView', {
+            templateUrl: 'newProjectView/newProjectView.html',
+            controller: 'newProjectViewCtrl',
             resolve: {
                 // controller will not be loaded until $requireSignIn resolves
                 // Auth refers to our $firebaseAuth wrapper in the factory below
@@ -22,7 +22,7 @@ angular.module('myApp.myProjectsView', ['ngRoute'])
         });
     }])
 
-    .controller('myProjectsViewCtrl', ['$scope', '$location', 'Auth', '$firebaseObject','Users', 'currentAuth', '$firebaseAuth', '$firebaseArray', function ($scope,$location, Auth, $firebaseObject, Users, currentAuth, $firebaseAuth, $firebaseArray) {
+    .controller('newProjectViewCtrl', ['$scope', '$location', 'Auth', '$firebaseObject','Users', 'currentAuth', '$firebaseAuth', '$firebaseArray', function ($scope,$location, Auth, $firebaseObject, Users, currentAuth, $firebaseAuth, $firebaseArray) {
         $scope.dati={};
         $scope.auth=Auth;
 
@@ -68,10 +68,6 @@ angular.module('myApp.myProjectsView', ['ngRoute'])
             $location.path("/homePageView");
         }
 
-        $scope.goToNewProject=function () {
-            $location.path("/newProjectView");
-        }
-
         var UID=localStorage.UID;
         var database=firebase.database();
         var usersBase=database.ref('users/');
@@ -88,7 +84,7 @@ angular.module('myApp.myProjectsView', ['ngRoute'])
                     document.getElementById("userRolesHome").innerHTML+=", ";
                 }
             }
-
+            
 
         }).catch(function (error) {
             $scope.error=error;

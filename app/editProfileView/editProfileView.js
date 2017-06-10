@@ -64,6 +64,10 @@ angular.module('myApp.editProfileView', ['ngRoute'])
             $location.path("/editProfileView");
         };
 
+        $scope.goToMyProjects=function() {
+            $location.path("/myProjectsView");
+        }
+
         $scope.loadProvinces = function (selectedCountry) {
 
             console.log("ng-change: selezionata nazione: " + selectedCountry);

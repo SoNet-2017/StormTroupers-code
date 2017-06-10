@@ -1,4 +1,4 @@
-<div class="w3-container w3-bar w3-top w3-card-2" id="topBarHome">
+<div class="w3-container w3-bar w3-top w3-card-2" id="topBarHome" xmlns="http://www.w3.org/1999/html">
 
 
     <a class="w3-bar-item w3-button" id="homeLinkHome" ng-click="goToDashboard()"><i
@@ -63,7 +63,17 @@
     </div>
 
     <div id="myProjectsContainer" class="w3-col l8 m8 s8 w3-card-2">
-        <h2>My Projects</h2><br>
+        <div class="w3-tooltip" style="margin-bottom: 0px">
+            <h2>My Projects</h2>
+            <button ng-click="goToNewProject()" class="w3-button w3-circle w3-dark-gray w3-right" style="height: 60px; width: 60px; margin-right:35px; margin-bottom: 15px; padding: 15px; opacity: 0.8;">
+                <i class="glyphicon glyphicon-plus w3-xlarge"></i>
+                <span style="position:absolute;right:0;bottom:0px" class="w3-text w3-tag">Create new project!</span>
+            </button>
+            <!--<a ng-click="goToNewProject()" class="w3-button w3-left">Create new project</a>-->
+
+        </div>
+
+        <br>
         <div class="w3-container">
             <div id="projectXPanel" class="w3-panel w3-card-2 w3-col l12 m12 s12">
                 <div class="w3-row w3-col l3 m3 s3 w3-left">
@@ -78,14 +88,15 @@
                     </ul>
                 </div>
 
-                <div class="row w3-container w3-right">
+                <!--div per vedere i membri della troupe-->
+                <div id="containerTroupe" class="row w3-container w3-right">
                     <div class="w3-col l3 m3 s3">
-                        <h5 style="padding: 10px"> My Troupe: </h5>
+                        <h5 style="padding: 10px;"> My Troupe: </h5>
                     </div>
-                    <div class="w3-col l9 m9 s9" style="vertical-align: center">
+                    <div class="w3-col l9 m9 s9" style="align-content: center">
                         <ul class="w3-left" style="padding: 0px;">
-                            <li ng-repeat="user in filterUsers" style="display: inline-block; list-style: none">
-                                <img id="troupeUserImg" alt="Avatar" class="w3-circle">
+                            <li ng-repeat="user in filterUsers" style="display: inline-block; list-style: none; padding-top: 10px">
+                                <a id="troupeUserImgLink" ng-click="goToPublicProfile(user.UID)"><img id="troupeUserImg" alt="Avatar" class="w3-circle"></a>
                             </li>
                         </ul>
                     </div>
@@ -93,6 +104,7 @@
             </div>
 
         </div>
+
     </div>
 </div>
 </div>

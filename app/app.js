@@ -22,6 +22,7 @@ angular.module('myApp', [
     'myApp.fileUpload',
     'myApp.searchPageView',
     'myApp.myProjectsView',
+    'myApp.newProjectView',
     'rzModule'
 ])
 
