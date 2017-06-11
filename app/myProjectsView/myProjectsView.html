@@ -75,33 +75,40 @@
 
         <br>
         <div class="w3-container">
-            <div id="projectXPanel" class="w3-panel w3-card-2 w3-col l12 m12 s12">
-                <div class="w3-row w3-col l3 m3 s3 w3-left">
-                    <img id="projectXimg">
-                </div>
-                <div id="projectXLink" class="w3-col l9 m9 s9">
-                    <h4><a ng-click="goToProjectX()">Project 1 Name</a></h4>
-                    <hr>
-                    <ul class="w3-left" style="list-style: none; text-align: left; padding-left: 25px">
-                        <li>TYPE</li>
-                        <li>IN PROGRESS</li>
-                    </ul>
-                </div>
+            <ul style="list-style: none">
+                <li ng-repeat="project in filterProjects">
+                    <div id="projectXPanel" class="w3-panel w3-card-2 w3-col l12 m12 s12">
+                        <div class="w3-row w3-col l3 m3 s3 w3-left">
+                            <img id="projectXimg">
+                        </div>
+                        <div id="projectXLink" class="w3-col l9 m9 s9">
+                            <h4><a ng-click="goToProjectX()">{{project.title}}</a></h4>
+                            <hr>
+                            <ul class="w3-left" style="list-style: none; text-align: left; padding-left: 25px">
+                                <li>TYPE</li>
+                                <li>IN PROGRESS</li>
+                            </ul>
+                        </div>
 
-                <!--div per vedere i membri della troupe-->
-                <div id="containerTroupe" class="row w3-container w3-right">
-                    <div class="w3-col l3 m3 s3">
-                        <h5 style="padding: 10px;"> My Troupe: </h5>
+                        <!--div per vedere i membri della troupe-->
+                        <div id="containerTroupe" class="row w3-container w3-right">
+                            <div class="w3-col l3 m3 s3">
+                                <h5 style="padding: 10px;"> My Troupe: </h5>
+                            </div>
+                            <div class="w3-col l9 m9 s9" style="align-content: center">
+                                <ul class="w3-left" style="padding: 0px;">
+                                    <li ng-repeat="user in filterUsers" style="display: inline-block; list-style: none; padding-top: 10px">
+                                        <a id="troupeUserImgLink" ng-click="goToPublicProfile(user.UID)"><img id="troupeUserImg" alt="Avatar" class="w3-circle"></a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
                     </div>
-                    <div class="w3-col l9 m9 s9" style="align-content: center">
-                        <ul class="w3-left" style="padding: 0px;">
-                            <li ng-repeat="user in filterUsers" style="display: inline-block; list-style: none; padding-top: 10px">
-                                <a id="troupeUserImgLink" ng-click="goToPublicProfile(user.UID)"><img id="troupeUserImg" alt="Avatar" class="w3-circle"></a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
+
+                    <br>
+                </li>
+            </ul>
+
 
         </div>
 

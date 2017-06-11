@@ -90,6 +90,16 @@ angular.module('myApp.newProjectView', ['ngRoute'])
             $scope.error=error;
         });
 
+        //costruisco un vettore troupers per creare un elenco di stringhe dentro il JSON per gli utenti che collaborano
+        var troupers = [];
+
+        // NON FUNZIONA!!
+        $scope.addTroupers=function (userID) {
+            //popolare il vettore troupers
+            console.log("Trouper aggiunto: " + userID.UID);
+            troupers.push(userID.UID);
+        }
+
         $scope.createProjectDB=function() {
 
             console.log("entrato in create project");
@@ -144,36 +154,45 @@ angular.module('myApp.newProjectView', ['ngRoute'])
             localStorage.projectType = projType;
             localStorage.projectGenre = projGenre;
             localStorage.joinLast = projDesc;
+            localStorage.owner = UID;
 
-            var dateOfCreation = (new Date()).getTime();
+            var date = new Date();
+            var dateOfCreation = date.getDay()+"/"+date.getMonth()+"/"+date.getYear();
 
             // ID di progetto formato da id utente e nome del progetto.. se uno crea due progetti con stesso nome c'è il time
-            var PID = UID + "_" + dateOfCreation + "_" + projTitle;
+            var PID = UID + "_" + (new Date()).getTime() + "_" + projTitle;
+            localStorage.PID = PID;
+
 
             var database = firebase.database();
 
             console.log("PID: " + PID);
 
+            //troupers.push(UID); // il vettore è popolato anche con gli altri utenti tramite funzione addTroupers(vedi sopra)
+
             //bisogna usare il codice univoco del userID generato da firebase per un lavoro migliore
             database.ref('projects/' + PID).set({
+                owner: UID,
                 title: projTitle,
                 type: projType,
                 genre: projGenre,
                 description: projDesc,
                 dateOfCreation: dateOfCreation,
                 progress: 'In Progress'
+                //troupers: troupers
             }).then(function () {
                 console.log("creato project in DB; PID: " + PID);
                 var obj = $firebaseObject(database.ref('projects/' + PID));
                 obj.$loaded().then(function () {
                     $scope.project = obj;
+                    localStorage.attOwner = UID;
                     localStorage.attTitle = obj.title;
                     localStorage.attType = obj.type;
                     localStorage.attGenre = obj.genre;
                     localStorage.attDescription = obj.description;
                     localStorage.attDateOfCreation = obj.dateOfCreation;
-                    localStorage.attProgress = obj.progress;
-                    $scope.openHome();
+                    //localStorage.attTroupers=JSON.stringify(obj.troupers);
+                    $scope.goToMyProjects();
                 }).catch(function (error) {
                     $scope.error = error;
                     console.log("sono qui");

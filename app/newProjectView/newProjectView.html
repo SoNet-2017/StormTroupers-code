@@ -133,7 +133,7 @@
                                 <h4>{{user.name}} {{user.lastName}}</h4>
                             </div>
                             <div class=" w3-right" id="linkNewU">
-                                <a><i class="glyphicon glyphicon-plus w3-xlarge"></i></a>
+                                <a ng-click="addTroupers(user)"><i class="glyphicon glyphicon-plus w3-xlarge"></i></a>
                             </div>
                         </div>
 
@@ -141,10 +141,8 @@
                 </li>
             </ul>
         </div>
-        <div>
-            <button ng-click="createProjectDB()" class="w3-button w3-dark-gray w3-right">Create</button>
-            <button ng-click="goToMyProjects()" class="w3-button w3-dark-gray w3-right">Cancel</button>
-        </div>
+        <button ng-click="createProjectDB()" class="w3-button w3-dark-gray">Create</button>
+        <button ng-click="goToMyProjects()" class="w3-button w3-dark-gray w3-opacity">Cancel</button>
     </div>
 </div>
 </div>
