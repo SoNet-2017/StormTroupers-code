@@ -62,6 +62,10 @@
                 class="glyphicon glyphicon-cog w3-large"></i></a>
     </div>
 
+    <div id="alertBoxDiv">
+
+    </div>
+
     <div id="myProjectsContainer" class="w3-col l8 m8 s8 w3-card-2">
         <h2>New Project</h2>
         <br>
@@ -71,31 +75,34 @@
         </div>
 
         <div id="projInfoContainer" class="w3-col s4 m4 l4 w3-left w3-animate-opacity">
-            <input type="text" ng-model="projectName" class="w3-input w3-border" placeholder="Project Title"
-                   required><br>
-            <select ng-model="projectType" class="form-control w3-input w3-border" required>
-                <option value="" selected="selected">Select Type</option>
-                <option value="shortMmovie">Short movie / Movie</option>
-                <option value="tvShow">TV Serie</option>
-                <option value="promo">Promo</option>
-                <option value="advertisement">Advertisement</option>
-            </select>
-            <select ng-model="projectGenre" class="form-control w3-input w3-border">
-                <option value="" selected="selected">Select Genre</option>
-                <option value="action">Action</option>
-                <option value="animation">Animation</option>
-                <option value="comedy">Comedy</option>
-                <option value="drama">Drama</option>
-                <option value="erotic">Erotic</option>
-                <option value="hystorical">Hystorical</option>
-                <option value="horror">Horror</option>
-                <option value="martialArts">Martial Arts</option>
-                <option value="musical">Musical</option>
-                <option value="romance">Romance</option>
-                <option value="scifi">Sci-Fi</option>
-                <option value="war">War</option>
-                <option value="western">Western</option>
-            </select>
+            <form name="formInfo">
+                <input type="text" ng-model="projectName" id="projectName" name="projectName" class="w3-input w3-border"
+                       placeholder="Project Title"
+                       required><br>
+                <select id="projectType" ng-model="projectType" class="form-control w3-input w3-border" required>
+                    <option value="" selected="selected">Select Type</option>
+                    <option value="shortMmovie">Short movie / Movie</option>
+                    <option value="tvShow">TV Serie</option>
+                    <option value="promo">Promo</option>
+                    <option value="advertisement">Advertisement</option>
+                </select>
+                <select id="projectGenre" ng-model="projectGenre" class="form-control w3-input w3-border">
+                    <option value="" selected="selected">Select Genre</option>
+                    <option value="action">Action</option>
+                    <option value="animation">Animation</option>
+                    <option value="comedy">Comedy</option>
+                    <option value="drama">Drama</option>
+                    <option value="erotic">Erotic</option>
+                    <option value="hystorical">Hystorical</option>
+                    <option value="horror">Horror</option>
+                    <option value="martialArts">Martial Arts</option>
+                    <option value="musical">Musical</option>
+                    <option value="romance">Romance</option>
+                    <option value="scifi">Sci-Fi</option>
+                    <option value="war">War</option>
+                    <option value="western">Western</option>
+                </select>
+            </form>
             <br>
         </div>
         <div class="w3-container">
@@ -106,7 +113,7 @@
         </div>
         <br>
         <div class="w3-container">
-            <textarea type="text" ng-model="projectDescription"
+            <textarea type="text" ng-model="projectDescription" id="projectDescription"
                       class="w3-input w3-border w3-col s7 m7 l7 w3-left w3-animate-opacity" placeholder="Description"
                       style="margin-left: 20px; margin-bottom: 20px"></textarea>
             <br>
@@ -133,6 +140,10 @@
                     </div>
                 </li>
             </ul>
+        </div>
+        <div>
+            <button ng-click="createProjectDB()" class="w3-button w3-dark-gray w3-right">Create</button>
+            <button ng-click="goToMyProjects()" class="w3-button w3-dark-gray w3-right">Cancel</button>
         </div>
     </div>
 </div>

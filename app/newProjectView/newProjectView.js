@@ -56,17 +56,17 @@ angular.module('myApp.newProjectView', ['ngRoute'])
 
         $scope.goToMyProjects=function() {
             $location.path("/myProjectsView");
-        }
+        };
 
         // CAMBIARE URL
         $scope.goToProjectX=function() {
             $location.path("/myProjectsView");
-        }
+        };
 
         // CAMBIARE URL
         $scope.goToPublicProfile=function(userID) {
             $location.path("/homePageView");
-        }
+        };
 
         var UID=localStorage.UID;
         var database=firebase.database();
@@ -89,6 +89,101 @@ angular.module('myApp.newProjectView', ['ngRoute'])
         }).catch(function (error) {
             $scope.error=error;
         });
+
+        $scope.createProjectDB=function() {
+
+            console.log("entrato in create project");
+
+            $scope.error = null;
+
+            var projTitle = document.getElementById("projectName").value;
+
+            if(projTitle === "") {
+                //////////////////////////////////////////////////////////
+                var errorMainDiv = document.getElementById("alertBoxDiv");
+                var errorDiv = document.createElement("div");
+                errorDiv.className = "w3-panel w3-round-large w3-row";
+                errorDiv.style.display = "flex";
+                errorDiv.style.justifyContent = "center";
+                errorDiv.style.backgroundColor = "indianred";
+                errorDiv.style.opacity = "0.8";
+                errorDiv.style.color = "white";
+                errorMainDiv.appendChild(errorDiv);
+
+                var errorIcon = document.createElement("div");
+                errorIcon.className = "w3-col s1 m1 l1 w3-left";
+                errorIcon.style.display = "flex";
+                errorIcon.style.justifyContent = "left";
+                errorIcon.style.padding = "7.5px";
+                errorIcon.style.verticalAlign = "middle";
+                errorDiv.appendChild(errorIcon);
+
+                var errorIconGlyph = document.createElement("i");
+                errorIconGlyph.className = "w3-xlarge glyphicon glyphicon-exclamation-sign";
+                errorIcon.appendChild(errorIconGlyph);
+
+                var errorText = document.createElement("h4");
+                errorText.className = "w3-col s11 m11 l11";
+                errorText.style.color = "white";
+                errorDiv.appendChild(errorText);
+                errorText.innerHTML="Title is required.";
+                return;
+            }
+
+            var projType = document.getElementById("projectType").value;
+            var projGenre = document.getElementById('projectGenre').value;
+
+            var projDesc = document.getElementById('projectDescription').value;
+
+            console.log("Title: " + projTitle);
+            console.log("Type: " + projType);
+            console.log("Genre: " + projGenre);
+            console.log("Descr: " + projDesc);
+
+            localStorage.projectTitle = projTitle;
+            localStorage.projectType = projType;
+            localStorage.projectGenre = projGenre;
+            localStorage.joinLast = projDesc;
+
+            var dateOfCreation = (new Date()).getTime();
+
+            // ID di progetto formato da id utente e nome del progetto.. se uno crea due progetti con stesso nome c'è il time
+            var PID = UID + "_" + dateOfCreation + "_" + projTitle;
+
+            var database = firebase.database();
+
+            console.log("PID: " + PID);
+
+            //bisogna usare il codice univoco del userID generato da firebase per un lavoro migliore
+            database.ref('projects/' + PID).set({
+                title: projTitle,
+                type: projType,
+                genre: projGenre,
+                description: projDesc,
+                dateOfCreation: dateOfCreation,
+                progress: 'In Progress'
+            }).then(function () {
+                console.log("creato project in DB; PID: " + PID);
+                var obj = $firebaseObject(database.ref('projects/' + PID));
+                obj.$loaded().then(function () {
+                    $scope.project = obj;
+                    localStorage.attTitle = obj.title;
+                    localStorage.attType = obj.type;
+                    localStorage.attGenre = obj.genre;
+                    localStorage.attDescription = obj.description;
+                    localStorage.attDateOfCreation = obj.dateOfCreation;
+                    localStorage.attProgress = obj.progress;
+                    $scope.openHome();
+                }).catch(function (error) {
+                    $scope.error = error;
+                    console.log("sono qui");
+                })
+
+            }).catch(function (error) {
+                console.log("sono qui22");
+                $scope.error = error;
+            });
+        };
 
         $scope.logout = function () {
             Users.registerLogout(currentAuth.uid);
