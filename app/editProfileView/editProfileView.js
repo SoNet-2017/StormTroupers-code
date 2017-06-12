@@ -144,9 +144,71 @@ angular.module('myApp.editProfileView', ['ngRoute'])
 
             var role=$scope.profile.roles;
             for(var i=0; i<role.length; i++){
-                if(role[i]==="Producer"){
-
+                if(role[i]==="Producers"){
+                    document.getElementById("checkEditProducers").checked=true;
                 }
+                if(role[i]==="Animation"){
+                    document.getElementById("checkEditAnim").checked=true;
+                }
+                if(role[i]==="Audio/Music/Sound"){
+                    document.getElementById("checkEditAudio").checked=true;
+                }
+                if(role[i]==="Camera Crew/DP"){
+                    document.getElementById("checkEditDP").checked=true;
+                }
+                if(role[i]==="Crew art/Design/Scenic/Construction"){
+                    document.getElementById("checkEditArt").checked=true;
+                }
+                if(role[i]==="Director"){
+                    document.getElementById("checkEditDirect").checked=true;
+                }
+                if(role[i]==="Graphic designer"){
+                    document.getElementById("checkEditGraphicDes").checked=true;
+                }
+                if(role[i]==="Lighting/Electric"){
+                    document.getElementById("checkEditLight").checked=true;
+                }
+                if(role[i]==="Photographers"){
+                    document.getElementById("checkEditPhot").checked=true;
+                }
+                if(role[i]==="Post Production People"){
+                    document.getElementById("checkEditPostProd").checked=true;
+                }
+                if(role[i]==="Special Effects Crew"){
+                    document.getElementById("checkEditFX").checked=true;
+                }
+                if(role[i]==="Stylist/Vanities"){
+                    document.getElementById("checkEditStyle").checked=true;
+                }
+                if(role[i]==="Talent/Actors"){
+                    document.getElementById("checkEditActor").checked=true;
+                    if($scope.profile.race==="Caucasian"){
+                        document.getElementById("etnEditCauc").checked=true;
+                    }else if($scope.profile.race==="Hispanic"){
+                        document.getElementById("etnEditHisp").checked=true;
+                    }else if($scope.profile.race==="South_Asian"){
+                        document.getElementById("etnEditSAsi").checked=true;
+                    }else if($scope.profile.race==="Native_American"){
+                        document.getElementById("etnEditNati").checked=true;
+                    }else if($scope.profile.race==="African"){
+                        document.getElementById("etnEditAfri").checked=true;
+                    }else if($scope.profile.race==="Middle_Eastern"){
+                        document.getElementById("etnEditMidd").checked=true;
+                    }else if($scope.profile.race==="South_East_Asian"){
+                        document.getElementById("etnEditSEAs").checked=true;
+                    }else if($scope.profile.race==="Mixed"){
+                        document.getElementById("etnEditAmbi").checked=true;
+                    }
+                }
+                if(role[i]==="Talent/Casting - People"){
+                    document.getElementById("checkEditCast").checked=true;
+                }
+
+                if($scope.profile.description!==null || $scope.profile.description!==undefined){
+                    document.getElementById("editAboutMeText").value=$scope.profile.description;
+                }
+
+
             }
 
 
