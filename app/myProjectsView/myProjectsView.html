@@ -48,7 +48,7 @@
 
 </div>
 
-<div id="bodyHome" class="w3-container w3-col l12 s12 m12">
+<div id="bodyHome" class="w3-container w3-col l12 s12 m12" ng-init='DebugFunction()'>
     <div id="sideUserHome" class="w3-col l3 m3 s3 w3-card-2">
         <h3 id="userNameAndLastHome">{{profile.name}} {{profile.lastName}}</h3>
         <p id="userRolesHome"></p>
@@ -76,17 +76,17 @@
         <br>
         <div class="w3-container">
             <ul style="list-style: none">
-                <li ng-repeat="project in filterProjects">
+                <li ng-repeat="prj in filterProjectsSearch">
                     <div id="projectXPanel" class="w3-panel w3-card-2 w3-col l12 m12 s12">
                         <div class="w3-row w3-col l3 m3 s3 w3-left">
                             <img id="projectXimg">
                         </div>
                         <div id="projectXLink" class="w3-col l9 m9 s9">
-                            <h4><a ng-click="goToProjectX()">{{project.title}}</a></h4>
+                            <h4><a ng-click="goToProjectX()">{{prj.title}}</a></h4>
                             <hr>
                             <ul class="w3-left" style="list-style: none; text-align: left; padding-left: 25px">
                                 <li>TYPE</li>
-                                <li>IN PROGRESS</li>
+                                <li>{{prj.progress}}</li>
                             </ul>
                         </div>
 

@@ -96,21 +96,38 @@ angular.module('myApp.myProjectsView', ['ngRoute'])
 
 
         // non va e non so perchè D:
-        $scope.filterSearch={};
-        var UID = localStorage.UID;
+            $scope.filterProjects={};
+        var PID = localStorage.PID;
         var projectsBase = database.ref('projects/');
-        var projectQuery = projectsBase.limitToLast(10);
+        var projectQuery = projectsBase;
         $scope.filterProjects = $firebaseArray(projectQuery);
+        $scope.filterProjectsSearch={};
 
-        var owner = localStorage.UID;
-        var length=$scope.filterProjects.length;
-        console.log(length);
-        for (var i = 0; i < 10; i++) {
-            //if($scope.filterProjects[i].title === "ciao1")
-            {
-                console.log([$scope.filterProjects[i]]);
+
+        //DEBUGGGO
+        var projObj = $firebaseObject(database.ref('projects/' + PID));
+        projObj.$loaded().then(function () {
+        //resetta il filtersearch
+            $scope.filterProjectsSearch={};
+
+        //parte il coso per davvero
+            var length=$scope.filterProjects.length;
+            var j=0;
+            for(var i=0; i<length; i++){ //si scorre tutto l'array
+
+                if($scope.filterProjects[i].title === "ciao1" || $scope.filterProjects[i].title === "233") {
+                    $scope.filterProjectsSearch[j]=$scope.filterProjects[i];
+                    j++;
+                }
+
             }
-        }
+
+            console.log("i dovrebbe valere: "+i.toString());
+            console.log("length dovrebbe valere: "+length.toString());
+            console.log("projectti trovati: "+j.toString());
+
+        });
+
 
         $scope.logout = function () {
             Users.registerLogout(currentAuth.uid);
@@ -127,3 +144,4 @@ angular.module('myApp.myProjectsView', ['ngRoute'])
         };
 
     }]);
+
