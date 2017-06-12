@@ -106,6 +106,9 @@ angular.module('myApp.editProjectView', ['ngRoute'])
         var projObj = $firebaseObject(database.ref('projects/' + PID));
         projObj.$loaded().then(function () {
             $scope.prjTitle = projObj.title;
+        });var projObj = $firebaseObject(database.ref('projects/' + PID));
+        projObj.$loaded().then(function () {
+            $scope.prjTitle = projObj.title;
         });
 
         $scope.editProjectDB=function() {

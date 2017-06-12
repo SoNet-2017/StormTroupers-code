@@ -95,7 +95,6 @@ angular.module('myApp.myProjectsView', ['ngRoute'])
             $scope.error = error;
         });
 
-
         $scope.getProjectsFromDB={};
         var PID = localStorage.PID;
         var projectsBase = database.ref('projects/');
@@ -103,10 +102,10 @@ angular.module('myApp.myProjectsView', ['ngRoute'])
 
         var projObj = $firebaseObject(database.ref('projects/' + PID));
         projObj.$loaded().then(function () {
-        //resetta il filtersearch
+            //resetta il filtersearch
             $scope.filterProjects={};
 
-        //parte il coso per davvero
+            //parte il coso per davvero
             var length=$scope.getProjectsFromDB.length;
             var j=0;
             for(var i=0; i<length; i++){ //si scorre tutto l'array
@@ -116,6 +115,36 @@ angular.module('myApp.myProjectsView', ['ngRoute'])
                 }
             }
         });
+
+        $scope.popolaMyProjects = function () {
+            $scope.getProjectsFromDB={};
+            var PID = localStorage.PID;
+            var projectsBase = database.ref('projects/');
+            $scope.getProjectsFromDB = $firebaseArray(projectsBase);
+
+            var projObj = $firebaseObject(database.ref('projects/' + PID));
+            projObj.$loaded().then(function () {
+                //resetta il filtersearch
+                $scope.filterProjects={};
+
+                //parte il coso per davvero
+                var length=$scope.getProjectsFromDB.length;
+                var j=0;
+                for(var i=0; i<length; i++){ //si scorre tutto l'array
+                    if($scope.getProjectsFromDB[i].owner === UID) {
+                        $scope.filterProjects[j]=$scope.getProjectsFromDB[i];
+                        j++;
+                    }
+                }
+            })
+        };
+
+        // per cancellare i progetti
+        $scope.deleteProject = function (prj) {
+            console.log("sto per cancellare il progetto con PID: " + prj.pid);
+            database.ref('projects/' + prj.pid).remove();
+            $scope.popolaMyProjects();
+        };
 
         $scope.logout = function () {
             Users.registerLogout(currentAuth.uid);

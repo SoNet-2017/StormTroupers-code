@@ -163,7 +163,6 @@ angular.module('myApp.newProjectView', ['ngRoute'])
             var PID = UID + "_" + (new Date()).getTime() + "_" + projTitle;
             localStorage.PID = PID;
 
-
             var database = firebase.database();
 
             console.log("PID: " + PID);
