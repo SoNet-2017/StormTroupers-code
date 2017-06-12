@@ -101,9 +101,6 @@ angular.module('myApp.searchPageView', ['ngRoute'])
         $scope.filterUsers=$firebaseArray(userQuery);
 
 
-
-
-
         var obj = $firebaseObject(database.ref('users/'+UID));
         obj.$loaded().then(function () {
             $scope.profile=obj;

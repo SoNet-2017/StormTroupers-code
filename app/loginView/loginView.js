@@ -113,18 +113,6 @@ angular.module('myApp.loginView', ['ngRoute'])
                 alertText.innerHTML = "The password is wrong.";
                 alertText.style.color = "white";
                 alertDiv.appendChild(alertText);
-
-
-                /*<div id="alertBoxLoginDiv" ng-show="(loginForm.email.$touched && loginForm.email.$invalid) || (loginForm.password.$touched && loginForm.password.$invalid)">
-                    <div id="alertLoginBox" class="w3-panel w3-round-large w3-row">
-                        <div id="alertLoginIcon" class="w3-col s1 m1 l1 w3-left">
-                            <i class="w3-xlarge glyphicon glyphicon-exclamation-sign"></i>
-                    </div>
-                    <h4 id="loginErrorText" class="w3-col s11 m11 l11">Email and password are required.</h4>
-
-                </div>
-                </div>*/
-                //document.getElementById("loginErrorText").innerHTML = "The password is wrong.";
             });
         };
 
@@ -137,12 +125,6 @@ angular.module('myApp.loginView', ['ngRoute'])
             //allora salvo tutti i dati della prima pagina d'iscrizione in localStorage per poi recuperarli e creare il database nell'advancedJoin
             var joinEm=document.getElementById("joinEmail").value;
             var joinP=document.getElementById("joinPassword").value;
-
-
-            /*if(joinP.length < 6){
-                errorMainDiv.style.display = "block";
-                errorText.innerHTML = "The password should be at least 6 characters long.";
-            }*/
 
             var firstName = document.getElementById('joinName').value;
             var lastNameR = document.getElementById('joinLastName').value;
