@@ -23,6 +23,7 @@ angular.module('myApp', [
     'myApp.searchPageView',
     'myApp.myProjectsView',
     'myApp.newProjectView',
+    'myApp.editProjectView',
     'rzModule'
 ])
 

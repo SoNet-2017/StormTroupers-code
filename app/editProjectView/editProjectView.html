@@ -1,0 +1,149 @@
+<div class="w3-container w3-bar w3-top w3-card-2" id="topBarHome">
+
+
+    <a class="w3-bar-item w3-button" id="homeLinkHome" ng-click="goToDashboard()"><i
+            class="glyphicon glyphicon-home w3-large"></i></a>
+    <a class="w3-bar-item w3-button" id="userLinkHome" ng-click="goToSearchCrew()"><i
+            class="glyphicon glyphicon-user w3-large"></i></a>
+    <a class="w3-bar-item w3-button" id="projectsLinkHome"><i class="glyphicon glyphicon-film w3-large"></i></a>
+
+    <!--
+        <div class="w3-bar-item w3-dropdown-click" id="typeSearchHome">
+            <a ng-click="showSearchItem()" class=" glyphicon glyphicon-search w3-large" id="searchIconHome"></a>
+            <div class="w3-dropdown-content w3-bar-block w3-border" id="typeSearchContentHome">
+                <a href="#" class="w3-bar-item w3-button"><i class="glyphicon glyphicon-user"></i> Search Troupers</a>
+                <a href="#" class="w3-bar-item w3-button"><i class="glyphicon glyphicon-project"></i> Search Projects</a>
+            </div>
+        </div>
+        <input class="w3-input w3-border" type="text" id="searchBarHome">-->
+
+    <form id="searchItemHome">
+        <div class="input-group">
+            <input type="text" class="form-control" placeholder="Search">
+            <div class="input-group-btn">
+                <button class="btn btn-default" type="submit">
+                    <i class="glyphicon glyphicon-search"></i>
+                </button>
+            </div>
+        </div>
+    </form>
+
+
+    <div class="w3-bar-item w3-dropdown-click w3-right" id="logoBarHome">
+        <h4 id="userNameHome" ng-click="showLogoItem()">{{profile.name}}</h4>
+        <div class="w3-dropdown-content w3-bar-block w3-border w3-right" id="logoBarContentHome">
+            <a href="#" class="w3-bar-item w3-button"><i class="glyphicon glyphicon-user w3-large"></i> Your Public
+                Profile</a>
+            <a ng-click="goToEditProfile()" class="w3-bar-item w3-button"><i
+                    class="glyphicon glyphicon-pencil w3-large"></i> Edit Profile</a>
+            <a ng-click="logout()" class="w3-bar-item w3-button"><i class="glyphicon glyphicon-off w3-large"></i> Logout</a>
+        </div>
+
+    </div>
+
+    <div id="logoBarImgContainerHome">
+        <img class="w3-content" id="logoBarImgHome" alt="logo">
+    </div>
+
+
+</div>
+
+<div id="bodyHome" class="w3-container w3-col l12 s12 m12">
+    <div id="sideUserHome" class="w3-col l3 m3 s3 w3-card-2">
+        <h3 id="userNameAndLastHome">{{profile.name}} {{profile.lastName}}</h3>
+        <p id="userRolesHome"></p>
+        <p id="userCityHome"></p>
+        <img id="userPhotoHome">
+        <br>
+        <a ng-click="goToMyProjects()" class="w3-bar-item" id="userProjectHome">My Projects <i
+                class="glyphicon glyphicon-film w3-large"></i></a><br><br>
+        <a class="w3-bar-item" id="userTroupeHome">My Troupers <i class="glyphicon glyphicon-user w3-large"></i></a><br><br>
+        <a ng-click="goToEditProfile()" class="w3-bar-item" id="editProfileLinkHome">Edit Profile <i
+                class="glyphicon glyphicon-cog w3-large"></i></a>
+    </div>
+
+    <div id="alertBoxDiv">
+
+    </div>
+
+    <div id="myProjectsContainer" class="w3-col l8 m8 s8 w3-card-2">
+        <h2><!--Edit Project:(metterlo o no??)--> <strong>{{prjTitle}}</strong></h2>
+        <br>
+        <div id="projPicContainer" class="w3-col s3 m3 l3 w3-left w3-animate-opacity"
+             style="margin-left: 20px; margin-bottom: 10px">
+            <img id="projectPicture" class="w3-right">
+        </div>
+
+        <div id="projInfoContainer" class="w3-col s4 m4 l4 w3-left w3-animate-opacity">
+            <form name="formInfo">
+                <input type="text" ng-model="projectName" id="projectName" name="projectName" class="w3-input w3-border"
+                       placeholder="Project Title"
+                       required><br>
+                <select id="projectType" ng-model="projectType" class="form-control w3-input w3-border" required>
+                    <option value="" selected="selected">Select Type</option>
+                    <option value="Short movie / Movie">Short movie / Movie</option>
+                    <option value="TV Serie">TV Serie</option>
+                    <option value="Promo">Promo</option>
+                    <option value="Advertisement">Advertisement</option>
+                </select>
+                <select id="projectGenre" ng-model="projectGenre" class="form-control w3-input w3-border">
+                    <option value="" selected="selected">Select Genre</option>
+                    <option value="Action">Action</option>
+                    <option value="Animation">Animation</option>
+                    <option value="Comedy">Comedy</option>
+                    <option value="Drama">Drama</option>
+                    <option value="Erotic">Erotic</option>
+                    <option value="Hystorical">Hystorical</option>
+                    <option value="Horror">Horror</option>
+                    <option value="Martial Arts">Martial Arts</option>
+                    <option value="Musical">Musical</option>
+                    <option value="Romance">Romance</option>
+                    <option value="Sci-fi">Sci-fi</option>
+                    <option value="War">War</option>
+                    <option value="Western">Western</option>
+                </select>
+            </form>
+            <br>
+        </div>
+        <div class="w3-container">
+            <input class="w3-col s4 m4 l4 w3-left w3-animate-opacity" type="file" id="projPicUpload"
+                   multiple="multiple"
+                   style="margin-left: 20px"/>
+            <br>
+        </div>
+        <br>
+        <div class="w3-container">
+            <textarea type="text" ng-model="projectDescription" id="projectDescription"
+                      class="w3-input w3-border w3-col s7 m7 l7 w3-left w3-animate-opacity" placeholder="Description"
+                      style="margin-left: 20px; margin-bottom: 20px"></textarea>
+            <br>
+
+        </div>
+        <div class="w3-col s4 m4 l4 w3-left w3-animate-opacity w3-card-2 w3-dark-gray" style="margin-left: 30px">
+            <h4 style="text-align: left; padding-left: 20px; color: #b7c3b8">SHARE WITH:</h4>
+            <ul style="list-style: none; text-align: left">
+                <li ng-repeat="user in filterUsers" style="list-style: none; padding-top: 8px">
+                    <div class=" w3-container w3-card-2" style="padding: 10px; background-color: #b7c3b8">
+                        <div class="w3-left" id="newUImgContainer">
+                            <a id="troupeUserImgLink"><img id="newUImg" alt="Avatar" class="w3-left w3-circle"
+                                                           ng-click="goToPublicProfile(user.UID)"></a>
+                        </div>
+                        <div id="newUDesc">
+                            <div class="w3-container w3-row">
+                                <h4>{{user.name}} {{user.lastName}}</h4>
+                            </div>
+                            <div class=" w3-right" id="linkNewU">
+                                <a ng-click="addTroupers(user)"><i class="glyphicon glyphicon-plus w3-xlarge"></i></a>
+                            </div>
+                        </div>
+
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <button ng-click="editProjectDB()" class="w3-button w3-dark-gray">Save changes</button>
+        <button ng-click="goToMyProjects()" class="w3-button w3-dark-gray w3-opacity">Cancel</button>
+    </div>
+</div>
+</div>
+

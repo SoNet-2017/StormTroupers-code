@@ -56,21 +56,23 @@ angular.module('myApp.myProjectsView', ['ngRoute'])
 
         $scope.goToMyProjects = function () {
             $location.path("/myProjectsView");
-        }
+        };
 
         // CAMBIARE URL
-        $scope.goToProjectX = function () {
-            $location.path("/myProjectsView");
-        }
+        $scope.goToEditProjectX = function (prj_x) {
+            $location.path("/editProjectView");
+            console.log("Titolo passato: " + prj_x.pid);
+            localStorage.PID = prj_x.pid;
+        };
 
         // CAMBIARE URL
-        $scope.goToPublicProfile = function (userID) {
+        $scope.goToPublicProfile = function (user) {
             $location.path("/homePageView");
-        }
+        };
 
         $scope.goToNewProject = function () {
             $location.path("/newProjectView");
-        }
+        };
 
         var UID = localStorage.UID;
         var database = firebase.database();
