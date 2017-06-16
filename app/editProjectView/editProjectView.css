@@ -179,6 +179,4 @@
 
 #projectPicture{
     content: url("../../images/upload_pic.jpg");
-    max-width: 90%;
-    padding-right: 20px;
 }
