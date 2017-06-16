@@ -92,7 +92,9 @@ angular.module('myApp.searchPageView', ['ngRoute'])
             $location.path("/editProfileView");
         };
 
-
+        $scope.goToMyProjects=function () {
+            $location.path("/myProjectsView");
+        }
 
         var UID=localStorage.UID;
         var database=firebase.database();
