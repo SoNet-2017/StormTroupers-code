@@ -106,14 +106,15 @@ angular.module('myApp.editProjectView', ['ngRoute'])
         var projObj = $firebaseObject(database.ref('projects/' + PID));
         projObj.$loaded().then(function () {
             $scope.prjTitle = projObj.title;
-        });var projObj = $firebaseObject(database.ref('projects/' + PID));
-        projObj.$loaded().then(function () {
-            $scope.prjTitle = projObj.title;
+            $scope.projectName = projObj.title;
+            $scope.projectType = projObj.type;
+            $scope.projectGenre = projObj.genre;
+            $scope.projectDescription = projObj.description;
         });
 
         $scope.editProjectDB=function() {
 
-            console.log("entrato in create project");
+            console.log("sto salvando le modifche al project: "+$scope.prjTitle);
 
             $scope.error = null;
 
@@ -174,18 +175,17 @@ angular.module('myApp.editProjectView', ['ngRoute'])
             //troupers.push(UID); // il vettore è popolato anche con gli altri utenti tramite funzione addTroupers(vedi sopra)
 
             //bisogna usare il codice univoco del userID generato da firebase per un lavoro migliore
-            database.ref('projects/' + PID).set({
+            database.ref('projects/' + PID).update({
                 pid: PID,
                 owner: UID,
                 title: projTitle,
                 type: projType,
                 genre: projGenre,
                 description: projDesc,
-                dateOfCreation: dateOfCreation,
                 progress: 'In Progress'
                 //troupers: troupers
             }).then(function () {
-                console.log("creato project in DB; PID: " + PID);
+                console.log("salvate le modifiche al project in DB; PID: " + PID);
                 var obj = $firebaseObject(database.ref('projects/' + PID));
                 obj.$loaded().then(function () {
                     $scope.project = obj;
@@ -200,11 +200,11 @@ angular.module('myApp.editProjectView', ['ngRoute'])
                     $scope.goToMyProjects();
                 }).catch(function (error) {
                     $scope.error = error;
-                    console.log("sono qui");
+                    console.log("sono qui3");
                 })
 
             }).catch(function (error) {
-                console.log("sono qui22");
+                console.log("sono qui33");
                 $scope.error = error;
             });
         };
