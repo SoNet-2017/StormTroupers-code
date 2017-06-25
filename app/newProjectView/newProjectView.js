@@ -98,7 +98,7 @@ angular.module('myApp.newProjectView', ['ngRoute'])
             //popolare il vettore troupers
             console.log("Trouper aggiunto: " + userID.UID);
             troupers.push(userID.UID);
-        }
+        };
 
         $scope.createProjectDB=function() {
 
@@ -163,6 +163,9 @@ angular.module('myApp.newProjectView', ['ngRoute'])
             var PID = UID + "_" + (new Date()).getTime() + "_" + projTitle;
             localStorage.PID = PID;
 
+            var project_city = $scope.profile.province;
+            console.log("proj city: "+project_city);
+
             var database = firebase.database();
 
             console.log("PID: " + PID);
@@ -178,7 +181,8 @@ angular.module('myApp.newProjectView', ['ngRoute'])
                 genre: projGenre,
                 description: projDesc,
                 dateOfCreation: dateOfCreation,
-                progress: 'In Progress'
+                progress: 'In Progress',
+                city: project_city
                 //troupers: troupers
             }).then(function () {
                 console.log("creato project in DB; PID: " + PID);
@@ -192,6 +196,7 @@ angular.module('myApp.newProjectView', ['ngRoute'])
                     localStorage.attGenre = obj.genre;
                     localStorage.attDescription = obj.description;
                     localStorage.attDateOfCreation = obj.dateOfCreation;
+                    localStorage.attCity = obj.city;
                     //localStorage.attTroupers=JSON.stringify(obj.troupers);
                     $scope.goToMyProjects();
                 }).catch(function (error) {

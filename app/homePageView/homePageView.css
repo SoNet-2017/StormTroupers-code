@@ -131,8 +131,9 @@
 
 #newProjectShow{
     /*Per centrare il contenuto*/
-    display: flex;
-    justify-content: center;
+    text-align: center;
+    align-items:center;
+    vertical-align: middle;
     background-color: #636466;
     margin-right: 5%;
 }
@@ -151,6 +152,11 @@
 }
 
 #newUserTitle{
+    display: flex;
+    justify-content: center;
+}
+
+#newProjectTitle{
     display: flex;
     justify-content: center;
 }
@@ -206,5 +212,49 @@
 }
 
 #linkNewU a:hover{
+    cursor: pointer;
+}
+
+#newPImg{
+    content: url("../../images/StormTroupersLogo.png");
+    max-height: 75px;
+}
+
+#newPImgContainer{
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    align-items:center;
+    vertical-align: middle;
+}
+
+#newPDesc{
+    color: #636466;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    align-items:center;
+    vertical-align: middle;
+}
+
+#newPDesc h4{
+    color: #636466;
+}
+
+#linkNewP{
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    align-items:center;
+    vertical-align: middle;
+}
+
+#linkNewP a{
+    text-decoration: none;
+    color: #636466;
+    margin: 10px;
+}
+
+#linkNewP a:hover{
     cursor: pointer;
 }
