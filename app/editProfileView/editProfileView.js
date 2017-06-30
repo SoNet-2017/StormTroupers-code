@@ -53,7 +53,7 @@ angular.module('myApp.editProfileView', ['ngRoute'])
         };
 
         $scope.goToDashboard=function () {
-            $location.path("/homePageView")
+            $location.path("/homePageView");
         };
 
         $scope.goToSearchCrew=function () {
@@ -112,112 +112,292 @@ angular.module('myApp.editProfileView', ['ngRoute'])
                 }
             }
 
-            document.getElementById("editPEmail").value=$scope.profile.email;
-            document.getElementById("editPName").value=$scope.profile.name;
-            document.getElementById("editPLastName").value=$scope.profile.lastName;
+                $scope.editPEmail=$scope.profile.email;
+                $scope.editPName=$scope.profile.name;
+                $scope.editPLastName=$scope.profile.lastName;
 
-            document.getElementById("editPhone").value=$scope.profile.phone;
-            if($scope.profile.permissionToShowPhone===1){
-                document.getElementById("editCheckPermPhone").checked=true;
-            }
+                document.getElementById("editPhone").value=$scope.profile.phone;
+                if($scope.profile.permissionToShowPhone===1){
+                    document.getElementById("editCheckPermPhone").checked=true;
+                }
 
-            if($scope.profile.gender==="male"){
-                console.log("male");
-                document.getElementById("editPMale").checked=true;
-            }else{
-                console.log("female");
-                document.getElementById("editPFemale").checked=true;
-            }
-            document.getElementById("editPDateOfBirth").value=$scope.profile.dateOfBirth;
+                /*
+                if($scope.profile.gender==="male"){
+                    console.log("male");
+                    document.getElementById("editPMale").checked=true;
+                }else{
+                    console.log("female");
+                    document.getElementById("editPFemale").checked=true;
+                }*/
 
-            document.getElementById("editCountry").selected=$scope.profile.country;
-            document.getElementById("editProvince").selected=$scope.profile.province;
-            document.getElementById("editCity").selected=$scope.profile.city;
+                if($scope.profile.gender==="male"){
+                    $scope.gender=1;
+                }else if($scope.profile.gender==="female"){
+                    $scope.gender=0;
+                }
 
-            if($scope.profile.car===1){
-                document.getElementById("editCarYes").checked=true;
-            }else if($scope.profile.car===0){
-                document.getElementById("editCarNo").checked=true;
-            }
+                document.getElementById("editPDateOfBirth").value=$scope.profile.dateOfBirth;
 
-            if($scope.profile.payment===1){
-                document.getElementById("editPayYes").checked=true;
-            }else if($scope.profile.payment===0){
-                document.getElementById("editPayNo").checked=true;
-            }
+                /*
+                $scope.selectedCountry=$scope.profile.country;
+                $scope.selectedProvince=$scope.profile.province;
+                $scope.selectedCity=$scope.profile.city;*/
 
-            var role=$scope.profile.roles;
-            for(var i=0; i<role.length; i++){
-                if(role[i]==="Producers"){
-                    document.getElementById("checkEditProducers").checked=true;
+                $scope.carInfo=$scope.profile.car;
+
+                $scope.payment=$scope.profile.payment;
+
+                var role=$scope.profile.roles;
+                for(var i=0; i<role.length; i++){
+                    if(role[i]==="Producers"){
+                        document.getElementById("checkEditProducers").checked=true;
+                    }
+                    if(role[i]==="Animation"){
+                        document.getElementById("checkEditAnim").checked=true;
+                    }
+                    if(role[i]==="Audio/Music/Sound"){
+                        document.getElementById("checkEditAudio").checked=true;
+                    }
+                    if(role[i]==="Camera Crew/DP"){
+                        document.getElementById("checkEditDP").checked=true;
+                    }
+                    if(role[i]==="Crew art/Design/Scenic/Construction"){
+                        document.getElementById("checkEditArt").checked=true;
+                    }
+                    if(role[i]==="Director"){
+                        document.getElementById("checkEditDirect").checked=true;
+                    }
+                    if(role[i]==="Graphic designer"){
+                        document.getElementById("checkEditGraphicDes").checked=true;
+                    }
+                    if(role[i]==="Lighting/Electric"){
+                        document.getElementById("checkEditLight").checked=true;
+                    }
+                    if(role[i]==="Photographers"){
+                        document.getElementById("checkEditPhot").checked=true;
+                    }
+                    if(role[i]==="Post Production People"){
+                        document.getElementById("checkEditPostProd").checked=true;
+                    }
+                    if(role[i]==="Special Effects Crew"){
+                        document.getElementById("checkEditFX").checked=true;
+                    }
+                    if(role[i]==="Stylist/Vanities"){
+                        document.getElementById("checkEditStyle").checked=true;
+                    }
+                    if(role[i]==="Talent/Actors"){
+                        document.getElementById("checkEditActor").checked=true;
+                        if($scope.profile.race==="Caucasian"){
+                            document.getElementById("etnEditCauc").checked=true;
+                        }else if($scope.profile.race==="Hispanic"){
+                            document.getElementById("etnEditHisp").checked=true;
+                        }else if($scope.profile.race==="South_Asian"){
+                            document.getElementById("etnEditSAsi").checked=true;
+                        }else if($scope.profile.race==="Native_American"){
+                            document.getElementById("etnEditNati").checked=true;
+                        }else if($scope.profile.race==="African"){
+                            document.getElementById("etnEditAfri").checked=true;
+                        }else if($scope.profile.race==="Middle_Eastern"){
+                            document.getElementById("etnEditMidd").checked=true;
+                        }else if($scope.profile.race==="South_East_Asian"){
+                            document.getElementById("etnEditSEAs").checked=true;
+                        }else if($scope.profile.race==="Mixed"){
+                            document.getElementById("etnEditAmbi").checked=true;
+                        }
+                    }
+                    if(role[i]==="Talent/Casting - People"){
+                        document.getElementById("checkEditCast").checked=true;
+                    }
+
+                    if($scope.profile.description!==null || $scope.profile.description!==undefined){
+                        $scope.editAboutMeText=$scope.profile.description;
+                    }else{
+                        $scope.editAboutMeText="Description";
+                    }
+
+
                 }
-                if(role[i]==="Animation"){
-                    document.getElementById("checkEditAnim").checked=true;
+
+
+
+                $scope.updateCredentials=function () {
+                    var database=firebase.database();
+                    var trueOldPassword=$scope.profile.password;
+                    var oldPassword=document.getElementById("editPOldPassword").value;
+                    var newPassword=document.getElementById("editPPassword").value;
+                    var confNewPassword=document.getElementById("editPConfPassword").value;
+                    var newMail=document.getElementById("editPEmail").value;
+                    if(trueOldPassword===oldPassword && newPassword===confNewPassword){
+                        $scope.auth.$updatePassword(newPassword).then(function(){
+                            console.log("Password changed correctly!");
+                            database.ref('users/'+UID).update({
+                                email: newMail,
+                                password: newPassword
+                            }).catch(function (error) {
+                                $scope.error=error;
+                            })
+                        }).catch(function (error) {
+                            console.log(error);
+                        });
+
+                        $scope.auth.$updateEmail(newMail).then(function () {
+                            console.log("Email changed correctly!");
+                        }).catch(function (error) {
+                            console.log(error);
+                        })
+
+                    }
+                };
+
+
+            $scope.updateProfileB=function(){
+                var database=firebase.database();
+                var newName=document.getElementById("editPName").value;
+                var newLast=document.getElementById("editPLastName").value;
+                var newGender;
+                if(document.getElementById("editPMale").checked){
+                    newGender="male";
+                }else if(document.getElementById("editPFemale").checked){
+                    newGender="female";
+                }else{
+                    newGender=$scope.profile.gender;
                 }
-                if(role[i]==="Audio/Music/Sound"){
-                    document.getElementById("checkEditAudio").checked=true;
+                var newDateOfBirth=document.getElementById("editPDateOfBirth").value;
+                var newPhone=document.getElementById("editPhone").value;
+                var newPermission;
+                if(document.getElementById("editCheckPermPhone").checked){
+                    newPermission=1;
+                }else{
+                    newPermission=0;
                 }
-                if(role[i]==="Camera Crew/DP"){
-                    document.getElementById("checkEditDP").checked=true;
+                /*
+                var countryNotParsed = document.getElementById("editCountry").value.split(':');
+                var newCountry = countryNotParsed[1];
+                var provinceNotParsed = document.getElementById("editProvince").value.split(':');
+                var newProvince = provinceNotParsed[1];
+                var cityNotParsed = document.getElementById("editCity").value.split(':');
+                var newCity = cityNotParsed[1];*/
+                var newCar;
+                if(document.getElementById("editCarYes").checked){
+                    newCar=1;
+                }else if(document.getElementById("editCarNo").checked){
+                    newCar=0;
+                }else{
+                    newCar=$scope.profile.car;
                 }
-                if(role[i]==="Crew art/Design/Scenic/Construction"){
-                    document.getElementById("checkEditArt").checked=true;
+                var newPay;
+                if(document.getElementById("editPayYes").checked){
+                    newPay=1;
+                }else if(document.getElementById("editPayNo").checked){
+                    newPay=0;
+                }else{
+                    newPay=$scope.profile.payment;
                 }
-                if(role[i]==="Director"){
-                    document.getElementById("checkEditDirect").checked=true;
+                var newDescr=document.getElementById("editAboutMeText").value;
+
+                var newRace = "None";
+
+                //costruisco un vettore roles per creare un elenco di stringhe dentro il JSON
+                var newRoles = [];
+                if (document.getElementById("checkEditAnim").checked) {
+                    newRoles.push("Animation");
                 }
-                if(role[i]==="Graphic designer"){
-                    document.getElementById("checkEditGraphicDes").checked=true;
+                if (document.getElementById("checkEditAudio").checked) {
+                    newRoles.push("Audio/Music/Sound");
                 }
-                if(role[i]==="Lighting/Electric"){
-                    document.getElementById("checkEditLight").checked=true;
+                if (document.getElementById("checkEditDP").checked) {
+                    newRoles.push("Camera Crew/DP");
                 }
-                if(role[i]==="Photographers"){
-                    document.getElementById("checkEditPhot").checked=true;
+                if (document.getElementById("checkEditArt").checked) {
+                    newRoles.push("Crew art/Design/Scenic/Construction");
                 }
-                if(role[i]==="Post Production People"){
-                    document.getElementById("checkEditPostProd").checked=true;
+                if (document.getElementById("checkEditDirect").checked) {
+                    newRoles.push("Director");
                 }
-                if(role[i]==="Special Effects Crew"){
-                    document.getElementById("checkEditFX").checked=true;
+                if (document.getElementById("checkEditGraphicDes").checked) {
+                    newRoles.push("Graphic designer");
                 }
-                if(role[i]==="Stylist/Vanities"){
-                    document.getElementById("checkEditStyle").checked=true;
+                if (document.getElementById("checkEditLight").checked) {
+                    newRoles.push("Lighting/Electric");
                 }
-                if(role[i]==="Talent/Actors"){
-                    document.getElementById("checkEditActor").checked=true;
-                    if($scope.profile.race==="Caucasian"){
-                        document.getElementById("etnEditCauc").checked=true;
-                    }else if($scope.profile.race==="Hispanic"){
-                        document.getElementById("etnEditHisp").checked=true;
-                    }else if($scope.profile.race==="South_Asian"){
-                        document.getElementById("etnEditSAsi").checked=true;
-                    }else if($scope.profile.race==="Native_American"){
-                        document.getElementById("etnEditNati").checked=true;
-                    }else if($scope.profile.race==="African"){
-                        document.getElementById("etnEditAfri").checked=true;
-                    }else if($scope.profile.race==="Middle_Eastern"){
-                        document.getElementById("etnEditMidd").checked=true;
-                    }else if($scope.profile.race==="South_East_Asian"){
-                        document.getElementById("etnEditSEAs").checked=true;
-                    }else if($scope.profile.race==="Mixed"){
-                        document.getElementById("etnEditAmbi").checked=true;
+                if (document.getElementById("checkEditPhot").checked) {
+                    newRoles.push("Photographers");
+                }
+                if (document.getElementById("checkEditPostProd").checked) {
+                    newRoles.push("Post Production People");
+                }
+                if (document.getElementById("checkEditProducers").checked) {
+                    newRoles.push("Producers");
+                }
+                if (document.getElementById("checkEditFX").checked) {
+                    newRoles.push("Special Effects Crew");
+                }
+                if (document.getElementById("checkEditStyle").checked) {
+                    newRoles.push("Stylist/Vanities");
+                }
+                if (document.getElementById("checkEditActor").checked) {
+                    newRoles.push("Talent/Actors");
+                    if (document.getElementById("etnEditCauc").checked) {
+                        newRace = "Caucasian";
+                    }
+                    if (document.getElementById("etnEditHisp").checked) {
+                        newRace = "Hispanic";
+                    }
+                    if (document.getElementById("etnSEditAsi").checked) {
+                        newRace = "South_Asian";
+                    }
+                    if (document.getElementById("etnEditNati").checked) {
+                        newRace = "Native_American";
+                    }
+                    if (document.getElementById("etnEditAfri").checked) {
+                        newRace = "African";
+                    }
+                    if (document.getElementById("etnEditMidd").checked) {
+                        newRace = "Middle_Eastern";
+                    }
+                    if (document.getElementById("etnEditSEAs").checked) {
+                        newRace = "South_East_Asian";
+                    }
+                    if (document.getElementById("etnEditAmbi").checked) {
+                        newRace = "Mixed";
                     }
                 }
-                if(role[i]==="Talent/Casting - People"){
-                    document.getElementById("checkEditCast").checked=true;
+                if (document.getElementById("checkEditCast").checked) {
+                    newRoles.push("Talent/Casting - People");
                 }
 
-                if($scope.profile.description!==null || $scope.profile.description!==undefined){
-                    document.getElementById("editAboutMeText").value=$scope.profile.description;
-                }
+                var newBase=database.ref('users/'+UID);
 
+                database.ref('users/'+UID).update({
+                    name: newName,
+                    lastName: newLast,
+                    phone: newPhone,
+                    permissionToShowPhone: newPermission,
+                    gender: newGender,
+                    roles: newRoles,
+                    race: newRace,
+                    /*
+                    country: newCountry,
+                    province: newProvince,
+                    city: newCity,
+                    */
+                    car: newCar,
+                    payment: newPay,
+                    description: newDescr,
+                    dateOfBirth: newDateOfBirth
+                }).then(function () {
+                    var nObj=$firebaseObject(database.ref('users/'+UID));
+                    nObj.$loaded().then(function () {
+                        $scope.profile=nObj;
+                        $scope.goToDashboard();
+                    }).catch(function (error) {
+                        $scope.error=error;
+                    })
+                }).catch(function (error) {
+                    $scope.error=error;
+                })
 
-            }
-
-
-
-
+            };
 
         }).catch(function (error) {
             $scope.error=error;

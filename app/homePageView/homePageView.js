@@ -95,7 +95,7 @@ angular.module('myApp.homePageView', ['ngRoute'])
              }
              */
 
-            //seconda versione algoritmo (Algoritmo Cazzo di Marte)
+            //seconda versione algoritmo (Algoritmo Mazzo di Carte)
             var tempCont;
             var rand1=0;
             var rand2=0;

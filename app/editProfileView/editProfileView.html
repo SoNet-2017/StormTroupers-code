@@ -58,6 +58,7 @@
                 <br>
                 <input id="editPConfPassword" name="editPConfirmPW" ng-model="editPConfirmPW" type="password" class="w3-input w3-border" placeholder="Confirm new password" required>
                 <br>
+                <button id="editCredentialsButton" class="w3-button w3-right" ng-click="updateCredentials()">Save new credentials</button>
             </form>
         </div>
         <br>
@@ -70,10 +71,10 @@
                 <br>
                 <div class="w3-row-padding">
                     <div class="w3-half">
-                        <input class="w3-radio" type="radio" ng-model="gender" value="male"
+                        <input class="w3-radio" type="radio" ng-model="gender" ng-value="1"
                                id="editPMale"><label>Male</label>
                         <br>
-                        <input class="w3-radio" type="radio" ng-model="gender" value="female"
+                        <input class="w3-radio" type="radio" ng-model="gender" ng-value="0"
                                id="editPFemale"><label>Female</label>
                     </div>
                     <div class="w3-half">
@@ -86,6 +87,7 @@
                 <input id="editPhone" type="text" class="w3-input w3-border" placeholder="Phone">
                 <input id="editCheckPermPhone" type="checkbox" class="w3-check"><label>Permission to show</label>
                 <br><br>
+                <!--
                 <select id="editCountry" ng-model="selectedCountry" ng-options="country for country in countries"
                         class="form-control w3-col s4 m4 l4" ng-change="loadProvinces(selectedCountry)" required>
                     <option value="" selected="selected">Select Country</option>
@@ -99,21 +101,22 @@
                     <option value="" selected="selected">Select City</option>
                 </select>
                 <br><br>
+                -->
                 <div class="w3-container">
                     <div class="w3-col l5 m5 s5">
                         <h4>Do you have a car?</h4>
                         <form>
-                            <input type="radio" value="1" class="w3-radio" ng-model="carInfo" id="editCarYes"><label>Yes</label>
+                            <input type="radio" ng-value="1" class="w3-radio" ng-model="carInfo" name="carInfo" id="editCarYes"><label>Yes</label>
                             <br>
-                            <input type="radio" value="0" class="w3-radio" ng-model="carInfo" id="editCarNo"><label>No</label>
+                            <input type="radio" ng-value="0" class="w3-radio" ng-model="carInfo" name="carInfo" id="editCarNo"><label>No</label>
                         </form>
                     </div>
                     <div class="w3-col l5 m5 s5">
                         <h4>Do you work only under payment?</h4>
                         <form>
-                            <input type="radio" value="1" class="w3-radio" ng-model="payment" id="editPayYes"><label>Yes</label>
+                            <input type="radio" ng-value="1" class="w3-radio" ng-model="payment" id="editPayYes"><label>Yes</label>
                             <br>
-                            <input type="radio" value="0" class="w3-radio" ng-model="payment" id="editPayNo"><label>No</label>
+                            <input type="radio" ng-value="0" class="w3-radio" ng-model="payment" id="editPayNo"><label>No</label>
                         </form>
                     </div>
                 </div>
@@ -187,10 +190,12 @@
                     <h4>About me</h4>
                     <div class="w3-container">
                         <form id="aboutMeForm">
-                            <textarea placeholder="Describe yourself" id="editAboutMeText"></textarea>
+                            <textarea placeholder="Describe yourself" ng-model="editAboutMeText" id="editAboutMeText"></textarea>
                         </form>
                     </div>
                 </div>
+                <br>
+                <button id="editProfileButton" class="w3-button w3-right" ng-click="updateProfileB()">Save new profile's informations</button>
 
             </form>
         </div>

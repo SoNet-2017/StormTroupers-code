@@ -119,4 +119,15 @@
     padding-top: 30px;
     padding-bottom: 30px;
     background-color: #b7c3b8;
+    color: #636466;
+}
+
+#editBlockContainer button{
+    background-color: #636466;
+    color: white;
+}
+
+#editBlockContainer h3{
+    color: #636466;
+    font-family: "ADAM.CG PRO";
 }
