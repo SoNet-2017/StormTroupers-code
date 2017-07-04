@@ -24,6 +24,7 @@ angular.module('myApp', [
     'myApp.myProjectsView',
     'myApp.newProjectView',
     'myApp.editProjectView',
+    'myApp.publicProjectPageView',
     'rzModule'
 ])
 

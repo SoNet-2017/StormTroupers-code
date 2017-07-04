@@ -230,6 +230,7 @@ angular.module('myApp.advancedJoinView', ['ngRoute'])
 
             //bisogna usare il codice univoco del userID generato da firebase per un lavoro migliore
             database.ref('users/' + UID).set({
+                uid: UID,
                 name: nameR,
                 lastName: lastNameR,
                 email: email,

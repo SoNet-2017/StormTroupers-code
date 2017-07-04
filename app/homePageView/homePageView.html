@@ -72,7 +72,8 @@
                     <div class="w3-container">
                         <ul style="list-style: none">
                             <li ng-repeat="project in filterProjects">
-                                <div class=" w3-container w3-card-2 w3-white" style="padding: 10px">
+                                <div class=" w3-container w3-card-2" style="padding: 10px; border-radius: 4mm; background-color: #b7c3b8">
+
                                     <div class="w3-left" id="newPImgContainer">
                                         <img id="newPImg" alt="Avatar" class="w3-left w3-circle">
                                     </div>
@@ -82,10 +83,9 @@
                                         </div>
                                     </div>
                                     <div class="w3-container w3-row" id="linkNewP">
-                                        <a ng-click="goToPublicProfile(user.UID)"><i
-                                                class="glyphicon glyphicon-user w3-xlarge"></i></a>
-                                        <a><i class="glyphicon glyphicon-comment w3-xlarge"></i></a>
-                                        <a><i class="glyphicon glyphicon-plus w3-xlarge"></i></a>
+                                        <a ng-click="goToPublicProjectPage(project)"><i
+                                                class="glyphicon glyphicon-eye-open w3-xlarge"></i></a>
+                                        <a ng-click=""><i class="glyphicon glyphicon-heart-empty w3-xlarge"></i></a>
                                     </div>
                                 </div>
                                 <br>
@@ -100,7 +100,7 @@
                     <div class="w3-container">
                         <ul style="list-style: none">
                             <li ng-repeat="user in filterSearch">
-                                <div class=" w3-container w3-card-2 w3-white" style="padding: 10px">
+                                <div class=" w3-container w3-card-2" style="padding: 10px; border-radius: 4mm; background-color: #b7c3b8">
                                     <div class="w3-left" id="newUImgContainer">
                                         <img id="newUImg" alt="Avatar" class="w3-left w3-circle">
                                     </div>
