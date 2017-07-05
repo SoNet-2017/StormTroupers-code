@@ -97,10 +97,34 @@ angular.module('myApp.publicProfilePageView', ['ngRoute'])
                     document.getElementById("userRoles").innerHTML+=", ";
                 }
             }
-
+            $scope.calculateAge();
         }).catch(function (error) {
             $scope.error=error;
         });
+
+        $scope.calculateAge=function () {
+            var ageString = $scope.otherUser.dateOfBirth;
+            var ageStringYear = ageString.slice(0, 4);
+            var ageIntYear = parseInt(ageStringYear);
+            var ageStringMonth = ageString.slice(5, 7);
+            var ageIntMonth = parseInt(ageStringMonth);
+            var ageStringDay = ageString.slice(8, 10);
+            var ageIntDay = parseInt(ageStringDay);
+
+            var actorAge = ageIntDay + (ageIntMonth * 30) + (ageIntYear * 365);
+
+            var today = new Date();
+            var dd = today.getDate();
+            var mm = today.getMonth()+1; //January is 0!
+            var yyyy = today.getFullYear();
+
+            console.log ("Date con la function: "+dd+"/"+mm+"/"+yyyy);
+
+            var currentDate = dd + (mm * 30) + (yyyy * 365);
+
+            var ageInDays = currentDate - actorAge;
+            $scope.age = Math.floor(ageInDays / 365);
+        };
 
         $scope.logout = function () {
             Users.registerLogout(currentAuth.uid);
