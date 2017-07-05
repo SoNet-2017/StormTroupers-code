@@ -58,9 +58,10 @@ angular.module('myApp.publicProjectPageView', ['ngRoute'])
             $location.path("/myProjectsView");
         };
 
-        // CAMBIARE URL
         $scope.goToPublicProfile=function(userID) {
-            $location.path("/homePageView");
+            $location.path("/publicProfilePageView");
+            console.log("utente che sto passando: "+userID);
+            localStorage.otherUserID = userID;
         };
 
         var database=firebase.database();

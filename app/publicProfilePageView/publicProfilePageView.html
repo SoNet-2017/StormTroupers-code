@@ -50,70 +50,93 @@
         <a ng-click="goToEditProfile()" class="w3-bar-item" id="editProfileLinkHome">Edit Profile <i
                 class="glyphicon glyphicon-cog w3-large"></i></a>
     </div>
+    <div class="w3-container w3-col l8 m8 s8">
+        <div id="profileGeneralInfoContainer" class="w3-container  w3-col l12 m12 s12 w3-card-2">
 
-    <div id="profileBlockContainer" class="w3-container w3-col l8 m8 s8 w3-card-2">
-
-        <div id="pictureContainer" class="w3-container w3-col s4 m4 l4">
+            <div id="pictureContainer" class="w3-container w3-col s4 m4 l4">
             <span class="w3-left w3-animate-opacity"
                   style="margin-left: 20px; margin-bottom: 25px; width: 100%">
                 <img id="profilePicture" style="padding-right: 5px;">
 
             </span>
-        </div>
-        <div id="generalInfoContainer" class="w3-container w3-col s8 m8 l8">
-            <h4>About <strong>{{otherUser.name}} {{otherUser.lastName}}</strong></h4>
-            <div class="w3-container">
-                <div class="w3-col s1 m1 l1"><i class="glyphicon glyphicon-briefcase w3-large" style="padding-top: 8px"></i></div>
-                <div class="w3-col s11 m11 l11">
-                    <h5><p id="userRoles"></p></h5>
+            </div>
+            <div id="generalInfoContainer" class="w3-container w3-col s8 m8 l8">
+                <h4>About <strong>{{otherUser.name}} {{otherUser.lastName}}</strong></h4>
+                <div class="w3-container">
+                    <div class="w3-col s1 m1 l1"><i class="glyphicon glyphicon-briefcase w3-large"
+                                                    style="padding-top: 8px"></i></div>
+                    <div class="w3-col s11 m11 l11">
+                        <h5><p id="userRoles"></p></h5>
+                    </div>
+                </div>
+                <div class="w3-container">
+                    <div class="w3-col s1 m1 l1"><i class="glyphicon glyphicon-map-marker w3-large"
+                                                    style="padding-top: 8px"></i></div>
+                    <div class="w3-col s11 m11 l11">
+                        <h5><p id="position">{{otherUser.city}}, {{otherUser.province}}, {{otherUser.country}}</p></h5>
+                    </div>
+                </div>
+                <div class="w3-container">
+                    <div class="w3-col s1 m1 l1"><i class="glyphicon glyphicon-pushpin w3-large"
+                                                    style="padding-top: 8px"></i></div>
+                    <div class="w3-col s11 m11 l11">
+                        <h5><p>{{otherUser.description}}</p></h5>
+                    </div>
                 </div>
             </div>
-            <div class="w3-container">
-                <div class="w3-col s1 m1 l1"><i class="glyphicon glyphicon-map-marker w3-large" style="padding-top: 8px"></i></div>
-                <div class="w3-col s11 m11 l11">
-                    <h5><p id="position">{{otherUser.city}}, {{otherUser.province}}, {{otherUser.country}}</p></h5>
-                </div>
+
+        </div>
+        <br>
+
+        <div id="profileProjectsContainer" class="w3-container w3-row w3-col l12 m12 s12 w3-card-2" style="margin-top: 30px">
+            <div id="projectsContainer" class="w3-container">
+                <h4>Current/Completed Projects</h4>
+
             </div>
-            <div class="w3-container">
-                <div class="w3-col s1 m1 l1"><i class="glyphicon glyphicon-pushpin w3-large" style="padding-top: 8px"></i></div>
-                <div class="w3-col s11 m11 l11">
-                    <h5><p>{{otherUser.description}}</p></h5>
-                </div>
+        </div>
+        <br>
+
+        <div id="profileLikedProjectsContainer" class="w3-container w3-row w3-col l12 m12 s12 w3-card-2" style="margin-top: 30px">
+            <div id="likedProjectsContainer" class="w3-container">
+                <h4>Projects <strong>{{otherUser.name}}</strong> is following</h4>
+
             </div>
-
         </div>
         <br>
-        <div id="projectsContainer" class="w3-container">
-            <h4>Current/Completed Projects</h4>
 
+        <div id="profileFriendsContainer" class="w3-container w3-row w3-col l12 m12 s12 w3-card-2" style="margin-top: 30px">
+            <div id="friendsContainer" class="w3-container">
+                <h4><strong>{{otherUser.name}}</strong>'s Troupers</h4>
+
+            </div>
         </div>
         <br>
-        <div id="likedProjectsContainer" class="w3-container">
-            <h4>Projects <strong>{{otherUser.name}}</strong> is following</h4>
 
+        <div id="profileEquipmentContainer" class="w3-container w3-row w3-col l12 m12 s12 w3-card-2" style="margin-top: 30px">
+            <div id="equipmentContainer" class="w3-container">
+                <h4>Equipment</h4>
+
+            </div>
         </div>
         <br>
-        <div id="friendsContainer" class="w3-container">
-            <h4><strong>{{otherUser.name}}</strong>'s Troupers</h4>
 
+        <div id="profilePortfolioContainer" class="w3-container w3-row w3-col l12 m12 s12 w3-card-2" style="margin-top: 30px">
+            <div id="portfolioContainer" class="w3-container">
+                <h4>Portfolio</h4>
+
+            </div>
         </div>
         <br>
-        <div id="equipmentContainer" class="w3-container">
-            <h4>Equipment</h4>
 
+        <div id="profileFeedbackContainer" class="w3-container w3-row w3-col l12 m12 s12 w3-card-2" style="margin-top: 30px">
+            <div id="feedbackContainer" class="w3-container">
+                <h4>What other Troupers say about <strong>{{otherUser.name}}</strong></h4>
+
+            </div>
         </div>
-        <br>
-        <div id="portfolioContainer" class="w3-container">
-            <h4>Portfolio</h4>
-
-        </div>
-        <br>
-        <div id="feedbackContainer" class="w3-container">
-            <h4>What other Troupers say about <strong>{{otherUser.name}}</strong></h4>
-
-        </div>
-
     </div>
+
+</div>
 
 </div>
 

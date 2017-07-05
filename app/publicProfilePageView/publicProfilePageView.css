@@ -115,7 +115,43 @@
 }
 /* Fine parte comune*/
 
-#profileBlockContainer{
+#profileGeneralInfoContainer{
+    padding-top: 30px;
+    padding-bottom: 30px;
+    background-color: #b7c3b8;
+}
+
+#profileProjectsContainer{
+    padding-top: 30px;
+    padding-bottom: 30px;
+    background-color: #b7c3b8;
+}
+
+#profileLikedProjectsContainer{
+    padding-top: 30px;
+    padding-bottom: 30px;
+    background-color: #b7c3b8;
+}
+
+#profileFriendsContainer{
+    padding-top: 30px;
+    padding-bottom: 30px;
+    background-color: #b7c3b8;
+}
+
+#profileEquipmentContainer{
+    padding-top: 30px;
+    padding-bottom: 30px;
+    background-color: #b7c3b8;
+}
+
+#profilePortfolioContainer{
+    padding-top: 30px;
+    padding-bottom: 30px;
+    background-color: #b7c3b8;
+}
+
+#profileFeedbackContainer{
     padding-top: 30px;
     padding-bottom: 30px;
     background-color: #b7c3b8;
