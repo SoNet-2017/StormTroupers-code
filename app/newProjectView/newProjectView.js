@@ -96,13 +96,19 @@ angular.module('myApp.newProjectView', ['ngRoute'])
         // NON FUNZIONA!!
         $scope.addTroupers=function (userID) {
             //popolare il vettore troupers
-            console.log("Trouper aggiunto: " + userID.UID);
-            troupers.push(userID.UID);
+            if(troupers.indexOf(userID)<0) {
+                console.log("Trouper aggiunto: " +  userID);
+                troupers.push(userID);
+            }
+            else console.log("trouper già inserito");
         };
 
         $scope.createProjectDB=function() {
 
             console.log("entrato in create project");
+            /*for(var i=0;i<troupers.length;i++){
+                console.log("troupers creati in progetto: "+troupers[i]+"\n");
+            }*/
 
             $scope.error = null;
 
@@ -182,8 +188,8 @@ angular.module('myApp.newProjectView', ['ngRoute'])
                 description: projDesc,
                 dateOfCreation: dateOfCreation,
                 progress: 'In Progress',
-                city: project_city
-                //troupers: troupers
+                city: project_city,
+                troupers: troupers
             }).then(function () {
                 console.log("creato project in DB; PID: " + PID);
                 var obj = $firebaseObject(database.ref('projects/' + PID));
@@ -197,15 +203,13 @@ angular.module('myApp.newProjectView', ['ngRoute'])
                     localStorage.attDescription = obj.description;
                     localStorage.attDateOfCreation = obj.dateOfCreation;
                     localStorage.attCity = obj.city;
-                    //localStorage.attTroupers=JSON.stringify(obj.troupers);
+                    localStorage.attTroupers=JSON.stringify(obj.troupers);
                     $scope.goToMyProjects();
                 }).catch(function (error) {
                     $scope.error = error;
-                    console.log("sono qui");
                 })
 
             }).catch(function (error) {
-                console.log("sono qui22");
                 $scope.error = error;
             });
         };

@@ -126,11 +126,15 @@
             </div>
             <div class="w3-col l9 m9 s9" style="align-content: center">
                 <ul class="w3-left" style="padding: 0px;">
-                    <li ng-repeat="user in filterUsers"
-                        style="display: inline-block; list-style: none; padding-top: 10px">
-                        <a id="troupeUserImgLink" ng-click="goToPublicProfile(user.uid)"><img id="troupeUserImg"
-                                                                                              alt="Avatar"
-                                                                                              class="w3-circle"></a>
+                    <li style="display: inline-block; list-style: none; padding-top: 10px">
+                        <a ng-click="goToPublicProfile(prj.owner)" style="cursor: pointer;">
+                            <img src="../images/StormTroupersLogo.png" alt="Avatar" class="w3-circle" style="max-height: 40px;margin: 5px;">
+                        </a>
+                        <!--<h4><a ng-click="goToPublicProfile(prj.owner)">{{prj.owner}}</a></h4>-->
+                    </li>
+                    <li ng-repeat="user in prj.troupers" style="display: inline-block; list-style: none; padding-top: 10px">
+                        <a id="troupeUserImgLink" ng-click="goToPublicProfile(user)"><img id="troupeUserImg" alt="Avatar" class="w3-circle"></a>
+                        <!--<h4><a ng-click="goToPublicProfile(user)">{{user}}</a></h4>-->
                     </li>
                 </ul>
             </div>

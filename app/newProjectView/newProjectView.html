@@ -129,14 +129,14 @@
                         <div class=" w3-container w3-card-2" style="padding: 10px; background-color: #b7c3b8">
                             <div class="w3-left" id="newUImgContainer">
                                 <a id="troupeUserImgLink"><img id="newUImg" alt="Avatar" class="w3-left w3-circle"
-                                                               ng-click="goToPublicProfile(user.UID)"></a>
+                                                               ng-click="goToPublicProfile(user.uid)"></a>
                             </div>
                             <div id="newUDesc">
                                 <div class="w3-container w3-row">
                                     <h4>{{user.name}} {{user.lastName}}</h4>
                                 </div>
                                 <div class=" w3-right" id="linkNewU">
-                                    <a ng-click="addTroupers(user)"><i
+                                    <a ng-click="addTroupers(user.uid)"><i
                                             class="glyphicon glyphicon-plus w3-xlarge"></i></a>
                                 </div>
                             </div>

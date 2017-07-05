@@ -89,7 +89,7 @@ angular.module('myApp.publicProfilePageView', ['ngRoute'])
         var otherUserID=localStorage.otherUserID;
         $scope.otherUser = $firebaseObject(database.ref('users/'+otherUserID));
         $scope.otherUser.$loaded().then(function () {
-            console.log("nome other user: "+$scope.otherUser.name+" ID: "+otherUserID);
+            console.log("nome other user: "+$scope.otherUser.name+" ID: "+otherUserID+" DESCR: "+$scope.otherUser.description);
             var userRoles = Object.values($scope.otherUser.roles);
             for(var i=0; i<userRoles.length; i++){
                 document.getElementById("userRoles").innerHTML+=userRoles[i];
