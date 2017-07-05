@@ -57,7 +57,9 @@ angular.module('myApp.homePageView', ['ngRoute'])
 
         // CAMBIARE URL
         $scope.goToPublicProfile=function(userID) {
-            $location.path("/homePageView");
+            $location.path("/publicProfilePageView");
+            console.log("utente che sto passando: "+userID);
+            localStorage.otherUserID = userID;
         };
 
         $scope.goToPublicProjectPage=function (project) {
