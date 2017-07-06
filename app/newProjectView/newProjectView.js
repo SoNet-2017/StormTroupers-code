@@ -203,7 +203,7 @@ angular.module('myApp.newProjectView', ['ngRoute'])
                     localStorage.attDescription = obj.description;
                     localStorage.attDateOfCreation = obj.dateOfCreation;
                     localStorage.attCity = obj.city;
-                    localStorage.attTroupers=JSON.stringify(obj.troupers);
+                    //localStorage.attTroupers=JSON.stringify(obj.troupers);
                     $scope.goToMyProjects();
                 }).catch(function (error) {
                     $scope.error = error;

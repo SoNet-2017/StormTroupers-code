@@ -62,19 +62,22 @@
                 class="glyphicon glyphicon-cog w3-large"></i></a>
     </div>
 
-    <div id="myProjectsContainer" class="w3-col l8 m8 s8 w3-card-2">
-        <div class="w3-tooltip" style="margin-bottom: 0px">
-            <h2>My Projects</h2>
-            <button ng-click="goToNewProject()" class="w3-button w3-circle w3-dark-gray w3-right" style="height: 60px; width: 60px; margin-right:35px; margin-bottom: 15px; padding: 15px; opacity: 0.8;">
-                <i class="glyphicon glyphicon-plus w3-xlarge"></i>
-                <span style="position:absolute;right:0;bottom:0px" class="w3-text w3-tag">Create new project!</span>
-            </button>
-            <!--<a ng-click="goToNewProject()" class="w3-button w3-left">Create new project</a>-->
-
+    <div id="myProjectsContainer" class="w3-col l8 m8 s8">
+        <div>
+            <h2 class="w3-col s11 m11 l11" style="color: white; margin-top: 0">My Projects</h2>
+            <div class="w3-col s1 m1 l1">
+                <div class="w3-tooltip">
+                    <a ng-click="goToNewProject()">
+                        <i class="glyphicon glyphicon-plus w3-xxlarge w3-left"
+                           style="color: white; cursor: pointer; margin-left: 10px"></i>
+                    </a>
+                    <h6 class="w3-center w3-text w3-tag"
+                        style="color: white; text-align: left; position:absolute;top: 0px; padding: 5px;">Create a new
+                        project!</h6>
+                </div>
+            </div>
         </div>
-
-        <br>
-        <div class="w3-container">
+        <div class="w3-row w3-container w3-col s12 m12 l12">
             <ul style="list-style: none">
                 <li ng-repeat="prj in filterProjects">
                     <div id="projectXPanel" class="w3-panel w3-card-2 w3-col l12 m12 s12">
@@ -85,9 +88,12 @@
                             <h4><a class="w3-left w3-col l10 m10 s10" ng-click="goToEditProjectX(prj.$id)">
                                 <strong>{{prj.title}}</strong>
                             </a></h4>
-                            <a><i class="w3-right w3-col l1 m1 s1 glyphicon glyphicon-pencil w3-xlarge" ng-click="goToEditProjectX(prj.$id)"></i></a>
-                            <a><i class="w3-right w3-col l1 m1 s1 glyphicon glyphicon-trash w3-xlarge" ng-click="deleteProject(prj.$id)"></i></a>
-                            <br><hr>
+                            <a><i class="w3-right w3-col l1 m1 s1 glyphicon glyphicon-pencil w3-xlarge"
+                                  ng-click="goToEditProjectX(prj.$id)"></i></a>
+                            <a><i class="w3-right w3-col l1 m1 s1 glyphicon glyphicon-trash w3-xlarge"
+                                  ng-click="deleteProject(prj.$id)"></i></a>
+                            <br>
+                            <hr style="margin-left: 7px; margin-right: 6px;">
                             <ul class="w3-left" style="list-style: none; text-align: left; padding-left: 25px">
                                 <li>{{prj.type}}</li>
                                 <li>{{prj.progress}}</li>
@@ -95,20 +101,23 @@
                         </div>
 
                         <!--div per vedere i membri della troupe-->
-                        <div id="containerTroupe" class="row w3-container w3-right">
-                            <div class="w3-col l4 m4 s4">
-                                <h5 style="margin-right: 20px;"> The Troupe: </h5>
+                        <div id="containerTroupe" class="row w3-container w3-right w3-col s8 m8 l8">
+                            <div class="w3-row w3-right">
+                                <h4 style="margin: 0;"> The Troupe: </h4>
                             </div>
-                            <div class="w3-col l8 m8 s8" style="align-content: center">
-                                <ul class="w3-left" style="padding: 0px;">
-                                    <li style="display: inline-block; list-style: none; padding-top: 10px">
+                            <div class="w3-row w3-col l12 m12 s12" style="align-content: center">
+                                <ul class="w3-right" style="margin-bottom: 20px; padding: 0;">
+                                    <li style="display: inline-block; list-style: none">
                                         <a ng-click="goToPublicProfile(prj.owner)" style="cursor: pointer;">
-                                            <img src="../images/StormTroupersLogo.png" alt="Avatar" class="w3-circle" style="max-height: 40px;margin: 5px;">
+                                            <img src="../images/StormTroupersLogo.png" alt="Avatar" class="w3-circle"
+                                                 style="max-height: 40px;margin: 5px;">
                                         </a>
                                         <!--<h4><a ng-click="goToPublicProfile(prj.owner)">{{prj.owner}}</a></h4>-->
                                     </li>
-                                    <li ng-repeat="user in prj.troupers" style="display: inline-block; list-style: none; padding-top: 10px">
-                                        <a id="troupeUserImgLink" ng-click="goToPublicProfile(user)"><img id="troupeUserImg" alt="Avatar" class="w3-circle"></a>
+                                    <li ng-repeat="user in prj.troupers"
+                                        style="display: inline-block; list-style: none; padding-top: 10px">
+                                        <a id="troupeUserImgLink" ng-click="goToPublicProfile(user)"><img
+                                                id="troupeUserImg" alt="Avatar" class="w3-circle"></a>
                                         <!--<h4><a ng-click="goToPublicProfile(user)">{{user}}</a></h4>-->
                                     </li>
                                 </ul>
@@ -124,6 +133,7 @@
         </div>
 
     </div>
+
 </div>
 </div>
 

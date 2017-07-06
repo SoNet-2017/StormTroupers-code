@@ -258,3 +258,13 @@
 #linkNewP a:hover{
     cursor: pointer;
 }
+
+#projectPic{
+    background-image: url("../../images/troopers.jpg");
+    background-size: cover;
+    min-height: 150px;
+}
+
+#projectPic a:hover{
+    cursor: pointer;
+}

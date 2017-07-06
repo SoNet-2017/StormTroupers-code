@@ -225,7 +225,7 @@ angular.module('myApp.advancedJoinView', ['ngRoute'])
                 roles.push("Talent/Casting - People");
             }
 
-
+            var friends = [];
             var database = firebase.database();
 
             //bisogna usare il codice univoco del userID generato da firebase per un lavoro migliore
@@ -246,6 +246,7 @@ angular.module('myApp.advancedJoinView', ['ngRoute'])
                 roles: roles,
                 race: race,
                 description: descriptionR, //c'era scritto "desciption" e l'ho corretto, ma non so se ho fatto bene?
+                friends:friends,
                 dateOfJoin: dateOfJ,
                 logged: true
             }).then(function () {

@@ -62,10 +62,10 @@ angular.module('myApp.homePageView', ['ngRoute'])
             localStorage.otherUserID = userID;
         };
 
-        $scope.goToPublicProjectPage=function (project) {
+        $scope.goToPublicProjectPage=function (projectID) {
             $location.path("/publicProjectPageView");
-            console.log("Sto pssando il pid: "+project.pid);
-            localStorage.PID = project.pid;
+            console.log("Sto pssando il pid: "+projectID);
+            localStorage.PID = projectID;
         };
 
         var UID=localStorage.UID;
@@ -106,15 +106,28 @@ angular.module('myApp.homePageView', ['ngRoute'])
         $scope.allProjects=$firebaseArray(projectBase);
         $scope.allProjects.$loaded().then(function () {
             ////////////////////////////////////////////////////////////////////////////////////
-            //per popolare con i progetti around you
+            //popolazione con i progetti around you
 
             //console.log("length: "+ $scope.allProjects.length);
-
+            //console.log("progetti: "+$scope.allProjects);
             var n=0;
-            for (var i=0; i < $scope.allProjects.length; i++) {
-                if(($scope.allProjects[i].city === $scope.profile.province)) {
+            var trovato=false;
+            var length = $scope.allProjects.length;
+            for (var i=0; i < length; i++) {
+                //console.log("UID: "+UID+"; OWNER: "+$scope.allProjects[i].owner);
+
+                // per popolare la bacheca around you con progetti non condivisi dall'utente loggato (ovviamente)
+                var length2=$scope.allProjects[i].troupers.length;
+                for(var k=0;k<length2; k++) {
+                    if($scope.allProjects[i].troupers[k] === UID) {
+                        console.log("trovato");
+                        trovato=true;
+                        break;
+                    }
+                }
+
+                if(($scope.allProjects[i].city === $scope.profile.province) && $scope.allProjects[i].owner !== UID && !trovato) {
                     $scope.filterProjects[n] = $scope.allProjects[i];
-                    //console.log("match: "+ $scope.filterProjects[n].title);
                     n++;
                 }
             }

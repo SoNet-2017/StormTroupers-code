@@ -115,34 +115,22 @@
 }
 /* Fine parte comune*/
 
-#newProjectContainer{
-    /*Per centrare il contenuto*/
+#friendsContainer{
+    padding-top: 30px;
+    padding-bottom: 30px;
+    background-color: #b7c3b8;
+}
+
+#userDesc{
+    color: #636466;
+    display: flex;
+    justify-content: center;
     text-align: center;
     align-items:center;
     vertical-align: middle;
-    background-color: #b7c3b8;
-    padding-bottom: 20px;
 }
 
-#newProjectContainer h2{
-    color: #636466;
-}
-
-#containerTroupe{
-    max-width: 100%;
-}
-
-#troupeUserImg{
-    content: url("../../images/StormTroupersLogo.png");
-    max-height: 40px;
-    margin: 5px;
-}
-#troupeUserImgLink{
-    cursor: pointer;
-}
-
-#projectPicture{
+#friendsPicture {
     content: url("../../images/upload_pic.jpg");
     max-width: 90%;
-    padding-right: 20px;
 }

@@ -66,7 +66,7 @@
 
     </div>
 
-    <div id="myProjectsContainer" class="w3-col l8 m8 s8 w3-card-2">
+    <div id="editProjectContainer" class="w3-col l8 m8 s8 w3-card-2">
         <h2>Edit Project: <strong>{{prjTitle}}</strong></h2>
         <br>
         <div class="w3-row">
@@ -103,6 +103,11 @@
                     <option value="War">War</option>
                     <option value="Western">Western</option>
                 </select>
+                <select id="projectProgress" ng-model="projectProgress" class="form-control w3-input w3-border">
+                    <option value="" selected="selected">Select Progress</option>
+                    <option value="In Progress">In Progress</option>
+                    <option value="Completed">Completed</option>
+                </select>
             </form>
             <br>
             <div class="w3-container">
@@ -136,7 +141,7 @@
                                 <h4>{{user.name}} {{user.lastName}}</h4>
                             </div>
                             <div class=" w3-right" id="linkNewU">
-                                <a ng-click="addTroupers(user)"><i
+                                <a ng-click="addTroupers(user.$id)"><i
                                         class="glyphicon glyphicon-plus w3-xlarge"></i></a>
                             </div>
                         </div>

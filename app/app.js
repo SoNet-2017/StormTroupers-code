@@ -26,6 +26,7 @@ angular.module('myApp', [
     'myApp.editProjectView',
     'myApp.publicProjectPageView',
     'myApp.publicProfilePageView',
+    'myApp.friendsPageView',
     'rzModule'
 ])
 
