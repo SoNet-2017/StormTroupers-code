@@ -58,9 +58,9 @@ angular.module('myApp.newProjectView', ['ngRoute'])
             $location.path("/myProjectsView");
         };
 
-        // CAMBIARE URL
-        $scope.goToEditProjectX=function() {
-            $location.path("/myProjectsView");
+        $scope.goToMyTroupers=function (userID) {
+            $location.path("/friendsPageView");
+            localStorage.otherUserID = userID;
         };
 
         // CAMBIARE URL
@@ -93,7 +93,6 @@ angular.module('myApp.newProjectView', ['ngRoute'])
         //costruisco un vettore troupers per creare un elenco di stringhe dentro il JSON per gli utenti che collaborano
         var troupers = [];
 
-        // NON FUNZIONA!!
         $scope.addTroupers=function (userID) {
             //popolare il vettore troupers
             if(troupers.indexOf(userID)<0) {

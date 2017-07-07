@@ -68,6 +68,11 @@ angular.module('myApp.editProfileView', ['ngRoute'])
             $location.path("/myProjectsView");
         };
 
+        $scope.goToMyTroupers=function (userID) {
+            $location.path("/friendsPageView");
+            localStorage.otherUserID = userID;
+        };
+
         $scope.loadProvinces = function (selectedCountry) {
 
             console.log("ng-change: selezionata nazione: " + selectedCountry);

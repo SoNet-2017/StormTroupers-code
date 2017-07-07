@@ -56,6 +56,11 @@ angular.module('myApp.friendsPageView', ['ngRoute'])
             $location.path("/myProjectsView");
         };
 
+        $scope.goToMyTroupers=function (userID) {
+            $location.path("/friendsPageView");
+            localStorage.otherUserID = userID;
+        };
+
         $scope.goToPublicProfile=function(userID) {
             $location.path("/publicProfilePageView");
             console.log("utente che sto passando: "+userID);
@@ -67,7 +72,7 @@ angular.module('myApp.friendsPageView', ['ngRoute'])
 
         $scope.profile = $firebaseObject(database.ref('users/'+UID));
         $scope.profile.$loaded().then(function () {
-            var role = Object.values(obj.roles);
+            var role = Object.values($scope.profile.roles);
             for(var i=0; i<role.length; i++){
                 document.getElementById("userRolesHome").innerHTML+=role[i];
                 if(i<role.length-1) {
@@ -83,29 +88,20 @@ angular.module('myApp.friendsPageView', ['ngRoute'])
         $scope.friends={};
         $scope.otherUser = $firebaseObject(database.ref('users/'+otherUserID));
         $scope.otherUser.$loaded().then(function () {
-            console.log("nome other user: "+$scope.otherUser.name+" ID: "+otherUserID+" DESCR: "+$scope.otherUser.description);
+            //console.log("nome other user: "+$scope.otherUser.name+" ID: "+otherUserID+" DESCR: "+$scope.otherUser.description);
             var length=$scope.otherUser.friends.length;
             var currFriendID;
-            console.log("length: "+length);
+            //console.log("length: "+length);
             for(var j=0; j<length; j++){
                 currFriendID=$scope.otherUser.friends[j];
-                console.log("curFriendID: "+currFriendID);
+                //console.log("curFriendID: "+currFriendID);
                 var currFriendObj=$firebaseObject(database.ref('users/'+currFriendID));
 
-                //console.log("curr friend: "+currFriendObj.roles);
+                //console.log("curr friend: "+currFriendObj);
                 $scope.friends[j] = currFriendObj;
 
             }
-            console.log("friendsID: "+$scope.friendsID);
         });
-
-        /*var friendsLength = $scope.friendsID.length;
-        $scope.friends={};
-        for(var i=0; i<friendsLength; i++) {
-
-
-        }*/
-
 
         $scope.addUserToFriends=function(otherUserID){
             console.log("vettore amicicci: "+$scope.profile.friends);

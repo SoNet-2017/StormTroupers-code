@@ -56,6 +56,11 @@ angular.module('myApp.publicProfilePageView', ['ngRoute'])
             $location.path("/myProjectsView");
         };
 
+        $scope.goToMyTroupers=function (userID) {
+            $location.path("/friendsPageView");
+            localStorage.otherUserID = userID;
+        };
+
         $scope.goToPublicProjectPage=function(projectID){
             $location.path("/publicProjectPageView");
             console.log("progetto che sto passando: "+projectID);
@@ -71,7 +76,7 @@ angular.module('myApp.publicProfilePageView', ['ngRoute'])
 
         $scope.profile = $firebaseObject(database.ref('users/'+UID));
         $scope.profile.$loaded().then(function () {
-            var role = Object.values(obj.roles);
+            var role = Object.values($scope.profile.roles);
             for(var i=0; i<role.length; i++){
                 document.getElementById("userRolesHome").innerHTML+=role[i];
                 if(i<role.length-1) {
@@ -80,6 +85,7 @@ angular.module('myApp.publicProfilePageView', ['ngRoute'])
             }
         }).catch(function (error) {
             $scope.error=error;
+            //console.log("errore: "+error);
         });
 
         // UID dell'utente di cui si vuole vedere il profilo pubblico
@@ -131,12 +137,16 @@ angular.module('myApp.publicProfilePageView', ['ngRoute'])
 
 
         $scope.addUserToFriends=function(otherUserID){
-            console.log("vettore amicicci: "+$scope.profile.friends);
             if($scope.profile.friends.indexOf(otherUserID)<0) {
-                console.log("Trouper aggiunto agli amici: " +  otherUserID);
+                //console.log("Trouper aggiunto agli amici: " +  otherUserID);
                 $scope.profile.friends.push(otherUserID);
-                console.log("vettore amicicci: "+$scope.profile.friends);
+                //console.log("vettore amicicci dell'utente loggato: "+$scope.profile.friends);
                 $scope.profile.$save();
+
+                //aggiorno il vettore anche nell'amico
+                $scope.otherUser.friends.push(UID);
+                //console.log("vettore amicicci di other user"+otherUserID+": "+$scope.otherUser.friends);
+                $scope.otherUser.$save();
             }
             else console.log("trouper già inserito");
         };

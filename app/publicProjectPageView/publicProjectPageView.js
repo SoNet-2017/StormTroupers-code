@@ -58,6 +58,11 @@ angular.module('myApp.publicProjectPageView', ['ngRoute'])
             $location.path("/myProjectsView");
         };
 
+        $scope.goToMyTroupers=function (userID) {
+            $location.path("/friendsPageView");
+            localStorage.otherUserID = userID;
+        };
+
         $scope.goToPublicProfile=function(userID) {
             $location.path("/publicProfilePageView");
             console.log("utente che sto passando: "+userID);

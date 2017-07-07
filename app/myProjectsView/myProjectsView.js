@@ -58,6 +58,11 @@ angular.module('myApp.myProjectsView', ['ngRoute'])
             $location.path("/myProjectsView");
         };
 
+        $scope.goToMyTroupers=function (userID) {
+            $location.path("/friendsPageView");
+            localStorage.otherUserID = userID;
+        };
+
         $scope.goToEditProjectX = function (prjXID) {
             $location.path("/editProjectView");
             console.log("Titolo passato: " + prjXID);
