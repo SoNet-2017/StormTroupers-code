@@ -59,11 +59,6 @@ angular.module('myApp.editProjectView', ['ngRoute'])
         };
 
         // CAMBIARE URL
-        $scope.goToEditProjectX=function() {
-            $location.path("/myProjectsView");
-        };
-
-        // CAMBIARE URL
         $scope.goToPublicProfile=function(userID) {
             $location.path("/homePageView");
         };
@@ -90,16 +85,6 @@ angular.module('myApp.editProjectView', ['ngRoute'])
             $scope.error=error;
         });
 
-        //costruisco un vettore troupers per creare un elenco di stringhe dentro il JSON per gli utenti che collaborano
-        var troupers = [];
-
-        // NON FUNZIONA!!
-        $scope.addTroupers=function (userID) {
-            //popolare il vettore troupers
-            console.log("Trouper aggiunto: " + userID.UID);
-            troupers.push(userID.UID);
-        };
-
         console.log("PID arrivato da myProjView: " + localStorage.PID);
 
         var PID = localStorage.PID;
@@ -110,7 +95,18 @@ angular.module('myApp.editProjectView', ['ngRoute'])
             $scope.projectType = projObj.type;
             $scope.projectGenre = projObj.genre;
             $scope.projectDescription = projObj.description;
+            $scope.projectTroupers = projObj.troupers;
+            console.log("vettore troupers: "+$scope.projectTroupers);
         });
+
+        $scope.addTroupers=function (userID) {
+            //popolare il vettore troupers
+            if($scope.projectTroupers.indexOf(userID)<0) {
+                console.log("Trouper aggiunto: " +  userID);
+                $scope.projectTroupers.push(userID);
+            }
+            else console.log("trouper già inserito");
+        };
 
         $scope.editProjectDB=function() {
 
@@ -154,6 +150,7 @@ angular.module('myApp.editProjectView', ['ngRoute'])
 
             var projType = document.getElementById("projectType").value;
             var projGenre = document.getElementById('projectGenre').value;
+            var projProgress = document.getElementById('projectProgress').value;
 
             var projDesc = document.getElementById('projectDescription').value;
 
@@ -182,8 +179,8 @@ angular.module('myApp.editProjectView', ['ngRoute'])
                 type: projType,
                 genre: projGenre,
                 description: projDesc,
-                progress: 'In Progress'
-                //troupers: troupers
+                progress: projProgress,
+                troupers: $scope.projectTroupers
             }).then(function () {
                 console.log("salvate le modifiche al project in DB; PID: " + PID);
                 var obj = $firebaseObject(database.ref('projects/' + PID));
@@ -200,11 +197,9 @@ angular.module('myApp.editProjectView', ['ngRoute'])
                     $scope.goToMyProjects();
                 }).catch(function (error) {
                     $scope.error = error;
-                    console.log("sono qui3");
                 })
 
             }).catch(function (error) {
-                console.log("sono qui33");
                 $scope.error = error;
             });
         };

@@ -115,156 +115,64 @@
 }
 /* Fine parte comune*/
 
-#aroundYouContainer{
+#myProjectContainer{
     /*Per centrare il contenuto*/
     text-align: center;
     align-items:center;
     vertical-align: middle;
     background-color: #b7c3b8;
     padding-bottom: 20px;
-
 }
 
-#aroundYouContainer h2{
-    color: #636466;
+#myProjectContainer h2{
+    color: #b7c3b8;
+    text-shadow: 2px 2px 4px #333333;
+    font-size: 60px;
 }
 
-#newProjectShow{
-    /*Per centrare il contenuto*/
-    text-align: center;
-    align-items:center;
-    vertical-align: middle;
-    background-color: #636466;
-    margin-right: 5%;
+#myProjectContainer h4{
+    color: #b7c3b8;
 }
 
-#newProjectShow h4{
-    font-family: "ADAM.CG PRO";
-    color: white;
+#containerTroupe{
+    max-width: 100%;
 }
 
-#newUsersShow{
-    /*Per centrare il contenuto*/
-    text-align: center;
-    align-items:center;
-    vertical-align: middle;
-    background-color: #636466;
-}
-
-#newUserTitle{
-    display: flex;
-    justify-content: center;
-}
-
-#newProjectTitle{
-    display: flex;
-    justify-content: center;
-}
-
-#newUsersShow h4{
-    font-family: "ADAM.CG PRO";
-    color: white;
-}
-
-#newUsersShow li{
-    list-style: none;
-    margin-left: -40px;
-}
-
-#newUImg{
+#troupeUserImg{
     content: url("../../images/StormTroupersLogo.png");
-    max-height: 75px;
+    max-height: 40px;
+    margin: 5px;
 }
 
-#newUImgContainer{
-    display: flex;
-    justify-content: center;
-    text-align: center;
-    align-items:center;
-    vertical-align: middle;
-}
-
-#newUDesc{
-    color: #636466;
-    display: flex;
-    justify-content: center;
-    text-align: center;
-    align-items:center;
-    vertical-align: middle;
-}
-
-#newUDesc h4{
-    color: #636466;
-}
-
-#linkNewU{
-    display: flex;
-    justify-content: center;
-    text-align: center;
-    align-items:center;
-    vertical-align: middle;
-}
-
-#linkNewU a{
-    text-decoration: none;
-    color: #636466;
-    margin: 10px;
-}
-
-#linkNewU a:hover{
-    cursor: pointer;
-}
-
-#newPImg{
-    content: url("../../images/StormTroupersLogo.png");
-    max-height: 75px;
-}
-
-#newPImgContainer{
-    display: flex;
-    justify-content: center;
-    text-align: center;
-    align-items:center;
-    vertical-align: middle;
-}
-
-#newPDesc{
-    color: #636466;
-    display: flex;
-    justify-content: center;
-    text-align: center;
-    align-items:center;
-    vertical-align: middle;
-}
-
-#newPDesc h4{
-    color: #636466;
-}
-
-#linkNewP{
-    display: flex;
-    justify-content: center;
-    text-align: center;
-    align-items:center;
-    vertical-align: middle;
-}
-
-#linkNewP a{
-    text-decoration: none;
-    color: #636466;
-    margin: 10px;
-}
-
-#linkNewP a:hover{
-    cursor: pointer;
-}
-
-#projectPic{
+#flowImage{
+    /* The image used */
     background-image: url("../../images/troopers.jpg");
+
+    /* Set a specific height */
+    min-height: 350px;
+
+    /* Create the parallax scrolling effect */
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
     background-size: cover;
-    min-height: 150px;
+
+    /*Per centrare il contenuto*/
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding: 0;
 }
 
-#projectPic a:hover{
+#likePanel{
+    display: flex;
+    text-align: center;
+    align-items:center;
+    vertical-align: middle;
+    padding-left:10px;
+    padding-right:10px;;
+}
+
+#likePanelHover a:hover{
     cursor: pointer;
 }

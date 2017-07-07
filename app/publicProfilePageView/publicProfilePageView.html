@@ -1,0 +1,207 @@
+<div class="w3-container w3-bar w3-top w3-card-2" id="topBarHome">
+
+
+    <a class="w3-bar-item w3-button" id="homeLinkHome" ng-click="goToDashboard()"><i
+            class="glyphicon glyphicon-home w3-large"></i></a>
+    <a class="w3-bar-item w3-button" id="userLinkHome" ng-click="goToSearchCrew()"><i
+            class="glyphicon glyphicon-user w3-large"></i></a>
+    <a class="w3-bar-item w3-button" id="projectsLinkHome"><i class="glyphicon glyphicon-film w3-large"></i></a>
+
+
+    <form id="searchItemHome">
+        <div class="input-group">
+            <input type="text" class="form-control" placeholder="Search">
+            <div class="input-group-btn">
+                <button class="btn btn-default" type="submit">
+                    <i class="glyphicon glyphicon-search"></i>
+                </button>
+            </div>
+        </div>
+    </form>
+
+
+    <div class="w3-bar-item w3-dropdown-click w3-right" id="logoBarHome">
+        <h4 id="userNameHome" ng-click="showLogoItem()">{{profile.name}}</h4>
+        <div class="w3-dropdown-content w3-bar-block w3-border w3-right" id="logoBarContentHome">
+            <a href="#" class="w3-bar-item w3-button"><i class="glyphicon glyphicon-user w3-large"></i> My Public
+                Profile</a>
+            <a ng-click="goToEditProfile()" class="w3-bar-item w3-button"><i
+                    class="glyphicon glyphicon-pencil w3-large"></i> Edit Profile</a>
+            <a ng-click="logout()" class="w3-bar-item w3-button"><i class="glyphicon glyphicon-off w3-large"></i> Logout</a>
+        </div>
+    </div>
+
+    <div id="logoBarImgContainerHome">
+        <img class="w3-content" id="logoBarImgHome" alt="logo">
+    </div>
+
+</div>
+
+<div id="bodyHome" class="w3-container w3-col l12 s12 m12">
+    <div id="sideUserHome" class="w3-col l3 m3 s3 w3-card-2">
+        <h3 id="userNameAndLastHome">{{profile.name}} {{profile.lastName}}</h3>
+        <p id="userRolesHome"></p>
+        <p id="userCityHome"></p>
+        <img id="userPhotoHome">
+        <br>
+        <a ng-click="goToMyProjects()" class="w3-bar-item" id="userProjectHome">My Projects <i
+                class="glyphicon glyphicon-film w3-large"></i></a><br><br>
+        <a class="w3-bar-item" id="userTroupeHome">My Troupers <i class="glyphicon glyphicon-user w3-large"></i></a><br><br>
+        <a ng-click="goToEditProfile()" class="w3-bar-item" id="editProfileLinkHome">Edit Profile <i
+                class="glyphicon glyphicon-cog w3-large"></i></a>
+    </div>
+    <div class="w3-container w3-col l7 m7 s7">
+        <div id="profileGeneralInfoContainer" class="w3-container  w3-col l12 m12 s12 w3-card-2">
+
+            <div id="pictureContainer" class="w3-container w3-col s4 m4 l4">
+            <span class="w3-left w3-animate-opacity"
+                  style="margin-left: 20px; margin-bottom: 25px; width: 100%">
+                <img id="profilePicture" style="padding-right: 5px;">
+
+            </span>
+            </div>
+            <div id="generalInfoContainer" class="w3-container w3-col s8 m8 l8">
+                <h4>About <strong>{{otherUser.name}} {{otherUser.lastName}}</strong>, {{age}} years old</h4>
+                <div class="w3-container">
+                    <div class="w3-col s1 m1 l1"><i class="glyphicon glyphicon-briefcase w3-large"
+                                                    style="padding-top: 8px"></i></div>
+                    <div class="w3-col s11 m11 l11">
+                        <h5><p id="userRoles"></p></h5>
+                    </div>
+                </div>
+                <div class="w3-container">
+                    <div class="w3-col s1 m1 l1"><i class="glyphicon glyphicon-map-marker w3-large"
+                                                    style="padding-top: 8px"></i></div>
+                    <div class="w3-col s11 m11 l11">
+                        <h5><p id="position">{{otherUser.city}}, {{otherUser.province}}, {{otherUser.country}}</p></h5>
+                    </div>
+                </div>
+                <div class="w3-container">
+                    <div class="w3-col s1 m1 l1"><i class="glyphicon glyphicon-pushpin w3-large"
+                                                    style="padding-top: 8px"></i></div>
+                    <div class="w3-col s11 m11 l11">
+                        <h5><p>{{otherUser.description}}</p></h5>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <br>
+
+        <div id="profileProjectsContainer" class="w3-container w3-row w3-col l12 m12 s12 w3-card-2"
+             style="margin-top: 30px; padding-top: 20px">
+            <div id="projectsContainer" class="w3-container">
+                <h4>Current/Completed Projects</h4>
+                <br>
+                <ul style="list-style: none; padding: 0; display: inline-block;">
+                    <li ng-repeat="project in projPublicPage" class="w3-col s12 m12 l12"
+                        style="margin-right: 40px; margin-bottom: 20px">
+                        <div id="projectPic" class=" w3-container w3-card-2"
+                             style="padding: 10px; border-radius: 4mm; background-color: #b7c3b8;">
+
+                            <div class="w3-container w3-row">
+                                <h2 style="color: white;
+                                                text-shadow: 2px 2px 2px #333333;">{{project.title}}</h2>
+                            </div>
+                            <div id="likePanel" class="w3-container w3-row w3-right"
+                                 style="min-height:20px; background: linear-gradient(rgba(0,0,0,.5), rgba(0,0,0,.9)); margin-top: 100px;">
+                                <div id="newPDesc">
+                                    <div class="w3-container w3-row w3-col s10 m10 l10">
+                                        <h5 style="color: white;">{{project.progress}}</h5>
+                                    </div>
+                                    <a ng-click="goToPublicProjectPage(project.$id)"><i
+                                            class="glyphicon glyphicon-eye-open w3-xlarge w3-col s1 m1 l1"
+                                            style="color: white; margin-right: 15px"></i>
+                                        <a ng-click=""><i
+                                                class="glyphicon glyphicon-heart-empty w3-xlarge w3-col s1 m1 l1"
+                                                style="color: white;"></i></a>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+                    </li>
+                </ul>
+
+            </div>
+        </div>
+        <br>
+
+        <div id="profileLikedProjectsContainer" class="w3-container w3-row w3-col l12 m12 s12 w3-card-2"
+             style="margin-top: 30px; padding-top: 20px">
+            <div id="likedProjectsContainer" class="w3-container">
+                <h4>Projects <strong>{{otherUser.name}}</strong> is following</h4>
+
+            </div>
+        </div>
+        <br>
+
+        <div id="profileFriendsContainer" class="w3-container w3-row w3-col l12 m12 s12 w3-card-2"
+             style="margin-top: 30px; padding-top: 20px">
+            <div id="friendsContainer" class="w3-container">
+                <h4><strong>{{otherUser.name}}</strong>'s Troupers</h4>
+
+            </div>
+        </div>
+        <br>
+
+        <div id="profileEquipmentContainer" class="w3-container w3-row w3-col l12 m12 s12 w3-card-2"
+             style="margin-top: 30px; padding-top: 20px">
+            <div id="equipmentContainer" class="w3-container">
+                <h4>Equipment</h4>
+
+            </div>
+        </div>
+        <br>
+
+        <div id="profilePortfolioContainer" class="w3-container w3-row w3-col l12 m12 s12 w3-card-2"
+             style="margin-top: 30px; padding-top: 20px">
+            <div id="portfolioContainer" class="w3-container">
+                <h4>Portfolio</h4>
+
+            </div>
+        </div>
+        <br>
+
+        <div id="profileFeedbackContainer" class="w3-container w3-row w3-col l12 m12 s12 w3-card-2"
+             style="margin-top: 30px; padding-top: 20px">
+            <div id="feedbackContainer" class="w3-container">
+                <h4>What other Troupers say about <strong>{{otherUser.name}}</strong></h4>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="w3-row w3-col s1 m1 l1">
+        <div class="w3-tooltip">
+            <a ng-click="addUserToFriends(otherUser.$id)">
+                <i class="glyphicon glyphicon-screenshot w3-xlarge w3-left"
+                   style="color: white; cursor: pointer; padding-bottom: 20px;"></i>
+            </a>
+            <!--<h6 style="position:absolute;right:0;bottom:0px" class="w3-text w3-tag">Connect with {{otherUser.name}}</h6>-->
+            <h6 class="w3-center w3-text w3-tag" style="color: white; text-align: left; position:absolute;top: 0px; padding: 5px;">Connect with {{otherUser.name}}</h6>
+        </div>
+    </div><br>
+    <div class="w3-row w3-col s1 m1 l1">
+        <div class="w3-tooltip">
+            <a ng-click="">
+                <i class="glyphicon glyphicon-send w3-xlarge w3-left"
+                   style="color: white; cursor: pointer; padding-bottom: 20px;"></i>
+            </a>
+            <h6 class="w3-center w3-text w3-tag" style="color: white; text-align: left; position:absolute;top: 0px; padding: 5px;">Send a message</h6>
+        </div>
+    </div><br>
+    <div class="w3-row w3-col s1 m1 l1">
+        <div class="w3-tooltip">
+            <a ng-click="goToFriendsPage()">
+                <i class="glyphicon glyphicon-link w3-xlarge w3-left"
+                   style="color: white; cursor: pointer;"></i>
+            </a>
+            <h6 class="w3-center w3-text w3-tag" style="color: white; text-align: left; position:absolute;top: 0px; padding: 5px;">See {{otherUser.name}}'s friends</h6>
+        </div>
+    </div>
+</div>
+
+</div>
+
+</div>

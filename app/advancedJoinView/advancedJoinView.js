@@ -90,7 +90,7 @@ angular.module('myApp.advancedJoinView', ['ngRoute'])
             }
             $scope.provinces = provinces_array;
 
-        }
+        };
 
         $scope.loadCities = function (selectedProvince) {
             //console.log("ng-change: selezionata provincia: " + selectedProvince.toString());
@@ -104,7 +104,7 @@ angular.module('myApp.advancedJoinView', ['ngRoute'])
                 //console.log("city: " + cities_array[i]);
             }
             $scope.cities = cities_array;
-        }
+        };
 
         $scope.openHome = function () {
             console.log("tra un attimo");
@@ -225,7 +225,7 @@ angular.module('myApp.advancedJoinView', ['ngRoute'])
                 roles.push("Talent/Casting - People");
             }
 
-
+            var friends = [];
             var database = firebase.database();
 
             //bisogna usare il codice univoco del userID generato da firebase per un lavoro migliore
@@ -246,6 +246,7 @@ angular.module('myApp.advancedJoinView', ['ngRoute'])
                 roles: roles,
                 race: race,
                 description: descriptionR, //c'era scritto "desciption" e l'ho corretto, ma non so se ho fatto bene?
+                friends:friends,
                 dateOfJoin: dateOfJ,
                 logged: true
             }).then(function () {

@@ -66,7 +66,7 @@
 
     </div>
 
-    <div id="myProjectsContainer" class="w3-col l8 m8 s8 w3-card-2">
+    <div id="newProjectContainer" class="w3-col l8 m8 s8 w3-card-2">
         <h2>CREATE NEW PROJECT<strong>{{prjTitle}}</strong></h2>
         <br>
         <div class="w3-row">
@@ -83,7 +83,7 @@
                     <select id="projectType" ng-model="projectType" class="form-control w3-input w3-border" required>
                         <option value="" selected="selected">Select Type</option>
                         <option value="Short movie / Movie">Short movie / Movie</option>
-                        <option value="TV Serie">TV Serie</option>
+                        <option value="TV Show">TV Show</option>
                         <option value="Promo">Promo</option>
                         <option value="Advertisement">Advertisement</option>
                     </select>
@@ -102,6 +102,11 @@
                         <option value="Sci-fi">Sci-fi</option>
                         <option value="War">War</option>
                         <option value="Western">Western</option>
+                    </select>
+                    <select id="projectProgress" ng-model="projectProgress" class="form-control w3-input w3-border">
+                        <option value="" selected="selected">Select Progress</option>
+                        <option value="In Progress">In Progress</option>
+                        <option value="Completed">Completed</option>
                     </select>
                 </form>
                 <br>
@@ -129,14 +134,14 @@
                         <div class=" w3-container w3-card-2" style="padding: 10px; background-color: #b7c3b8">
                             <div class="w3-left" id="newUImgContainer">
                                 <a id="troupeUserImgLink"><img id="newUImg" alt="Avatar" class="w3-left w3-circle"
-                                                               ng-click="goToPublicProfile(user.UID)"></a>
+                                                               ng-click="goToPublicProfile(user.uid)"></a>
                             </div>
                             <div id="newUDesc">
                                 <div class="w3-container w3-row">
                                     <h4>{{user.name}} {{user.lastName}}</h4>
                                 </div>
                                 <div class=" w3-right" id="linkNewU">
-                                    <a ng-click="addTroupers(user)"><i
+                                    <a ng-click="addTroupers(user.$id)"><i
                                             class="glyphicon glyphicon-plus w3-xlarge"></i></a>
                                 </div>
                             </div>

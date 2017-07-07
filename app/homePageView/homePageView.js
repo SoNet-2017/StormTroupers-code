@@ -57,7 +57,15 @@ angular.module('myApp.homePageView', ['ngRoute'])
 
         // CAMBIARE URL
         $scope.goToPublicProfile=function(userID) {
-            $location.path("/homePageView");
+            $location.path("/publicProfilePageView");
+            console.log("utente che sto passando: "+userID);
+            localStorage.otherUserID = userID;
+        };
+
+        $scope.goToPublicProjectPage=function (projectID) {
+            $location.path("/publicProjectPageView");
+            console.log("Sto pssando il pid: "+projectID);
+            localStorage.PID = projectID;
         };
 
         var UID=localStorage.UID;
@@ -65,11 +73,9 @@ angular.module('myApp.homePageView', ['ngRoute'])
         var usersBase=database.ref('users/');
         var userQuery=usersBase.orderByChild("dateOfJoin").limitToLast(10);
         $scope.filterUsers=$firebaseArray(userQuery);
-
-        var projectBase=database.ref('projects/');
-        $scope.allProjects=$firebaseArray(projectBase);
-
-        $scope.populateProjectsAndUsers=function () {
+        $scope.filterUsers.$loaded().then(function () {
+            ////////////////////////////////////////////////////////////////////////////////////
+            //per popolare gli utenti around you
             $scope.filterSearch={};
             $scope.filterProjects={};
 
@@ -109,46 +115,44 @@ angular.module('myApp.homePageView', ['ngRoute'])
                 }
             }
 
-            /* VECCHIO ALGORITMO ALTAMENTE INEFFICIENTE
-             var rand=0;
-             var ok=true;
-             for (var n=0; n<5; n++) {
+        }).catch(function (error) {
+            $scope.error=error;
+        });
 
-             do {
-             rand = Math.floor((Math.random() * 10) + 1);
-             $scope.filterSearch[n] = $scope.filterUsers[rand];
-
-             ok=true;
-
-             for (var m=0; m<n; m++) {
-             if ($scope.filterSearch[n]==$scope.filterSearch[m]) {
-             ok=false;
-             break;
-             }
-             }
-
-             }
-             while (ok==false)
-
-             }
-
-             */
-
+        var projectBase=database.ref('projects/');
+        $scope.allProjects=$firebaseArray(projectBase);
+        $scope.allProjects.$loaded().then(function () {
             ////////////////////////////////////////////////////////////////////////////////////
-            //per popolare con i progetti around you
+            //popolazione con i progetti around you
 
-            console.log("length: "+ $scope.allProjects.length);
-
+            //console.log("length: "+ $scope.allProjects.length);
+            //console.log("progetti: "+$scope.allProjects);
             var n=0;
-            for (var i=0; i < $scope.allProjects.length; i++) {
-                if(($scope.allProjects[i].city === $scope.profile.province)) {
+            var trovato=false;
+            var length = $scope.allProjects.length;
+            for (var i=0; i < length; i++) {
+                //console.log("UID: "+UID+"; OWNER: "+$scope.allProjects[i].owner);
+
+                // per popolare la bacheca around you con progetti non condivisi dall'utente loggato (ovviamente)
+                var length2=$scope.allProjects[i].troupers.length;
+                for(var k=0;k<length2; k++) {
+                    if($scope.allProjects[i].troupers[k] === UID) {
+                        console.log("trovato");
+                        trovato=true;
+                        break;
+                    }
+                }
+
+                if(($scope.allProjects[i].city === $scope.profile.province) && $scope.allProjects[i].owner !== UID && !trovato) {
                     $scope.filterProjects[n] = $scope.allProjects[i];
                     console.log("match: "+ $scope.filterProjects[n].title);
                     n++;
                 }
             }
 
-        };
+        }).catch(function (error) {
+            $scope.error=error;
+        });
 
         var obj = $firebaseObject(database.ref('users/'+UID));
         obj.$loaded().then(function () {

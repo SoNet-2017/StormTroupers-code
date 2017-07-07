@@ -58,16 +58,18 @@ angular.module('myApp.myProjectsView', ['ngRoute'])
             $location.path("/myProjectsView");
         };
 
-        // CAMBIARE URL
-        $scope.goToEditProjectX = function (prj_x) {
+        $scope.goToEditProjectX = function (prjXID) {
             $location.path("/editProjectView");
-            console.log("Titolo passato: " + prj_x.pid);
-            localStorage.PID = prj_x.pid;
+            console.log("Titolo passato: " + prjXID);
+            localStorage.PID = prjXID;
         };
 
-        // CAMBIARE URL
-        $scope.goToPublicProfile = function (user) {
-            $location.path("/homePageView");
+        $scope.goToPublicProfile = function (userID) {
+            if(userID !== localStorage.UID) {
+                $location.path("/publicProfilePageView");
+                console.log("utente che sto passando: " + userID);
+                localStorage.otherUserID = userID;
+            }
         };
 
         $scope.goToNewProject = function () {
@@ -76,9 +78,6 @@ angular.module('myApp.myProjectsView', ['ngRoute'])
 
         var UID = localStorage.UID;
         var database = firebase.database();
-        var usersBase = database.ref('users/');
-        var userQuery = usersBase.limitToLast(5);
-        $scope.filterUsers = $firebaseArray(userQuery);
 
         var userObj = $firebaseObject(database.ref('users/' + UID));
         userObj.$loaded().then(function () {
@@ -95,6 +94,9 @@ angular.module('myApp.myProjectsView', ['ngRoute'])
             $scope.error = error;
         });
 
+        var usersBase = database.ref('users/');
+        $scope.filterUsers = $firebaseArray(usersBase);
+
         $scope.getProjectsFromDB={};
         var PID = localStorage.PID;
         var projectsBase = database.ref('projects/');
@@ -105,7 +107,6 @@ angular.module('myApp.myProjectsView', ['ngRoute'])
             //resetta il filtersearch
             $scope.filterProjects={};
 
-            //parte il coso per davvero
             var length=$scope.getProjectsFromDB.length;
             var j=0;
             for(var i=0; i<length; i++){ //si scorre tutto l'array
@@ -113,10 +114,20 @@ angular.module('myApp.myProjectsView', ['ngRoute'])
                     $scope.filterProjects[j]=$scope.getProjectsFromDB[i];
                     j++;
                 }
+                var length2=$scope.getProjectsFromDB[i].troupers.length;
+                for(var k=0;k<length2; k++) {
+                    if($scope.getProjectsFromDB[i].troupers[k] === UID) {
+                        $scope.filterProjects[j]=$scope.getProjectsFromDB[i];
+                        console.log("trovato");
+                        j++;
+                        break;
+                    }
+                }
+                //console.log("getProjectsFromDB["+i+"]="+$scope.getProjectsFromDB[i].title);
             }
         });
 
-        $scope.popolaMyProjects = function () {
+        $scope.popolaMyProjects=function () {
             $scope.getProjectsFromDB={};
             var PID = localStorage.PID;
             var projectsBase = database.ref('projects/');
@@ -127,7 +138,6 @@ angular.module('myApp.myProjectsView', ['ngRoute'])
                 //resetta il filtersearch
                 $scope.filterProjects={};
 
-                //parte il coso per davvero
                 var length=$scope.getProjectsFromDB.length;
                 var j=0;
                 for(var i=0; i<length; i++){ //si scorre tutto l'array
@@ -135,14 +145,24 @@ angular.module('myApp.myProjectsView', ['ngRoute'])
                         $scope.filterProjects[j]=$scope.getProjectsFromDB[i];
                         j++;
                     }
+                    var length2=$scope.getProjectsFromDB[i].troupers.length;
+                    for(var k=0;k<length2; k++) {
+                        if($scope.getProjectsFromDB[i].troupers[k] === UID) {
+                            $scope.filterProjects[j]=$scope.getProjectsFromDB[i];
+                            console.log("trovato");
+                            j++;
+                            break;
+                        }
+                    }
+                    //console.log("getProjectsFromDB["+i+"]="+$scope.getProjectsFromDB[i].title);
                 }
-            })
+            });
         };
 
         // per cancellare i progetti
-        $scope.deleteProject = function (prj) {
-            console.log("sto per cancellare il progetto con PID: " + prj.pid);
-            database.ref('projects/' + prj.pid).remove();
+        $scope.deleteProject = function (prjID) {
+            console.log("sto per cancellare il progetto con PID: " + prjID);
+            database.ref('projects/' + prjID).remove();
             $scope.popolaMyProjects();
         };
 
