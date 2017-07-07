@@ -1,17 +1,17 @@
 
 <div class="w3-container" id="adJoinMain">
-    <h1>STORM<strong>TROUPERS</strong></h1>
-    <h2>Working info</h2>
+    <h1 style="margin-bottom: 0">STORM<strong>TROUPERS</strong></h1>
+    <h2 style="margin-top: 0">Working info</h2>
     <br>
     <div class="w3-container" id="mainContainer">
         <div class="w3-container">
-            <h4>General info</h4>
+            <h4 style="color: white;">General info</h4>
             <br>
             <div class="w3-col s8 m8 l8 w3-left w3-animate-opacity">
                 <input id="phone" type="text" class="w3-input w3-border" placeholder="Phone">
             </div>
             <div class="w3-col s2 m2 l2 w3-left w3-animate-opacity">
-                <input id="checkPermPhone" type="checkbox" class="w3-check"><label>Permission to show</label>
+                <input id="checkPermPhone" type="checkbox" class="w3-check"><label style="color: white;">Permission to show</label>
             </div>
             <div class="w3-col s2 m2 l2 w3-left w3-animate-opacity"></div>
         </div>
@@ -41,19 +41,19 @@
         <br><br>
         <div class="w3-container">
             <div class="w3-col s4 m4 l4 w3-left w3-animate-opacity" id="checkCarContainer">
-                <h4>Do you have a car?</h4>
+                <h4 style="color: white;">Do you have a car?</h4>
                 <form class="w3-container" role="form" id="checkCar">
-                    <input type="radio" value="1" class="w3-radio" ng-model="carInfo" id="carYes"><label>Yes</label>
+                    <input type="radio" value="1" class="w3-radio" ng-model="carInfo" id="carYes"><label style="color: white;padding-left: 7px">Yes</label>
                     <br>
-                    <input type="radio" value="0" class="w3-radio" ng-model="carInfo" id="carNo"><label>No</label>
+                    <input type="radio" value="0" class="w3-radio" ng-model="carInfo" id="carNo"><label style="color: white;padding-left: 7px">No</label>
                 </form>
             </div>
             <div class="w3-col s4 m4 l4 w3-left w3-animate-opacity" id="chePayment">
-                <h4>Do you work only under payment?</h4>
+                <h4 style="color: white;">Do you work only under payment?</h4>
                 <form class="w3-container" id="payRequest">
-                    <input type="radio" value="1" class="w3-radio" ng-model="payment" id="payYes"><label>Yes</label>
+                    <input type="radio" value="1" class="w3-radio" ng-model="payment" id="payYes"><label style="color: white; padding-left: 7px">Yes</label>
                     <br>
-                    <input type="radio" value="0" class="w3-radio" ng-model="payment" id="payNo"><label>No</label>
+                    <input type="radio" value="0" class="w3-radio" ng-model="payment" id="payNo"><label style="color: white; padding-left: 7px">No</label>
                 </form>
             </div>
             <div class="w3-col s4 m4 l4 w3-left w3-animate-opacity"></div>
@@ -61,7 +61,7 @@
         <br><br>
         <div class="w3-container">
             <div class="w3-col s12 m12 l12 w3-left w3-animate-opacity">
-                <h4>Choose the areas that suit you the most</h4>
+                <h4 style="color: white;">Choose the areas that suit you the most</h4>
                 <br>
                 <div class="w3-col s3 m3 l3 w3-animate-opacity" id="advancedJoinCheckboxes">
                     <form class="w3-container">
@@ -99,9 +99,9 @@
                     </form>
                 </div>
 
-                <h4 ng-if="showActorSpec">If you are an actor, please specify your ethnicity</h4>
+                <h4 ng-if="showActorSpec" style="color: white;">If you are an actor, please specify your ethnicity</h4>
                 <div class="w3-col s6 m6 l6 w3-left w3-animate-opacity" ng-if="showActorSpec" id="raceBox">
-                    <div class="w3-col s3 m3 l3 w3-animate-opacity" id="raceCheckBoxes">
+                    <div class="w3-animate-opacity" id="raceCheckBoxes">
                         <form class="w3-container">
                             <input type="radio" value="1" class="w3-radio" ng-model="etn" id="etnCauc"> <label>Caucasian</label>
                             <br>
@@ -113,7 +113,7 @@
 
                         </form>
                     </div>
-                    <div class="w3-col s3 m3 l3 w3-animate-opacity" id="raceCheckBoxes2">
+                    <div class="w3-col s6 m6 l6 w3-animate-opacity" id="raceCheckBoxes2">
                         <form class="w3-container">
                             <input type="radio" value="5" class="w3-radio" ng-model="etn" id="etnAfri"> <label>African Descent</label>
                             <br>
@@ -132,7 +132,7 @@
             <div class="w3-col s12 m12 l12 w3-left w3-animate-opacity" id="aboutMe">
                 <br>
                 <br>
-                <h4>About me</h4>
+                <h4 style="color: white;">About me</h4>
                 <br>
                 <form id="aboutMeForm">
                     <textarea placeholder="Describe yourself" id="aboutMeText"></textarea>

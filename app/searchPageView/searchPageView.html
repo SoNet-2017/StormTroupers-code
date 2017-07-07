@@ -63,24 +63,24 @@
 
     <div id="searchCrewTools" class="w3-col l3 m3 s3 w3-card-2">
 
-        <h3 style="text-align: center; font-family: 'ADAM.CG PRO'; color: #636466;">
+        <h3 style="text-align: center; font-family: 'ADAM.CG PRO'; color: white;">
             Search Tools
         </h3>
 
         <hr>
 
-        <strong>Keyword</strong>
+        <label>Keyword</label>
         <input type="text" name="searchKeyword" value="" class="searchPageInputFields" placeholder="Keyword"><br>
         <br>
-        <strong>City</strong>
+        <label>City</label>
         <input type="text" name="searchCity" value="" class="searchPageInputFields" placeholder="City"><br>
         <br>
-        <strong>Range</strong> (Km)
+        <label>Range (Km)</label>
         <rzslider rz-slider-model="slider.value" style="display: inline-block; z-index: 0"
                   rz-slider-options="slider.options"></rzslider>
         <br>
         <br>
-        <strong>Roles</strong>
+        <label>Roles</label>
         <br>
         <div class="w3-col s12 m12 l12 w3-left w3-animate-opacity">
 
@@ -123,10 +123,10 @@
         <label> </label>
         <br>
         <div id="searchCrewActorSpecific" ng-if="showActorSpec" class="w3-animate-opacity">
-            <strong>*Actor Specific Filters</strong>
+            <label>*Actor Specific Filters</label>
             <br>
             <br>
-            <strong>Age</strong>
+            <label>Age</label>
             <!--
             <br>
             <input type="number" name="actorAge" value="18" class="searchPageInputFields" min="0" max="100"><br>
@@ -136,7 +136,7 @@
                       rz-slider-high="slider3.maxValue"
                       rz-slider-options="slider3.options"></rzslider>
             <br>
-            <strong>Ethnicity</strong>
+            <label>Ethnicity</label>
             <br>
             <!--
             <input type="text" name="actorAge" value="Diversamente Bianco" class="searchPageInputFields"><br>
@@ -169,13 +169,11 @@
                 </div>
             </div>
             <br>
-            <strong>Gender</strong>
+            <label>Gender</label>
             <div style="color: #636466; margin-left: 5px;">
             <input id="checkFem" type="checkbox" class="w3-check" checked> <label>Female</label>
             <br>
             <input id="checkMal" type="checkbox" class="w3-check" checked> <label>Male</label>
-            <br>
-            <input id="checkUnd" type="checkbox" class="w3-check"> <label>Apache Helicopter</label>
             <br>
             </div>
         </div>
@@ -200,7 +198,7 @@
         <br>
         <br>
         -->
-        <strong>Paid/Free v2</strong>
+        <label>Paid/Free v2</label>
         <br>
         <div style="color: #636466; margin-left: 15px;">
             <input id="checkPay" type="checkbox" class="w3-check" checked> <label>Paid</label>
@@ -209,7 +207,7 @@
             <br>
         </div>
         <br>
-        <strong>Minimal Feedback</strong>
+        <label>Minimal Feedback</label>
         <rzslider rz-slider-model="slider2.value" style="display: inline-block"
                   rz-slider-options="slider2.options"></rzslider>
         <br>
@@ -221,28 +219,50 @@
     </div>
 
     <div id="searchCrewResults" class="w3-col l5 m5 s5 w3-card-2">
-        <h3 style="text-align: center; font-family: 'ADAM.CG PRO';  color: #636466;">
+        <h3 style="text-align: center; font-family: 'ADAM.CG PRO';  color: white;">
             These are the people you're looking for
         </h3>
 
         <hr>
-        <div id="foundUsersShow" class="w3-container w3-card-2 w3-col l12 m12 s12">
+        <div id="foundUsersShow" class="w3-container w3-col l12 m12 s12">
             <div class="w3-container">
                 <ul>
                     <li ng-repeat="user in filterSearch">
-                        <div class=" w3-container w3-card-2 w3-white" style="padding: 10px; border-radius: 4mm; background-color: #b7c3b8">
-                            <div class="w3-left" id="foundUImgContainer">
-                                <img id="foundUImg" alt="Avatar" class="w3-left w3-circle">
+                        <div class=" w3-container w3-card-2"
+                             style="padding: 10px; border-radius: 4mm; background-color: #333333; margin-right:50px">
+                            <div class="w3-left" id="newUImgContainer">
+                                <img id="newUImg" alt="Avatar" class="w3-left w3-circle">
                             </div>
-                            <div id="foundUDesc">
-                                <div class="w3-container w3-row">
-                                    <h4>{{user.name}} {{user.lastName}}</h4>
+                            <div id="userDesc">
+                                <div class="w3-container w3-row" style="text-align: left;">
+                                    <a ng-click="goToPublicProfile(user.$id)" style="cursor: pointer; color: #636466">
+                                        <h4 style="color: white;"><strong>{{user.name}} {{user.lastName}}</strong></h4>
+                                    </a>
+                                    <div style="color: lightgray;">
+                                        <i class="w3-col s1 m1 l1 glyphicon glyphicon-map-marker w3-small"
+                                           style="padding-top: 10px; color: white;"></i>
+                                        <h5 class="w3-col s11 m11 l11">{{user.city}}, {{user.province}},
+                                            {{user.country}}</h5>
+                                    </div>
+                                    <div style="color: lightgray;">
+                                        <i class="w3-col s1 m1 l1 glyphicon glyphicon-briefcase w3-small" style="color: white;"></i>
+                                        <h5><p id="friendRoles" ng-repeat="role in user.roles">{{role}} </p></h5>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="w3-container w3-row" id="linkNewU">
-                                <a><i class="glyphicon glyphicon-user w3-xlarge"></i></a>
-                                <a><i class="glyphicon glyphicon-comment w3-xlarge"></i></a>
-                                <a><i class="glyphicon glyphicon-plus w3-xlarge"></i></a>
+                            <div class="w3-container w3-row w3-right" id="linkNewU">
+                                <a ng-click="goToPublicProfile(user.$id)" class="w3-tooltip">
+                                    <i class="glyphicon glyphicon-user w3-xlarge" style="color: lightgray;"></i>
+                                    <h6 class="w3-center w3-text w3-tag"
+                                        style="color: white; text-align: left; position:absolute;left: 0px; padding: 5px;">
+                                        See {{user.name}}'s profile</h6>
+                                </a>
+                                <a ng-click="addUserToFriends(user.$id)" class="w3-tooltip">
+                                    <i class="glyphicon glyphicon-screenshot w3-xlarge" style="color: lightgray;"></i>
+                                    <h6 class="w3-center w3-text w3-tag"
+                                        style="color: white; text-align: left; position:absolute;top: 0px; padding: 5px;">
+                                        Connect with {{user.name}}</h6>
+                                </a>
                             </div>
                         </div>
                         <br>

@@ -101,6 +101,12 @@ angular.module('myApp.searchPageView', ['ngRoute'])
             localStorage.otherUserID = UID;
         };
 
+        $scope.goToPublicProfile=function(userID) {
+            $location.path("/publicProfilePageView");
+            console.log("utente che sto passando: "+userID);
+            localStorage.otherUserID = userID;
+        };
+
         var UID=localStorage.UID;
         var database=firebase.database();
         var usersBase=database.ref('users/');
@@ -125,8 +131,26 @@ angular.module('myApp.searchPageView', ['ngRoute'])
             $scope.error=error;
         });
 
+        $scope.addUserToFriends=function(otherUserID){
+            if($scope.profile.friends.indexOf(otherUserID)<0) {
+                $scope.otherUser = $firebaseObject(database.ref('users/' + otherUserID));
+                $scope.otherUser.$loaded().then(function () {
+                    //aggiorno il vettore anche nell'amico
+                    $scope.otherUser.friends.push(UID);
+                    //console.log("vettore amicicci di other user"+otherUserID+": "+$scope.otherUser.friends);
+                    $scope.otherUser.$save();
 
-
+                    //aggiorno il vettore dell'utente loggato
+                    $scope.profile.friends.push(otherUserID);
+                    //console.log("vettore amicicci dell'utente loggato: "+$scope.profile.friends);
+                    $scope.profile.$save();
+                    console.log("Trouper aggiunto agli amici: " +  otherUserID);
+                }).catch(function (error) {
+                    $scope.error = error;
+                });
+            }
+            else console.log("trouper già inserito");
+        };
 
 
         $scope.launchSearch = function () {

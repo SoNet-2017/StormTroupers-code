@@ -116,9 +116,7 @@
 /* Fine parte comune*/
 
 #projectXPanel{
-    background-color: #b7c3b8;
-    border-color: #b7c3b8;
-    border-style: solid;
+    background-color: #333333;
     border-radius: 5mm;
     margin-bottom: 0px;
     margin-top: 25px;
@@ -135,6 +133,7 @@
 }
 
 #projectXLink h4{
+    color: lightgray;
     padding-top: 15px;
 }
 #projectXLink hr{
@@ -146,7 +145,7 @@
 }
 
  #projectXLink a{
-     color: #636466;
+     color: lightgray;
      text-align: center;
 }
 
@@ -162,8 +161,9 @@
     text-align: center;
     align-items:center;
     vertical-align: middle;
-    background-color: #636466;
+    background: linear-gradient(rgba(0,0,0,.5), rgba(0,0,0,.5));
     padding-bottom: 20px;
+    margin-left:30px;
 }
 
 #myProjectsContainer h2{

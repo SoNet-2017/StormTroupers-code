@@ -27,7 +27,7 @@
         </div>
     </div>
 
-    <div class="w3-container w3-card-2" id="login" ng-model="login">
+    <div class="w3-container w3-card-2" id="login" ng-model="login" style="background: linear-gradient(rgba(0,0,0,.5), rgba(0,0,0,.5));">
 
             <div class="w3-col s6 m6 l6 w3-left w3-animate-opacity" id="loginBox">
                 <form name="loginForm" ng-model="loginForm">
@@ -37,7 +37,7 @@
                        ng-model="user.password">
                 <br>
                 <button class="w3-btn" id="loginButton" ng-click="signIn()">Login</button>
-                or...<a id="joinShift" ng-click="passToJoin()">Join the dark side</a>
+                or...<a id="joinShift" ng-click="passToJoin()" style="color: white;">Join the dark side</a>
                 </form>
             </div>
             <div class="w3-col s6 m6 l6 w3-center w3-animate-left" id="loginImage">
@@ -48,7 +48,7 @@
     </div>
 
 
-    <div class="w3-container w3-card-2" id="join" ng-model="join">
+    <div class="w3-container w3-card-2" id="join" ng-model="join" style="background: linear-gradient(rgba(0,0,0,.5), rgba(0,0,0,.5));">
 
         <div class="w3-col s6 m6 l6 w3-center w3-animate-right" id="joinImage">
             <img id="joinImg">
@@ -68,20 +68,20 @@
             <div class="w3-row-padding">
                 <div class="w3-half">
                     <input class="w3-radio" type="radio" ng-model="gender" value="male"
-                           id="joinMale"><label>Male</label>
+                           id="joinMale"><label style="color: white;">Male</label>
                     <br>
                     <input class="w3-radio" type="radio" ng-model="gender" value="female"
-                           id="joinFemale"><label>Female</label>
+                           id="joinFemale"><label style="color: white;">Female</label>
                 </div>
                 <div class="w3-half">
-                    <label>Date of birth
-                        <input id="dateOfBirth" type="date" name="mydatetime">
+                    <label style="color: white;">Date of birth
+                        <input id="dateOfBirth" type="date" name="mydatetime" style="color: #333333;">
                     </label>
                 </div>
             </div>
             <br>
             <button class="w3-btn" id="joinButton" ng-click="join()">Join the dark side</button>
-            or...<a id="loginShift" ng-click="passToLogin()">Login</a>
+            or...<a id="loginShift" ng-click="passToLogin()"  style="color: white;">Login</a>
             </form>
         </div>
     </div>

@@ -61,14 +61,14 @@
                 class="glyphicon glyphicon-cog w3-large"></i></a>
     </div>
 
-    <div id="myProjectsContainer" class="w3-col l8 m8 s8">
+    <div id="myProjectsContainer" class="w3-col w3-card-2 l8 m8 s8">
         <div>
-            <h2 class="w3-col s11 m11 l11" style="color: white; margin-top: 0">My Projects</h2>
+            <h2 class="w3-col s11 m11 l11" style="color: white; margin-top: 20px">My Projects</h2>
             <div class="w3-col s1 m1 l1">
                 <div class="w3-tooltip">
                     <a ng-click="goToNewProject()">
                         <i class="glyphicon glyphicon-plus w3-xxlarge w3-left"
-                           style="color: white; cursor: pointer; margin-left: 10px"></i>
+                           style="color: white; cursor: pointer; margin-left: 10px; margin-top: 20px"></i>
                     </a>
                     <h6 class="w3-center w3-text w3-tag"
                         style="color: white; text-align: left; position:absolute;top: 0px; padding: 5px;">Create a new
@@ -93,7 +93,7 @@
                                   ng-click="deleteProject(prj.$id)"></i></a>
                             <br>
                             <hr style="margin-left: 7px; margin-right: 6px;">
-                            <ul class="w3-left" style="list-style: none; text-align: left; padding-left: 25px">
+                            <ul class="w3-left" style="list-style: none; text-align: left; padding-left: 25px; color: gray;">
                                 <li>{{prj.type}}</li>
                                 <li>{{prj.progress}}</li>
                             </ul>
@@ -102,7 +102,7 @@
                         <!--div per vedere i membri della troupe-->
                         <div id="containerTroupe" class="row w3-container w3-right w3-col s8 m8 l8">
                             <div class="w3-row w3-right">
-                                <h4 style="margin: 0;"> The Troupe: </h4>
+                                <h4 style="margin: 0; color: lightgray;"> The Troupe: </h4>
                             </div>
                             <div class="w3-row w3-col l12 m12 s12" style="align-content: center">
                                 <ul class="w3-right" style="margin-bottom: 20px; padding: 0;">

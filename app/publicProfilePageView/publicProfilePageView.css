@@ -115,6 +115,10 @@
 }
 /* Fine parte comune*/
 
+#mainContainerProfile h4{
+    color: white;
+}
+
 #profileGeneralInfoContainer{
     padding-top: 30px;
     padding-bottom: 30px;

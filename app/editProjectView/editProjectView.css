@@ -120,12 +120,13 @@
     text-align: center;
     align-items:center;
     vertical-align: middle;
-    background-color: #b7c3b8;
+    background: linear-gradient(rgba(0,0,0,.5), rgba(0,0,0,.5));
     padding-bottom: 20px;
+    margin-left: 30px;
 }
 
 #editProjectContainer h2{
-    color: #636466;
+    color: white;
 }
 
 #containerTroupe{

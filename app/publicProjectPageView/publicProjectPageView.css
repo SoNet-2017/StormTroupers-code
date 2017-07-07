@@ -115,23 +115,24 @@
 }
 /* Fine parte comune*/
 
-#myProjectContainer{
+#projectContainer{
     /*Per centrare il contenuto*/
     text-align: center;
     align-items:center;
     vertical-align: middle;
-    background-color: #b7c3b8;
+    background: linear-gradient(rgba(0,0,0,.5), rgba(0,0,0,.5));
+    background-color: #333333;
     padding-bottom: 20px;
 }
 
-#myProjectContainer h2{
-    color: #b7c3b8;
+#projectContainer h2{
+    color: white;
     text-shadow: 2px 2px 4px #333333;
     font-size: 60px;
 }
 
-#myProjectContainer h4{
-    color: #b7c3b8;
+#projectContainer h4{
+    color: white;
 }
 
 #containerTroupe{
@@ -150,7 +151,8 @@
 
     /* Set a specific height */
     min-height: 350px;
-
+    border-top-left-radius: 4mm;
+    border-top-right-radius: 4mm;
     /* Create the parallax scrolling effect */
     background-attachment: fixed;
     background-position: center;

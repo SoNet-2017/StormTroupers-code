@@ -8,14 +8,13 @@ h1{
 }
 
 #mainContainer{
-    background-color: #b7c3b8;
+    background: linear-gradient(rgba(0,0,0,.5), rgba(0,0,0,.5));
     min-height: 500px;
     padding: 30px;
 }
 
 #adJoinMain{
     padding-top: 30px;
-    background-color: #636466;
     text-align: center;
     width: 100%;
 }
@@ -60,9 +59,16 @@ h1{
     align-items:center;
     text-align: left;
 }
+#advancedJoinCheckboxes form{
+    padding:0;
+}
 
 #advancedJoinCheckboxes{
-    color: #636466;
+    color: white;
+}
+#advancedJoinCheckboxes label{
+    color: white;
+    padding-left: 7px;
 }
 
 #advancedJoinCheckboxes2{
@@ -73,7 +79,11 @@ h1{
 }
 
 #advancedJoinCheckboxes2{
-    color: #636466;
+    color: white;
+}
+#advancedJoinCheckboxes2 label{
+    color: white;
+    padding-left: 7px;
 }
 
 h4{
@@ -101,7 +111,8 @@ textarea{
 }
 
 #advancedJoinButton{
-    background-color: white;
+    color: white;
+    background-color: grey;
 }
 
 #advancedJoinButton a{
@@ -121,9 +132,9 @@ textarea{
 }
 
 #raceBox{
+    background: linear-gradient(rgba(0,0,0,.5), rgba(0,0,0,.5));
     margin-left: 0px;
     margin-right: 0px;
-    background-color: rgb(150,170,150);
     border-color: black;
     border-width: 3px;
     border-radius: 5px;
@@ -131,4 +142,8 @@ textarea{
     padding-top: 10px;
     padding-left: 10px;
     padding-right: 10px;
+}
+#raceBox label{
+    color: white;
+    padding-left:7px;
 }

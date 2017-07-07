@@ -65,42 +65,42 @@
 
         <div id="friendsContainer" class="w3-container w3-row w3-col l12 m12 s12"
              style="padding-top: 0px; padding-right: 0px">
-            <div class="w3-container" style="padding: 0px;">
-                <h4 style="color: white; margin-top: 0"><strong>{{otherUser.name}}</strong>'s connections</h4>
+            <div class="w3-container" style="padding-left: 40px; margin-left: 20px; background: linear-gradient(rgba(0,0,0,.5), rgba(0,0,0,.5));">
+                <h4 style="color: white; margin-top: 20px; margin-bottom: 0"><strong>{{otherUser.name}}</strong>'s connections</h4>
                 <br>
                 <ul style="list-style: none; margin: 0; padding: 0;">
                     <li ng-repeat="friend in friends" class="w3-col s6 m6 l6" style="padding-top: 0px">
                         <div class=" w3-container w3-card-2"
-                             style="padding: 10px; border-radius: 4mm; background-color: #b7c3b8; margin-right:50px">
+                             style="padding: 10px; border-radius: 4mm; background-color: #333333; margin-right:50px">
                             <div class="w3-left" id="newUImgContainer">
                                 <img id="newUImg" alt="Avatar" class="w3-left w3-circle">
                             </div>
                             <div id="userDesc">
                                 <div class="w3-container w3-row" style="text-align: left;">
                                     <a ng-click="goToPublicProfile(friend.$id)" style="cursor: pointer; color: #636466">
-                                        <h4><strong>{{friend.name}} {{friend.lastName}}</strong></h4>
+                                        <h4 style="color: white;"><strong>{{friend.name}} {{friend.lastName}}</strong></h4>
                                     </a>
-                                    <div>
+                                    <div style="color: lightgray;">
                                         <i class="w3-col s1 m1 l1 glyphicon glyphicon-map-marker w3-small"
-                                           style="padding-top: 10px"></i>
+                                           style="padding-top: 10px; color: white;"></i>
                                         <h5 class="w3-col s11 m11 l11">{{friend.city}}, {{friend.province}},
                                             {{friend.country}}</h5>
                                     </div>
-                                    <div>
-                                        <i class="w3-col s1 m1 l1 glyphicon glyphicon-briefcase w3-small"></i>
+                                    <div style="color: lightgray;">
+                                        <i class="w3-col s1 m1 l1 glyphicon glyphicon-briefcase w3-small" style="color: white;"></i>
                                         <h5><p id="friendRoles" ng-repeat="role in friend.roles">{{role}} </p></h5>
                                     </div>
                                 </div>
                             </div>
                             <div class="w3-container w3-row w3-right" id="linkNewU">
                                 <a ng-click="goToPublicProfile(friend.$id)" class="w3-tooltip">
-                                    <i class="glyphicon glyphicon-user w3-xlarge"></i>
+                                    <i class="glyphicon glyphicon-user w3-xlarge" style="color: lightgray;"></i>
                                     <h6 class="w3-center w3-text w3-tag"
                                         style="color: white; text-align: left; position:absolute;left: 0px; padding: 5px;">
                                         See {{friend.name}}'s profile</h6>
                                 </a>
-                                <a ng-click="addUserToFriends(otherUser.$id)" class="w3-tooltip">
-                                    <i class="glyphicon glyphicon-screenshot w3-xlarge"></i>
+                                <a ng-click="addUserToFriends(friend.$id)" class="w3-tooltip">
+                                    <i class="glyphicon glyphicon-screenshot w3-xlarge" style="color: lightgray;"></i>
                                     <h6 class="w3-center w3-text w3-tag"
                                         style="color: white; text-align: left; position:absolute;top: 0px; padding: 5px;">
                                         Connect with {{friend.name}}</h6>

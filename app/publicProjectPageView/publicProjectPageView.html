@@ -61,7 +61,7 @@
                 class="glyphicon glyphicon-cog w3-large"></i></a>
     </div>
 
-    <div id="myProjectContainer" class="w3-col l8 m8 s8 w3-card-2">
+    <div id="projectContainer" class="w3-col l8 m8 s8 w3-card-2" style="border-top-left-radius: 4mm;border-top-right-radius: 4mm;margin-left: 30px">
         <div class="w3-row">
             <div class="w3-animate-opacity">
 
@@ -69,14 +69,14 @@
                     <div id="likePanel" class="w3-container w3-col l1 m1 s1"
                          style="min-height: 350px; background: linear-gradient(rgba(0,0,0,.5), rgba(0,0,0,.8)); margin: 0px;">
                         <div class="w3-content w3-center" id="likePanelHover">
-                            <h4 class="w3-content w3-center">23</h4>
+                            <h4 class="w3-content w3-center" style="color: white;">23</h4>
                             <a ng-click="">
                                 <i class="glyphicon glyphicon-heart-empty w3-xlarge"
-                                   style="color: #b7c3b8;"></i></a>
+                                   style="color: white;"></i></a>
                             <br><br><br><br><br><br>
                             <div id="proposeButton" class="w3-tooltip">
                                 <a ng-click=""><i class="glyphicon glyphicon-plus w3-xlarge"
-                                                  style="color: #b7c3b8;"></i>
+                                                  style="color: white;"></i>
                                     <span style="position:absolute;right:0;bottom:0px" class="w3-text w3-tag">Propose to collaborate!</span></a>
                             </div>
                         </div>
@@ -88,15 +88,15 @@
         </div>
 
         <div class="w3-row" style="margin: 10px;">
-            <h3 class="w3-right" style="color: #636466; text-align: right; padding-right: 20px; margin-top: 10px">{{prj.progress}}</h3>
-            <h3 class="w3-left" style="color: #636466; text-align: left; padding-left: 20px; margin-top: 10px">{{prj.type}}, {{prj.genre}}</h3>
+            <h3 class="w3-right" style="color: lightgray; text-align: right; padding-right: 20px; margin-top: 10px">{{prj.progress}}</h3>
+            <h3 class="w3-left" style="color: lightgray; text-align: left; padding-left: 20px; margin-top: 10px">{{prj.type}}, {{prj.genre}}</h3>
         </div>
         <hr style="margin: 10px;">
         <div class="w3-row">
             <div class="w3-container">
                 <h4 style="color: #636466; padding-left: 20px; text-align: center">CONCEPT</h4>
 
-                <h5>{{prj.description}}</h5>
+                <h5 style="color: #636466;">{{prj.description}}</h5>
 
                 <br><br>
 
@@ -108,7 +108,7 @@
             <div class="w3-container">
                 <h4 style="color: #636466; padding-left: 20px; text-align: center">PEOPLE WE'RE LOOKING FOR:</h4>
 
-                <ul style="text-align: left">
+                <ul style="text-align: left; color: #636466;">
                     <li><h5>DOP</h5></li>
                     <li><h5>VFX EXPERT</h5></li>
                 </ul>
@@ -121,7 +121,7 @@
         <div id="projTroupersContainer" class="w3-row w3-animate-opacity w3-card-2 w3-dark-gray"
              style="width: 100%; float: left;">
             <div class="w3-col l3 m3 s3">
-                <h4 class="w3-right" style="padding: 10px; color: #b7c3b8"> THE TROUPE: </h4>
+                <h4 class="w3-right" style="padding: 10px; color: white">THE TROUPE: </h4>
             </div>
             <div class="w3-col l9 m9 s9" style="align-content: center">
                 <ul class="w3-left" style="padding: 0px;">

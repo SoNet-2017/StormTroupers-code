@@ -61,8 +61,8 @@
                 class="glyphicon glyphicon-cog w3-large"></i></a>
     </div>
 
-    <div class="w3-container w3-col l7 m7 s7">
-        <div id="profileGeneralInfoContainer" class="w3-container  w3-col l12 m12 s12 w3-card-2">
+    <div id="mainContainerProfile" class="w3-container w3-col l7 m7 s7" style="margin-left: 30px;">
+        <div id="profileGeneralInfoContainer" class="w3-container  w3-col l12 m12 s12 w3-card-2" style="background: linear-gradient(rgba(0,0,0,.5), rgba(0,0,0,.5));background-color:#333333;border-top-left-radius: 4mm;border-top-right-radius: 4mm;">
 
             <div id="pictureContainer" class="w3-container w3-col s4 m4 l4">
             <span class="w3-left w3-animate-opacity"
@@ -72,26 +72,26 @@
             </span>
             </div>
             <div id="generalInfoContainer" class="w3-container w3-col s8 m8 l8">
-                <h4>About <strong>{{otherUser.name}} {{otherUser.lastName}}</strong>, {{age}} years old</h4>
+                <h4 style="color: white;">About <strong>{{otherUser.name}} {{otherUser.lastName}}</strong>, {{age}} years old</h4>
                 <div class="w3-container">
                     <div class="w3-col s1 m1 l1"><i class="glyphicon glyphicon-briefcase w3-large"
-                                                    style="padding-top: 8px"></i></div>
+                                                    style="padding-top: 8px; color: white;"></i></div>
                     <div class="w3-col s11 m11 l11">
-                        <h5><p id="userRoles"></p></h5>
+                        <h5 style="color: lightgray;"><p id="userRoles"></p></h5>
                     </div>
                 </div>
                 <div class="w3-container">
                     <div class="w3-col s1 m1 l1"><i class="glyphicon glyphicon-map-marker w3-large"
-                                                    style="padding-top: 8px"></i></div>
+                                                    style="padding-top: 8px; color: white;"></i></div>
                     <div class="w3-col s11 m11 l11">
-                        <h5><p id="position">{{otherUser.city}}, {{otherUser.province}}, {{otherUser.country}}</p></h5>
+                        <h5 style="color: lightgray;"><p id="position">{{otherUser.city}}, {{otherUser.province}}, {{otherUser.country}}</p></h5>
                     </div>
                 </div>
                 <div class="w3-container">
                     <div class="w3-col s1 m1 l1"><i class="glyphicon glyphicon-pushpin w3-large"
-                                                    style="padding-top: 8px"></i></div>
+                                                    style="padding-top: 8px; color: white;"></i></div>
                     <div class="w3-col s11 m11 l11">
-                        <h5><p>{{otherUser.description}}</p></h5>
+                        <h5 style="color: lightgray;"><p>{{otherUser.description}}</p></h5>
                     </div>
                 </div>
             </div>
@@ -100,7 +100,7 @@
         <br>
 
         <div id="profileProjectsContainer" class="w3-container w3-row w3-col l12 m12 s12 w3-card-2"
-             style="margin-top: 30px; padding-top: 20px">
+             style="margin-top: 30px; padding-top: 20px; background: linear-gradient(rgba(0,0,0,.5), rgba(0,0,0,.5));">
             <div id="projectsContainer" class="w3-container">
                 <h4>Current/Completed Projects</h4>
                 <br>
@@ -139,7 +139,7 @@
         <br>
 
         <div id="profileLikedProjectsContainer" class="w3-container w3-row w3-col l12 m12 s12 w3-card-2"
-             style="margin-top: 30px; padding-top: 20px">
+             style="margin-top: 30px; padding-top: 20px;background: linear-gradient(rgba(0,0,0,.5), rgba(0,0,0,.5));">
             <div id="likedProjectsContainer" class="w3-container">
                 <h4>Projects <strong>{{otherUser.name}}</strong> is following</h4>
 
@@ -148,7 +148,7 @@
         <br>
 
         <div id="profileFriendsContainer" class="w3-container w3-row w3-col l12 m12 s12 w3-card-2"
-             style="margin-top: 30px; padding-top: 20px">
+             style="margin-top: 30px; padding-top: 20px; background: linear-gradient(rgba(0,0,0,.5), rgba(0,0,0,.5));">
             <div id="friendsContainer" class="w3-container">
                 <h4><strong>{{otherUser.name}}</strong>'s Troupers</h4>
 
@@ -157,7 +157,7 @@
         <br>
 
         <div id="profileEquipmentContainer" class="w3-container w3-row w3-col l12 m12 s12 w3-card-2"
-             style="margin-top: 30px; padding-top: 20px">
+             style="margin-top: 30px; padding-top: 20px; background: linear-gradient(rgba(0,0,0,.5), rgba(0,0,0,.5));">
             <div id="equipmentContainer" class="w3-container">
                 <h4>Equipment</h4>
 
@@ -166,7 +166,7 @@
         <br>
 
         <div id="profilePortfolioContainer" class="w3-container w3-row w3-col l12 m12 s12 w3-card-2"
-             style="margin-top: 30px; padding-top: 20px">
+             style="margin-top: 30px; padding-top: 20px; background: linear-gradient(rgba(0,0,0,.5), rgba(0,0,0,.5));">
             <div id="portfolioContainer" class="w3-container">
                 <h4>Portfolio</h4>
 
@@ -175,7 +175,7 @@
         <br>
 
         <div id="profileFeedbackContainer" class="w3-container w3-row w3-col l12 m12 s12 w3-card-2"
-             style="margin-top: 30px; padding-top: 20px">
+             style="margin-top: 30px; padding-top: 20px; background: linear-gradient(rgba(0,0,0,.5), rgba(0,0,0,.5));">
             <div id="feedbackContainer" class="w3-container">
                 <h4>What other Troupers say about <strong>{{otherUser.name}}</strong></h4>
 
