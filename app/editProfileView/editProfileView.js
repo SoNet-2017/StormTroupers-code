@@ -66,7 +66,7 @@ angular.module('myApp.editProfileView', ['ngRoute'])
 
         $scope.goToMyProjects=function() {
             $location.path("/myProjectsView");
-        }
+        };
 
         $scope.loadProvinces = function (selectedCountry) {
 
@@ -80,7 +80,7 @@ angular.module('myApp.editProfileView', ['ngRoute'])
             }
             $scope.provinces = provinces_array;
 
-        }
+        };
 
         $scope.loadCities = function (selectedProvince) {
             console.log("ng-change: selezionata provincia: " + selectedProvince.toString());
@@ -94,7 +94,7 @@ angular.module('myApp.editProfileView', ['ngRoute'])
                 console.log("city: " + cities_array[i]);
             }
             $scope.cities = cities_array;
-        }
+        };
 
 
         var UID=localStorage.UID;

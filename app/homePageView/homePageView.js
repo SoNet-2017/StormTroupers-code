@@ -53,12 +53,12 @@ angular.module('myApp.homePageView', ['ngRoute'])
 
         $scope.goToMyProjects=function () {
             $location.path("/myProjectsView");
-        }
+        };
 
         // CAMBIARE URL
         $scope.goToPublicProfile=function(userID) {
             $location.path("/homePageView");
-        }
+        };
 
         var UID=localStorage.UID;
         var database=firebase.database();
@@ -66,20 +66,15 @@ angular.module('myApp.homePageView', ['ngRoute'])
         var userQuery=usersBase.orderByChild("dateOfJoin").limitToLast(10);
         $scope.filterUsers=$firebaseArray(userQuery);
 
+        var projectBase=database.ref('projects/');
+        $scope.allProjects=$firebaseArray(projectBase);
 
-
-        var obj = $firebaseObject(database.ref('users/'+UID));
-        obj.$loaded().then(function () {
-            $scope.profile=obj;
-            var role = Object.values(obj.roles);
-            for(var i=0; i<role.length; i++){
-                document.getElementById("userRolesHome").innerHTML+=role[i];
-                if(i<role.length-1) {
-                    document.getElementById("userRolesHome").innerHTML+=", ";
-                }
-            }
+        $scope.populateProjectsAndUsers=function () {
             $scope.filterSearch={};
+            $scope.filterProjects={};
 
+
+            //popolazione users!!!!!
             /*
              var length=$scope.filterUsers.length;
              var arr=[];
@@ -108,35 +103,66 @@ angular.module('myApp.homePageView', ['ngRoute'])
             }
 
             for (var n=0; n<5; n++) { //pesca le prime 5 carte del mazzo
-                $scope.filterSearch[n] = $scope.filterUsers[n];
+                //evitiamo che appaia se stesso nei new users
+                if(($scope.filterUsers[n].name !== $scope.profile.name) && ($scope.filterUsers[n].lastName !== $scope.profile.lastName)) {
+                    $scope.filterSearch[n] = $scope.filterUsers[n];
+                }
             }
-
 
             /* VECCHIO ALGORITMO ALTAMENTE INEFFICIENTE
              var rand=0;
              var ok=true;
-            for (var n=0; n<5; n++) {
+             for (var n=0; n<5; n++) {
 
-                do {
-                    rand = Math.floor((Math.random() * 10) + 1);
-                    $scope.filterSearch[n] = $scope.filterUsers[rand];
+             do {
+             rand = Math.floor((Math.random() * 10) + 1);
+             $scope.filterSearch[n] = $scope.filterUsers[rand];
 
-                    ok=true;
+             ok=true;
 
-                    for (var m=0; m<n; m++) {
-                        if ($scope.filterSearch[n]==$scope.filterSearch[m]) {
-                            ok=false;
-                            break;
-                        }
-                    }
+             for (var m=0; m<n; m++) {
+             if ($scope.filterSearch[n]==$scope.filterSearch[m]) {
+             ok=false;
+             break;
+             }
+             }
 
+             }
+             while (ok==false)
+
+             }
+
+             */
+
+            ////////////////////////////////////////////////////////////////////////////////////
+            //per popolare con i progetti around you
+
+            console.log("length: "+ $scope.allProjects.length);
+
+            var n=0;
+            for (var i=0; i < $scope.allProjects.length; i++) {
+                if(($scope.allProjects[i].city === $scope.profile.province)) {
+                    $scope.filterProjects[n] = $scope.allProjects[i];
+                    console.log("match: "+ $scope.filterProjects[n].title);
+                    n++;
                 }
-                while (ok==false)
-
             }
 
-            */
+        };
 
+        var obj = $firebaseObject(database.ref('users/'+UID));
+        obj.$loaded().then(function () {
+            $scope.profile=obj;
+            var role = Object.values(obj.roles);
+            for(var i=0; i<role.length; i++){
+                document.getElementById("userRolesHome").innerHTML+=role[i];
+                if(i<role.length-1) {
+                    document.getElementById("userRolesHome").innerHTML+=", ";
+                }
+            }
+
+            //funzione per popolare i container around you
+            $scope.populateProjectsAndUsers();
 
         }).catch(function (error) {
             $scope.error=error;

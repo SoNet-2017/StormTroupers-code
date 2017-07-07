@@ -92,7 +92,9 @@ angular.module('myApp.searchPageView', ['ngRoute'])
             $location.path("/editProfileView");
         };
 
-
+        $scope.goToMyProjects=function () {
+            $location.path("/myProjectsView");
+        }
 
         var UID=localStorage.UID;
         var database=firebase.database();
@@ -126,7 +128,9 @@ angular.module('myApp.searchPageView', ['ngRoute'])
             //resetta il filtersearch
             $scope.filterSearch={};
 
-                //checca che cazzo hai messo nei filtri
+            var resultIsOkFlag=false;
+
+                //checca che cappero hai messo nei filtri
             /*
             var checkKeyword=false;
             //step1 checcka la keyword in nome e cognome
@@ -139,20 +143,143 @@ angular.module('myApp.searchPageView', ['ngRoute'])
             }
             */
 
-            //step27 checca il sesso
-            var includeF=false;
-            var includeM=false;
-            if (document.getElementById("checkFem").checked) {
-                includeF=true;
+            //step34 checca il ruolo
+            var filterByRole=false;
+
+            var includeAnim=false;
+            if (document.getElementById("checkAnim").checked) {
+                filterByRole=true;
+                includeAnim=true;
             }
-            if (document.getElementById("checkMal").checked) {
-                includeM=true;
+            var includeAudio=false;
+            if (document.getElementById("checkAudio").checked) {
+                filterByRole=true;
+                includeAudio=true;
             }
+            var includeDP=false;
+            if (document.getElementById("checkDP").checked) {
+                filterByRole=true;
+                includeDP=true;
+            }
+            var includeArt=false;
+            if (document.getElementById("checkArt").checked) {
+                filterByRole=true;
+                includeArt=true;
+            }
+            var includeDirect=false;
+            if (document.getElementById("checkDirect").checked) {
+                filterByRole=true;
+                includeDirect=true;
+            }
+
+            var includeGraphic=false;
+            if (document.getElementById("checkGraphicDes").checked) {
+                filterByRole=true;
+                includeGraphic=true;
+            }
+            var includeLight=false;
+            if (document.getElementById("checkLight").checked) {
+                filterByRole=true;
+                includeLight=true;
+            }
+            var includePhot=false;
+            if (document.getElementById("checkPhot").checked) {
+                filterByRole=true;
+                includePhot=true;
+            }
+            var includePost=false;
+            if (document.getElementById("checkPostProd").checked) {
+                filterByRole=true;
+                includePost=true;
+            }
+            var includeProd=false;
+            if (document.getElementById("checkProducers").checked) {
+                filterByRole=true;
+                includeProd=true;
+            }
+            var includeFX=false;
+            if (document.getElementById("checkFX").checked) {
+                filterByRole=true;
+                includeFX=true;
+            }
+            var includeStyle=false;
+            if (document.getElementById("checkStyle").checked) {
+                filterByRole=true;
+                includeStyle=true;
+            }
+            var includeCast=false;
+            if (document.getElementById("checkCast").checked) {
+                filterByRole=true;
+                includeCast=true;
+            }
+            var includeActor=false;
+            if (document.getElementById("checkActor").checked) {
+                filterByRole=true;
+                includeActor=true;
+                var actorANDsex=false;
+                var actorANDetn=false;
+
+                //step27 checca il sesso
+                var includeF=false;
+                var includeM=false;
+                if (document.getElementById("checkFem").checked) {
+                    includeF=true;
+                    actorANDsex=true;
+                }
+                if (document.getElementById("checkMal").checked) {
+                    includeM=true;
+                    actorANDsex=true;
+                }
+                //step278 checca l'etnia
+                var includeCau=false;
+                var includeLat=false;
+                var includeSAs=false;
+                var includeNat=false;
+                var includeAfr=false;
+                var includeMid=false;
+                var includeSEA=false;
+                var includeAmb=false;
+                if (document.getElementById("etnCauc").checked) {
+                    includeCau=true;
+                    actorANDetn=true;
+                }
+                if (document.getElementById("etnHisp").checked) {
+                    includeLat=true;
+                    actorANDetn=true;
+                }
+                if (document.getElementById("etnSAsi").checked) {
+                    includeSAs=true;
+                    actorANDetn=true;
+                }
+                if (document.getElementById("etnNati").checked) {
+                    includeNat=true;
+                    actorANDetn=true;
+                }
+                if (document.getElementById("etnAfri").checked) {
+                    includeAfr=true;
+                    actorANDetn=true;
+                }
+                if (document.getElementById("etnMidd").checked) {
+                    includeMid=true;
+                    actorANDetn=true;
+                }
+                if (document.getElementById("etnPaci").checked) {
+                    includeSEA=true;
+                    actorANDetn=true;
+                }
+                if (document.getElementById("etnAmbi").checked) {
+                    includeAmb=true;
+                    actorANDetn=true;
+                }
+            }
+
 
             //parte il coso per davvero
             var length=$scope.filterUsers.length;
             var j=0;
             for(var i=0; i<length; i++){ //si scorre tutto l'array
+
+                resultIsOkFlag=false;
 
                 /*
                 if (checkKeyword===true) {
@@ -166,18 +293,132 @@ angular.module('myApp.searchPageView', ['ngRoute'])
                 }
                 */
 
-                if (includeF===true) {
-                    if($scope.filterUsers[i].gender==="female"){
-                        $scope.filterSearch[j]=$scope.filterUsers[i];
-                        j++;
+                if (filterByRole===true) {
+
+                    console.log("filterByRole? = true!");
+
+                    var roles = $scope.filterUsers[i].roles;
+                    var rl = roles.length;
+
+                    for (var n = 0; n < rl; n++) {
+                        if (includeAnim===true && roles[n]==="Animation") {
+                            $scope.filterSearch[j]=$scope.filterUsers[i];
+                            j++;
+                            resultIsOkFlag=true;
+                            break;
+                        }
+                        if (includeAudio===true && roles[n]==="Audio/Music/Sound") {
+                            $scope.filterSearch[j]=$scope.filterUsers[i];
+                            j++;
+                            resultIsOkFlag=true;
+                            break;
+                        }
+                        if (includeDP===true && roles[n]==="Camera Crew/DP") {
+                            $scope.filterSearch[j]=$scope.filterUsers[i];
+                            j++;
+                            resultIsOkFlag=true;
+                            break;
+                        }
+                        if (includeArt===true && roles[n]==="Crew art/Design/Scenic/Construction") {
+                            $scope.filterSearch[j]=$scope.filterUsers[i];
+                            j++;
+                            resultIsOkFlag=true;
+                            break;
+                        }
+                        if (includeDirect===true && roles[n]==="Director") {
+                            $scope.filterSearch[j]=$scope.filterUsers[i];
+                            j++;
+                            resultIsOkFlag=true;
+                            break;
+                        }
+                        if (includeLight===true && roles[n]==="Lighting/Electric") {
+                            $scope.filterSearch[j]=$scope.filterUsers[i];
+                            j++;
+                            resultIsOkFlag=true;
+                            break;
+                        }
+                        if (includeGraphic===true && roles[n]==="Graphic designer") {
+                            $scope.filterSearch[j]=$scope.filterUsers[i];
+                            j++;
+                            resultIsOkFlag=true;
+                            break;
+                        }
+                        if (includePost===true && roles[n]==="Post Production People") {
+                            $scope.filterSearch[j]=$scope.filterUsers[i];
+                            j++;
+                            resultIsOkFlag=true;
+                            break;
+                        }
+                        if (includeProd===true && roles[n]==="Producers") {
+                            $scope.filterSearch[j]=$scope.filterUsers[i];
+                            j++;
+                            resultIsOkFlag=true;
+                            break;
+                        }
+                        if (includeFX===true && roles[n]==="Special Effects Crew") {
+                            $scope.filterSearch[j]=$scope.filterUsers[i];
+                            j++;
+                            resultIsOkFlag=true;
+                            break;
+                        }
+                        if (includeStyle===true && roles[n]==="Stylist/Vanities") {
+                            $scope.filterSearch[j]=$scope.filterUsers[i];
+                            j++;
+                            resultIsOkFlag=true;
+                            break;
+                        }
+                        if (includeCast===true && roles[n]==="Talent/Casting - People") {
+                            $scope.filterSearch[j]=$scope.filterUsers[i];
+                            j++;
+                            resultIsOkFlag=true;
+                            break;
+                        }
+                        if (includeActor===true && roles[n]==="Talent/Actors") {
+                            if (actorANDsex===true) {
+                                if (includeF === true) {
+                                    if ($scope.filterUsers[i].gender === "female") {
+                                        if (actorANDetn===false) {
+                                            $scope.filterSearch[j] = $scope.filterUsers[i];
+                                            j++;
+                                            resultIsOkFlag = true;
+                                            break;
+                                        }
+                                    }
+                                }
+
+                                if (includeM === true) {
+                                    if ($scope.filterUsers[i].gender === "male") {
+                                        if (actorANDetn===false) {
+                                            $scope.filterSearch[j] = $scope.filterUsers[i];
+                                            j++;
+                                            resultIsOkFlag = true;
+                                            break;
+                                        }
+                                    }
+                                }
+                            }
+                            if (actorANDetn===true) {
+                                if (includeCau === true) {
+                                    if ($scope.filterUsers[i].race === "Caucasian") {
+                                            $scope.filterSearch[j] = $scope.filterUsers[i];
+                                            j++;
+                                            resultIsOkFlag = true;
+                                            break;
+                                    }
+                                }
+                                ///ARRIVATI FINO A QUA, CONTINUARE...
+                                //CHECCARE BENE STA ROBA DEI RUOLI E DEL SESSO PERCHE' FORSE FUNZIONA MA SOLO PER PURO CASO
+                            }
+
+                        }
+
                     }
+
                 }
 
-                if (includeM===true) {
-                    if($scope.filterUsers[i].gender==="male"){
-                        $scope.filterSearch[j]=$scope.filterUsers[i];
-                        j++;
-                    }
+                if (resultIsOkFlag==true) {
+                    console.log($scope.filterUsers[i].name);
+                    console.log(roles);
                 }
 
                 //ricerca di prova in base al nome TENIAMOLA LI'
@@ -192,6 +433,7 @@ angular.module('myApp.searchPageView', ['ngRoute'])
 
             }
 
+            document.body.scrollTop = 0;
 
         };
 
@@ -208,5 +450,7 @@ angular.module('myApp.searchPageView', ['ngRoute'])
 
 
         };
+
+
 
     }]);

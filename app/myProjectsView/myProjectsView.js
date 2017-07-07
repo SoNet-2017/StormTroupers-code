@@ -56,21 +56,23 @@ angular.module('myApp.myProjectsView', ['ngRoute'])
 
         $scope.goToMyProjects = function () {
             $location.path("/myProjectsView");
-        }
+        };
 
         // CAMBIARE URL
-        $scope.goToProjectX = function () {
-            $location.path("/myProjectsView");
-        }
+        $scope.goToEditProjectX = function (prj_x) {
+            $location.path("/editProjectView");
+            console.log("Titolo passato: " + prj_x.pid);
+            localStorage.PID = prj_x.pid;
+        };
 
         // CAMBIARE URL
-        $scope.goToPublicProfile = function (userID) {
+        $scope.goToPublicProfile = function (user) {
             $location.path("/homePageView");
-        }
+        };
 
         $scope.goToNewProject = function () {
             $location.path("/newProjectView");
-        }
+        };
 
         var UID = localStorage.UID;
         var database = firebase.database();
@@ -89,28 +91,60 @@ angular.module('myApp.myProjectsView', ['ngRoute'])
                 }
             }
 
-
         }).catch(function (error) {
             $scope.error = error;
         });
 
-
-        // non va e non so perchè D:
-        $scope.filterSearch={};
-        var UID = localStorage.UID;
+        $scope.getProjectsFromDB={};
+        var PID = localStorage.PID;
         var projectsBase = database.ref('projects/');
-        var projectQuery = projectsBase.limitToLast(10);
-        $scope.filterProjects = $firebaseArray(projectQuery);
+        $scope.getProjectsFromDB = $firebaseArray(projectsBase);
 
-        var owner = localStorage.UID;
-        var length=$scope.filterProjects.length;
-        console.log(length);
-        for (var i = 0; i < 10; i++) {
-            //if($scope.filterProjects[i].title === "ciao1")
-            {
-                console.log([$scope.filterProjects[i]]);
+        var projObj = $firebaseObject(database.ref('projects/' + PID));
+        projObj.$loaded().then(function () {
+            //resetta il filtersearch
+            $scope.filterProjects={};
+
+            //parte il coso per davvero
+            var length=$scope.getProjectsFromDB.length;
+            var j=0;
+            for(var i=0; i<length; i++){ //si scorre tutto l'array
+                if($scope.getProjectsFromDB[i].owner === UID) {
+                    $scope.filterProjects[j]=$scope.getProjectsFromDB[i];
+                    j++;
+                }
             }
-        }
+        });
+
+        $scope.popolaMyProjects = function () {
+            $scope.getProjectsFromDB={};
+            var PID = localStorage.PID;
+            var projectsBase = database.ref('projects/');
+            $scope.getProjectsFromDB = $firebaseArray(projectsBase);
+
+            var projObj = $firebaseObject(database.ref('projects/' + PID));
+            projObj.$loaded().then(function () {
+                //resetta il filtersearch
+                $scope.filterProjects={};
+
+                //parte il coso per davvero
+                var length=$scope.getProjectsFromDB.length;
+                var j=0;
+                for(var i=0; i<length; i++){ //si scorre tutto l'array
+                    if($scope.getProjectsFromDB[i].owner === UID) {
+                        $scope.filterProjects[j]=$scope.getProjectsFromDB[i];
+                        j++;
+                    }
+                }
+            })
+        };
+
+        // per cancellare i progetti
+        $scope.deleteProject = function (prj) {
+            console.log("sto per cancellare il progetto con PID: " + prj.pid);
+            database.ref('projects/' + prj.pid).remove();
+            $scope.popolaMyProjects();
+        };
 
         $scope.logout = function () {
             Users.registerLogout(currentAuth.uid);
@@ -127,3 +161,4 @@ angular.module('myApp.myProjectsView', ['ngRoute'])
         };
 
     }]);
+

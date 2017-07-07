@@ -1,8 +1,10 @@
 <div class="w3-container w3-bar w3-top w3-card-2" id="topBarHome">
 
 
-    <a class="w3-bar-item w3-button" id="homeLinkHome" ng-click="goToDashboard()"><i class="glyphicon glyphicon-home w3-large"></i></a>
-    <a class="w3-bar-item w3-button" id="userLinkHome" ng-click="goToSearchCrew()"><i class="glyphicon glyphicon-user w3-large"></i></a>
+    <a class="w3-bar-item w3-button" id="homeLinkHome" ng-click="goToDashboard()"><i
+            class="glyphicon glyphicon-home w3-large"></i></a>
+    <a class="w3-bar-item w3-button" id="userLinkHome" ng-click="goToSearchCrew()"><i
+            class="glyphicon glyphicon-user w3-large"></i></a>
     <a class="w3-bar-item w3-button" id="projectsLinkHome"><i class="glyphicon glyphicon-film w3-large"></i></a>
 
 
@@ -31,8 +33,10 @@
     <div class="w3-bar-item w3-dropdown-click w3-right" id="logoBarHome">
         <h4 id="userNameHome" ng-click="showLogoItem()">{{profile.name}}</h4>
         <div class="w3-dropdown-content w3-bar-block w3-border w3-right" id="logoBarContentHome">
-            <a href="#" class="w3-bar-item w3-button"><i class="glyphicon glyphicon-user w3-large"></i> Your Public Profile</a>
-            <a ng-click="goToEditProfile()" class="w3-bar-item w3-button"><i class="glyphicon glyphicon-pencil w3-large"></i> Edit Profile</a>
+            <a href="#" class="w3-bar-item w3-button"><i class="glyphicon glyphicon-user w3-large"></i> Your Public
+                Profile</a>
+            <a ng-click="goToEditProfile()" class="w3-bar-item w3-button"><i
+                    class="glyphicon glyphicon-pencil w3-large"></i> Edit Profile</a>
             <a ng-click="logout()" class="w3-bar-item w3-button"><i class="glyphicon glyphicon-off w3-large"></i> Logout</a>
         </div>
     </div>
@@ -50,9 +54,11 @@
         <p id="userCityHome"></p>
         <img id="userPhotoHome">
         <br>
-        <a ng-click="goToMyProjects()" class="w3-bar-item" id="userProjectHome">My Projects <i class="glyphicon glyphicon-film w3-large"></i></a><br><br>
+        <a ng-click="goToMyProjects()" class="w3-bar-item" id="userProjectHome">My Projects <i
+                class="glyphicon glyphicon-film w3-large"></i></a><br><br>
         <a class="w3-bar-item" id="userTroupeHome">My Troupers <i class="glyphicon glyphicon-user w3-large"></i></a><br><br>
-        <a ng-click="goToEditProfile()" class="w3-bar-item" id="editProfileLinkHome">Edit Profile <i class="glyphicon glyphicon-cog w3-large"></i></a>
+        <a ng-click="goToEditProfile()" class="w3-bar-item" id="editProfileLinkHome">Edit Profile <i
+                class="glyphicon glyphicon-cog w3-large"></i></a>
     </div>
 
     <div id="aroundYouContainer" class="w3-col l8 m8 s8 w3-card-2">
@@ -60,14 +66,39 @@
         <div class="w3-container">
             <div class="w3-col l12 m12 s12">
                 <div id="newProjectShow" class="w3-container w3-card-2 w3-col l6 m6 s6">
-                    <h4>New Projects</h4>
+                    <div class="w3-container" id="newProjectTitle">
+                        <h4>New Projects</h4>
+                    </div>
+                    <div class="w3-container">
+                        <ul style="list-style: none">
+                            <li ng-repeat="project in filterProjects">
+                                <div class=" w3-container w3-card-2 w3-white" style="padding: 10px">
+                                    <div class="w3-left" id="newPImgContainer">
+                                        <img id="newPImg" alt="Avatar" class="w3-left w3-circle">
+                                    </div>
+                                    <div id="newPDesc">
+                                        <div class="w3-container w3-row">
+                                            <h4>{{project.title}}</h4>
+                                        </div>
+                                    </div>
+                                    <div class="w3-container w3-row" id="linkNewP">
+                                        <a ng-click="goToPublicProfile(user.UID)"><i
+                                                class="glyphicon glyphicon-user w3-xlarge"></i></a>
+                                        <a><i class="glyphicon glyphicon-comment w3-xlarge"></i></a>
+                                        <a><i class="glyphicon glyphicon-plus w3-xlarge"></i></a>
+                                    </div>
+                                </div>
+                                <br>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
                 <div id="newUsersShow" class="w3-container w3-card-2 w3-col l5 m5 s5">
                     <div class="w3-container" id="newUserTitle">
                         <h4>New Users</h4>
                     </div>
                     <div class="w3-container">
-                        <ul>
+                        <ul style="list-style: none">
                             <li ng-repeat="user in filterSearch">
                                 <div class=" w3-container w3-card-2 w3-white" style="padding: 10px">
                                     <div class="w3-left" id="newUImgContainer">
@@ -79,7 +110,8 @@
                                         </div>
                                     </div>
                                     <div class="w3-container w3-row" id="linkNewU">
-                                        <a ng-click="goToPublicProfile(user.UID)"><i class="glyphicon glyphicon-user w3-xlarge"></i></a>
+                                        <a ng-click="goToPublicProfile(user.UID)"><i
+                                                class="glyphicon glyphicon-user w3-xlarge"></i></a>
                                         <a><i class="glyphicon glyphicon-comment w3-xlarge"></i></a>
                                         <a><i class="glyphicon glyphicon-plus w3-xlarge"></i></a>
                                     </div>

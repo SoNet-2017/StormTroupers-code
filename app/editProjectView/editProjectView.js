@@ -4,12 +4,12 @@
 
 'use strict';
 
-angular.module('myApp.newProjectView', ['ngRoute'])
+angular.module('myApp.editProjectView', ['ngRoute'])
 
     .config(['$routeProvider', function($routeProvider) {
-        $routeProvider.when('/newProjectView', {
-            templateUrl: 'newProjectView/newProjectView.html',
-            controller: 'newProjectViewCtrl',
+        $routeProvider.when('/editProjectView', {
+            templateUrl: 'editProjectView/editProjectView.html',
+            controller: 'editProjectViewCtrl',
             resolve: {
                 // controller will not be loaded until $requireSignIn resolves
                 // Auth refers to our $firebaseAuth wrapper in the factory below
@@ -22,7 +22,7 @@ angular.module('myApp.newProjectView', ['ngRoute'])
         });
     }])
 
-    .controller('newProjectViewCtrl', ['$scope', '$location', 'Auth', '$firebaseObject','Users', 'currentAuth', '$firebaseAuth', '$firebaseArray', function ($scope,$location, Auth, $firebaseObject, Users, currentAuth, $firebaseAuth, $firebaseArray) {
+    .controller('editProjectViewCtrl', ['$scope', '$location', 'Auth', '$firebaseObject','Users', 'currentAuth', '$firebaseAuth', '$firebaseArray', function ($scope,$location, Auth, $firebaseObject, Users, currentAuth, $firebaseAuth, $firebaseArray) {
         $scope.dati={};
         $scope.auth=Auth;
 
@@ -84,7 +84,7 @@ angular.module('myApp.newProjectView', ['ngRoute'])
                     document.getElementById("userRolesHome").innerHTML+=", ";
                 }
             }
-            
+
 
         }).catch(function (error) {
             $scope.error=error;
@@ -100,9 +100,21 @@ angular.module('myApp.newProjectView', ['ngRoute'])
             troupers.push(userID.UID);
         };
 
-        $scope.createProjectDB=function() {
+        console.log("PID arrivato da myProjView: " + localStorage.PID);
 
-            console.log("entrato in create project");
+        var PID = localStorage.PID;
+        var projObj = $firebaseObject(database.ref('projects/' + PID));
+        projObj.$loaded().then(function () {
+            $scope.prjTitle = projObj.title;
+            $scope.projectName = projObj.title;
+            $scope.projectType = projObj.type;
+            $scope.projectGenre = projObj.genre;
+            $scope.projectDescription = projObj.description;
+        });
+
+        $scope.editProjectDB=function() {
+
+            console.log("sto salvando le modifche al project: "+$scope.prjTitle);
 
             $scope.error = null;
 
@@ -156,16 +168,6 @@ angular.module('myApp.newProjectView', ['ngRoute'])
             localStorage.joinLast = projDesc;
             localStorage.owner = UID;
 
-            var date = new Date();
-            var dateOfCreation = date.getDay()+"/"+date.getMonth()+"/"+date.getYear();
-
-            // ID di progetto formato da id utente e nome del progetto.. se uno crea due progetti con stesso nome c'è il time
-            var PID = UID + "_" + (new Date()).getTime() + "_" + projTitle;
-            localStorage.PID = PID;
-
-            var project_city = $scope.profile.province;
-            console.log("proj city: "+project_city);
-
             var database = firebase.database();
 
             console.log("PID: " + PID);
@@ -173,19 +175,17 @@ angular.module('myApp.newProjectView', ['ngRoute'])
             //troupers.push(UID); // il vettore è popolato anche con gli altri utenti tramite funzione addTroupers(vedi sopra)
 
             //bisogna usare il codice univoco del userID generato da firebase per un lavoro migliore
-            database.ref('projects/' + PID).set({
+            database.ref('projects/' + PID).update({
                 pid: PID,
                 owner: UID,
                 title: projTitle,
                 type: projType,
                 genre: projGenre,
                 description: projDesc,
-                dateOfCreation: dateOfCreation,
-                progress: 'In Progress',
-                city: project_city
+                progress: 'In Progress'
                 //troupers: troupers
             }).then(function () {
-                console.log("creato project in DB; PID: " + PID);
+                console.log("salvate le modifiche al project in DB; PID: " + PID);
                 var obj = $firebaseObject(database.ref('projects/' + PID));
                 obj.$loaded().then(function () {
                     $scope.project = obj;
@@ -196,16 +196,15 @@ angular.module('myApp.newProjectView', ['ngRoute'])
                     localStorage.attGenre = obj.genre;
                     localStorage.attDescription = obj.description;
                     localStorage.attDateOfCreation = obj.dateOfCreation;
-                    localStorage.attCity = obj.city;
                     //localStorage.attTroupers=JSON.stringify(obj.troupers);
                     $scope.goToMyProjects();
                 }).catch(function (error) {
                     $scope.error = error;
-                    console.log("sono qui");
+                    console.log("sono qui3");
                 })
 
             }).catch(function (error) {
-                console.log("sono qui22");
+                console.log("sono qui33");
                 $scope.error = error;
             });
         };
