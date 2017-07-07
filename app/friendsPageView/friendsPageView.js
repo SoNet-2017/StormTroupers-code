@@ -56,9 +56,9 @@ angular.module('myApp.friendsPageView', ['ngRoute'])
             $location.path("/myProjectsView");
         };
 
-        $scope.goToMyTroupers=function (userID) {
+        $scope.goToMyTroupers=function () {
             $location.path("/friendsPageView");
-            localStorage.otherUserID = userID;
+            localStorage.otherUserID = UID;
         };
 
         $scope.goToPublicProfile=function(userID) {

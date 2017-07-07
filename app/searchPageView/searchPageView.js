@@ -96,9 +96,9 @@ angular.module('myApp.searchPageView', ['ngRoute'])
             $location.path("/myProjectsView");
         };
 
-        $scope.goToMyTroupers=function (userID) {
+        $scope.goToMyTroupers=function () {
             $location.path("/friendsPageView");
-            localStorage.otherUserID = userID;
+            localStorage.otherUserID = UID;
         };
 
         var UID=localStorage.UID;

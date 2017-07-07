@@ -55,9 +55,9 @@ angular.module('myApp.homePageView', ['ngRoute'])
             $location.path("/myProjectsView");
         };
 
-        $scope.goToMyTroupers=function (userID) {
+        $scope.goToMyTroupers=function () {
             $location.path("/friendsPageView");
-            localStorage.otherUserID = userID;
+            localStorage.otherUserID = UID;
         };
 
         // CAMBIARE URL
@@ -123,14 +123,14 @@ angular.module('myApp.homePageView', ['ngRoute'])
                 // per popolare la bacheca around you con progetti non condivisi dall'utente loggato (ovviamente)
                 // cerco i progetti nella città dello user loggato e controllo che questo non faccia parte del progetto
                 if(($scope.allProjects[i].city === $scope.profile.province)/*&& $scope.allProjects[i].owner !== UID*/) {
-                    console.log("provincia progetto["+i+"]: "+$scope.allProjects[i].city);
-                    console.log("provincia utente loggato["+i+"]: "+$scope.profile.province);
+                    //console.log("provincia progetto["+i+"]: "+$scope.allProjects[i].city);
+                    //console.log("provincia utente loggato["+i+"]: "+$scope.profile.province);
                     var length2=$scope.allProjects[i].troupers.length;
-                    console.log("length:"+length2);
+                    //console.log("length:"+length2);
                     for(var k=0;k<length2; k++) {
                         if ($scope.allProjects[i].troupers[k] === $scope.profile.$id) {
-                            console.log("troupers[k]: "+$scope.profile.$id);
-                            console.log("utente loggato: "+$scope.allProjects[i].troupers[k]);
+                            //console.log("troupers[k]: "+$scope.profile.$id);
+                            //console.log("utente loggato: "+$scope.allProjects[i].troupers[k]);
                             trovato = true;
                             break;
                         }
@@ -203,6 +203,27 @@ angular.module('myApp.homePageView', ['ngRoute'])
             $scope.error=error;
         });
         */
+
+        $scope.addUserToFriends=function(otherUserID){
+            if($scope.profile.friends.indexOf(otherUserID)<0) {
+                $scope.otherUser = $firebaseObject(database.ref('users/' + otherUserID));
+                $scope.otherUser.$loaded().then(function () {
+                    //aggiorno il vettore anche nell'amico
+                    $scope.otherUser.friends.push(UID);
+                    //console.log("vettore amicicci di other user"+otherUserID+": "+$scope.otherUser.friends);
+                    $scope.otherUser.$save();
+
+                    //aggiorno il vettore dell'utente loggato
+                    $scope.profile.friends.push(otherUserID);
+                    //console.log("vettore amicicci dell'utente loggato: "+$scope.profile.friends);
+                    $scope.profile.$save();
+                    console.log("Trouper aggiunto agli amici: " +  otherUserID);
+                }).catch(function (error) {
+                    $scope.error = error;
+                });
+            }
+            else console.log("trouper già inserito");
+        };
 
         $scope.logout = function () {
             Users.registerLogout(currentAuth.uid);

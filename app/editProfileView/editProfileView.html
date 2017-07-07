@@ -1,10 +1,22 @@
-<div class="w3-container w3-bar w3-top w3-card-2" id="topBarHome">
+<div class="w3-container w3-bar w3-top w3-card-2" id="topBarHome" style="background: linear-gradient(rgba(0,0,0,.1), rgba(0,0,0,.9));">
 
 
-    <a class="w3-bar-item w3-button" id="homeLinkHome" ng-click="goToDashboard()"><i class="glyphicon glyphicon-home w3-large"></i></a>
-    <a class="w3-bar-item w3-button" id="userLinkHome" ng-click="goToSearchCrew()"><i class="glyphicon glyphicon-user w3-large"></i></a>
-    <a class="w3-bar-item w3-button" id="projectsLinkHome"><i class="glyphicon glyphicon-film w3-large"></i></a>
+    <a class="w3-bar-item w3-button" id="homeLinkHome" ng-click="goToDashboard()" style="color: white;"><i
+            class="glyphicon glyphicon-home w3-large"></i></a>
+    <a class="w3-bar-item w3-button" id="userLinkHome" ng-click="goToSearchCrew()" style="color: white;"><i
+            class="glyphicon glyphicon-user w3-large"></i></a>
+    <a class="w3-bar-item w3-button" id="projectsLinkHome" style="color: white;"><i class="glyphicon glyphicon-film w3-large"></i></a>
 
+
+    <!--
+        <div class="w3-bar-item w3-dropdown-click" id="typeSearchHome">
+            <a ng-click="showSearchItem()" class=" glyphicon glyphicon-search w3-large" id="searchIconHome"></a>
+            <div class="w3-dropdown-content w3-bar-block w3-border" id="typeSearchContentHome">
+                <a href="#" class="w3-bar-item w3-button"><i class="glyphicon glyphicon-user"></i> Search Troupers</a>
+                <a href="#" class="w3-bar-item w3-button"><i class="glyphicon glyphicon-project"></i> Search Projects</a>
+            </div>
+        </div>
+        <input class="w3-input w3-border" type="text" id="searchBarHome">-->
 
     <form id="searchItemHome">
         <div class="input-group">
@@ -19,10 +31,12 @@
 
 
     <div class="w3-bar-item w3-dropdown-click w3-right" id="logoBarHome">
-        <h4 id="userNameHome" ng-click="showLogoItem()">{{profile.name}}</h4>
+        <h4 id="userNameHome" ng-click="showLogoItem()" style="color: white;">{{profile.name}}</h4>
         <div class="w3-dropdown-content w3-bar-block w3-border w3-right" id="logoBarContentHome">
-            <a href="#" class="w3-bar-item w3-button"><i class="glyphicon glyphicon-user w3-large"></i> My Public Profile</a>
-            <a ng-click="goToEditProfile()" class="w3-bar-item w3-button"><i class="glyphicon glyphicon-pencil w3-large"></i> Edit Profile</a>
+            <a href="#" class="w3-bar-item w3-button"><i class="glyphicon glyphicon-user w3-large"></i> Your Public
+                Profile</a>
+            <a ng-click="goToEditProfile()" class="w3-bar-item w3-button"><i
+                    class="glyphicon glyphicon-pencil w3-large"></i> Edit Profile</a>
             <a ng-click="logout()" class="w3-bar-item w3-button"><i class="glyphicon glyphicon-off w3-large"></i> Logout</a>
         </div>
     </div>
@@ -34,15 +48,17 @@
 </div>
 
 <div id="bodyHome" class="w3-container w3-col l12 s12 m12">
-    <div id="sideUserHome" class="w3-col l3 m3 s3 w3-card-2">
-        <h3 id="userNameAndLastHome">{{profile.name}} {{profile.lastName}}</h3>
-        <p id="userRolesHome"></p>
-        <p id="userCityHome"></p>
+    <div id="sideUserHome" class="w3-col l3 m3 s3 w3-card-2" style="background: linear-gradient(rgba(0,0,0,.5), rgba(0,0,0,.5));">
+        <h3 id="userNameAndLastHome" style="color: white;">{{profile.name}} {{profile.lastName}}</h3>
+        <p id="userRolesHome" style="color: white;"></p>
+        <p id="userCityHome" style="color: white;"></p>
         <img id="userPhotoHome">
         <br>
-        <a ng-click="goToMyProjects()" class="w3-bar-item" id="userProjectHome">My Projects <i class="glyphicon glyphicon-film w3-large"></i></a><br><br>
-        <a ng-click="goToMyTroupers(profile.$id)" class="w3-bar-item" id="userTroupeHome">My Troupers <i class="glyphicon glyphicon-user w3-large"></i></a><br><br>
-        <a ng-click="goToEditProfile()" class="w3-bar-item" id="editProfileLinkHome">Edit Profile <i class="glyphicon glyphicon-cog w3-large"></i></a>
+        <a ng-click="goToMyProjects()" class="w3-bar-item" id="userProjectHome" style="color: white;">My Projects <i
+                class="glyphicon glyphicon-film w3-large"></i></a><br><br>
+        <a ng-click="goToMyTroupers(profile.$id)" class="w3-bar-item" id="userTroupeHome" style="color: white;">My Troupers <i class="glyphicon glyphicon-user w3-large"></i></a><br><br>
+        <a ng-click="goToEditProfile()" class="w3-bar-item" id="editProfileLinkHome" style="color: white;">Edit Profile <i
+                class="glyphicon glyphicon-cog w3-large"></i></a>
     </div>
 
     <div id="editBlockContainer" class="w3-container w3-col l8 m8 s8 w3-card-2">

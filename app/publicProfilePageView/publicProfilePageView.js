@@ -56,9 +56,9 @@ angular.module('myApp.publicProfilePageView', ['ngRoute'])
             $location.path("/myProjectsView");
         };
 
-        $scope.goToMyTroupers=function (userID) {
+        $scope.goToMyTroupers=function () {
             $location.path("/friendsPageView");
-            localStorage.otherUserID = userID;
+            localStorage.otherUserID = UID;
         };
 
         $scope.goToPublicProjectPage=function(projectID){
@@ -138,15 +138,16 @@ angular.module('myApp.publicProfilePageView', ['ngRoute'])
 
         $scope.addUserToFriends=function(otherUserID){
             if($scope.profile.friends.indexOf(otherUserID)<0) {
-                //console.log("Trouper aggiunto agli amici: " +  otherUserID);
-                $scope.profile.friends.push(otherUserID);
-                //console.log("vettore amicicci dell'utente loggato: "+$scope.profile.friends);
-                $scope.profile.$save();
-
                 //aggiorno il vettore anche nell'amico
                 $scope.otherUser.friends.push(UID);
                 //console.log("vettore amicicci di other user"+otherUserID+": "+$scope.otherUser.friends);
                 $scope.otherUser.$save();
+
+                //aggiorno il vettore dell'utente loggato
+                //console.log("Trouper aggiunto agli amici: " +  otherUserID);
+                $scope.profile.friends.push(otherUserID);
+                //console.log("vettore amicicci dell'utente loggato: "+$scope.profile.friends);
+                $scope.profile.$save();
             }
             else console.log("trouper già inserito");
         };
