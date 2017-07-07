@@ -70,26 +70,6 @@ angular.module('myApp.editProjectView', ['ngRoute'])
 
         var UID=localStorage.UID;
         var database=firebase.database();
-        var usersBase=database.ref('users/');
-        var userQuery=usersBase.limitToLast(5);
-        $scope.filterUsers=$firebaseArray(userQuery);
-
-        var obj = $firebaseObject(database.ref('users/'+UID));
-        obj.$loaded().then(function () {
-            $scope.profile=obj;
-            var role = Object.values(obj.roles);
-            for(var i=0; i<role.length; i++){
-                document.getElementById("userRolesHome").innerHTML+=role[i];
-                if(i<role.length-1) {
-                    document.getElementById("userRolesHome").innerHTML+=", ";
-                }
-            }
-
-
-        }).catch(function (error) {
-            $scope.error=error;
-        });
-
         console.log("PID arrivato da myProjView: " + localStorage.PID);
 
         var PID = localStorage.PID;
@@ -101,8 +81,105 @@ angular.module('myApp.editProjectView', ['ngRoute'])
             $scope.projectGenre = projObj.genre;
             $scope.projectDescription = projObj.description;
             $scope.projectTroupers = projObj.troupers;
+            $scope.rolesNeeded = projObj.rolesNeeded;
             console.log("vettore troupers: "+$scope.projectTroupers);
+            console.log("vettore rolesNeeded: "+$scope.rolesNeeded+" | length: "+$scope.rolesNeeded.length);
+
+            //per settare i check dei ruoli richiesti
+            for(var i=0; i<$scope.rolesNeeded.length; i++){
+                for(var j=0; j<15; j++) {
+                    if ($scope.rolesNeeded[i] === "Animation") {
+                        $scope.checkAnim = true;
+                        break;
+                    }
+                    if ($scope.rolesNeeded[i] === "Audio/Music/Sound") {
+                        $scope.checkAudio = true;
+                        break;
+                    }
+                    if ($scope.rolesNeeded[i] === "Crew art/Design/Scenic/Construction") {
+                        $scope.checkArt = true;
+                        break;
+                    }
+                    if ($scope.rolesNeeded[i] === "Director") {
+                        $scope.checkDirect = true;
+                        break;
+                    }
+                    if ($scope.rolesNeeded[i] === "Graphic designer") {
+                        $scope.checkGraphicDes = true;
+                        break;
+                    }
+                    if ($scope.rolesNeeded[i] === "Lighting/Electric") {
+                        $scope.checkLight = true;
+                        break;
+                    }
+                    if ($scope.rolesNeeded[i] === "Photographers") {
+                        $scope.checkPhot = true;
+                        break;
+                    }
+                    if ($scope.rolesNeeded[i] === "Post Production People") {
+                        $scope.checkPostProd = true;
+                        break;
+                    }
+                    if ($scope.rolesNeeded[i] === "Producers") {
+                        $scope.checkProducers = true;
+                        break;
+                    }
+                    if ($scope.rolesNeeded[i] === "Special Effects Crew") {
+                        $scope.checkFX = true;
+                        break;
+                    }
+                    if ($scope.rolesNeeded[i] === "Stylist/Vanities") {
+                        $scope.checkStyle = true;
+                        break;
+                    }
+                    if ($scope.rolesNeeded[i] === "Talent/Actors") {
+                        $scope.checkActor = true;
+                        break;
+                    }
+                    if ($scope.rolesNeeded[i] === "Talent/Casting - People") {
+                        $scope.checkCast = true;
+                        break;
+                    }
+                    if ($scope.rolesNeeded[i] === "Camera Crew/DP") {
+                        $scope.checkDP = true;
+                        break;
+                    }
+                }
+            }
         });
+
+        $scope.suggestedFriends = {};
+        $scope.sharingFriends = {};
+
+        $scope.profile = $firebaseObject(database.ref('users/' + UID));
+        $scope.profile.$loaded().then(function () {
+            var role = Object.values($scope.profile.roles);
+            for (var i = 0; i < role.length; i++) {
+                document.getElementById("userRolesHome").innerHTML += role[i];
+                if (i < role.length - 1) {
+                    document.getElementById("userRolesHome").innerHTML += ", ";
+                }
+            }
+
+            //per popolare con gli utenti con i quali si condivide il progetto
+
+            // per popolare suggestedFriends da aggiungere al progetto
+            var length = $scope.profile.friends.length;
+            var currFriendID;
+            //console.log("length: "+length);
+            for (var j = 0; j < length; j++) {
+                currFriendID = $scope.profile.friends[j];
+                var currFriendObj = $firebaseObject(database.ref('users/' + currFriendID));
+                if($scope.projectTroupers.indexOf(currFriendID) < 0) {
+                    //console.log("curFriendID: "+currFriendID);
+                    //console.log("curr friend: "+currFriendObj);
+                    $scope.suggestedFriends[j] = currFriendObj;
+                } else $scope.sharingFriends[j] = currFriendObj;
+            }
+        }).catch(function (error) {
+            $scope.error = error;
+        });
+
 
         $scope.addTroupers=function (userID) {
             //popolare il vettore troupers
@@ -111,6 +188,11 @@ angular.module('myApp.editProjectView', ['ngRoute'])
                 $scope.projectTroupers.push(userID);
             }
             else console.log("trouper già inserito");
+        };
+
+        $scope.removeTroupers=function (userID) {
+            $scope.projectTroupers.splice($scope.projectTroupers.indexOf(userID),1);
+            console.log("trouper "+userID+" eliminato");
         };
 
         $scope.editProjectDB=function() {

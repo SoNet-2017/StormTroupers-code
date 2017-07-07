@@ -84,9 +84,8 @@ angular.module('myApp.myProjectsView', ['ngRoute'])
         var UID = localStorage.UID;
         var database = firebase.database();
 
-        var userObj = $firebaseObject(database.ref('users/' + UID));
-        userObj.$loaded().then(function () {
-            $scope.profile = userObj;
+        $scope.profile = $firebaseObject(database.ref('users/' + UID));
+        $scope.profile.$loaded().then(function () {
             var role = Object.values(userObj.roles);
             for (var i = 0; i < role.length; i++) {
                 document.getElementById("userRolesHome").innerHTML += role[i];
@@ -99,16 +98,12 @@ angular.module('myApp.myProjectsView', ['ngRoute'])
             $scope.error = error;
         });
 
-        var usersBase = database.ref('users/');
-        $scope.filterUsers = $firebaseArray(usersBase);
-
         $scope.getProjectsFromDB={};
         var PID = localStorage.PID;
         var projectsBase = database.ref('projects/');
         $scope.getProjectsFromDB = $firebaseArray(projectsBase);
 
-        var projObj = $firebaseObject(database.ref('projects/' + PID));
-        projObj.$loaded().then(function () {
+        $scope.getProjectsFromDB.$loaded().then(function () {
             //resetta il filtersearch
             $scope.filterProjects={};
 
@@ -121,7 +116,7 @@ angular.module('myApp.myProjectsView', ['ngRoute'])
                 }
                 var length2=$scope.getProjectsFromDB[i].troupers.length;
                 for(var k=0;k<length2; k++) {
-                    if($scope.getProjectsFromDB[i].troupers[k] === UID) {
+                    if($scope.getProjectsFromDB[i].troupers[k] === UID && $scope.getProjectsFromDB[i].owner !== $scope.getProjectsFromDB[i].troupers[k]) {
                         $scope.filterProjects[j]=$scope.getProjectsFromDB[i];
                         console.log("trovato");
                         j++;

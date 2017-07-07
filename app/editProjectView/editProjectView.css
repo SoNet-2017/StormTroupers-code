@@ -132,12 +132,103 @@
     max-width: 100%;
 }
 
+#newUImg{
+    content: url("../../images/StormTroupersLogo.png");
+    max-height: 75px;
+}
+#newUImg2{
+    content: url("../../images/StormTroupersLogo.png");
+    max-height: 75px;
+}
+
+#newUImgContainer{
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    align-items:center;
+    vertical-align: middle;
+}
+#newUImgContainer2{
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    align-items:center;
+    vertical-align: middle;
+}
+
+#newUDesc{
+    color: #636466;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    align-items:center;
+    vertical-align: middle;
+}
+
+#newUDesc h4{
+    color: #636466;
+}
+
+#newUDesc2{
+    color: #636466;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    align-items:center;
+    vertical-align: middle;
+}
+
+#newUDesc2 h4{
+    color: #636466;
+}
+
 #troupeUserImg{
     content: url("../../images/StormTroupersLogo.png");
     max-height: 40px;
     margin: 5px;
 }
+
+#linkNewU{
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    align-items:center;
+    vertical-align: middle;
+}
+
+#linkNewU a{
+    text-decoration: none;
+    color: #636466;
+    margin: 10px;
+}
+
+#linkNewU a:hover{
+    cursor: pointer;
+}
+
+#linkNewU2{
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    align-items:center;
+    vertical-align: middle;
+}
+
+#linkNewU2 a{
+    text-decoration: none;
+    color: #636466;
+    margin: 10px;
+}
+
+#linkNewU2 a:hover{
+    cursor: pointer;
+}
+
 #troupeUserImgLink{
+    cursor: pointer;
+}
+
+#troupeUserImgLink2{
     cursor: pointer;
 }
 

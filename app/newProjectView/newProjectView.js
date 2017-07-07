@@ -6,14 +6,14 @@
 
 angular.module('myApp.newProjectView', ['ngRoute'])
 
-    .config(['$routeProvider', function($routeProvider) {
+    .config(['$routeProvider', function ($routeProvider) {
         $routeProvider.when('/newProjectView', {
             templateUrl: 'newProjectView/newProjectView.html',
             controller: 'newProjectViewCtrl',
             resolve: {
                 // controller will not be loaded until $requireSignIn resolves
                 // Auth refers to our $firebaseAuth wrapper in the factory below
-                "currentAuth": ["Auth", function(Auth) {
+                "currentAuth": ["Auth", function (Auth) {
                     // $requireSignIn returns a promise so the resolve waits for it to complete
                     // If the promise is rejected, it will throw a $routeChangeError (see above)
                     return Auth.$requireSignIn();
@@ -22,11 +22,11 @@ angular.module('myApp.newProjectView', ['ngRoute'])
         });
     }])
 
-    .controller('newProjectViewCtrl', ['$scope', '$location', 'Auth', '$firebaseObject','Users', 'currentAuth', '$firebaseAuth', '$firebaseArray', function ($scope,$location, Auth, $firebaseObject, Users, currentAuth, $firebaseAuth, $firebaseArray) {
-        $scope.dati={};
-        $scope.auth=Auth;
+    .controller('newProjectViewCtrl', ['$scope', '$location', 'Auth', '$firebaseObject', 'Users', 'currentAuth', '$firebaseAuth', '$firebaseArray', function ($scope, $location, Auth, $firebaseObject, Users, currentAuth, $firebaseAuth, $firebaseArray) {
+        $scope.dati = {};
+        $scope.auth = Auth;
 
-        $scope.showLogoItem=function () {
+        $scope.showLogoItem = function () {
             var x = document.getElementById("logoBarContentHome");
             if (x.className.indexOf("w3-show") == -1)
                 x.className += " w3-show";
@@ -34,7 +34,7 @@ angular.module('myApp.newProjectView', ['ngRoute'])
                 x.className = x.className.replace(" w3-show", "");
         };
 
-        $scope.showSearchItem=function () {
+        $scope.showSearchItem = function () {
             var x = document.getElementById("typeSearchContentHome");
             if (x.className.indexOf("w3-show") == -1)
                 x.className += " w3-show";
@@ -42,78 +42,136 @@ angular.module('myApp.newProjectView', ['ngRoute'])
                 x.className = x.className.replace(" w3-show", "");
         };
 
-        $scope.goToDashboard=function () {
+        $scope.goToDashboard = function () {
             $location.path("/homePageView")
         };
 
-        $scope.goToSearchCrew=function () {
+        $scope.goToSearchCrew = function () {
             $location.path("/searchPageView");
         };
 
-        $scope.goToEditProfile=function () {
+        $scope.goToEditProfile = function () {
             $location.path("/editProfileView");
         };
 
-        $scope.goToMyProjects=function() {
+        $scope.goToMyProjects = function () {
             $location.path("/myProjectsView");
         };
 
-        $scope.goToMyTroupers=function (userID) {
+        $scope.goToMyTroupers = function (userID) {
             $location.path("/friendsPageView");
             localStorage.otherUserID = userID;
         };
 
         // CAMBIARE URL
-        $scope.goToPublicProfile=function(userID) {
+        $scope.goToPublicProfile = function (userID) {
             $location.path("/homePageView");
         };
 
-        var UID=localStorage.UID;
-        var database=firebase.database();
-        var usersBase=database.ref('users/');
-        var userQuery=usersBase.limitToLast(5);
-        $scope.filterUsers=$firebaseArray(userQuery);
+        var UID = localStorage.UID;
+        var database = firebase.database();
 
-        var obj = $firebaseObject(database.ref('users/'+UID));
-        obj.$loaded().then(function () {
-            $scope.profile=obj;
-            var role = Object.values(obj.roles);
-            for(var i=0; i<role.length; i++){
-                document.getElementById("userRolesHome").innerHTML+=role[i];
-                if(i<role.length-1) {
-                    document.getElementById("userRolesHome").innerHTML+=", ";
+        $scope.suggestedFriends = {};
+
+        $scope.profile = $firebaseObject(database.ref('users/' + UID));
+        $scope.profile.$loaded().then(function () {
+            var role = Object.values($scope.profile.roles);
+            for (var i = 0; i < role.length; i++) {
+                document.getElementById("userRolesHome").innerHTML += role[i];
+                if (i < role.length - 1) {
+                    document.getElementById("userRolesHome").innerHTML += ", ";
                 }
             }
-            
 
+            // per popolare suggestedFriends da aggiungere al progetto
+            var length = $scope.profile.friends.length;
+            var currFriendID;
+            //console.log("length: "+length);
+            for (var j = 0; j < length; j++) {
+                currFriendID = $scope.profile.friends[j];
+                //console.log("curFriendID: "+currFriendID);
+                var currFriendObj = $firebaseObject(database.ref('users/' + currFriendID));
+
+                //console.log("curr friend: "+currFriendObj);
+                $scope.suggestedFriends[j] = currFriendObj;
+            }
         }).catch(function (error) {
-            $scope.error=error;
+            $scope.error = error;
         });
 
         //costruisco un vettore troupers per creare un elenco di stringhe dentro il JSON per gli utenti che collaborano
         var troupers = [];
+        troupers[0]=UID;
 
-        $scope.addTroupers=function (userID) {
+        $scope.addTroupers = function (userID) {
             //popolare il vettore troupers
-            if(troupers.indexOf(userID)<0) {
-                console.log("Trouper aggiunto: " +  userID);
+            if (troupers.indexOf(userID) < 0) {
+                console.log("Trouper aggiunto: " + userID);
                 troupers.push(userID);
             }
             else console.log("trouper già inserito");
         };
 
-        $scope.createProjectDB=function() {
+        $scope.createProjectDB = function () {
 
             console.log("entrato in create project");
             /*for(var i=0;i<troupers.length;i++){
-                console.log("troupers creati in progetto: "+troupers[i]+"\n");
-            }*/
+             console.log("troupers creati in progetto: "+troupers[i]+"\n");
+             }*/
 
             $scope.error = null;
 
+            //costruisco un vettore roles per creare un elenco di stringhe dentro il JSON
+            var rolesNeeded = [];
+            rolesNeeded[0]="init";
+            if (document.getElementById("checkAnim").checked) {
+                rolesNeeded.push("Animation");
+            }
+            if (document.getElementById("checkAudio").checked) {
+                rolesNeeded.push("Audio/Music/Sound");
+            }
+            if (document.getElementById("checkDP").checked) {
+                rolesNeeded.push("Camera Crew/DP");
+            }
+            if (document.getElementById("checkArt").checked) {
+                rolesNeeded.push("Crew art/Design/Scenic/Construction");
+            }
+            if (document.getElementById("checkDirect").checked) {
+                rolesNeeded.push("Director");
+            }
+            if (document.getElementById("checkGraphicDes").checked) {
+                rolesNeeded.push("Graphic designer");
+            }
+            if (document.getElementById("checkLight").checked) {
+                rolesNeeded.push("Lighting/Electric");
+            }
+            if (document.getElementById("checkPhot").checked) {
+                rolesNeeded.push("Photographers");
+            }
+            if (document.getElementById("checkPostProd").checked) {
+                rolesNeeded.push("Post Production People");
+            }
+            if (document.getElementById("checkProducers").checked) {
+                rolesNeeded.push("Producers");
+            }
+            if (document.getElementById("checkFX").checked) {
+                rolesNeeded.push("Special Effects Crew");
+            }
+            if (document.getElementById("checkStyle").checked) {
+                rolesNeeded.push("Stylist/Vanities");
+            }
+            if (document.getElementById("checkActor").checked) {
+                rolesNeeded.push("Talent/Actors");
+            }
+            if (document.getElementById("checkCast").checked) {
+                rolesNeeded.push("Talent/Casting - People");
+            }
+
+            console.log("roles needed: "+rolesNeeded);
+
             var projTitle = document.getElementById("projectName").value;
 
-            if(projTitle === "") {
+            if (projTitle === "") {
                 //////////////////////////////////////////////////////////
                 var errorMainDiv = document.getElementById("alertBoxDiv");
                 var errorDiv = document.createElement("div");
@@ -141,7 +199,7 @@ angular.module('myApp.newProjectView', ['ngRoute'])
                 errorText.className = "w3-col s11 m11 l11";
                 errorText.style.color = "white";
                 errorDiv.appendChild(errorText);
-                errorText.innerHTML="Title is required.";
+                errorText.innerHTML = "Title is required.";
                 return;
             }
 
@@ -162,14 +220,14 @@ angular.module('myApp.newProjectView', ['ngRoute'])
             localStorage.owner = UID;
 
             var date = new Date();
-            var dateOfCreation = date.getDay()+"/"+date.getMonth()+"/"+date.getYear();
+            var dateOfCreation = date.getDay() + "/" + date.getMonth() + "/" + date.getYear();
 
             // ID di progetto formato da id utente e nome del progetto.. se uno crea due progetti con stesso nome c'è il time
             var PID = UID + "_" + (new Date()).getTime() + "_" + projTitle;
             localStorage.PID = PID;
 
-            var project_city = $scope.profile.province;
-            console.log("proj city: "+project_city);
+            var project_province = $scope.profile.province;
+            console.log("proj city: " + project_province);
 
             var database = firebase.database();
 
@@ -187,8 +245,9 @@ angular.module('myApp.newProjectView', ['ngRoute'])
                 description: projDesc,
                 dateOfCreation: dateOfCreation,
                 progress: 'In Progress',
-                city: project_city,
-                troupers: troupers
+                city: project_province,
+                troupers: troupers,
+                rolesNeeded: rolesNeeded
             }).then(function () {
                 console.log("creato project in DB; PID: " + PID);
                 var obj = $firebaseObject(database.ref('projects/' + PID));
@@ -216,7 +275,7 @@ angular.module('myApp.newProjectView', ['ngRoute'])
         $scope.logout = function () {
             Users.registerLogout(currentAuth.uid);
             $firebaseAuth().$signOut();
-            $firebaseAuth().$onAuthStateChanged(function(firebaseUser) {
+            $firebaseAuth().$onAuthStateChanged(function (firebaseUser) {
                 if (firebaseUser) {
                     console.log("User is yet signed in as:", firebaseUser.uid);
                 } else {

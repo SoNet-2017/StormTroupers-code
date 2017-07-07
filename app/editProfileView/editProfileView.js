@@ -154,7 +154,8 @@ angular.module('myApp.editProfileView', ['ngRoute'])
             var role=$scope.profile.roles;
             for(var i=0; i<role.length; i++){
                 if(role[i]==="Producer"){
-
+                    //document.getElementById("checkProducers").checked=true;
+                    $scope.checkProducers = true;
                 }
             }
 

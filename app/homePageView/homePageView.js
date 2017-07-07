@@ -116,25 +116,31 @@ angular.module('myApp.homePageView', ['ngRoute'])
             //console.log("length: "+ $scope.allProjects.length);
             //console.log("progetti: "+$scope.allProjects);
             var n=0;
-            var trovato=false;
             var length = $scope.allProjects.length;
             for (var i=0; i < length; i++) {
-                //console.log("UID: "+UID+"; OWNER: "+$scope.allProjects[i].owner);
+                var trovato=false;
 
                 // per popolare la bacheca around you con progetti non condivisi dall'utente loggato (ovviamente)
-                var length2=$scope.allProjects[i].troupers.length;
-                for(var k=0;k<length2; k++) {
-                    if($scope.allProjects[i].troupers[k] === UID) {
-                        console.log("trovato");
-                        trovato=true;
-                        break;
+                // cerco i progetti nella città dello user loggato e controllo che questo non faccia parte del progetto
+                if(($scope.allProjects[i].city === $scope.profile.province)/*&& $scope.allProjects[i].owner !== UID*/) {
+                    console.log("provincia progetto["+i+"]: "+$scope.allProjects[i].city);
+                    console.log("provincia utente loggato["+i+"]: "+$scope.profile.province);
+                    var length2=$scope.allProjects[i].troupers.length;
+                    console.log("length:"+length2);
+                    for(var k=0;k<length2; k++) {
+                        if ($scope.allProjects[i].troupers[k] === $scope.profile.$id) {
+                            console.log("troupers[k]: "+$scope.profile.$id);
+                            console.log("utente loggato: "+$scope.allProjects[i].troupers[k]);
+                            trovato = true;
+                            break;
+                        }
+                    }
+                    if(!trovato) {
+                        $scope.filterProjects[n] = $scope.allProjects[i];
+                        n++;
                     }
                 }
 
-                if(($scope.allProjects[i].city === $scope.profile.province) && $scope.allProjects[i].owner !== UID && !trovato) {
-                    $scope.filterProjects[n] = $scope.allProjects[i];
-                    n++;
-                }
             }
 
         }).catch(function (error) {

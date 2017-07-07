@@ -57,7 +57,8 @@
         <br>
         <a ng-click="goToMyProjects()" class="w3-bar-item" id="userProjectHome">My Projects <i
                 class="glyphicon glyphicon-film w3-large"></i></a><br><br>
-        <a ng-click="goToMyTroupers(profile.$id)" class="w3-bar-item" id="userTroupeHome">My Troupers <i class="glyphicon glyphicon-user w3-large"></i></a><br><br>
+        <a ng-click="goToMyTroupers(profile.$id)" class="w3-bar-item" id="userTroupeHome">My Troupers <i
+                class="glyphicon glyphicon-user w3-large"></i></a><br><br>
         <a ng-click="goToEditProfile()" class="w3-bar-item" id="editProfileLinkHome">Edit Profile <i
                 class="glyphicon glyphicon-cog w3-large"></i></a>
     </div>
@@ -69,7 +70,7 @@
     <div id="newProjectContainer" class="w3-col l8 m8 s8 w3-card-2">
         <h2>CREATE NEW PROJECT<strong>{{prjTitle}}</strong></h2>
         <br>
-        <div class="w3-row">
+        <div>
             <div id="projInfoContainer" class="w3-animate-opacity" style="width: 60%; float: left">
             <span id="projPicContainer" class="w3-left w3-animate-opacity"
                   style="margin-left: 20px; margin-bottom: 10px; width: 35%">
@@ -118,19 +119,57 @@
                 </div>
                 <br>
                 <div class="w3-container">
-            <textarea type="text" ng-model="projectDescription" id="projectDescription"
-                      class="w3-input w3-border w3-left w3-animate-opacity" placeholder="Description"
-                      style="margin-left: 10px; margin-right: 20px; width: 95%"></textarea>
-                    <br>
-
+                    <textarea type="text" ng-model="projectDescription" id="projectDescription"
+                              class="w3-input w3-border w3-left w3-animate-opacity" placeholder="Description"
+                              style="margin-left: 10px; margin-right: 20px; width: 95%"></textarea>
+                    <br><br>
                 </div>
-                </span>
+                <div id="rolesNeededContainer" class="w3-col s10 m10 l10 w3-center w3-animate-opacity">
+                    <h4>People we're looking for:</h4>
+
+                    <div class="w3-col s6 m6 l6 w3-animate-opacity" id="advancedJoinCheckboxes">
+                        <form class="w3-container">
+                            <input id="checkAnim" type="checkbox" class="w3-check"> <label>Animation</label>
+                            <br>
+                            <input id="checkAudio" type="checkbox" class="w3-check"> <label>Audio/Music/Sound</label>
+                            <br>
+                            <input id="checkDP" type="checkbox" class="w3-check"> <label>Camera Crew/DP</label>
+                            <br>
+                            <input id="checkArt" type="checkbox" class="w3-check"> <label>Design/Scenic/Constr.</label>
+                            <br>
+                            <input id="checkDirect" type="checkbox" class="w3-check"> <label>Director</label>
+                            <br>
+                            <input id="checkGraphicDes" type="checkbox" class="w3-check"> <label>Graphic designer</label>
+                            <br>
+                            <input id="checkLight" type="checkbox" class="w3-check"> <label>Lighting/Electric</label>
+                        </form>
+                    </div>
+                    <div class="w3-col s6 m6 l6 w3-animate-opacity" id="advancedJoinCheckboxes2">
+                        <form class="w3-container">
+                            <input id="checkPhot" type="checkbox" class="w3-check"> <label>Photographers</label>
+                            <br>
+                            <input id="checkPostProd" type="checkbox" class="w3-check"> <label>Post Production</label>
+                            <br>
+                            <input id="checkProducers" ng-model="checkProducers" type="checkbox" class="w3-check"> <label>Producers</label>
+                            <br>
+                            <input id="checkFX" type="checkbox" class="w3-check"> <label>Special Effects Crew</label>
+                            <br>
+                            <input id="checkStyle" type="checkbox" class="w3-check"> <label>Stylist/Vanities</label>
+                            <br>
+                            <input id="checkActor" type="checkbox" class="w3-check"> <label>Talent/Actors</label>
+                            <br>
+                            <input id="checkCast" type="checkbox" class="w3-check"> <label>Talent/Casting</label>
+                        </form>
+                    </div>
+
+                    <br>
+                </div>
             </div>
             <div id="projTroupersContainer" class="w3-animate-opacity w3-card-2 w3-dark-gray"
                  style="width: 35%; float: left; margin-right: 5px; margin-left: 10px;">
                 <h4 style="text-align: left; padding-left: 20px; color: #b7c3b8">SHARE WITH:</h4>
                 <ul style="list-style: none; text-align: left">
-                    <li ng-repeat="user in filterUsers" style="list-style: none; padding-top: 8px">
+                    <li ng-repeat="user in suggestedFriends" style="list-style: none; padding-top: 8px">
                         <div class=" w3-container w3-card-2" style="padding: 10px; background-color: #b7c3b8">
                             <div class="w3-left" id="newUImgContainer">
                                 <a id="troupeUserImgLink"><img id="newUImg" alt="Avatar" class="w3-left w3-circle"
@@ -141,21 +180,25 @@
                                     <h4>{{user.name}} {{user.lastName}}</h4>
                                 </div>
                                 <div class=" w3-right" id="linkNewU">
-                                    <a ng-click="addTroupers(user.$id)"><i
-                                            class="glyphicon glyphicon-plus w3-xlarge"></i></a>
+                                    <a ng-click="addTroupers(user.$id)" class="w3-tooltip"><i
+                                            class="glyphicon glyphicon-plus w3-xlarge"></i>
+                                        <h6 class="w3-center w3-text w3-tag"
+                                            style="color: white; text-align: left; position:absolute;left: 0px; padding: 5px;">
+                                            Add {{user.name}}</h6>
+                                    </a>
                                 </div>
                             </div>
                         </div>
                     </li>
                 </ul>
             </div>
-        </div>
-        <div class="w3-row w3-left" style="margin-top: 30px; margin-bottom: 15px; width: 60%;">
-            <button ng-click="createProjectDB()" class="w3-button w3-large w3-dark-gray">Create</button>
-            <button ng-click="goToMyProjects()" class="w3-button w3-large w3-dark-gray w3-opacity">Cancel</button>
-        </div>
-    </div>
 
-</div>
+            <div class="w3-row w3-left" style="margin-top: 30px; margin-bottom: 15px; width: 60%;">
+                <button ng-click="createProjectDB()" class="w3-button w3-large w3-dark-gray">Create</button>
+                <button ng-click="goToMyProjects()" class="w3-button w3-large w3-dark-gray w3-opacity">Cancel</button>
+            </div>
+        </div>
+
+    </div>
 </div>
 
