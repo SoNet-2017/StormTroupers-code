@@ -46,20 +46,20 @@
         <br>
         <a ng-click="goToMyProjects()" class="w3-bar-item" id="userProjectHome">My Projects <i
                 class="glyphicon glyphicon-film w3-large"></i></a><br><br>
-        <a class="w3-bar-item" id="userTroupeHome">My Troupers <i class="glyphicon glyphicon-user w3-large"></i></a><br><br>
+        <a ng-click="goToMyTroupers(profile.$id)" class="w3-bar-item" id="userTroupeHome">My Troupers <i class="glyphicon glyphicon-user w3-large"></i></a><br><br>
         <a ng-click="goToEditProfile()" class="w3-bar-item" id="editProfileLinkHome">Edit Profile <i
                 class="glyphicon glyphicon-cog w3-large"></i></a>
     </div>
 
-    <div class="w3-container w3-col l8 m8 s8">
+    <div class="w3-container w3-col l8 m8 s8" style="padding-right: 0px">
 
-        <div id="friendsContainer" class="w3-container w3-row w3-col l12 m12 s12 w3-card-2"
-             style="padding-top: 20px">
-            <div id="projectsContainer" class="w3-container">
-                <h4><strong>{{otherUser.name}}</strong>'s connections</h4>
+        <div id="friendsContainer" class="w3-container w3-row w3-col l12 m12 s12"
+             style="padding-top: 0px; padding-right: 0px">
+            <div class="w3-container" style="padding: 0px;">
+                <h4 style="color: white; margin-top: 0"><strong>{{otherUser.name}}</strong>'s connections</h4>
                 <br>
                 <ul style="list-style: none; margin: 0; padding: 0;">
-                    <li ng-repeat="friend in friends" class="w3-col s6 m6 l6">
+                    <li ng-repeat="friend in friends" class="w3-col s6 m6 l6" style="padding-top: 0px">
                         <div class=" w3-container w3-card-2"
                              style="padding: 10px; border-radius: 4mm; background-color: #b7c3b8; margin-right:50px">
                             <div class="w3-left" id="newUImgContainer">
@@ -68,80 +68,45 @@
                             <div id="userDesc">
                                 <div class="w3-container w3-row" style="text-align: left;">
                                     <a ng-click="goToPublicProfile(friend.$id)" style="cursor: pointer; color: #636466">
-                                        <h4>{{friend.name}} {{friend.lastName}}</h4>
-                                        <div><h5><p id="friendRoles" ng-repeat="role in friend.roles">{{role}} </p></h5></div>
+                                        <h4><strong>{{friend.name}} {{friend.lastName}}</strong></h4>
                                     </a>
+                                    <div>
+                                        <i class="w3-col s1 m1 l1 glyphicon glyphicon-map-marker w3-small"
+                                           style="padding-top: 10px"></i>
+                                        <h5 class="w3-col s11 m11 l11">{{friend.city}}, {{friend.province}},
+                                            {{friend.country}}</h5>
+                                    </div>
+                                    <div>
+                                        <i class="w3-col s1 m1 l1 glyphicon glyphicon-briefcase w3-small"></i>
+                                        <h5><p id="friendRoles" ng-repeat="role in friend.roles">{{role}} </p></h5>
+                                    </div>
                                 </div>
                             </div>
                             <div class="w3-container w3-row w3-right" id="linkNewU">
-                                <a ng-click="goToPublicProfile(friend.$id)"><i
-                                        class="glyphicon glyphicon-user w3-xlarge"></i></a>
-                                <a><i class="glyphicon glyphicon-send w3-xlarge"></i></a>
-                                <a><i class="glyphicon glyphicon-screenshot w3-xlarge"></i></a>
+                                <a ng-click="goToPublicProfile(friend.$id)" class="w3-tooltip">
+                                    <i class="glyphicon glyphicon-user w3-xlarge"></i>
+                                    <h6 class="w3-center w3-text w3-tag"
+                                        style="color: white; text-align: left; position:absolute;left: 0px; padding: 5px;">
+                                        See {{friend.name}}'s profile</h6>
+                                </a>
+                                <a ng-click="addUserToFriends(otherUser.$id)" class="w3-tooltip">
+                                    <i class="glyphicon glyphicon-screenshot w3-xlarge"></i>
+                                    <h6 class="w3-center w3-text w3-tag"
+                                        style="color: white; text-align: left; position:absolute;top: 0px; padding: 5px;">
+                                        Connect with {{friend.name}}</h6>
+                                </a>
                             </div>
                         </div>
                         <br>
 
                     </li>
                 </ul>
-                <!--<ul style="list-style: none; padding: 0; display: inline-block;">
-                    <li class="w3-col s3 m3 l3" ng-repeat="user in otherUser.friends"
-                        style="margin-right: 20px; margin-bottom: 20px">
-                        <div class=" w3-container w3-panel"
-                             style="padding: 10px; border-radius: 4mm; background-color: #b7c3b8">
-                            <div class="w3-center">
-                                <img id="friendsPicture" alt="Avatar" class="w3-circle">
-                            </div>
-                            <div>
-                                <div class="w3-container" style="justify-content: center; text-align: center;">
-                                    <h4>{{user}}</h4>
-                                </div>
-                            </div>
-                            <div class="w3-container" id="linkNewU">
-                                <a ng-click="goToPublicProfile(user)"><i
-                                        class="glyphicon glyphicon-user w3-xlarge"></i></a>
-                                <a><i class="glyphicon glyphicon-comment w3-xlarge"></i></a>
-                                <a><i class="glyphicon glyphicon-plus w3-xlarge"></i></a>
-                            </div>
-                        </div>
-                        <br>
-                    </li>
-                </ul>-->
 
             </div>
         </div>
         <br>
 
-
-    <div class="w3-row">
-        <div class="w3-tooltip">
-            <a ng-click="addUserToFriends(otherUser.$id)">
-                <i class="glyphicon glyphicon-screenshot w3-xlarge w3-left"
-                   style="color: white; cursor: pointer; padding-bottom: 20px;"></i>
-            </a>
-            <!--<h6 style="position:absolute;right:0;bottom:0px" class="w3-text w3-tag">Connect with {{otherUser.name}}</h6>-->
-            <h6 class="w3-center w3-text w3-tag" style="color: white; text-align: left; position:absolute;top: 0px; padding: 5px;">Connect with {{otherUser.name}}</h6>
-        </div>
-    </div><br>
-    <div class="w3-row">
-        <div class="w3-tooltip">
-            <a ng-click="">
-                <i class="glyphicon glyphicon-send w3-xlarge w3-left"
-                   style="color: white; cursor: pointer; padding-bottom: 20px;"></i>
-            </a>
-            <h6 class="w3-center w3-text w3-tag" style="color: white; text-align: left; position:absolute;top: 0px; padding: 5px;">Send a message</h6>
-        </div>
-    </div><br>
-    <div class="w3-row">
-        <div class="w3-tooltip">
-            <a ng-click="goToFriendsPage()">
-                <i class="glyphicon glyphicon-link w3-xlarge w3-left"
-                   style="color: white; cursor: pointer;"></i>
-            </a>
-            <h6 class="w3-center w3-text w3-tag" style="color: white; text-align: left; position:absolute;top: 0px; padding: 5px;">See {{otherUser.name}}'s friends</h6>
-        </div>
     </div>
-</div>
 
 </div>
 

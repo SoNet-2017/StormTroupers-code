@@ -94,7 +94,12 @@ angular.module('myApp.searchPageView', ['ngRoute'])
 
         $scope.goToMyProjects=function () {
             $location.path("/myProjectsView");
-        }
+        };
+
+        $scope.goToMyTroupers=function (userID) {
+            $location.path("/friendsPageView");
+            localStorage.otherUserID = userID;
+        };
 
         var UID=localStorage.UID;
         var database=firebase.database();
