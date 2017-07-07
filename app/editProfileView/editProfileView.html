@@ -58,6 +58,7 @@
                 <br>
                 <input id="editPConfPassword" name="editPConfirmPW" ng-model="editPConfirmPW" type="password" class="w3-input w3-border" placeholder="Confirm new password" required>
                 <br>
+                <button id="editCredentialsButton" class="w3-button w3-right" ng-click="updateCredentials()">Save new credentials</button>
             </form>
         </div>
         <br>
@@ -70,10 +71,10 @@
                 <br>
                 <div class="w3-row-padding">
                     <div class="w3-half">
-                        <input class="w3-radio" type="radio" ng-model="gender" value="male"
+                        <input class="w3-radio" type="radio" ng-model="gender" ng-value="1"
                                id="editPMale"><label>Male</label>
                         <br>
-                        <input class="w3-radio" type="radio" ng-model="gender" value="female"
+                        <input class="w3-radio" type="radio" ng-model="gender" ng-value="0"
                                id="editPFemale"><label>Female</label>
                     </div>
                     <div class="w3-half">
@@ -86,6 +87,7 @@
                 <input id="editPhone" type="text" class="w3-input w3-border" placeholder="Phone">
                 <input id="editCheckPermPhone" type="checkbox" class="w3-check"><label>Permission to show</label>
                 <br><br>
+                <!--
                 <select id="editCountry" ng-model="selectedCountry" ng-options="country for country in countries"
                         class="form-control w3-col s4 m4 l4" ng-change="loadProvinces(selectedCountry)" required>
                     <option value="" selected="selected">Select Country</option>
@@ -99,21 +101,22 @@
                     <option value="" selected="selected">Select City</option>
                 </select>
                 <br><br>
+                -->
                 <div class="w3-container">
                     <div class="w3-col l5 m5 s5">
                         <h4>Do you have a car?</h4>
                         <form>
-                            <input type="radio" value="1" class="w3-radio" ng-model="carInfo" id="editCarYes"><label>Yes</label>
+                            <input type="radio" ng-value="1" class="w3-radio" ng-model="carInfo" name="carInfo" id="editCarYes"><label>Yes</label>
                             <br>
-                            <input type="radio" value="0" class="w3-radio" ng-model="carInfo" id="editCarNo"><label>No</label>
+                            <input type="radio" ng-value="0" class="w3-radio" ng-model="carInfo" name="carInfo" id="editCarNo"><label>No</label>
                         </form>
                     </div>
                     <div class="w3-col l5 m5 s5">
                         <h4>Do you work only under payment?</h4>
                         <form>
-                            <input type="radio" value="1" class="w3-radio" ng-model="payment" id="editPayYes"><label>Yes</label>
+                            <input type="radio" ng-value="1" class="w3-radio" ng-model="payment" id="editPayYes"><label>Yes</label>
                             <br>
-                            <input type="radio" value="0" class="w3-radio" ng-model="payment" id="editPayNo"><label>No</label>
+                            <input type="radio" ng-value="0" class="w3-radio" ng-model="payment" id="editPayNo"><label>No</label>
                         </form>
                     </div>
                 </div>
@@ -122,37 +125,36 @@
                 <div class="w3-container">
                     <div class="w3-col l6 m6 s6">
                         <form>
-                            <input id="checkAnim" type="checkbox" class="w3-check"><label> Animation</label>
+                            <input id="checkEditAnim" type="checkbox" class="w3-check"><label> Animation</label>
                             <br>
-                            <input id="checkAudio" type="checkbox" class="w3-check"><label> Audio/Music/Sound</label>
+                            <input id="checkEditAudio" type="checkbox" class="w3-check"><label> Audio/Music/Sound</label>
                             <br>
-                            <input id="checkDP" type="checkbox" class="w3-check"><label> Camera Crew/DP</label>
+                            <input id="checkEditDP" type="checkbox" class="w3-check"><label> Camera Crew/DP</label>
                             <br>
-                            <input id="checkArt" type="checkbox" class="w3-check"><label> Crew
-                            art/Design/Scenic/Construction</label>
+                            <input id="checkEditArt" type="checkbox" class="w3-check"><label> Crew art/Design/Scenic/Construction</label>
                             <br>
-                            <input id="checkDirect" type="checkbox" class="w3-check"><label> Director</label>
+                            <input id="checkEditDirect" type="checkbox" class="w3-check"><label> Director</label>
                             <br>
-                            <input id="checkGraphicDes" type="checkbox" class="w3-check"><label> Graphic designer</label>
+                            <input id="checkEditGraphicDes" type="checkbox" class="w3-check"><label> Graphic designer</label>
                             <br>
-                            <input id="checkLight" type="checkbox" class="w3-check"><label> Lighting/Electric</label>
+                            <input id="checkEditLight" type="checkbox" class="w3-check"><label> Lighting/Electric</label>
                         </form>
                     </div>
                     <div class="w3-col l6 m6 s6">
                         <form>
-                            <input id="checkPhot" type="checkbox" class="w3-check"><label> Photographers</label>
+                            <input id="checkEditPhot" type="checkbox" class="w3-check"><label> Photographers</label>
                             <br>
-                            <input id="checkPostProd" type="checkbox" class="w3-check"><label> Post Production People</label>
+                            <input id="checkEditPostProd" type="checkbox" class="w3-check"><label> Post Production People</label>
                             <br>
-                            <input id="checkProducers" type="checkbox" class="w3-check" name="Producers"><label> Producers</label>
+                            <input id="checkEditProducers" type="checkbox" class="w3-check"><label> Producers</label>
                             <br>
-                            <input id="checkFX" type="checkbox" class="w3-check"><label> Special Effects Crew</label>
+                            <input id="checkEditFX" type="checkbox" class="w3-check"><label> Special Effects Crew</label>
                             <br>
-                            <input id="checkStyle" type="checkbox" class="w3-check"><label> Stylist/Vanities</label>
+                            <input id="checkEditStyle" type="checkbox" class="w3-check"><label> Stylist/Vanities</label>
                             <br>
-                            <input id="checkActor" type="checkbox" class="w3-check" ng-model="showActorSpec" ng-init="showActorSpec = false"><label> Talent/Actors</label>
+                            <input id="checkEditActor" type="checkbox" class="w3-check" ng-model="showActorSpec" ng-init="showActorSpec = false"><label> Talent/Actors</label>
                             <br>
-                            <input id="checkCast" type="checkbox" class="w3-check"><label> Talent/Casting - People</label>
+                            <input id="checkEditCast" type="checkbox" class="w3-check"><label> Talent/Casting - People</label>
                         </form>
                     </div>
                     <br><br>
@@ -160,26 +162,26 @@
                         <div class="w3-col s5 m5 l5 w3-animate-opacity" id="raceCheckBoxes">
                             <h4>If you are an actor, please specify your ethnicity</h4>
                             <form class="w3-container">
-                                <input type="radio" value="1" class="w3-radio" ng-model="etn" id="etnCauc"> <label>Caucasian</label>
+                                <input type="radio" value="1" class="w3-radio" ng-model="etn" id="etnEditCauc"> <label>Caucasian</label>
                                 <br>
-                                <input type="radio" value="2" class="w3-radio" ng-model="etn" id="etnHisp"><label>Latino/Hispanic</label>
+                                <input type="radio" value="2" class="w3-radio" ng-model="etn" id="etnEditHisp"><label>Latino/Hispanic</label>
                                 <br>
-                                <input type="radio" value="3" class="w3-radio" ng-model="etn" id="etnSAsi"> <label>South Asian</label>
+                                <input type="radio" value="3" class="w3-radio" ng-model="etn" id="etnEditSAsi"> <label>South Asian</label>
                                 <br>
-                                <input type="radio" value="4" class="w3-radio" ng-model="etn" id="etnNati"> <label>Native American</label>
+                                <input type="radio" value="4" class="w3-radio" ng-model="etn" id="etnEditNati"> <label>Native American</label>
 
                             </form>
                         </div>
                         <div class="w3-col s5 m5 l5 w3-animate-opacity" id="raceCheckBoxes2">
                             <br><br>
                             <form class="w3-container">
-                                <input type="radio" value="5" class="w3-radio" ng-model="etn" id="etnAfri"> <label>African Descent</label>
+                                <input type="radio" value="5" class="w3-radio" ng-model="etn" id="etnEditAfri"> <label>African Descent</label>
                                 <br>
-                                <input type="radio" value="6" class="w3-radio" ng-model="etn" id="etnMidd"><label>Middle Eastern</label>
+                                <input type="radio" value="6" class="w3-radio" ng-model="etn" id="etnEditMidd"><label>Middle Eastern</label>
                                 <br>
-                                <input type="radio" value="7" class="w3-radio" ng-model="etn" id="etnSEAs"><label>S/E Asian/Pacific Islander</label>
+                                <input type="radio" value="7" class="w3-radio" ng-model="etn" id="etnEditSEAs"><label>S/E Asian/Pacific Islander</label>
                                 <br>
-                                <input type="radio" value="8" class="w3-radio" ng-model="etn" id="etnAmbi"><label>Ethnically Ambiguous</label>
+                                <input type="radio" value="8" class="w3-radio" ng-model="etn" id="etnEditAmbi"><label>Ethnically Ambiguous</label>
 
                             </form>
                         </div>
@@ -188,10 +190,12 @@
                     <h4>About me</h4>
                     <div class="w3-container">
                         <form id="aboutMeForm">
-                            <textarea placeholder="Describe yourself" id="aboutMeText"></textarea>
+                            <textarea placeholder="Describe yourself" ng-model="editAboutMeText" id="editAboutMeText"></textarea>
                         </form>
                     </div>
                 </div>
+                <br>
+                <button id="editProfileButton" class="w3-button w3-right" ng-click="updateProfileB()">Save new profile's informations</button>
 
             </form>
         </div>
