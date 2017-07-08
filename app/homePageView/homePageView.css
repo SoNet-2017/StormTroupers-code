@@ -4,7 +4,7 @@
 }
 
 #topBarHome{
-    background-color: #b7c3b8;
+    background: linear-gradient(rgba(0,0,0,.1), rgba(0,0,0,.9));
     /*Per centrare il contenuto*/
     display:flex;
 
@@ -12,9 +12,7 @@
     height: 60px;
 }
 
-#userNameHome{
-    font-family: "ADAM.CG PRO";
-}
+
 
 #logoBarImgHome{
     content: url("../../images/StormTroupersLogo.png");
@@ -31,7 +29,14 @@
 #logoBarHome{
     position: absolute;
     right: 50px;
-    margin-right: 20px;
+    margin-right: 30px;
+    font-family: "ADAM.CG PRO";
+    color: white;
+}
+
+#logoBarHome:hover{
+    text-decoration: none;
+    color: black;
 }
 
 #logoBarContentHome{
@@ -39,6 +44,10 @@
     top: 60px;
     right:0px;
     width: 200px;
+}
+
+#logoBarContentHome a:hover{
+    text-decoration: none;
 }
 
 #logoBarContentHome a{
@@ -50,20 +59,22 @@
 }
 
 #homeLinkHome{
-    color: #636466;
+    color: white;
 }
 
 #userLinkHome{
-    color: #636466;
+    color: white;
+    text-decoration: none;
 }
 
 #projectsLinkHome{
-    color: #636466;
+    color: white;
+    text-decoration: none;
 }
 
 #searchItemHome{
     max-width: 30%;
-
+    margin-left: 10px;
 }
 
 #bodyHome{
@@ -77,19 +88,20 @@
     text-align: center;
     align-items:center;
     vertical-align: middle;
-    background-color: #b7c3b8;
+    background: linear-gradient(rgba(0,0,0,.1), rgba(0,0,0,.9));
     padding-bottom: 20px;
     margin-right: 1%;
 }
 
 #sideUserHome p{
-    color: #636466;
+    color: white;
 }
 
 #userNameAndLastHome{
     color: white;
     font-family: "ADAM.CG PRO";
 }
+
 
 #userPhotoHome{
     content: url("../../images/StormTroupersLogo.png");
@@ -101,14 +113,14 @@
 }
 
 #sideUserHome a {
-    color: #636466;
+    color: white;
     font-size: 15pt;
     position: relative;
 
 }
 
 #sideUserHome a:hover{
-    color: #636466;
+    color: white;
     background-color: transparent;
     border-radius: 5px;
     cursor: pointer;
