@@ -49,3 +49,50 @@
     max-width: 90%;
     padding-right: 20px;
 }
+
+#projectPic{
+    background-image: url("../../images/troopers.jpg");
+    background-size: cover;
+    min-height: 150px;
+    padding: 10px; border-radius: 4mm; background-color: #b7c3b8;
+}
+
+#projectPic a:hover{
+    cursor: pointer;
+}
+
+#projectPic2{
+    background-image: url("../../images/lens_sat.jpg");
+    background-size: cover;
+    min-height: 150px;
+}
+
+#projectPic2 a:hover{
+    cursor: pointer;
+}
+
+#newPDesc{
+    color: #636466;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    align-items:center;
+    vertical-align: middle;
+}
+
+#newPDesc h4{
+    color: #636466;
+}
+
+#newPDesc2{
+    color: #636466;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    align-items:center;
+    vertical-align: middle;
+}
+
+#newPDesc2 h4{
+    color: #636466;
+}

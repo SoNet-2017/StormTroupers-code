@@ -56,7 +56,7 @@
         <br>
         <a ng-click="goToMyProjects()" class="w3-bar-item" id="userProjectHome">My Projects <i
                 class="glyphicon glyphicon-film w3-large"></i></a><br><br>
-        <a ng-click="goToMyTroupers(profile.$id)" class="w3-bar-item" id="userTroupeHome">My Troupers <i class="glyphicon glyphicon-user w3-large"></i></a><br><br>
+        <a ng-click="goToMyTroupers()" class="w3-bar-item" id="userTroupeHome">My Troupers <i class="glyphicon glyphicon-user w3-large"></i></a><br><br>
         <a ng-click="goToEditProfile()" class="w3-bar-item" id="editProfileLinkHome">Edit Profile <i
                 class="glyphicon glyphicon-cog w3-large"></i></a>
     </div>
@@ -66,7 +66,8 @@
         <div id="friendsContainer" class="w3-container w3-row w3-col l12 m12 s12"
              style="padding-top: 0px; padding-right: 0px">
             <div class="w3-container" style="padding-left: 40px; margin-left: 20px; background: linear-gradient(rgba(0,0,0,.5), rgba(0,0,0,.5));">
-                <h4 style="color: white; margin-top: 20px; margin-bottom: 0"><strong>{{otherUser.name}}</strong>'s connections</h4>
+                <h4 ng-if="!myTroupersPage" style="color: white; margin-top: 20px; margin-bottom: 0"><strong>{{otherUser.name}}</strong>'s connections</h4>
+                <h4 ng-if="myTroupersPage" style="color: white; margin-top: 20px; margin-bottom: 0"><strong>MY</strong> connections</h4>
                 <br>
                 <ul style="list-style: none; margin: 0; padding: 0;">
                     <li ng-repeat="friend in friends" class="w3-col s6 m6 l6" style="padding-top: 0px">
@@ -99,11 +100,23 @@
                                         style="color: white; text-align: left; position:absolute;left: 0px; padding: 5px;">
                                         See {{friend.name}}'s profile</h6>
                                 </a>
-                                <a ng-click="addUserToFriends(friend.$id)" class="w3-tooltip">
+                                <a ng-click="" class="w3-tooltip" ng-if="myTroupersPage">
+                                    <i class="glyphicon glyphicon-comment w3-xlarge" style="color: lightgray;"></i>
+                                    <h6 class="w3-center w3-text w3-tag"
+                                        style="color: white; text-align: left; position:absolute;left: 0px; padding: 5px;">
+                                        Chat with {{friend.name}}</h6>
+                                </a>
+                                <a ng-click="addUserToFriends(friend.$id)" class="w3-tooltip" ng-if="!myTroupersPage">
                                     <i class="glyphicon glyphicon-screenshot w3-xlarge" style="color: lightgray;"></i>
                                     <h6 class="w3-center w3-text w3-tag"
                                         style="color: white; text-align: left; position:absolute;top: 0px; padding: 5px;">
                                         Connect with {{friend.name}}</h6>
+                                </a>
+                                <a ng-click="removeUserFromFriends(friend.$id)" class="w3-tooltip" ng-if="myTroupersPage">
+                                    <i class="glyphicon glyphicon-remove w3-xlarge" style="color: lightgray;"></i>
+                                    <h6 class="w3-center w3-text w3-tag"
+                                        style="color: white; text-align: left; position:absolute;top: 0px; padding: 5px;">
+                                        Remove {{friend.name}}</h6>
                                 </a>
                             </div>
                         </div>

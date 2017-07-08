@@ -226,6 +226,7 @@ angular.module('myApp.advancedJoinView', ['ngRoute'])
             }
 
             var friends = [];
+            friends[0]="STORMTROUPERS_ADMIN";
             var database = firebase.database();
 
             //bisogna usare il codice univoco del userID generato da firebase per un lavoro migliore

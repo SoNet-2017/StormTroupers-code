@@ -69,8 +69,8 @@
                     <div id="likePanel" class="w3-container w3-col l1 m1 s1"
                          style="min-height: 350px; background: linear-gradient(rgba(0,0,0,.5), rgba(0,0,0,.8)); margin: 0px;">
                         <div class="w3-content w3-center" id="likePanelHover">
-                            <h4 class="w3-content w3-center" style="color: white;">23</h4>
-                            <a ng-click="">
+                            <h4 class="w3-content w3-center" style="color: white;">{{prj.likes}}</h4>
+                            <a ng-click="addProjectToFavourite()">
                                 <i class="glyphicon glyphicon-heart-empty w3-xlarge"
                                    style="color: white;"></i></a>
                             <br><br><br><br><br><br>

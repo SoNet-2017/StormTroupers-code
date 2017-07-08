@@ -61,3 +61,16 @@
 #likePanelHover a:hover{
     cursor: pointer;
 }
+
+#likePanel2{
+    display: flex;
+    text-align: center;
+    align-items:center;
+    vertical-align: middle;
+    padding-left:10px;
+    padding-right:10px;;
+}
+
+#likePanelHover2 a:hover{
+    cursor: pointer;
+}

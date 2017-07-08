@@ -63,11 +63,13 @@
 }
 
 #userLinkHome{
+    text-transform: uppercase;
     color: white;
     text-decoration: none;
 }
 
 #projectsLinkHome{
+    text-transform: uppercase;
     color: white;
     text-decoration: none;
 }

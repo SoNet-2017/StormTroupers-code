@@ -224,95 +224,25 @@ angular.module('myApp.homePageView', ['ngRoute'])
          });
          */
 
-        $scope.addUserToFriends = function (otherUserID) {
+        $scope.addUserToFriends=function(otherUserID){
+            if($scope.profile.friends.indexOf(otherUserID)<0) {
+                $scope.otherUser = $firebaseObject(database.ref('users/' + otherUserID));
+                $scope.otherUser.$loaded().then(function () {
+                    //aggiorno il vettore anche nell'amico
+                    $scope.otherUser.friends.push(UID);
+                    console.log("vettore amicicci di other user"+otherUserID+": "+$scope.otherUser.friends);
+                    $scope.otherUser.$save();
 
-            var friendsToUpdate = [];
-            if ($scope.profile.friends === undefined) {
-                friendsToUpdate.push(UID);
-            }
-            else {
-                if ($scope.profile.friends.indexOf(otherUserID) < 0) {
-                    friendsToUpdate = $scope.profile.friends;
-                    friendsToUpdate.splice($scope.profile.friends.length-1, 0, otherUserID);
-                    console.log("trouper aggiunto: " + otherUserID);
-
-                    database.ref('users/' + UID).update({
-                        name: $scope.profile.name,
-                        lastName: $scope.profile.lastName,
-                        phone: $scope.profile.phone,
-                        permissionToShowPhone: $scope.profile.permissionToShowPhone,
-                        gender: $scope.profile.gender,
-                        roles: $scope.profile.roles,
-                        race: $scope.profile.race,
-
-                        country: $scope.profile.country,
-                        province: $scope.profile.province,
-                        city: $scope.profile.city,
-                        car: $scope.profile.car,
-                        payment: $scope.profile.payment,
-                        description: $scope.profile.description,
-                        dateOfBirth: $scope.profile.dateOfBirth,
-                        friends: friendsToUpdate,
-                        email: $scope.profile.email,
-                        password: $scope.profile.password,
-                        logged: $scope.profile.logged
-                    }).then(function () {
-                        var nObj = $firebaseObject(database.ref('users/' + UID));
-                        nObj.$loaded().then(function () {
-                            $scope.profile = nObj;
-                        }).catch(function (error) {
-                            $scope.error = error;
-                        })
-                    }).catch(function (error) {
-                        $scope.error = error;
-                    });
-                } else console.log("trouper già inserito");
-            }
-
-            //aggiorno il vettore anche nell'amico
-            var otherUserFriends = [];
-            $scope.otherUser = $firebaseObject(database.ref('users/' + otherUserID));
-            $scope.otherUser.$loaded().then(function () {
-                if ($scope.otherUser.friends === undefined) {
-                    otherUserFriends.push(UID);
-                }
-                else {
-                    otherUserFriends = $scope.otherUser.friends;
-                    otherUserFriends.splice($scope.otherUser.friends.length-1, 0, UID);
-                }
-
-                //console.log("vettore amicicci di other user"+otherUserID+": "+$scope.otherUser.friends);
-                database.ref('users/' + otherUserID).update({
-                    name: $scope.otherUser.name,
-                    lastName: $scope.otherUser.lastName,
-                    phone: $scope.otherUser.phone,
-                    permissionToShowPhone: $scope.otherUser.permissionToShowPhone,
-                    gender: $scope.otherUser.gender,
-                    roles: $scope.otherUser.roles,
-                    race: $scope.otherUser.race,
-
-                    country: $scope.otherUser.country,
-                    province: $scope.otherUser.province,
-                    city: $scope.otherUser.city,
-                    logged: $scope.otherUser.logged,
-                    car: $scope.otherUser.car,
-                    payment: $scope.otherUser.payment,
-                    description: $scope.otherUser.description,
-                    dateOfBirth: $scope.otherUser.dateOfBirth,
-                    friends: otherUserFriends,
-                    email: $scope.otherUser.email,
-                    password: $scope.otherUser.password
-                }).then(function () {
-                    var nObj = $firebaseObject(database.ref('users/' + UID));
-                    nObj.$loaded().then(function () {
-                        $scope.profile = nObj;
-                    }).catch(function (error) {
-                        $scope.error = error;
-                    })
+                    //aggiorno il vettore dell'utente loggato
+                    $scope.profile.friends.push(otherUserID);
+                    console.log("vettore amicicci dell'utente loggato: "+$scope.profile.friends);
+                    $scope.profile.$save();
+                    console.log("Trouper aggiunto agli amici: " +  otherUserID);
                 }).catch(function (error) {
                     $scope.error = error;
                 });
-            });
+            }
+            else console.log("trouper già inserito");
         };
 
         $scope.logout = function () {
