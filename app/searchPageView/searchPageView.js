@@ -164,18 +164,174 @@ angular.module('myApp.searchPageView', ['ngRoute'])
 
             var resultIsOkFlag=false;
 
-                //checca che cappero hai messo nei filtri
-            /*
             var checkKeyword=false;
             //step1 checcka la keyword in nome e cognome
-            if (document.getElementsByName("searchKeyword").value!=="") { //checca solo se hei scritto qualcosa nel campo
-                checkKeyword=true;
-                console.log="checkKeyword=true";
+            var kw="";
+            kw=document.getElementById("searchKeyword").value;
+            if (kw!=="") { //checca solo se hei scritto qualcosa nel campo
+                checkKeyword = true;
+                console.log("checkKeyword=true");
+                console.log("keword is: " + kw);
+
+                //ULTRA-MEGA-PARSER
+                //si crea un array di parole da cercare (max 10)
+                var kw_ok = false;
+                var kw_mto = false;
+                var kw_word = ["", "", "", "", "", "", "", "", "", ""]; //le parole trovate in questo modo sono tutti filtri OR (di default)
+                var kw_oper = ["OR", "OR", "OR", "OR", "OR", "OR", "OR", "OR", "OR"];
+                var kw_op_index = 0;
+                var kw_pos_0 = 0;
+                var kw_slice_amount = 0;
+                var kw_pos_1 = -1;
+                var kw_pos_temp = kw.indexOf(" OR");
+                var kw_pos_temp2 = kw.indexOf(" AND");
+
+                if (kw_pos_temp === -1) {
+                    kw_pos_temp = 9999;
+                }
+                if (kw_pos_temp2 === -1) {
+                    kw_pos_temp2 = 9999;
+                }
+                //serve per capire se trova prima un OR o un AND (o un " ")
+
+                if (kw_pos_temp > 9999 && kw_pos_temp2 > 9999) {
+                    kw_pos_1 = kw.indexOf(" ");
+                    if (kw_pos_1!==-1) {
+                        kw_mto=true;
+                        kw_oper[kw_op_index]="OR";
+                        kw_op_index++;
+                        kw_slice_amount=1;
+                    }
+                }
+                else {
+                    if (kw_pos_temp < kw_pos_temp2) {
+                        kw_pos_1 = kw_pos_temp;
+                        kw_mto=true;
+                        kw_oper[kw_op_index]="OR";
+                        kw_op_index++;
+                        kw_slice_amount=4;
+                    }
+                    else {
+                        kw_pos_1 = kw_pos_temp2;
+                        kw_mto=true;
+                        kw_oper[kw_op_index]="AND";
+                        kw_op_index++;
+                        kw_slice_amount=5;
+                    }
+                }
+
+
+
+                //console.log("First space found at: "+kw_pos_1.toString());
+
+                if (kw_mto===true) {
+                    var kw_length = kw.length;
+                    var o = 0;
+                    do {
+
+                        kw_word[o] = kw.slice(kw_pos_0, kw_pos_1);
+                        console.log("Slicing from "+kw_pos_0.toString()+" to "+kw_pos_1.toString());
+                        kw_length = kw.length;
+                        kw = kw.slice(kw_pos_1 + kw_slice_amount, kw_length);
+                        kw_pos_0 = 0;
+
+
+                        //kw_pos_1 = -1;
+                        kw_pos_temp = kw.indexOf(" OR");
+                        kw_pos_temp2 = kw.indexOf(" AND");
+
+                        if (kw_pos_temp === -1) {
+                            kw_pos_temp = 9999;
+                        }
+                        if (kw_pos_temp2 === -1) {
+                            kw_pos_temp2 = 9999;
+                        }
+
+                        if (kw_pos_temp > 9999 && kw_pos_temp2 > 9999) {
+                            kw_pos_1 = kw.indexOf(" ");
+                            if (kw_pos_1!==-1) {
+                                kw_oper[kw_op_index]="OR";
+                                kw_op_index++;
+                                kw_slice_amount=1;
+                            }
+                        }
+                        else {
+                            if (kw_pos_temp < kw_pos_temp2) {
+                                kw_pos_1 = kw_pos_temp;
+                                kw_oper[kw_op_index]="OR";
+                                kw_op_index++;
+                                kw_slice_amount=4;
+                            }
+                            else {
+                                kw_pos_1 = kw_pos_temp2;
+                                kw_oper[kw_op_index]="AND";
+                                kw_op_index++;
+                                kw_slice_amount=5;
+                            }
+                        }
+
+
+                        //kw_pos_1 = kw.indexOf(" ");
+                        /*
+                        kw_pos_1 = kw.indexOf(" OR");
+                        if (kw_pos_1!==-1) {
+                            kw_oper[kw_op_index]="OR";
+                            kw_op_index++;
+                            kw_slice_amount=4;
+                        }
+                        else {
+                            kw_pos_1 = kw.indexOf(" AND");
+                            if (kw_pos_1!==-1) {
+                                kw_oper[kw_op_index]="AND";
+                                kw_op_index++;
+                                kw_slice_amount=5;
+                            }
+                            else {
+                                kw_pos_1 = kw.indexOf(" ");
+                                if (kw_pos_1!==-1) {
+                                    kw_oper[kw_op_index]="OR";
+                                    kw_op_index++;
+                                    kw_slice_amount=1;
+                                }
+                            }
+                        }
+                        */
+
+                        console.log("Word " + (o + 1).toString() + ": |" + kw_word[o] + "|");
+                        console.log("Remaining in kw: |" + kw + "|");
+                        console.log("Current operand Array: " + kw_oper);
+
+
+                        kw_pos_temp = kw.indexOf(" ");
+
+                        if (o >= 9) {
+                            break;
+                        }
+                        else {
+                            if (kw_pos_temp === -1) {
+                                kw_ok = true;
+                                o++;
+                                kw_word[o]=kw;
+                                console.log("Word " + (o + 1).toString() + ": |" + kw_word[o] + "|");
+                            }
+                            else {
+                                o++;
+                            }
+                        }
+                    }
+                    while (kw_ok === false)
+                    console.log("Words found: "+(o+1).toString());
+                }
+                else {
+                    kw_word[0]=kw;
+                    console.log("Words found: 1");
+                    console.log("Word found is: "+kw_word[0]);
+                }
             }
             else {
-                console.log="checkKeyword=false";
+                console.log("checkKeyword=false");
             }
-            */
+
 
 
             //step34 checca il ruolo
@@ -279,8 +435,6 @@ angular.module('myApp.searchPageView', ['ngRoute'])
                     skipSex=true;
                 }
 
-                //CASO IN CUI L'UTENTE FACCIA IL PIRLA E NON SEGNI NIENTE, CI PENSA IL CODICE A INCLUDERE TUTTI E DUE
-
 
                 //step278 checca l'etnia
                 var includeCau=false;
@@ -366,26 +520,153 @@ angular.module('myApp.searchPageView', ['ngRoute'])
 
                 resultIsOkFlag=false;
 
-                if ($scope.filterUsers[i].$id === $scope.profile.$id) {
+                if ($scope.filterUsers[i].$id === $scope.profile.$id || $scope.filterUsers[i].$id.toString()==="STORMTROUPERS_ADMIN") {
                     console.log("SELF SKIPPED");
                     i++;
                     if (i>=length) {break;}
                 }
 
 
-                /*
+
                 if (checkKeyword===true) {
-                    var wtc = document.getElementsByName("searchKeyword").value;
-                    var pos1 =  $scope.filterUsers[i].name.search(wtc);
-                    var pos2 =  $scope.filterUsers[i].lastName.search(wtc);
-                    if(pos1!==-1 || pos2!==-1) {
-                        $scope.filterSearch[j]=$scope.filterUsers[i];
+                    var kw_Found = false;
+                    var kw_Found_Vector = [false, false, false, false, false, false, false, false, false, false];
+                    //le singole parole sono tra di loro filtri OR (per ora), ma la keyword è un AND con gli altri campi!!!!
+                    //a questo punto hai l'array key_word[X] riempito delle parole che devi cercare
+                    for (var p = 0; p <= 9; p++) {
+                        if (kw_word[p] == "") {
+                            break;
+                        }
+                    }
+                    var kw_trueLen = p - 1;
+
+                    for (p = 0; p <= kw_trueLen; p++) {
+                        //prima cerca nel nome
+                        if (kw_word[p].toLowerCase() == $scope.filterUsers[i].name.toLowerCase()) {
+                            kw_Found_Vector[p] = true;
+                            //break;
+                        }
+                        else {
+                            //poi cerca nel cognome
+                            if (kw_word[p].toLowerCase() == $scope.filterUsers[i].lastName.toLowerCase()) {
+                                kw_Found_Vector[p] = true;
+                                //break;
+                            }
+                            else {
+                                //già che ci siamo cerca anche nella città
+                                if (kw_word[p].toUpperCase() == $scope.filterUsers[i].city.toUpperCase()) {
+                                    kw_Found_Vector[p] = true;
+                                    //break;
+                                }
+                                else {
+                                    //e perché no guarda anche la provincia
+                                    if (kw_word[p].toLowerCase() == $scope.filterUsers[i].province.toLowerCase()) {
+                                        kw_Found_Vector[p] = true;
+                                        //break;
+                                    }
+                                    else {
+                                        //cerca anche nei ruoli
+                                        var roles = $scope.filterUsers[i].roles;
+                                        var rl = roles.length;
+                                        var sub_break = false;
+                                        var t_int = -1;
+                                        var kw_cl = "";
+                                        for (var n = 0; n < rl; n++) {
+                                            kw_cl = roles[n].toLowerCase();
+                                            t_int = kw_cl.search(kw_word[p].toLowerCase());
+                                            if (t_int !== -1) {
+                                                kw_Found_Vector[p] = true;
+                                                //sub_break=true;
+                                                break;
+                                            }
+                                        }
+                                        //if (sub_break==true) {break;}
+                                    }
+                                }
+
+                            }
+                        }
+                    }
+
+                    //arrivati a questo punto lui ha messo in kw_Found_Vector vero o falso se ha trovato le singole parole
+                    //adesso gli butto dentro un check coi filtri OR e AND (kw_oper[n])per vedere che siano rispettate tutte le condizioni booleane
+                    if (kw_trueLen===0) {
+                        if (kw_Found_Vector[0]===true) {kw_Found = true;}
+                         //caso in cui hai una sola keyword, senza stare a farsi troppe seghe mentali sugli operatori
+                    }
+                    else {
+                        //questa matrice è incredibilmente inefficiente, ma non mi viene in mente nessun altra soluzione
+
+                        console.log("Sto partendo a verificare per "+$scope.filterUsers[i].name+" "+$scope.filterUsers[i].lastName+"..");
+
+                        var kw_Boolean_Group= [[],[],[],[],[],[],[],[],[],[]];
+
+                        var kwb_riga=0;
+                        var kwb_groups=0;
+
+                        //compila la matrice
+                        for (p = 0; p <= kw_trueLen; p++) {
+                            kw_Boolean_Group[kwb_riga].push(p)
+                            if (kw_oper[p]==="OR") {kwb_riga++; kwb_groups++;}
+                            else {}
+                        }
+
+                        //facciamogliela stampare per controllare
+                        console.log(kw_Boolean_Group[0]);
+                        console.log(kw_Boolean_Group[1]);
+                        console.log(kw_Boolean_Group[2]);
+                        console.log(kw_Boolean_Group[3]);
+                        console.log(kw_Boolean_Group[4]);
+                        console.log(kw_Boolean_Group[5]);
+                        console.log(kw_Boolean_Group[6]);
+                        console.log(kw_Boolean_Group[7]);
+                        console.log(kw_Boolean_Group[8]);
+                        console.log(kw_Boolean_Group[9]);
+
+                        //a questo punto controlla veramente le condizioni
+
+                        var kwb_Verified_Flag=true;
+
+                        for (var ppp = 0; ppp<=kwb_groups; ppp++) {
+                            kwb_Verified_Flag=true;
+
+                            if (kw_Boolean_Group[ppp].length==0) {
+                                console.log("Breaking cycle due to insufficient length...");
+                                break;}
+                            else {
+
+                                for (var q = 0; q <= kw_Boolean_Group[ppp].length - 1; q++) {
+                                    if (kw_Found_Vector[kw_Boolean_Group[ppp][q]] === false) {
+                                        kwb_Verified_Flag = false;
+                                        console.log("Boolean Block #" + ppp.toString() + " is NOT all true!");
+                                        break; //a questo punto, dentro una parentesi di AND ha trovato uno che non è vero, quindi tutto il blocco non è verificato!
+                                    }
+                                }
+
+                                if (kwb_Verified_Flag === true) { //se è verificato uno qualsiasi degli OR, allora è tutto vero!
+                                    console.log("Boolean Block #" + ppp.toString() + " is all true!");
+                                    console.log("Quindi l'utente "+$scope.filterUsers[i].name+" "+$scope.filterUsers[i].lastName+" dovrebbe essere a posto!");
+                                    kw_Found = true;
+                                    break;
+                                }
+                                else {
+                                    console.log("Going to the following block...");
+                                    console.log("KWB GROUPS: "+kwb_groups.toString());
+                                }
+                            }
+                        }
+                    }
+
+
+                    if (filterByRole===false && kw_Found===true) {
+                        $scope.filterSearch[j] = $scope.filterUsers[i];
                         j++;
                     }
                 }
-                */
 
-                if (filterByRole===true) {
+
+
+                if (filterByRole===true && (kw_Found===true || checkKeyword===false)) { //la condizione "kw_Found===true" serve perché essendo la keyword un AND, se non corrisponde la keyword non sta a verificare il resto
 
                     console.log("filterByRole? = true!");
 
