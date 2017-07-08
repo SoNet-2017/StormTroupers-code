@@ -117,10 +117,7 @@ angular.module('myApp.friendsPageView', ['ngRoute'])
 
         $scope.removeUserFromFriends=function(friendToRemove){
             console.log("$scope.profile.friends.indexOf(friendToRemove: "+$scope.profile.friends.indexOf(friendToRemove));
-            if($scope.profile.friends.length>2)
-                $scope.profile.friends.splice($scope.profile.friends.indexOf(friendToRemove),1,$scope.profile.friends.pop());
-            else
-                $scope.profile.friends.splice($scope.profile.friends.indexOf(friendToRemove),1);
+            $scope.profile.friends.splice($scope.profile.friends.indexOf(friendToRemove),1);
             $scope.profile.$save();
             console.log("trouper eliminato: "+friendToRemove);
 
