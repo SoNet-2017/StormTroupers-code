@@ -151,7 +151,12 @@
              style="margin-top: 30px; padding-top: 20px; background: linear-gradient(rgba(0,0,0,.5), rgba(0,0,0,.5));">
             <div id="friendsContainer" class="w3-container">
                 <h4><strong>{{otherUser.name}}</strong>'s Troupers</h4>
-
+                <ul class="w3-left" style="padding: 0px;">
+                    <li ng-repeat="user in friends" style="display: inline-block; list-style: none; padding-top: 10px">
+                        <a id="troupeUserImgLink" ng-click="goToPublicProfile(user.$id)"><img id="troupeUserImg" alt="Avatar" class="w3-circle"></a>
+                        <!--<h4><a ng-click="goToPublicProfile(user)">{{user}}</a></h4>-->
+                    </li>
+                </ul>
             </div>
         </div>
         <br>
@@ -160,7 +165,9 @@
              style="margin-top: 30px; padding-top: 20px; background: linear-gradient(rgba(0,0,0,.5), rgba(0,0,0,.5));">
             <div id="equipmentContainer" class="w3-container">
                 <h4>Equipment</h4>
-
+                <ul style="text-align: left; color: lightgray;">
+                    <li class="w3-col s6 m6 l6" ng-repeat="equipmentItem in otherUser.equipment">{{equipmentItem}}</li>
+                </ul>
             </div>
         </div>
         <br>

@@ -56,9 +56,11 @@ angular.module('myApp.friendsPageView', ['ngRoute'])
             $location.path("/myProjectsView");
         };
 
-        $scope.goToMyTroupers=function () {
+        $scope.goToMyTroupers=function (id) {
             $location.path("/friendsPageView");
-            localStorage.otherUserID = UID;
+            localStorage.otherUserID = id;
+            console.log("UID passato!!!: "+localStorage.otherUserID);
+            $scope.refresh();
         };
 
         $scope.goToPublicProfile=function(userID) {
@@ -94,29 +96,191 @@ angular.module('myApp.friendsPageView', ['ngRoute'])
         $scope.otherUser = $firebaseObject(database.ref('users/'+otherUserID));
         $scope.otherUser.$loaded().then(function () {
             //console.log("nome other user: "+$scope.otherUser.name+" ID: "+otherUserID+" DESCR: "+$scope.otherUser.description);
-            var length=$scope.otherUser.friends.length;
-            var currFriendID;
-            //console.log("length: "+length);
-            for(var j=0; j<length; j++){
-                currFriendID=$scope.otherUser.friends[j];
-                //console.log("curFriendID: "+currFriendID);
-                var currFriendObj=$firebaseObject(database.ref('users/'+currFriendID));
 
-                //console.log("curr friend: "+currFriendObj);
-                $scope.friends[j] = currFriendObj;
+            var friends = [];
+            //aggiungo il campo friends
+            if ($scope.otherUser.friends === undefined) {
+                database.ref('users/' + otherUserID).update({
+                    name: $scope.otherUser.name,
+                    lastName: $scope.otherUser.lastName,
+                    phone: $scope.otherUser.phone,
+                    permissionToShowPhone: $scope.otherUser.permissionToShowPhone,
+                    gender: $scope.otherUser.gender,
+                    roles: $scope.otherUser.roles,
+                    race: $scope.otherUser.race,
 
+                    country: $scope.otherUser.country,
+                    province: $scope.otherUser.province,
+                    city: $scope.otherUser.city,
+                    logged: $scope.otherUser.logged,
+                    car: $scope.otherUser.car,
+                    payment: $scope.otherUser.payment,
+                    description: $scope.otherUser.description,
+                    dateOfBirth: $scope.otherUser.dateOfBirth,
+                    friends: friends,
+                    email: $scope.otherUser.email,
+                    password: $scope.otherUser.password
+                }).catch(function (error) {
+                    $scope.error = error;
+                });
+            }
+            else {
+                var length=$scope.otherUser.friends.length;
+                var currFriendID;
+                //console.log("length: "+length);
+                for(var j=0; j<length; j++){
+                    currFriendID=$scope.otherUser.friends[j];
+                    //console.log("curFriendID: "+currFriendID);
+                    var currFriendObj=$firebaseObject(database.ref('users/'+currFriendID));
+
+                    //console.log("curr friend: "+currFriendObj);
+                    $scope.friends[j] = currFriendObj;
+
+                }
             }
         });
 
-        $scope.addUserToFriends=function(otherUserID){
-            console.log("vettore amicicci: "+$scope.profile.friends);
-            if($scope.profile.friends.indexOf(otherUserID)<0) {
-                console.log("Trouper aggiunto agli amici: " +  otherUserID);
-                $scope.profile.friends.push(otherUserID);
-                console.log("vettore amicicci: "+$scope.profile.friends);
-                $scope.profile.$save();
+        $scope.addUserToFriends = function (otherUserID) {
+
+            var friendsToUpdate = [];
+            if ($scope.profile.friends === undefined) {
+                friendsToUpdate.push(UID);
             }
-            else console.log("trouper già inserito");
+            else {
+                if ($scope.profile.friends.indexOf(otherUserID) < 0) {
+                    friendsToUpdate = $scope.profile.friends;
+                    friendsToUpdate.splice($scope.profile.friends.length, 0, otherUserID);
+                    console.log("trouper aggiunto: " + otherUserID);
+
+                    database.ref('users/' + UID).update({
+                        name: $scope.profile.name,
+                        lastName: $scope.profile.lastName,
+                        phone: $scope.profile.phone,
+                        permissionToShowPhone: $scope.profile.permissionToShowPhone,
+                        gender: $scope.profile.gender,
+                        roles: $scope.profile.roles,
+                        race: $scope.profile.race,
+
+                        country: $scope.profile.country,
+                        province: $scope.profile.province,
+                        city: $scope.profile.city,
+                        car: $scope.profile.car,
+                        payment: $scope.profile.payment,
+                        description: $scope.profile.description,
+                        dateOfBirth: $scope.profile.dateOfBirth,
+                        friends: friendsToUpdate,
+                        email: $scope.profile.email,
+                        password: $scope.profile.password,
+                        logged: $scope.profile.logged
+                    }).then(function () {
+                        var nObj = $firebaseObject(database.ref('users/' + UID));
+                        nObj.$loaded().then(function () {
+                            $scope.profile = nObj;
+                        }).catch(function (error) {
+                            $scope.error = error;
+                        })
+                    }).catch(function (error) {
+                        $scope.error = error;
+                    });
+                } else console.log("trouper già inserito");
+            }
+
+            //aggiorno il vettore anche nell'amico
+            var otherUserFriends = [];
+            $scope.otherUser = $firebaseObject(database.ref('users/' + otherUserID));
+            $scope.otherUser.$loaded().then(function () {
+                if ($scope.otherUser.friends === undefined) {
+                    otherUserFriends.push(UID);
+                }
+                else {
+                    otherUserFriends = $scope.otherUser.friends;
+                    otherUserFriends.splice($scope.otherUser.friends.length, 0, UID);
+                }
+
+                //console.log("vettore amicicci di other user"+otherUserID+": "+$scope.otherUser.friends);
+                database.ref('users/' + otherUserID).update({
+                    name: $scope.otherUser.name,
+                    lastName: $scope.otherUser.lastName,
+                    phone: $scope.otherUser.phone,
+                    permissionToShowPhone: $scope.otherUser.permissionToShowPhone,
+                    gender: $scope.otherUser.gender,
+                    roles: $scope.otherUser.roles,
+                    race: $scope.otherUser.race,
+
+                    country: $scope.otherUser.country,
+                    province: $scope.otherUser.province,
+                    city: $scope.otherUser.city,
+                    logged: $scope.otherUser.logged,
+                    car: $scope.otherUser.car,
+                    payment: $scope.otherUser.payment,
+                    description: $scope.otherUser.description,
+                    dateOfBirth: $scope.otherUser.dateOfBirth,
+                    friends: otherUserFriends,
+                    email: $scope.otherUser.email,
+                    password: $scope.otherUser.password
+                }).then(function () {
+                    var nObj = $firebaseObject(database.ref('users/' + UID));
+                    nObj.$loaded().then(function () {
+                        $scope.profile = nObj;
+                    }).catch(function (error) {
+                        $scope.error = error;
+                    })
+                }).catch(function (error) {
+                    $scope.error = error;
+                });
+            });
+        };
+
+        $scope.refresh=function () {
+            // UID dell'utente di cui si vuole vedere il profilo pubblico
+            var otherUserID=localStorage.otherUserID;
+            $scope.friends={};
+            $scope.otherUser = $firebaseObject(database.ref('users/'+otherUserID));
+            $scope.otherUser.$loaded().then(function () {
+                //console.log("nome other user: "+$scope.otherUser.name+" ID: "+otherUserID+" DESCR: "+$scope.otherUser.description);
+
+                var friends = [];
+                //aggiungo il campo friends
+                if ($scope.otherUser.friends === undefined) {
+                    database.ref('users/' + otherUserID).update({
+                        name: $scope.otherUser.name,
+                        lastName: $scope.otherUser.lastName,
+                        phone: $scope.otherUser.phone,
+                        permissionToShowPhone: $scope.otherUser.permissionToShowPhone,
+                        gender: $scope.otherUser.gender,
+                        roles: $scope.otherUser.roles,
+                        race: $scope.otherUser.race,
+
+                        country: $scope.otherUser.country,
+                        province: $scope.otherUser.province,
+                        city: $scope.otherUser.city,
+                        logged: $scope.otherUser.logged,
+                        car: $scope.otherUser.car,
+                        payment: $scope.otherUser.payment,
+                        description: $scope.otherUser.description,
+                        dateOfBirth: $scope.otherUser.dateOfBirth,
+                        friends: friends,
+                        email: $scope.otherUser.email,
+                        password: $scope.otherUser.password
+                    }).catch(function (error) {
+                        $scope.error = error;
+                    });
+                }
+                else {
+                    var length=$scope.otherUser.friends.length;
+                    var currFriendID;
+                    //console.log("length: "+length);
+                    for(var j=0; j<length; j++){
+                        currFriendID=$scope.otherUser.friends[j];
+                        //console.log("curFriendID: "+currFriendID);
+                        var currFriendObj=$firebaseObject(database.ref('users/'+currFriendID));
+
+                        //console.log("curr friend: "+currFriendObj);
+                        $scope.friends[j] = currFriendObj;
+
+                    }
+                }
+            });
         };
 
         $scope.logout = function () {
