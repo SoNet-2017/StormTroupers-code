@@ -67,6 +67,11 @@ angular.module('myApp.homePageView', ['ngRoute'])
             localStorage.otherUserID = userID;
         };
 
+        $scope.goToMyPublicProfile=function () {
+            $location.path("/publicProfilePageView");
+            localStorage.otherUserID=UID;
+        };
+
         $scope.goToPublicProjectPage=function (projectID) {
             $location.path("/publicProjectPageView");
             console.log("Sto pssando il pid: "+projectID);

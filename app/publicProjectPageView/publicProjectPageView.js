@@ -69,6 +69,11 @@ angular.module('myApp.publicProjectPageView', ['ngRoute'])
             localStorage.otherUserID = userID;
         };
 
+        $scope.goToMyPublicProfile=function () {
+            $location.path("/publicProfilePageView");
+            localStorage.otherUserID=UID;
+        };
+
         var database=firebase.database();
         var PID = localStorage.PID;
         $scope.prj = $firebaseObject(database.ref('projects/' + PID));

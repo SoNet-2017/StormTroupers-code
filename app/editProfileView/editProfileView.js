@@ -73,6 +73,11 @@ angular.module('myApp.editProfileView', ['ngRoute'])
             localStorage.otherUserID = UID;
         };
 
+        $scope.goToMyPublicProfile=function () {
+            $location.path("/publicProfilePageView");
+            localStorage.otherUserID=UID;
+        };
+
         $scope.loadProvinces = function (selectedCountry) {
 
             console.log("ng-change: selezionata nazione: " + selectedCountry);

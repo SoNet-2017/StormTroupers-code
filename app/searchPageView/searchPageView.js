@@ -107,6 +107,11 @@ angular.module('myApp.searchPageView', ['ngRoute'])
             localStorage.otherUserID = userID;
         };
 
+        $scope.goToMyPublicProfile=function () {
+            $location.path("/publicProfilePageView");
+            localStorage.otherUserID=UID;
+        };
+
         var UID=localStorage.UID;
         var database=firebase.database();
         var usersBase=database.ref('users/');
