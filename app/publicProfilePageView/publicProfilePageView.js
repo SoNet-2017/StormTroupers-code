@@ -157,8 +157,7 @@ angular.module('myApp.publicProfilePageView', ['ngRoute'])
                         }
                     }
 
-                    /*var followingProj = [];
-                    //followingProj[0] = "init";
+                    var followingProj = [];
                     //aggiungo il campo followingProjects
                     if ($scope.otherUser.followingProjects === undefined) {
                         database.ref('users/' + otherUserID).update({
@@ -178,7 +177,7 @@ angular.module('myApp.publicProfilePageView', ['ngRoute'])
                             payment: $scope.otherUser.payment,
                             description: $scope.otherUser.description,
                             dateOfBirth: $scope.otherUser.dateOfBirth,
-                            friends: friends,
+                            friends: $scope.otherUser.friends,
                             followingProjects: followingProj,
                             email: $scope.otherUser.email,
                             password: $scope.otherUser.password
@@ -196,7 +195,7 @@ angular.module('myApp.publicProfilePageView', ['ngRoute'])
                                 break;
                             }
                         }
-                    }*/
+                    }
 
                 }
             }).catch(function (error) {
