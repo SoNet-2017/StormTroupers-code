@@ -75,17 +75,14 @@ angular.module('myApp.publicProjectPageView', ['ngRoute'])
         };
 
         var database=firebase.database();
-        var PID = localStorage.PID;
-        $scope.prj = $firebaseObject(database.ref('projects/' + PID));
 
         var UID=localStorage.UID;
         var usersBase=database.ref('users/');
         var userQuery=usersBase.limitToLast(5);
         $scope.filterUsers=$firebaseArray(userQuery);
 
-        var obj = $firebaseObject(database.ref('users/'+UID));
-        obj.$loaded().then(function () {
-            $scope.profile=obj;
+        $scope.profile = $firebaseObject(database.ref('users/'+UID));
+        $scope.profile.$loaded().then(function () {
             var role = Object.values(obj.roles);
             for(var i=0; i<role.length; i++){
                 document.getElementById("userRolesHome").innerHTML+=role[i];
@@ -97,6 +94,66 @@ angular.module('myApp.publicProjectPageView', ['ngRoute'])
         }).catch(function (error) {
             $scope.error=error;
         });
+
+        var PID = localStorage.PID;
+        $scope.prj = $firebaseObject(database.ref('projects/' + PID));
+        $scope.prj.$loaded().then(function () {
+            console.log("titolo progetto quiii: " + $scope.prj.title);
+        });
+
+        $scope.addProjectToFavourite=function(){
+
+            var projectsIfollow = [];
+            if ($scope.profile.followingProjects === undefined) {
+                projectsIfollow.push(PID);
+
+                database.ref('users/' + UID).update({
+                    name: $scope.profile.name,
+                    lastName: $scope.profile.lastName,
+                    phone: $scope.profile.phone,
+                    permissionToShowPhone: $scope.profile.permissionToShowPhone,
+                    gender: $scope.profile.gender,
+                    roles: $scope.profile.roles,
+                    race: $scope.profile.race,
+
+                    country: $scope.profile.country,
+                    province: $scope.profile.province,
+                    city: $scope.profile.city,
+                    car: $scope.profile.car,
+                    payment: $scope.profile.payment,
+                    description: $scope.profile.description,
+                    dateOfBirth: $scope.profile.dateOfBirth,
+                    friends: $scope.profile.friends,
+                    followingProjects: projectsIfollow,
+                    email: $scope.profile.email,
+                    password: $scope.profile.password,
+                    logged: $scope.profile.logged
+                }).then(function () {
+                    var nObj = $firebaseObject(database.ref('users/' + UID));
+                    nObj.$loaded().then(function () {
+                        $scope.profile = nObj;
+                        $scope.prj.likes++;
+                        $scope.prj.$save();
+                        console.log("aggiunto progetto "+$scope.prj.title+" ai progetti che "+UID+" segue");
+                    }).catch(function (error) {
+                        $scope.error = error;
+                    })
+                }).catch(function (error) {
+                    $scope.error = error;
+                });
+            }
+            else {
+                if ($scope.profile.followingProjects.indexOf(PID) < 0) {
+                    console.log("sono inside a following proj");
+                    $scope.prj.likes++;
+                    $scope.prj.$save();
+                    $scope.profile.followingProjects.splice($scope.profile.followingProjects.length, 0, PID);
+                    $scope.profile.$save();
+                }
+            }
+
+
+        };
 
         $scope.logout = function () {
             Users.registerLogout(currentAuth.uid);

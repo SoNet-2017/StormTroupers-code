@@ -252,7 +252,8 @@ angular.module('myApp.newProjectView', ['ngRoute'])
                 progress: 'In Progress',
                 city: project_province,
                 troupers: troupers,
-                rolesNeeded: rolesNeeded
+                rolesNeeded: rolesNeeded,
+                likes: 0
             }).then(function () {
                 console.log("creato project in DB; PID: " + PID);
                 var obj = $firebaseObject(database.ref('projects/' + PID));

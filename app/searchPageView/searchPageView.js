@@ -157,7 +157,6 @@ angular.module('myApp.searchPageView', ['ngRoute'])
             else console.log("trouper già inserito");
         };
 
-
         $scope.launchSearch = function () {
             //resetta il filtersearch
             $scope.filterSearch={};

@@ -107,12 +107,10 @@
                 <ul style="list-style: none; padding: 0; display: inline-block;">
                     <li ng-repeat="project in projPublicPage" class="w3-col s12 m12 l12"
                         style="margin-right: 40px; margin-bottom: 20px">
-                        <div id="projectPic" class=" w3-container w3-card-2"
-                             style="padding: 10px; border-radius: 4mm; background-color: #b7c3b8;">
+                        <div id="projectPic" class=" w3-container w3-card-2">
 
                             <div class="w3-container w3-row">
-                                <h2 style="color: white;
-                                                text-shadow: 2px 2px 2px #333333;">{{project.title}}</h2>
+                                <h2 style="color: white; text-shadow: 2px 2px 2px #333333;">{{project.title}}</h2>
                             </div>
                             <div id="likePanel" class="w3-container w3-row w3-right"
                                  style="min-height:20px; background: linear-gradient(rgba(0,0,0,.5), rgba(0,0,0,.9)); margin-top: 100px;">
@@ -142,7 +140,35 @@
              style="margin-top: 30px; padding-top: 20px;background: linear-gradient(rgba(0,0,0,.5), rgba(0,0,0,.5));">
             <div id="likedProjectsContainer" class="w3-container">
                 <h4>Projects <strong>{{otherUser.name}}</strong> is following</h4>
+                <ul style="list-style: none; padding: 0; display: inline-block;">
+                    <li ng-repeat="proj in followingProjects" class="w3-col s5 m5 l5"
+                        style="margin-right: 40px; margin-bottom: 20px">
+                        <div id="projectPic2" class=" w3-container w3-card-2"
+                             style="padding: 10px; border-radius: 4mm; background-color: #b7c3b8;">
 
+                            <div class="w3-container w3-row">
+                                <h2 style="color: white;
+                                                text-shadow: 2px 2px 2px #333333;">{{proj.title}}</h2>
+                            </div>
+                            <div id="likePanel2" class="w3-container w3-row w3-right"
+                                 style="min-height:20px; background: linear-gradient(rgba(0,0,0,.5), rgba(0,0,0,.9)); margin-top: 100px;">
+                                <div id="newPDesc2">
+                                    <div class="w3-container w3-row w3-col s10 m10 l10">
+                                        <h5 style="color: white;">{{proj.progress}}</h5>
+                                    </div>
+                                    <a ng-click="goToPublicProjectPage(proj.$id)"><i
+                                            class="glyphicon glyphicon-eye-open w3-xlarge w3-col s1 m1 l1"
+                                            style="color: white; margin-right: 15px"></i>
+                                        <a ng-click=""><i
+                                                class="glyphicon glyphicon-heart-empty w3-xlarge w3-col s1 m1 l1"
+                                                style="color: white;"></i></a>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+                    </li>
+                </ul>
             </div>
         </div>
         <br>
@@ -151,7 +177,12 @@
              style="margin-top: 30px; padding-top: 20px; background: linear-gradient(rgba(0,0,0,.5), rgba(0,0,0,.5));">
             <div id="friendsContainer" class="w3-container">
                 <h4><strong>{{otherUser.name}}</strong>'s Troupers</h4>
-
+                <ul class="w3-left" style="padding: 0px;">
+                    <li ng-repeat="user in friends" style="display: inline-block; list-style: none; padding-top: 10px">
+                        <a id="troupeUserImgLink" ng-click="goToPublicProfile(user.$id)"><img id="troupeUserImg" alt="Avatar" class="w3-circle"></a>
+                        <!--<h4><a ng-click="goToPublicProfile(user)">{{user}}</a></h4>-->
+                    </li>
+                </ul>
             </div>
         </div>
         <br>
@@ -160,7 +191,9 @@
              style="margin-top: 30px; padding-top: 20px; background: linear-gradient(rgba(0,0,0,.5), rgba(0,0,0,.5));">
             <div id="equipmentContainer" class="w3-container">
                 <h4>Equipment</h4>
-
+                <ul style="text-align: left; color: lightgray;">
+                    <li class="w3-col s6 m6 l6" ng-repeat="equipmentItem in otherUser.equipment">{{equipmentItem}}</li>
+                </ul>
             </div>
         </div>
         <br>
@@ -204,7 +237,7 @@
     </div><br>
     <div class="w3-row w3-col s1 m1 l1">
         <div class="w3-tooltip">
-            <a ng-click="goToFriendsPage()">
+            <a ng-click="goToFriendsPage(otherUser.$id)">
                 <i class="glyphicon glyphicon-link w3-xlarge w3-left"
                    style="color: white; cursor: pointer;"></i>
             </a>

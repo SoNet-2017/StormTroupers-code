@@ -2,14 +2,14 @@
 
 angular.module('myApp.publicProfilePageView', ['ngRoute'])
 
-    .config(['$routeProvider', function($routeProvider) {
+    .config(['$routeProvider', function ($routeProvider) {
         $routeProvider.when('/publicProfilePageView', {
             templateUrl: 'publicProfilePageView/publicProfilePageView.html',
             controller: 'publicProfilePageViewCtrl',
             resolve: {
                 // controller will not be loaded until $requireSignIn resolves
                 // Auth refers to our $firebaseAuth wrapper in the factory below
-                "currentAuth": ["Auth", function(Auth) {
+                "currentAuth": ["Auth", function (Auth) {
                     // $requireSignIn returns a promise so the resolve waits for it to complete
                     // If the promise is rejected, it will throw a $routeChangeError (see above)
                     return Auth.$requireSignIn();
@@ -18,13 +18,13 @@ angular.module('myApp.publicProfilePageView', ['ngRoute'])
         });
     }])
 
-    .controller('publicProfilePageViewCtrl', ['$scope', '$location', 'Auth', '$firebaseObject','Users', 'currentAuth', '$firebaseAuth', '$firebaseArray', function ($scope,$location, Auth, $firebaseObject, Users, currentAuth, $firebaseAuth, $firebaseArray) {
-        $scope.dati={};
-        $scope.auth=Auth;
+    .controller('publicProfilePageViewCtrl', ['$scope', '$location', 'Auth', '$firebaseObject', 'Users', 'currentAuth', '$firebaseAuth', '$firebaseArray', function ($scope, $location, Auth, $firebaseObject, Users, currentAuth, $firebaseAuth, $firebaseArray) {
+        $scope.dati = {};
+        $scope.auth = Auth;
 
         $scope.countries = countries_list;
 
-        $scope.showLogoItem=function () {
+        $scope.showLogoItem = function () {
             var x = document.getElementById("logoBarContentHome");
             if (x.className.indexOf("w3-show") == -1)
                 x.className += " w3-show";
@@ -32,7 +32,7 @@ angular.module('myApp.publicProfilePageView', ['ngRoute'])
                 x.className = x.className.replace(" w3-show", "");
         };
 
-        $scope.showSearchItem=function () {
+        $scope.showSearchItem = function () {
             var x = document.getElementById("typeSearchContentHome");
             if (x.className.indexOf("w3-show") == -1)
                 x.className += " w3-show";
@@ -40,124 +40,196 @@ angular.module('myApp.publicProfilePageView', ['ngRoute'])
                 x.className = x.className.replace(" w3-show", "");
         };
 
-        $scope.goToDashboard=function () {
+        $scope.goToDashboard = function () {
             $location.path("/homePageView")
         };
 
-        $scope.goToSearchCrew=function () {
+        $scope.goToSearchCrew = function () {
             $location.path("/searchPageView");
         };
 
-        $scope.goToEditProfile=function () {
+        $scope.goToEditProfile = function () {
             $location.path("/editProfileView");
         };
 
-        $scope.goToMyProjects=function() {
+        $scope.goToMyProjects = function () {
             $location.path("/myProjectsView");
         };
 
-        $scope.goToMyTroupers=function () {
+        $scope.goToMyTroupers = function () {
             $location.path("/friendsPageView");
             localStorage.otherUserID = UID;
         };
 
-        $scope.goToPublicProjectPage=function(projectID){
+        $scope.goToPublicProjectPage = function (projectID) {
             $location.path("/publicProjectPageView");
-            console.log("progetto che sto passando: "+projectID);
+            console.log("progetto che sto passando: " + projectID);
             localStorage.PID = projectID;
         };
 
-        $scope.goToFriendsPage=function(){
+        $scope.goToFriendsPage = function (otherUserID) {
             $location.path("/friendsPageView");
+            localStorage.otherUserID = otherUserID;
         };
 
-        $scope.goToMyPublicProfile=function () {
+        $scope.goToMyPublicProfile = function () {
             $location.path("/publicProfilePageView");
-            localStorage.otherUserID=UID;
+            localStorage.otherUserID = UID;
         };
 
-        var UID=localStorage.UID;
-        var database=firebase.database();
+        $scope.goToPublicProfile = function (userID) {
+            $location.path("/publicProfilePageView");
+            //console.log("utente che sto passando: "+userID);
+            localStorage.otherUserID = userID;
+        };
 
-        $scope.profile = $firebaseObject(database.ref('users/'+UID));
+        var UID = localStorage.UID;
+        var database = firebase.database();
+
+        $scope.profile = $firebaseObject(database.ref('users/' + UID));
         $scope.profile.$loaded().then(function () {
             var role = Object.values($scope.profile.roles);
-            for(var i=0; i<role.length; i++){
-                document.getElementById("userRolesHome").innerHTML+=role[i];
-                if(i<role.length-1) {
-                    document.getElementById("userRolesHome").innerHTML+=", ";
+            for (var i = 0; i < role.length; i++) {
+                document.getElementById("userRolesHome").innerHTML += role[i];
+                if (i < role.length - 1) {
+                    document.getElementById("userRolesHome").innerHTML += ", ";
                 }
             }
         }).catch(function (error) {
-            $scope.error=error;
+            $scope.error = error;
             //console.log("errore: "+error);
         });
 
         // UID dell'utente di cui si vuole vedere il profilo pubblico
-        var otherUserID=localStorage.otherUserID;
-        $scope.otherUser = $firebaseObject(database.ref('users/'+otherUserID));
+        var otherUserID = localStorage.otherUserID;
+        $scope.friends = {};
+
+        $scope.otherUser = $firebaseObject(database.ref('users/' + otherUserID));
         $scope.otherUser.$loaded().then(function () {
             //console.log("nome other user: "+$scope.otherUser.name+" ID: "+otherUserID+" DESCR: "+$scope.otherUser.description);
             var userRoles = Object.values($scope.otherUser.roles);
-            for(var i=0; i<userRoles.length; i++){
-                document.getElementById("userRoles").innerHTML+=userRoles[i];
-                if(i<userRoles.length-1) {
-                    document.getElementById("userRoles").innerHTML+=", ";
+            for (var i = 0; i < userRoles.length; i++) {
+                document.getElementById("userRoles").innerHTML += userRoles[i];
+                if (i < userRoles.length - 1) {
+                    document.getElementById("userRoles").innerHTML += ", ";
                 }
             }
             $scope.calculateAge();
 
-            $scope.getProjectsFromDB={};
+            var length = $scope.otherUser.friends.length;
+            var currFriendID;
+            //console.log("length: "+length);
+            for (var j = 0; j < length; j++) {
+                currFriendID = $scope.otherUser.friends[j];
+                //console.log("curFriendID: "+currFriendID);
+                var currFriendObj = $firebaseObject(database.ref('users/' + currFriendID));
+
+                //console.log("curr friend: "+currFriendObj);
+                $scope.friends[j] = currFriendObj;
+
+            }
+
+            $scope.getProjectsFromDB = {};
             var projectsBase = database.ref('projects/');
             $scope.getProjectsFromDB = $firebaseArray(projectsBase);
             $scope.getProjectsFromDB.$loaded().then(function () {
-            //resetta il filtersearch
-            $scope.projPublicPage={};
 
-            var length=$scope.getProjectsFromDB.length;
-            console.log("length: "+length);
-            var j=0;
-            for(var i=0; i<length; i++){ //si scorre tutto l'array
-                console.log("owner i"+$scope.getProjectsFromDB[i].owner);
-                if($scope.getProjectsFromDB[i].owner === otherUserID) {
-                    $scope.projPublicPage[j]=$scope.getProjectsFromDB[i];
-                    j++;
-                }
-                var length2=$scope.getProjectsFromDB[i].troupers.length;
-                for(var k=0;k<length2; k++) {
-                    if($scope.getProjectsFromDB[i].troupers[k] === otherUserID) {
-                        $scope.projPublicPage[j]=$scope.getProjectsFromDB[i];
-                        console.log("trovato");
-                        j++;
-                        break;
+                console.log("projects[0]: " + $scope.getProjectsFromDB[0].troupers.length);
+
+                //resetta il filtersearch
+                $scope.projPublicPage = {};
+                $scope.followingProjects = {};
+
+                var length = $scope.getProjectsFromDB.length;
+                console.log("length quii: " + length);
+                var j = 0; //indice di projPublicPage
+                var n = 0; //indice di followingProjects
+
+                for (var i = 0; i < length; i++) { //si scorre tutto l'array
+                    var length3 = $scope.getProjectsFromDB[i].troupers.length;
+                    console.log("lenght ddi troupers: " + length3);
+                    for (var k = 0; k < length3; k++) {
+                        if ($scope.getProjectsFromDB[i].troupers[k] === otherUserID) {
+                            $scope.projPublicPage[j] = $scope.getProjectsFromDB[i];
+                            console.log("trovato proj condiviso con l'utente loggato");
+                            j++;
+                            break;
+                        }
                     }
+
+                    var followingProj = [];
+                    //aggiungo il campo followingProjects
+                    if ($scope.otherUser.followingProjects === undefined) {
+                        database.ref('users/' + otherUserID).update({
+                            name: $scope.otherUser.name,
+                            lastName: $scope.otherUser.lastName,
+                            phone: $scope.otherUser.phone,
+                            permissionToShowPhone: $scope.otherUser.permissionToShowPhone,
+                            gender: $scope.otherUser.gender,
+                            roles: $scope.otherUser.roles,
+                            race: $scope.otherUser.race,
+
+                            country: $scope.otherUser.country,
+                            province: $scope.otherUser.province,
+                            city: $scope.otherUser.city,
+                            logged: $scope.otherUser.logged,
+                            car: $scope.otherUser.car,
+                            payment: $scope.otherUser.payment,
+                            description: $scope.otherUser.description,
+                            dateOfBirth: $scope.otherUser.dateOfBirth,
+                            friends: $scope.otherUser.friends,
+                            followingProjects: followingProj,
+                            email: $scope.otherUser.email,
+                            password: $scope.otherUser.password
+                        }).catch(function (error) {
+                            $scope.error = error;
+                        });
+                    } else {
+                        var length2 = $scope.otherUser.followingProjects.length;
+                        //progetti che l'utente loggato segue/ha messo like
+                        for (var m = 0; m < length2; m++) {
+                            if ($scope.getProjectsFromDB[i].$id === $scope.otherUser.followingProjects[m]) {
+                                $scope.followingProjects[n] = $scope.getProjectsFromDB[i];
+                                console.log("proj con like");
+                                n++;
+                                break;
+                            }
+                        }
+                    }
+
                 }
-            }
             }).catch(function (error) {
-                $scope.error=error;
+                $scope.error = error;
+                console.log("sono in errore1: " + error);
             });
         }).catch(function (error) {
-            $scope.error=error;
+            $scope.error = error;
+            console.log("sono in errore2: " + error);
         });
 
 
-        $scope.addUserToFriends=function(otherUserID){
-            if($scope.profile.friends.indexOf(otherUserID)<0) {
-                //aggiorno il vettore anche nell'amico
-                $scope.otherUser.friends.push(UID);
-                //console.log("vettore amicicci di other user"+otherUserID+": "+$scope.otherUser.friends);
-                $scope.otherUser.$save();
+        $scope.addUserToFriends = function (otherUserID) {
+            if ($scope.profile.friends.indexOf(otherUserID) < 0) {
+                $scope.otherUser = $firebaseObject(database.ref('users/' + otherUserID));
+                $scope.otherUser.$loaded().then(function () {
+                    //aggiorno il vettore anche nell'amico
+                    $scope.otherUser.friends.push(UID);
+                    //console.log("vettore amicicci di other user"+otherUserID+": "+$scope.otherUser.friends);
+                    $scope.otherUser.$save();
 
-                //aggiorno il vettore dell'utente loggato
-                //console.log("Trouper aggiunto agli amici: " +  otherUserID);
-                $scope.profile.friends.push(otherUserID);
-                //console.log("vettore amicicci dell'utente loggato: "+$scope.profile.friends);
-                $scope.profile.$save();
+                    //aggiorno il vettore dell'utente loggato
+                    $scope.profile.friends.push(otherUserID);
+                    //console.log("vettore amicicci dell'utente loggato: "+$scope.profile.friends);
+                    $scope.profile.$save();
+                    console.log("Trouper aggiunto agli amici: " + otherUserID);
+                }).catch(function (error) {
+                    $scope.error = error;
+                });
             }
             else console.log("trouper già inserito");
         };
 
-        $scope.calculateAge=function () {
+        $scope.calculateAge = function () {
             var ageString = $scope.otherUser.dateOfBirth;
             var ageStringYear = ageString.slice(0, 4);
             var ageIntYear = parseInt(ageStringYear);
@@ -170,10 +242,10 @@ angular.module('myApp.publicProfilePageView', ['ngRoute'])
 
             var today = new Date();
             var dd = today.getDate();
-            var mm = today.getMonth()+1; //January is 0!
+            var mm = today.getMonth() + 1; //January is 0!
             var yyyy = today.getFullYear();
 
-            console.log ("Date con la function: "+dd+"/"+mm+"/"+yyyy);
+            console.log("Date con la function: " + dd + "/" + mm + "/" + yyyy);
 
             var currentDate = dd + (mm * 30) + (yyyy * 365);
 
@@ -184,7 +256,7 @@ angular.module('myApp.publicProfilePageView', ['ngRoute'])
         $scope.logout = function () {
             Users.registerLogout(currentAuth.uid);
             $firebaseAuth().$signOut();
-            $firebaseAuth().$onAuthStateChanged(function(firebaseUser) {
+            $firebaseAuth().$onAuthStateChanged(function (firebaseUser) {
                 if (firebaseUser) {
                     console.log("User is yet signed in as:", firebaseUser.uid);
                 } else {
