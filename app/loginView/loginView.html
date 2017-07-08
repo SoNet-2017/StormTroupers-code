@@ -36,8 +36,8 @@
                 <input type="password" class="w3-input w3-border" placeholder="Password" name="password" id="loginPassword"
                        ng-model="user.password">
                 <br>
-                <button class="w3-btn" id="loginButton" ng-click="signIn()">Login</button>
-                or...<a id="joinShift" ng-click="passToJoin()" style="color: white;">Join the dark side</a>
+                <button class="w3-btn" id="loginButton" ng-click="signIn()">Login</button><span style="color: white">or...</span>
+                <a id="joinShift" ng-click="passToJoin()" style="color: white;">Join the dark side</a>
                 </form>
             </div>
             <div class="w3-col s6 m6 l6 w3-center w3-animate-left" id="loginImage">
@@ -80,8 +80,8 @@
                 </div>
             </div>
             <br>
-            <button class="w3-btn" id="joinButton" ng-click="join()">Join the dark side</button>
-            or...<a id="loginShift" ng-click="passToLogin()"  style="color: white;">Login</a>
+            <button class="w3-btn" id="joinButton" ng-click="join()">Join the dark side</button><span style="color: white;">or...</span>
+            <a id="loginShift" ng-click="passToLogin()"  style="color: white;">Login</a>
             </form>
         </div>
     </div>
