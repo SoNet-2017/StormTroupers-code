@@ -1,0 +1,119 @@
+<div class="w3-container w3-bar w3-top w3-card-2" id="topBarHome">
+
+
+    <a class="w3-bar-item w3-button" id="homeLinkHome" ng-click="goToDashboard()"><i
+            class="glyphicon glyphicon-home w3-large"></i></a>
+    <a class="w3-bar-item w3-button" id="userLinkHome" ng-click="goToSearchCrew()"><i
+            class="glyphicon glyphicon-user w3-large"></i> Search Crew</a>
+    <a class="w3-bar-item w3-button" id="projectsLinkHome"><i class="glyphicon glyphicon-film w3-large"></i> Search
+        Projects</a>
+
+
+    <!--
+        <div class="w3-bar-item w3-dropdown-click" id="typeSearchHome">
+            <a ng-click="showSearchItem()" class=" glyphicon glyphicon-search w3-large" id="searchIconHome"></a>
+            <div class="w3-dropdown-content w3-bar-block w3-border" id="typeSearchContentHome">
+                <a href="#" class="w3-bar-item w3-button"><i class="glyphicon glyphicon-user"></i> Search Troupers</a>
+                <a href="#" class="w3-bar-item w3-button"><i class="glyphicon glyphicon-project"></i> Search Projects</a>
+            </div>
+        </div>
+        <input class="w3-input w3-border" type="text" id="searchBarHome">-->
+
+    <form id="searchItemHome">
+        <div class="input-group">
+            <input type="text" class="form-control" placeholder="Search">
+            <div class="input-group-btn">
+                <button class="btn btn-default" type="submit">
+                    <i class="glyphicon glyphicon-search"></i>
+                </button>
+            </div>
+        </div>
+    </form>
+
+    <div class="w3-bar-item w3-right" id="logoChatBarHome"><span><a><i
+            class="w3-right glyphicon glyphicon-comment w3-xlarge" style="color: gray;cursor: pointer;"></i></a></span></div>
+
+    <div class="w3-bar-item w3-dropdown-click w3-right" id="logoBarHome" ng-click="showLogoItem()">
+        {{profile.name}}
+        <div class="w3-dropdown-content w3-bar-block w3-border w3-right" id="logoBarContentHome">
+            <a ng-click="goToMyPublicProfile()" class="w3-bar-item w3-button"><i
+                    class="glyphicon glyphicon-user w3-large"></i> Your Public
+                Profile</a>
+            <a ng-click="goToEditProfile()" class="w3-bar-item w3-button"><i
+                    class="glyphicon glyphicon-pencil w3-large"></i> Edit Profile</a>
+            <a ng-click="logout()" class="w3-bar-item w3-button"><i class="glyphicon glyphicon-off w3-large"></i> Logout</a>
+        </div>
+    </div>
+
+    <div id="logoBarImgContainerHome">
+        <img class="w3-content" id="logoBarImgHome" alt="logo">
+    </div>
+
+</div>
+
+<div id="bodyHome" class="w3-container w3-col l12 s12 m12">
+    <div id="sideUserHome" class="w3-col l3 m3 s3 w3-card-2">
+        <h3 id="userNameAndLastHome">{{profile.name}} {{profile.lastName}}</h3>
+        <p id="userRolesHome"></p>
+        <p id="userCityHome"></p>
+        <img id="userPhotoHome">
+        <br>
+        <a ng-click="goToMyProjects()" class="w3-bar-item" id="userProjectHome">My Projects <i
+                class="glyphicon glyphicon-film w3-large"></i></a><br><br>
+        <a ng-click="goToMyTroupers(profile.$id)" class="w3-bar-item" id="userTroupeHome">My Troupers <i
+                class="glyphicon glyphicon-user w3-large"></i></a><br><br>
+        <a ng-click="goToEditProfile()" class="w3-bar-item" id="editProfileLinkHome">Edit Profile <i
+                class="glyphicon glyphicon-cog w3-large"></i></a>
+    </div>
+
+    <div id="aroundYouContainer" class="w3-col l8 m8 s8">
+
+        <div id="onlineUsersShowChat" class="w3-container w3-card-2 w3-col s3 m3 l3"
+             style="background: linear-gradient(rgba(0,0,0,.5), rgba(0,0,0,.5));">
+            <div class="w3-container" id="containerTitle">
+                <h4>Online Users</h4>
+            </div>
+            <div id="onlineUserContainer" class="w3-container">
+                <ul style="list-style: none">
+                    <li ng-repeat="user in testValue=(dati.friends | filter:{logged:true} | filter:{$id: '!' + dati.userId})">
+                        <p ng-show="!testValue.length">No available users</p>
+                        <div class="w3-container" style="padding:10px;">
+                            <div class="w3-left" id="newUImgContainer">
+                                <img id="newUImg" alt="Avatar" class="w3-left w3-circle">
+                            </div>
+                            <div id="newUDescListUsers">
+                                <h5><a href="#!/chat/{{user.$id}}" style="color: white;">{{user.name}}
+                                    {{user.lastName}}</a></h5>
+                            </div>
+
+                        </div>
+                    </li>
+                </ul>
+            </div>
+
+        </div>
+        <div id="newUsersShow" class="w3-container w3-card-2 w3-col l8 m8 s8"
+             style="">
+            <div class="w3-container" id="newUserTitle">
+                <h4 style="color: gray;">Chat with: <strong style="color: white;">{{dati.recipientUserInfo.name}}</strong></h4>
+            </div>
+            <div class="w3-container">
+                <div class="row">
+                    <div>
+                        <div id="messagesDiv">
+                            <div style="color: white;" ng-repeat="msg in dati.messages  | orderBy:orderProp"
+                                 ng-if="[dati.userId, dati.recipientUserId].indexOf(msg.sender) > -1 && [dati.userId, dati.recipientUserId].indexOf(msg.receiver) > -1 ">
+                                <em>{{msg.senderName}}</em>: {{msg.text}}
+                            </div>
+                        </div>
+                        <h7 style="color: gray;">Type the message:
+                            <input type="text" ng-model="dati.msg" ng-keydown="addMessage($event)" placeholder="Message...">
+                        </h7>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+

@@ -5,7 +5,8 @@
             class="glyphicon glyphicon-home w3-large"></i></a>
     <a class="w3-bar-item w3-button" id="userLinkHome" ng-click="goToSearchCrew()"><i
             class="glyphicon glyphicon-user w3-large"></i> Search Crew</a>
-    <a class="w3-bar-item w3-button" id="projectsLinkHome"><i class="glyphicon glyphicon-film w3-large"></i> Search Projects</a>
+    <a class="w3-bar-item w3-button" id="projectsLinkHome"><i class="glyphicon glyphicon-film w3-large"></i> Search
+        Projects</a>
 
 
     <!--
@@ -29,11 +30,15 @@
         </div>
     </form>
 
+    <div class="w3-bar-item w3-right" id="logoChatBarHome"><span><a href="#!/usersList"><i
+            class="w3-right glyphicon glyphicon-comment w3-xlarge" style="color: white;"></i></a></span></div>
 
     <div class="w3-bar-item w3-dropdown-click w3-right" id="logoBarHome" ng-click="showLogoItem()">
+
         {{profile.name}}
         <div class="w3-dropdown-content w3-bar-block w3-border w3-right" id="logoBarContentHome">
-            <a ng-click="goToMyPublicProfile()" class="w3-bar-item w3-button"><i class="glyphicon glyphicon-user w3-large"></i> Your Public
+            <a ng-click="goToMyPublicProfile()" class="w3-bar-item w3-button"><i
+                    class="glyphicon glyphicon-user w3-large"></i> Your Public
                 Profile</a>
             <a ng-click="goToEditProfile()" class="w3-bar-item w3-button"><i
                     class="glyphicon glyphicon-pencil w3-large"></i> Edit Profile</a>
@@ -62,7 +67,8 @@
         <br>
         <a ng-click="goToMyProjects()" class="w3-bar-item" id="userProjectHome">My Projects <i
                 class="glyphicon glyphicon-film w3-large"></i></a><br><br>
-        <a ng-click="goToMyTroupers(profile.$id)" class="w3-bar-item" id="userTroupeHome">My Troupers <i class="glyphicon glyphicon-user w3-large"></i></a><br><br>
+        <a ng-click="goToMyTroupers(profile.$id)" class="w3-bar-item" id="userTroupeHome">My Troupers <i
+                class="glyphicon glyphicon-user w3-large"></i></a><br><br>
         <a ng-click="goToEditProfile()" class="w3-bar-item" id="editProfileLinkHome">Edit Profile <i
                 class="glyphicon glyphicon-cog w3-large"></i></a>
     </div>
@@ -71,7 +77,8 @@
         <div class="w3-container">
             <div class="w3-col l12 m12 s12" style="margin-left: 30px;">
                 <h2 class="w3-col s11 m11 l11" style="color: white; margin-top: 0;">AROUND YOU...</h2>
-                <div id="newProjectShow" class="w3-container w3-card-2 w3-col l6 m6 s6" style="background: linear-gradient(rgba(0,0,0,.5), rgba(0,0,0,.5));">
+                <div id="newProjectShow" class="w3-container w3-card-2 w3-col l6 m6 s6"
+                     style="background: linear-gradient(rgba(0,0,0,.5), rgba(0,0,0,.5));">
                     <div class="w3-container" id="newProjectTitle">
                         <h4>New Projects</h4>
                     </div>
@@ -96,9 +103,9 @@
                                             <a ng-click="goToPublicProjectPage(project.$id)"><i
                                                     class="glyphicon glyphicon-eye-open w3-xlarge w3-col s1 m1 l1"
                                                     style="color: white; margin-right: 15px"></i>
-                                            <a ng-click="">
-                                                <i class="glyphicon glyphicon-heart-empty w3-xlarge w3-col s1 m1 l1"
-                                                   style="color: white;"></i></a>
+                                                <a ng-click="">
+                                                    <i class="glyphicon glyphicon-heart-empty w3-xlarge w3-col s1 m1 l1"
+                                                       style="color: white;"></i></a>
                                             </a>
                                         </div>
                                     </div>
@@ -108,7 +115,8 @@
                         </ul>
                     </div>
                 </div>
-                <div id="newUsersShow" class="w3-container w3-card-2 w3-col l5 m5 s5" style="background: linear-gradient(rgba(0,0,0,.5), rgba(0,0,0,.5));">
+                <div id="newUsersShow" class="w3-container w3-card-2 w3-col l5 m5 s5"
+                     style="background: linear-gradient(rgba(0,0,0,.5), rgba(0,0,0,.5));">
                     <div class="w3-container" id="newUserTitle">
                         <h4>New Users</h4>
                     </div>
@@ -131,12 +139,14 @@
                                         <a ng-click="goToPublicProfile(user.$id)"><i
                                                 class="glyphicon glyphicon-user w3-xlarge"></i></a>
                                         <a><i class="glyphicon glyphicon-send w3-xlarge"></i></a>
-                                            <a ng-click="addUserToFriends(user.$id)" class="w3-tooltip">
-                                                <i class="glyphicon glyphicon-screenshot w3-xlarge w3-left"
-                                                   style="cursor: pointer;"></i>
-                                                <h6 class="w3-center w3-text w3-tag" style="color: white; text-align: left; position:absolute;top: 0px; padding: 5px;">Connect with {{user.name}}</h6>
-                                            </a>
-                                            <!--<h6 style="position:absolute;right:0;bottom:0px" class="w3-text w3-tag">Connect with {{otherUser.name}}</h6>-->
+                                        <a ng-click="addUserToFriends(user.$id)" class="w3-tooltip">
+                                            <i class="glyphicon glyphicon-screenshot w3-xlarge w3-left"
+                                               style="cursor: pointer;"></i>
+                                            <h6 class="w3-center w3-text w3-tag"
+                                                style="color: white; text-align: left; position:absolute;top: 0px; padding: 5px;">
+                                                Connect with {{user.name}}</h6>
+                                        </a>
+                                        <!--<h6 style="position:absolute;right:0;bottom:0px" class="w3-text w3-tag">Connect with {{otherUser.name}}</h6>-->
                                     </div>
                                 </div>
                                 <br>

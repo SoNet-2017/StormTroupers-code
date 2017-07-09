@@ -13,20 +13,17 @@
 }
 
 
+
+#logoBarImgHome{
+    content: url("../../images/StormTroupersLogo.png");
+    width: 50px;
+    height: 50px;
+}
+
 #logoBarImgContainerHome{
     position: absolute;
     right: 0px;
     margin-right: 20px;
-}
-
-#logoBarImgContainerHome img{
-    width: 50px;
-    height: 50px;
-    border-radius: 100px;
-}
-
-#logoChatBarHome{
-    maring-left: 150px;
 }
 
 #logoBarHome{
@@ -35,7 +32,6 @@
     margin-right: 30px;
     font-family: "ADAM.CG PRO";
     color: white;
-    text-align: right;
 }
 
 #logoBarHome:hover{
@@ -109,12 +105,13 @@
 }
 
 
-#userPhotoHome img{
+#userPhotoHome{
+    content: url("../../images/StormTroupersLogo.png");
     width: 200px;
     height: 200px;
-    margin: auto;
+    margin-bottom: 20px;
     padding: 10px 10px 10px 10px;
-    border-radius: 100px;
+    border-radius: 7px;
 }
 
 #sideUserHome a {
@@ -167,9 +164,9 @@
     background-color: #636466;
 }
 
-#newUserTitle{
+#onlineUsersTitle{
     display: flex;
-    justify-content: center;
+    justify-content: left;
 }
 
 #newProjectTitle{
@@ -177,19 +174,27 @@
     justify-content: center;
 }
 
-#newUsersShow h4{
+#onlineUserContainer{
+    padding:0;
+}
+
+#onlineUsersShowListUsers{
+    padding: 0;
+ }
+
+#onlineUsersShowListUsers h4{
     font-family: "ADAM.CG PRO";
     color: white;
 }
 
-#newUsersShow li{
+#onlineUsersShowListUsers li{
     list-style: none;
     margin-left: -40px;
 }
 
-#newUImgContainer img{
+#newUImg{
+    content: url("../../images/StormTroupersLogo.png");
     max-height: 75px;
-    border-radius: 100px;
 }
 
 #newUImgContainer{
@@ -200,16 +205,18 @@
     vertical-align: middle;
 }
 
-#newUDesc{
+#newUDescListUsers{
     color: #636466;
     display: flex;
-    justify-content: center;
-    text-align: center;
-    align-items:center;
+    justify-content: left;
+    text-align: left;
+    align-items:left;
     vertical-align: middle;
+    padding-left:10px;
+    margin-right: 0px;
 }
 
-#newUDesc h4{
+#newUDescListUsers h4{
     color: #636466;
 }
 

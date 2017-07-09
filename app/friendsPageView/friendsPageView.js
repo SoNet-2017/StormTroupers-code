@@ -122,13 +122,14 @@ angular.module('myApp.friendsPageView', ['ngRoute'])
             console.log("trouper eliminato: "+friendToRemove);
 
             //lo elimino anche dall'altro?
-            /*$scope.otherUser = $firebaseObject(database.ref('users/' + friendToRemove));
+            $scope.otherUser = $firebaseObject(database.ref('users/' + friendToRemove));
             $scope.otherUser.$loaded().then(function () {
-                $scope.otherUser.friends.splice($scope.otherUser.friends.indexOf(UID),1,$scope.otherUser.friends.pop());
+                $scope.otherUser.friends.splice($scope.otherUser.friends.indexOf(UID),1);
                 $scope.otherUser.$save();
+                console.log("trouper eliminato dall'amico: "+UID);
             }).catch(function (error) {
                 $scope.error = error;
-            });*/
+            });
             $scope.refresh();
         };
 

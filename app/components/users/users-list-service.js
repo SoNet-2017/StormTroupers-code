@@ -2,7 +2,7 @@
 
 angular.module('myApp.users.usersListService', [])
 
-    .factory('UserList', function($firebaseArray) {
+    .factory('UserList', function ($firebaseArray) {
         var userListService = {
             getListOfUsers: function () {
                 //get the list of logged users
