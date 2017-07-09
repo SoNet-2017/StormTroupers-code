@@ -157,7 +157,7 @@ angular.module('myApp.editProfileView', ['ngRoute'])
 
                 $scope.payment=$scope.profile.payment;
 
-                var role=$scope.profile.roles;
+                role=$scope.profile.roles;
                 for(var i=0; i<role.length; i++){
                     if(role[i]==="Producers"){
                         document.getElementById("checkEditProducers").checked=true;
@@ -388,7 +388,7 @@ angular.module('myApp.editProfileView', ['ngRoute'])
                     if (document.getElementById("etnEditHisp").checked) {
                         newRace = "Hispanic";
                     }
-                    if (document.getElementById("etnSEditAsi").checked) {
+                    if (document.getElementById("etnEditSAsi").checked) {
                         newRace = "South_Asian";
                     }
                     if (document.getElementById("etnEditNati").checked) {
