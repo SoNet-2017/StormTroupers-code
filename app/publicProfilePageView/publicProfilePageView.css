@@ -101,6 +101,11 @@
     color: white;
 }
 
+#troupeUserImgLink img{
+    max-height: 40px;
+    margin: 5px;
+}
+
 
 /* Per le stelle di valutazione, crivete il resto sopra questa parte*/
 form .stars {

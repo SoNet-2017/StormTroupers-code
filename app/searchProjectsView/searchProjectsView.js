@@ -1,11 +1,11 @@
 'use strict';
 
-angular.module('myApp.searchPageView', ['ngRoute'])
+angular.module('myApp.searchProjectsView', ['ngRoute'])
 
     .config(['$routeProvider', function($routeProvider) {
-        $routeProvider.when('/searchPageView', {
-            templateUrl: 'searchPageView/searchPageView.html',
-            controller: 'searchPageCtrl',
+        $routeProvider.when('/searchProjectsView', {
+            templateUrl: 'searchProjectsView/searchProjectsView.html',
+            controller: 'searchProjectsCtrl',
             resolve: {
                 // controller will not be loaded until $requireSignIn resolves
                 // Auth refers to our $firebaseAuth wrapper in the factory below
@@ -18,7 +18,7 @@ angular.module('myApp.searchPageView', ['ngRoute'])
         });
     }])
 
-    .controller('searchPageCtrl', ['$scope', '$location', 'Auth', '$firebaseObject','Users', 'currentAuth', '$firebaseAuth', '$firebaseArray', function ($scope,$location, Auth, $firebaseObject, Users, currentAuth, $firebaseAuth, $firebaseArray) {
+    .controller('searchProjectsCtrl', ['$scope', '$location', 'Auth', '$firebaseObject','Users', 'currentAuth', '$firebaseAuth', '$firebaseArray', function ($scope,$location, Auth, $firebaseObject, Users, currentAuth, $firebaseAuth, $firebaseArray) {
         $scope.dati={};
         $scope.auth=Auth;
 

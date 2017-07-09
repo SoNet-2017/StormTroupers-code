@@ -28,6 +28,11 @@
     margin: 5px;
 }
 
+#troupeUserImgLink img{
+    max-height: 40px;
+    margin: 5px;
+}
+
 #flowImage{
     /* The image used */
     background-image: url("../../images/troopers.jpg");
