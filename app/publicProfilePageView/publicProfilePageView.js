@@ -24,6 +24,11 @@ angular.module('myApp.publicProfilePageView', ['ngRoute'])
 
         $scope.countries = countries_list;
 
+        if(localStorage.otherUserID===localStorage.UID){
+            document.getElementById("profileFeedbackWriter").style.display="none";
+            document.getElementById("lateralLinks").style.display="none";
+        }
+
         $scope.showLogoItem = function () {
             var x = document.getElementById("logoBarContentHome");
             if (x.className.indexOf("w3-show") == -1)
@@ -129,6 +134,19 @@ angular.module('myApp.publicProfilePageView', ['ngRoute'])
 
             }
 
+            var feedbackContainer=document.getElementById("feedbackPar");
+            var otherUserFeedback = Object.values($scope.otherUser.feedback);
+            for (var k=0; k<otherUserFeedback.length; k++){
+                var feedbackNotParsed=otherUserFeedback[k].split(':');
+                var feedbackAuthor=feedbackNotParsed[0];
+                var feedbackText=feedbackNotParsed[1];
+                var feedbackVote=feedbackNotParsed[2];
+                feedbackContainer.innerHTML+="<h5><strong>"+feedbackAuthor+"</strong></h5>"+feedbackText+"<p>"+"Vote: "+feedbackVote+"</p>";
+                if(k<otherUserFeedback.length-1){
+                    feedbackContainer.innerHTML+="<br\>";
+                }
+            }
+
             $scope.getProjectsFromDB = {};
             var projectsBase = database.ref('projects/');
             $scope.getProjectsFromDB = $firebaseArray(projectsBase);
@@ -206,6 +224,52 @@ angular.module('myApp.publicProfilePageView', ['ngRoute'])
             $scope.error = error;
             console.log("sono in errore2: " + error);
         });
+
+        $scope.check=function(val){
+            localStorage.setItem("numStars", val);
+            $scope.checkStars();
+        };
+
+        $scope.checkStars=function(){
+            var st = localStorage.getItem("numStars");
+            var num = "star-" + st;
+            document.getElementById(num).checked=true;
+        };
+
+        $scope.addFeedback=function (otherUserID) {
+            $scope.otherUser=$firebaseObject(database.ref('users/'+otherUserID));
+            $scope.otherUser.$loaded().then(function () {
+                var feedback=document.getElementById("feedbackText").value;
+                var utenteFeedback=$scope.profile.name+" "+$scope.profile.lastName;
+                var votes=$scope.otherUser.votes.votes;
+                var total=$scope.otherUser.votes.total;
+                var n=parseInt(localStorage.getItem("numStars"));
+                var newVotes=parseInt(votes)+1;
+                var newTotal=parseInt(total)+n;
+                database.ref('users/'+otherUserID).update({
+                    votes:{
+                        votes: newVotes,
+                        total: newTotal
+                    }
+                }).then(function () {
+                    $scope.otherUser.feedback.push(utenteFeedback+":"+feedback+":"+n);
+                    $scope.otherUser.$save().then(function () {
+                        var nObj=$firebaseObject(database.ref('users/'+otherUserID));
+                        nObj.$loaded().then(function () {
+                            localStorage.otherUserID=otherUserID;
+                            $scope.goToDashboard();
+                        }).catch(function (error) {
+                            $scope.error=error;
+                        })
+                    }).catch(function (error) {
+                        $scope.error = error;
+                    })
+                })
+
+            }).catch(function (error) {
+                $scope.error = error;
+            });
+        }
 
 
         $scope.addUserToFriends = function (otherUserID) {

@@ -249,7 +249,16 @@ angular.module('myApp.advancedJoinView', ['ngRoute'])
                 description: descriptionR, //c'era scritto "desciption" e l'ho corretto, ma non so se ho fatto bene?
                 friends:friends,
                 dateOfJoin: dateOfJ,
-                logged: true
+                logged: true,
+                equipment: "",
+                img_url:"",
+                votes:{
+                    votes: 0,
+                    total: 0
+                },
+                feedback:{
+
+                }
             }).then(function () {
                 console.log("sono qui" + UID);
                 var obj = $firebaseObject(database.ref('users/' + UID));
