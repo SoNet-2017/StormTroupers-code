@@ -35,7 +35,8 @@
     <div class="w3-bar-item w3-dropdown-click w3-right" id="logoBarHome" ng-click="showLogoItem()">
         {{profile.name}}
         <div class="w3-dropdown-content w3-bar-block w3-border w3-right" id="logoBarContentHome">
-            <a ng-click="goToMyPublicProfile()" class="w3-bar-item w3-button"><i class="glyphicon glyphicon-user w3-large"></i> Your Public
+            <a ng-click="goToMyPublicProfile()" class="w3-bar-item w3-button"><i
+                    class="glyphicon glyphicon-user w3-large"></i> Your Public
                 Profile</a>
             <a ng-click="goToEditProfile()" class="w3-bar-item w3-button"><i
                     class="glyphicon glyphicon-pencil w3-large"></i> Edit Profile</a>
@@ -44,9 +45,12 @@
     </div>
 
     <div id="logoBarImgContainerHome">
-        <img class="media-object" ng-src="../{{profile.img_url}}" alt="{{profile.img_alt}}" ng-if="!(profile.img_url.includes('https://firebasestorage.googleapis.com')) && profile.img_url!=''">
-        <img class="media-object" ng-src="{{profile.img_url}}" alt="{{profile.img_alt}}" ng-if="profile.img_url.includes('https://firebasestorage.googleapis.com')">
-        <img class="media-object" ng-src="../../images/StormTroupersLogo.png" alt="{{profile.img_alt}}" ng-if="profile.img_url == ''">
+        <img class="media-object" ng-src="../{{profile.img_url}}" alt="{{profile.img_alt}}"
+             ng-if="!(profile.img_url.includes('https://firebasestorage.googleapis.com')) && profile.img_url!=''">
+        <img class="media-object" ng-src="{{profile.img_url}}" alt="{{profile.img_alt}}"
+             ng-if="profile.img_url.includes('https://firebasestorage.googleapis.com')">
+        <img class="media-object" ng-src="../../images/StormTroupersLogo.png" alt="{{profile.img_alt}}"
+             ng-if="profile.img_url == ''">
     </div>
 
 </div>
@@ -57,20 +61,25 @@
         <p id="userRolesHome"></p>
         <p id="userCityHome"></p>
         <div id="userPhotoHome">
-            <img class="media-object" ng-src="../{{profile.img_url}}" alt="{{profile.img_alt}}" ng-if="!(profile.img_url.includes('https://firebasestorage.googleapis.com')) && profile.img_url!=''">
-            <img class="media-object" ng-src="{{profile.img_url}}" alt="{{profile.img_alt}}" ng-if="profile.img_url.includes('https://firebasestorage.googleapis.com')">
-            <img class="media-object" ng-src="../../images/StormTroupersLogo.png" alt="{{profile.img_alt}}" ng-if="profile.img_url == ''">
+            <img class="media-object" ng-src="../{{profile.img_url}}" alt="{{profile.img_alt}}"
+                 ng-if="!(profile.img_url.includes('https://firebasestorage.googleapis.com')) && profile.img_url!=''">
+            <img class="media-object" ng-src="{{profile.img_url}}" alt="{{profile.img_alt}}"
+                 ng-if="profile.img_url.includes('https://firebasestorage.googleapis.com')">
+            <img class="media-object" ng-src="../../images/StormTroupersLogo.png" alt="{{profile.img_alt}}"
+                 ng-if="profile.img_url == ''">
         </div>
         <br>
         <a ng-click="goToMyProjects()" class="w3-bar-item" id="userProjectHome">My Projects <i
                 class="glyphicon glyphicon-film w3-large"></i></a><br><br>
-        <a ng-click="goToMyTroupers(profile.$id)" class="w3-bar-item" id="userTroupeHome">My Troupers <i class="glyphicon glyphicon-user w3-large"></i></a><br><br>
+        <a ng-click="goToMyTroupers(profile.$id)" class="w3-bar-item" id="userTroupeHome">My Troupers <i
+                class="glyphicon glyphicon-user w3-large"></i></a><br><br>
         <a ng-click="goToEditProfile()" class="w3-bar-item" id="editProfileLinkHome">Edit Profile <i
                 class="glyphicon glyphicon-cog w3-large"></i></a>
     </div>
 
     <div id="mainContainerProfile" class="w3-container w3-col l7 m7 s7" style="margin-left: 30px;">
-        <div id="profileGeneralInfoContainer" class="w3-container  w3-col l12 m12 s12 w3-card-2" style="background: linear-gradient(rgba(0,0,0,.5), rgba(0,0,0,.5));background-color:#333333;border-top-left-radius: 4mm;border-top-right-radius: 4mm;">
+        <div id="profileGeneralInfoContainer" class="w3-container  w3-col l12 m12 s12 w3-card-2"
+             style="background: linear-gradient(rgba(0,0,0,.5), rgba(0,0,0,.5));background-color:#333333;border-top-left-radius: 4mm;border-top-right-radius: 4mm;">
 
             <div id="pictureContainer" class="w3-container w3-col s4 m4 l4">
             <span class="w3-left w3-animate-opacity"
@@ -80,7 +89,8 @@
             </span>
             </div>
             <div id="generalInfoContainer" class="w3-container w3-col s8 m8 l8">
-                <h4 style="color: white;">About <strong>{{otherUser.name}} {{otherUser.lastName}}</strong>, {{age}} years old</h4>
+                <h4 style="color: white;">About <strong>{{otherUser.name}} {{otherUser.lastName}}</strong>, {{age}}
+                    years old</h4>
                 <div class="w3-container">
                     <div class="w3-col s1 m1 l1"><i class="glyphicon glyphicon-briefcase w3-large"
                                                     style="padding-top: 8px; color: white;"></i></div>
@@ -92,7 +102,8 @@
                     <div class="w3-col s1 m1 l1"><i class="glyphicon glyphicon-map-marker w3-large"
                                                     style="padding-top: 8px; color: white;"></i></div>
                     <div class="w3-col s11 m11 l11">
-                        <h5 style="color: lightgray;"><p id="position">{{otherUser.city}}, {{otherUser.province}}, {{otherUser.country}}</p></h5>
+                        <h5 style="color: lightgray;"><p id="position">{{otherUser.city}}, {{otherUser.province}},
+                            {{otherUser.country}}</p></h5>
                     </div>
                 </div>
                 <div class="w3-container">
@@ -187,7 +198,9 @@
                 <h4><strong>{{otherUser.name}}</strong>'s Troupers</h4>
                 <ul class="w3-left" style="padding: 0px;">
                     <li ng-repeat="user in friends" style="display: inline-block; list-style: none; padding-top: 10px">
-                        <a id="troupeUserImgLink" ng-click="goToPublicProfile(user.$id)"><img id="troupeUserImg" alt="Avatar" class="w3-circle"></a>
+                        <a id="troupeUserImgLink" ng-click="goToPublicProfile(user.$id)"><img id="troupeUserImg"
+                                                                                              alt="Avatar"
+                                                                                              class="w3-circle"></a>
                         <!--<h4><a ng-click="goToPublicProfile(user)">{{user}}</a></h4>-->
                     </li>
                 </ul>
@@ -199,7 +212,7 @@
              style="margin-top: 30px; padding-top: 20px; background: linear-gradient(rgba(0,0,0,.5), rgba(0,0,0,.5));">
             <div id="equipmentContainer" class="w3-container">
                 <h4>Equipment</h4>
-                    <p class="w3-col s6 m6 l6" style="color: white">{{otherUser.equipment}}</p>
+                <p class="w3-col s6 m6 l6" style="color: white">{{otherUser.equipment}}</p>
             </div>
         </div>
         <br>
@@ -257,30 +270,36 @@
                        style="color: white; cursor: pointer; padding-bottom: 20px;"></i>
                 </a>
                 <!--<h6 style="position:absolute;right:0;bottom:0px" class="w3-text w3-tag">Connect with {{otherUser.name}}</h6>-->
-                <h6 class="w3-center w3-text w3-tag" style="color: white; text-align: left; position:absolute;top: 0px; padding: 5px;">Connect with {{otherUser.name}}</h6>
+                <h6 class="w3-center w3-text w3-tag"
+                    style="color: white; text-align: left; position:absolute;top: 0px; padding: 5px;">Connect with
+                    {{otherUser.name}}</h6>
             </div>
-        </div><br>
+        </div>
+        <br>
         <div class="w3-row w3-col s1 m1 l1">
             <div class="w3-tooltip">
                 <a ng-click="">
                     <i class="glyphicon glyphicon-send w3-xlarge w3-left"
                        style="color: white; cursor: pointer; padding-bottom: 20px;"></i>
                 </a>
-                <h6 class="w3-center w3-text w3-tag" style="color: white; text-align: left; position:absolute;top: 0px; padding: 5px;">Send a message</h6>
+                <h6 class="w3-center w3-text w3-tag"
+                    style="color: white; text-align: left; position:absolute;top: 0px; padding: 5px;">Send a
+                    message</h6>
             </div>
-        </div><br>
+        </div>
+        <br>
         <div class="w3-row w3-col s1 m1 l1">
             <div class="w3-tooltip">
                 <a ng-click="goToFriendsPage(otherUser.$id)">
                     <i class="glyphicon glyphicon-link w3-xlarge w3-left"
                        style="color: white; cursor: pointer;"></i>
                 </a>
-                <h6 class="w3-center w3-text w3-tag" style="color: white; text-align: left; position:absolute;top: 0px; padding: 5px;">See {{otherUser.name}}'s friends</h6>
+                <h6 class="w3-center w3-text w3-tag"
+                    style="color: white; text-align: left; position:absolute;top: 0px; padding: 5px;">See
+                    {{otherUser.name}}'s friends</h6>
             </div>
         </div>
     </div>
-</div>
-
 </div>
 
 </div>
