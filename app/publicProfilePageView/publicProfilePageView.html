@@ -35,8 +35,7 @@
     <div class="w3-bar-item w3-dropdown-click w3-right" id="logoBarHome" ng-click="showLogoItem()">
         {{profile.name}}
         <div class="w3-dropdown-content w3-bar-block w3-border w3-right" id="logoBarContentHome">
-            <a ng-click="goToMyPublicProfile()" class="w3-bar-item w3-button"><i
-                    class="glyphicon glyphicon-user w3-large"></i> Your Public
+            <a ng-click="goToMyPublicProfile()" class="w3-bar-item w3-button"><i class="glyphicon glyphicon-user w3-large"></i> Your Public
                 Profile</a>
             <a ng-click="goToEditProfile()" class="w3-bar-item w3-button"><i
                     class="glyphicon glyphicon-pencil w3-large"></i> Edit Profile</a>
@@ -45,6 +44,9 @@
     </div>
 
     <div id="logoBarImgContainerHome">
+        <img class="media-object" ng-src="../{{profile.img_url}}" alt="{{profile.img_alt}}" ng-if="!(profile.img_url.includes('https://firebasestorage.googleapis.com')) && profile.img_url!=''">
+        <img class="media-object" ng-src="{{profile.img_url}}" alt="{{profile.img_alt}}" ng-if="profile.img_url.includes('https://firebasestorage.googleapis.com')">
+        <img class="media-object" ng-src="../images/StormTroupersLogo.png" alt="{{profile.img_alt}}" ng-if="profile.img_url == ''">
         <img class="media-object" ng-src="../{{profile.img_url}}" alt="{{profile.img_alt}}"
              ng-if="!(profile.img_url.includes('https://firebasestorage.googleapis.com')) && profile.img_url!=''">
         <img class="media-object" ng-src="{{profile.img_url}}" alt="{{profile.img_alt}}"
@@ -61,6 +63,9 @@
         <p id="userRolesHome"></p>
         <p id="userCityHome"></p>
         <div id="userPhotoHome">
+            <img class="media-object" ng-src="../{{profile.img_url}}" alt="{{profile.img_alt}}" ng-if="!(profile.img_url.includes('https://firebasestorage.googleapis.com')) && profile.img_url!=''">
+            <img class="media-object" ng-src="{{profile.img_url}}" alt="{{profile.img_alt}}" ng-if="profile.img_url.includes('https://firebasestorage.googleapis.com')">
+            <img class="media-object" ng-src="../images/StormTroupersLogo.png" alt="{{profile.img_alt}}" ng-if="profile.img_url == ''">
             <img class="media-object" ng-src="../{{profile.img_url}}" alt="{{profile.img_alt}}"
                  ng-if="!(profile.img_url.includes('https://firebasestorage.googleapis.com')) && profile.img_url!=''">
             <img class="media-object" ng-src="{{profile.img_url}}" alt="{{profile.img_alt}}"
@@ -71,8 +76,7 @@
         <br>
         <a ng-click="goToMyProjects()" class="w3-bar-item" id="userProjectHome">My Projects <i
                 class="glyphicon glyphicon-film w3-large"></i></a><br><br>
-        <a ng-click="goToMyTroupers(profile.$id)" class="w3-bar-item" id="userTroupeHome">My Troupers <i
-                class="glyphicon glyphicon-user w3-large"></i></a><br><br>
+        <a ng-click="goToMyTroupers(profile.$id)" class="w3-bar-item" id="userTroupeHome">My Troupers <i class="glyphicon glyphicon-user w3-large"></i></a><br><br>
         <a ng-click="goToEditProfile()" class="w3-bar-item" id="editProfileLinkHome">Edit Profile <i
                 class="glyphicon glyphicon-cog w3-large"></i></a>
     </div>
@@ -84,7 +88,11 @@
             <div id="pictureContainer" class="w3-container w3-col s4 m4 l4">
             <span class="w3-left w3-animate-opacity"
                   style="margin-left: 20px; margin-bottom: 25px; width: 100%">
-                <img id="profilePicture" style="padding-right: 5px;">
+                <div id="profilePicture">
+                    <img class="media-object" ng-src="../{{otherUser.img_url}}" alt="{{otherUser.img_alt}}" ng-if="!(otherUser.img_url.includes('https://firebasestorage.googleapis.com')) && otherUser.img_url!=''">
+                    <img class="media-object" ng-src="{{otherUser.img_url}}" alt="{{otherUser.img_alt}}" ng-if="profile.img_url.includes('https://firebasestorage.googleapis.com')">
+                    <img class="media-object" ng-src="../images/StormTroupersLogo.png" alt="{{otherUser.img_alt}}" ng-if="otherUser.img_url == ''">
+                </div>
 
             </span>
             </div>
