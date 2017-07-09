@@ -61,13 +61,33 @@
     font-size: 8pt;
 }
 
-#raceCheckBoxes{
-    display: inline-block;
-    justify-content:left;
+#newProjectTitle{
+    display: flex;
+    justify-content: center;
+}
+
+#newProjectShow{
+    /*Per centrare il contenuto*/
+    text-align: center;
     align-items:center;
-    text-align: left;
-    font-size: 8pt;
-    color: #636466;
+    vertical-align: middle;
+    background-color: #636466;
+    margin-right: 5%;
+}
+
+#projectPic{
+    background-image: url("../../images/troopers.jpg");
+    background-size: cover;
+    min-height: 150px;
+}
+
+#projectPic a:hover{
+    cursor: pointer;
+}
+
+#newProjectShow h4{
+    font-family: "ADAM.CG PRO";
+    color: white;
 }
 
 #raceCheckBoxes2{
