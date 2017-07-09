@@ -239,7 +239,9 @@
                         <div class=" w3-container w3-card-2"
                              style="padding: 10px; border-radius: 4mm; background-color: #333333; margin-right:50px">
                             <div class="w3-left" id="newUImgContainer">
-                                <img id="newUImg" alt="Avatar" class="w3-left w3-circle">
+                                <img class="media-object w3-left w3-circle" ng-src="../{{user.img_url}}" alt="{{user.img_alt}}" ng-if="!(user.img_url.includes('https://firebasestorage.googleapis.com')) && user.img_url!=''">
+                                <img class="media-object w3-left w3-circle" ng-src="{{user.img_url}}" alt="{{user.img_alt}}" ng-if="user.img_url.includes('https://firebasestorage.googleapis.com')">
+                                <img class="media-object w3-left w3-circle" ng-src="../images/StormTroupersLogo.png" alt="{{user.img_alt}}" ng-if="user.img_url == ''">
                             </div>
                             <div id="userDesc">
                                 <div class="w3-container w3-row" style="text-align: left;">
