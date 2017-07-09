@@ -44,10 +44,9 @@
     background-color: #b7c3b8;
 }
 
-#profilePicture {
-    content: url("../../images/upload_pic.jpg");
+#profilePicture img{
     max-width: 90%;
-    padding-right: 20px;
+    padding-right: 25px;
 }
 
 #projectPic{
