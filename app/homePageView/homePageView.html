@@ -47,7 +47,9 @@
     </div>
 
     <div id="logoBarImgContainerHome">
-        <img class="w3-content" id="logoBarImgHome" alt="logo">
+        <img class="media-object" ng-src="../{{profile.img_url}}" alt="{{profile.img_alt}}" ng-if="!(profile.img_url.includes('https://firebasestorage.googleapis.com')) && profile.img_url!=''">
+        <img class="media-object" ng-src="{{profile.img_url}}" alt="{{profile.img_alt}}" ng-if="profile.img_url.includes('https://firebasestorage.googleapis.com')">
+        <img class="media-object" ng-src="../images/StormTroupersLogo.png" alt="{{profile.img_alt}}" ng-if="profile.img_url == ''">
     </div>
 
 </div>
@@ -57,7 +59,11 @@
         <h3 id="userNameAndLastHome">{{profile.name}} {{profile.lastName}}</h3>
         <p id="userRolesHome"></p>
         <p id="userCityHome"></p>
-        <img id="userPhotoHome">
+        <div id="userPhotoHome">
+            <img class="media-object" ng-src="../{{profile.img_url}}" alt="{{profile.img_alt}}" ng-if="!(profile.img_url.includes('https://firebasestorage.googleapis.com')) && profile.img_url!=''">
+            <img class="media-object" ng-src="{{profile.img_url}}" alt="{{profile.img_alt}}" ng-if="profile.img_url.includes('https://firebasestorage.googleapis.com')">
+            <img class="media-object" ng-src="../images/StormTroupersLogo.png" alt="{{profile.img_alt}}" ng-if="profile.img_url == ''">
+        </div>
         <br>
         <a ng-click="goToMyProjects()" class="w3-bar-item" id="userProjectHome">My Projects <i
                 class="glyphicon glyphicon-film w3-large"></i></a><br><br>
@@ -120,7 +126,9 @@
                                 <div class=" w3-container w3-card-2"
                                      style="padding: 10px; border-radius: 4mm; background-color: #333333;">
                                     <div class="w3-left" id="newUImgContainer">
-                                        <img id="newUImg" alt="Avatar" class="w3-left w3-circle">
+                                        <img class="media-object w3-left w3-circle" ng-src="../{{user.img_url}}" alt="{{user.img_alt}}" ng-if="!(user.img_url.includes('https://firebasestorage.googleapis.com')) && user.img_url!=''">
+                                        <img class="media-object w3-left w3-circle" ng-src="{{user.img_url}}" alt="{{user.img_alt}}" ng-if="user.img_url.includes('https://firebasestorage.googleapis.com')">
+                                        <img class="media-object w3-left w3-circle" ng-src="https://firebasestorage.googleapis.com/v0/b/stormtroupers-d1a6d.appspot.com/o/StormTroupersIcon-con-linea.png?alt=media&token=407d5540-43e7-4b88-b622-11d2e714fca7" alt="{{user.img_alt}}" ng-if="user.img_url == ''">
                                     </div>
                                     <div id="newUDesc">
                                         <div class="w3-container w3-row">

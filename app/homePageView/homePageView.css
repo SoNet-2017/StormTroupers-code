@@ -13,18 +13,16 @@
 }
 
 
-
-#logoBarImgHome{
-    content: url("../../images/StormTroupersLogo.png");
-    width: 50px;
-    height: 50px;
-    margin-bottom: 5px;
-}
-
 #logoBarImgContainerHome{
     position: absolute;
     right: 0px;
     margin-right: 20px;
+}
+
+#logoBarImgContainerHome img{
+    width: 50px;
+    height: 50px;
+    border-radius: 100px;
 }
 
 #logoChatBarHome{
@@ -111,13 +109,12 @@
 }
 
 
-#userPhotoHome{
-    content: url("../../images/StormTroupersLogo.png");
+#userPhotoHome img{
     width: 200px;
     height: 200px;
-    margin-bottom: 20px;
+    margin: auto;
     padding: 10px 10px 10px 10px;
-    border-radius: 7px;
+    border-radius: 100px;
 }
 
 #sideUserHome a {
@@ -190,9 +187,9 @@
     margin-left: -40px;
 }
 
-#newUImg{
-    content: url("../../images/StormTroupersLogo.png");
+#newUImgContainer img{
     max-height: 75px;
+    border-radius: 100px;
 }
 
 #newUImgContainer{

@@ -44,7 +44,9 @@
     </div>
 
     <div id="logoBarImgContainerHome">
-        <img class="w3-content" id="logoBarImgHome" alt="logo">
+        <img class="media-object" ng-src="../{{profile.img_url}}" alt="{{profile.img_alt}}" ng-if="!(profile.img_url.includes('https://firebasestorage.googleapis.com')) && profile.img_url!=''">
+        <img class="media-object" ng-src="{{profile.img_url}}" alt="{{profile.img_alt}}" ng-if="profile.img_url.includes('https://firebasestorage.googleapis.com')">
+        <img class="media-object" ng-src="../images/StormTroupersLogo.png" alt="{{profile.img_alt}}" ng-if="profile.img_url == ''">
     </div>
 
 </div>
@@ -54,7 +56,11 @@
         <h3 id="userNameAndLastHome">{{profile.name}} {{profile.lastName}}</h3>
         <p id="userRolesHome"></p>
         <p id="userCityHome"></p>
-        <img id="userPhotoHome">
+        <div id="userPhotoHome">
+            <img class="media-object" ng-src="../{{profile.img_url}}" alt="{{profile.img_alt}}" ng-if="!(profile.img_url.includes('https://firebasestorage.googleapis.com')) && profile.img_url!=''">
+            <img class="media-object" ng-src="{{profile.img_url}}" alt="{{profile.img_alt}}" ng-if="profile.img_url.includes('https://firebasestorage.googleapis.com')">
+            <img class="media-object" ng-src="../images/StormTroupersLogo.png" alt="{{profile.img_alt}}" ng-if="profile.img_url == ''">
+        </div>
         <br>
         <a ng-click="goToMyProjects()" class="w3-bar-item" id="userProjectHome">My Projects <i
                 class="glyphicon glyphicon-film w3-large"></i></a><br><br>
@@ -77,6 +83,15 @@
                 <input id="editPConfPassword" name="editPConfirmPW" ng-model="editPConfirmPW" type="password" class="w3-input w3-border" placeholder="Confirm new password" required>
                 <br>
                 <button id="editCredentialsButton" class="w3-button w3-right" ng-click="updateCredentials()">Save new credentials</button>
+            </form>
+        </div>
+        <br>
+        <div id="editPhotoProfileContent" class="w3-container">
+            <h3>Edit Your Photo</h3>
+            <form name="editPhotoProfile">
+                <input id="editPhotoProfile" type="file">
+                <br>
+                <button id="editPhotoButton" class="w3-button w3-right" ng-click="addImage()">Change your photo</button>
             </form>
         </div>
         <br>
@@ -204,11 +219,18 @@
                             </form>
                         </div>
                     </div>
-                    <p style="height: 20px; clear: both"></p>
+                    <p id="spaziaturaTattica"></p>
                     <h4>About me</h4>
                     <div class="w3-container">
                         <form id="aboutMeForm">
                             <textarea placeholder="Describe yourself" ng-model="editAboutMeText" id="editAboutMeText"></textarea>
+                        </form>
+                    </div>
+                    <br>
+                    <h4>Equipment</h4>
+                    <div class="w3-container">
+                        <form id="editEquipmentForm">
+                            <textarea placeholder="Add your equipment" ng-model="editEquipmentText" id="editEquipment"></textarea>
                         </form>
                     </div>
                 </div>

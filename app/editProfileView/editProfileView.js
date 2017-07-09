@@ -225,8 +225,42 @@ angular.module('myApp.editProfileView', ['ngRoute'])
                         $scope.editAboutMeText="Description";
                     }
 
+                    if($scope.profile.equipment!=""){
+                        $scope.editEquipmentText=$scope.profile.equipment;
+                    }
+
 
                 }
+
+                $scope.addImage=function () {
+                    var file=document.getElementById("editPhotoProfile").files[0];
+                    var storage=firebase.storage().ref('users/'+UID);
+                    var uploadTask=storage.put(file);
+                    uploadTask.then(function (snapshot) {
+                        $scope.imgPath=snapshot.downloadURL;
+                        localStorage.downloadURL=$scope.imgPath;
+                        console.log($scope.imgPath);
+                        $scope.addImageToDB();
+                    })
+
+                };
+
+                $scope.addImageToDB=function () {
+                    database.ref('users/'+UID).update({
+                        img_url:$scope.imgPath,
+                        img_alt:$scope.profile.name+" "+$scope.profile.lastName
+                    }).then(function () {
+                        var nObj=$firebaseObject(database.ref('users/'+UID));
+                        nObj.$loaded().then(function () {
+                            $scope.profile=nObj;
+                            $scope.goToDashboard();
+                        }).catch(function (error) {
+                            $scope.error=error;
+                        })
+                    }).catch(function (error) {
+                        $scope.error=error;
+                    })
+                };
 
 
 
@@ -304,6 +338,7 @@ angular.module('myApp.editProfileView', ['ngRoute'])
                     newPay=$scope.profile.payment;
                 }
                 var newDescr=document.getElementById("editAboutMeText").value;
+                var newEquipment=document.getElementById("editEquipment").value;
 
                 var newRace = "None";
 
@@ -376,6 +411,8 @@ angular.module('myApp.editProfileView', ['ngRoute'])
                     newRoles.push("Talent/Casting - People");
                 }
 
+
+
                 var newBase=database.ref('users/'+UID);
 
                 database.ref('users/'+UID).update({
@@ -394,7 +431,8 @@ angular.module('myApp.editProfileView', ['ngRoute'])
                     car: newCar,
                     payment: newPay,
                     description: newDescr,
-                    dateOfBirth: newDateOfBirth
+                    dateOfBirth: newDateOfBirth,
+                    equipment: newEquipment
                 }).then(function () {
                     var nObj=$firebaseObject(database.ref('users/'+UID));
                     nObj.$loaded().then(function () {
