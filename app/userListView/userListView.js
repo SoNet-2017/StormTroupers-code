@@ -22,8 +22,29 @@ angular.module('myApp.userListView', ['ngRoute'])
         $scope.dati = {};
         $scope.auth = Auth;
 
-        $scope.dati.availableUsers = UserList.getListOfUsers();
+        //var availableUsers=[];
+        //availableUsers = UserList.getListOfUsers();
         $scope.dati.userId = currentAuth.uid;
+
+        var database = firebase.database();
+        $scope.dati.friends=[];
+
+        $scope.profile = $firebaseObject(database.ref('users/' + $scope.dati.userId));
+        $scope.profile.$loaded().then(function () {
+            //console.log("nome other user: "+$scope.otherUser.name+" ID: "+otherUserID+" DESCR: "+$scope.otherUser.description);
+            var length = $scope.profile.friends.length;
+            var currFriendID;
+            //console.log("length: "+length);
+            for (var j = 0; j < length; j++) {
+                currFriendID = $scope.profile.friends[j];
+                //console.log("curFriendID: "+currFriendID);
+                var currFriendObj = $firebaseObject(database.ref('users/' + currFriendID));
+                if(currFriendObj.$id !== "STORMTROUPERS_ADMIN") {
+                    //console.log("curr friend: "+currFriendObj);
+                    $scope.dati.friends[j] = currFriendObj;
+                }
+            }
+        });
 
         $scope.showLogoItem = function () {
             var x = document.getElementById("logoBarContentHome");

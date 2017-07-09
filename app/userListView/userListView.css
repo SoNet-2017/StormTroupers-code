@@ -164,9 +164,9 @@
     background-color: #636466;
 }
 
-#newUserTitle{
+#onlineUsersTitle{
     display: flex;
-    justify-content: center;
+    justify-content: left;
 }
 
 #newProjectTitle{

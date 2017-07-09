@@ -75,7 +75,7 @@
             </div>
             <div id="onlineUserContainer" class="w3-container">
                 <ul style="list-style: none">
-                    <li ng-repeat="user in testValue=(dati.availableUsers | filter:{logged:true} | filter:{$id: '!' + dati.userId})">
+                    <li ng-repeat="user in testValue=(dati.friends | filter:{logged:true} | filter:{$id: '!' + dati.userId})">
                         <p ng-show="!testValue.length">No available users</p>
                         <div class="w3-container" style="padding:10px;">
                             <div class="w3-left" id="newUImgContainer">
@@ -95,7 +95,7 @@
         <div id="newUsersShow" class="w3-container w3-card-2 w3-col l8 m8 s8"
              style="">
             <div class="w3-container" id="newUserTitle">
-                <h4>Chat with <strong>{{dati.recipientUserId}}</strong></h4>
+                <h4 style="color: gray;">Chat with: <strong style="color: white;">{{dati.recipientUserInfo.name}}</strong></h4>
             </div>
             <div class="w3-container">
                 <div class="row">
