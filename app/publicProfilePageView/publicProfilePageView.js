@@ -107,6 +107,12 @@ angular.module('myApp.publicProfilePageView', ['ngRoute'])
 
         // UID dell'utente di cui si vuole vedere il profilo pubblico
         var otherUserID = localStorage.otherUserID;
+
+        if(otherUserID !== UID)
+            $scope.myPublicPage = false;
+        else
+            $scope.myPublicPage = true;
+
         $scope.friends = {};
 
         $scope.otherUser = $firebaseObject(database.ref('users/' + otherUserID));
