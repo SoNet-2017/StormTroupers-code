@@ -157,7 +157,7 @@ angular.module('myApp.editProfileView', ['ngRoute'])
 
                 $scope.payment=$scope.profile.payment;
 
-                var role=$scope.profile.roles;
+                role=$scope.profile.roles;
                 for(var i=0; i<role.length; i++){
                     if(role[i]==="Producers"){
                         document.getElementById("checkEditProducers").checked=true;
@@ -196,24 +196,26 @@ angular.module('myApp.editProfileView', ['ngRoute'])
                         document.getElementById("checkEditStyle").checked=true;
                     }
                     if(role[i]==="Talent/Actors"){
+                        console.log("attore");
                         document.getElementById("checkEditActor").checked=true;
-                        if($scope.profile.race==="Caucasian"){
-                            document.getElementById("etnEditCauc").checked=true;
-                        }else if($scope.profile.race==="Hispanic"){
-                            document.getElementById("etnEditHisp").checked=true;
-                        }else if($scope.profile.race==="South_Asian"){
-                            document.getElementById("etnEditSAsi").checked=true;
-                        }else if($scope.profile.race==="Native_American"){
-                            document.getElementById("etnEditNati").checked=true;
-                        }else if($scope.profile.race==="African"){
-                            document.getElementById("etnEditAfri").checked=true;
-                        }else if($scope.profile.race==="Middle_Eastern"){
-                            document.getElementById("etnEditMidd").checked=true;
-                        }else if($scope.profile.race==="South_East_Asian"){
-                            document.getElementById("etnEditSEAs").checked=true;
-                        }else if($scope.profile.race==="Mixed"){
-                            document.getElementById("etnEditAmbi").checked=true;
-                        }
+                        document.getElementById("editRaceBox").style.display="block";
+                    }
+                    if($scope.profile.race==="Caucasian"){
+                        document.getElementById("etnEditCauc").checked=true;
+                    }else if($scope.profile.race==="Hispanic"){
+                        document.getElementById("etnEditHisp").checked=true;
+                    }else if($scope.profile.race==="South_Asian"){
+                        document.getElementById("etnEditSAsi").checked=true;
+                    }else if($scope.profile.race==="Native_American"){
+                        document.getElementById("etnEditNati").checked=true;
+                    }else if($scope.profile.race==="African"){
+                        document.getElementById("etnEditAfri").checked=true;
+                    }else if($scope.profile.race==="Middle_Eastern"){
+                        document.getElementById("etnEditMidd").checked=true;
+                    }else if($scope.profile.race==="South_East_Asian"){
+                        document.getElementById("etnEditSEAs").checked=true;
+                    }else if($scope.profile.race==="Mixed"){
+                        document.getElementById("etnEditAmbi").checked=true;
                     }
                     if(role[i]==="Talent/Casting - People"){
                         document.getElementById("checkEditCast").checked=true;
@@ -388,7 +390,7 @@ angular.module('myApp.editProfileView', ['ngRoute'])
                     if (document.getElementById("etnEditHisp").checked) {
                         newRace = "Hispanic";
                     }
-                    if (document.getElementById("etnSEditAsi").checked) {
+                    if (document.getElementById("etnEditSAsi").checked) {
                         newRace = "South_Asian";
                     }
                     if (document.getElementById("etnEditNati").checked) {

@@ -37,3 +37,7 @@
 #editPhotoProfileContent{
     color: white;
 }
+
+#editRaceBox{
+    display: none;
+}
