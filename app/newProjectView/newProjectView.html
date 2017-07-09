@@ -5,7 +5,7 @@
             class="glyphicon glyphicon-home w3-large"></i></a>
     <a class="w3-bar-item w3-button" id="userLinkHome" ng-click="goToSearchCrew()"><i
             class="glyphicon glyphicon-user w3-large"></i> Search Crew</a>
-    <a class="w3-bar-item w3-button" id="projectsLinkHome"><i class="glyphicon glyphicon-film w3-large"></i> Search Projects</a>
+    <a class="w3-bar-item w3-button" id="projectsLinkHome" ng-click="goToSearchProjects()"><i class="glyphicon glyphicon-film w3-large"></i> Search Projects</a>
 
 
     <!--
@@ -178,8 +178,11 @@
                     <li ng-repeat="user in suggestedFriends" style="list-style: none; padding-top: 8px">
                         <div class=" w3-container w3-card-2" style="padding: 10px; background: linear-gradient(rgba(0,0,0,.5), rgba(0,0,0,.5));">
                             <div class="w3-left" id="newUImgContainer">
-                                <a id="troupeUserImgLink"><img id="newUImg" alt="Avatar" class="w3-left w3-circle"
-                                                               ng-click="goToPublicProfile(user.uid)"></a>
+                                <a id="troupeUserImgLink">
+                                    <img class="media-object w3-circle" ng-click="goToPublicProfile(user.uid)" ng-src="../{{user.img_url}}" alt="{{user.img_alt}}" ng-if="!(user.img_url.includes('https://firebasestorage.googleapis.com')) && user.img_url!=''">
+                                    <img class="media-object w3-circle" ng-click="goToPublicProfile(user.uid)" ng-src="{{user.img_url}}" alt="{{user.img_alt}}" ng-if="user.img_url.includes('https://firebasestorage.googleapis.com')">
+                                    <img class="media-object w3-circle" ng-click="goToPublicProfile(user.uid)" ng-src="../images/StormTroupersLogo.png" alt="{{user.img_alt}}" ng-if="user.img_url == ''">
+                                </a>
                             </div>
                             <div id="newUDesc">
                                 <div class="w3-container w3-row">

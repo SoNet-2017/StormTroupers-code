@@ -16,13 +16,13 @@
     max-width: 100%;
 }
 
-#troupeUserImg{
-    content: url("../../images/StormTroupersLogo.png");
-    max-height: 40px;
-    margin: 5px;
-}
 #troupeUserImgLink{
     cursor: pointer;
+}
+
+#troupeUserImgLink img{
+    max-height: 40px;
+    margin: 5px;
 }
 
 #projectPicture{

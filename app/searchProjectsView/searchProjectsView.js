@@ -1,11 +1,11 @@
 'use strict';
 
-angular.module('myApp.searchPageView', ['ngRoute'])
+angular.module('myApp.searchProjectsView', ['ngRoute'])
 
     .config(['$routeProvider', function($routeProvider) {
-        $routeProvider.when('/searchPageView', {
-            templateUrl: 'searchPageView/searchPageView.html',
-            controller: 'searchPageCtrl',
+        $routeProvider.when('/searchProjectsView', {
+            templateUrl: 'searchProjectsView/searchProjectsView.html',
+            controller: 'searchProjectsCtrl',
             resolve: {
                 // controller will not be loaded until $requireSignIn resolves
                 // Auth refers to our $firebaseAuth wrapper in the factory below
@@ -18,7 +18,7 @@ angular.module('myApp.searchPageView', ['ngRoute'])
         });
     }])
 
-    .controller('searchPageCtrl', ['$scope', '$location', 'Auth', '$firebaseObject','Users', 'currentAuth', '$firebaseAuth', '$firebaseArray', function ($scope,$location, Auth, $firebaseObject, Users, currentAuth, $firebaseAuth, $firebaseArray) {
+    .controller('searchProjectsCtrl', ['$scope', '$location', 'Auth', '$firebaseObject','Users', 'currentAuth', '$firebaseAuth', '$firebaseArray', function ($scope,$location, Auth, $firebaseObject, Users, currentAuth, $firebaseAuth, $firebaseArray) {
         $scope.dati={};
         $scope.auth=Auth;
 
@@ -197,7 +197,7 @@ angular.module('myApp.searchPageView', ['ngRoute'])
                 }
                 //serve per capire se trova prima un OR o un AND (o un " ")
 
-                if (kw_pos_temp >= 9999 && kw_pos_temp2 >= 9999) {
+                if (kw_pos_temp > 9999 && kw_pos_temp2 > 9999) {
                     kw_pos_1 = kw.indexOf(" ");
                     if (kw_pos_1!==-1) {
                         kw_mto=true;
@@ -250,7 +250,7 @@ angular.module('myApp.searchPageView', ['ngRoute'])
                             kw_pos_temp2 = 9999;
                         }
 
-                        if (kw_pos_temp >= 9999 && kw_pos_temp2 >= 9999) {
+                        if (kw_pos_temp > 9999 && kw_pos_temp2 > 9999) {
                             kw_pos_1 = kw.indexOf(" ");
                             if (kw_pos_1!==-1) {
                                 kw_oper[kw_op_index]="OR";
@@ -332,23 +332,14 @@ angular.module('myApp.searchPageView', ['ngRoute'])
                 }
             }
             else {
-                console.log("checkKeyword=false");;
+                console.log("checkKeyword=false");
             }
 
-            var checkCityword=false;
-            var ct="";
-            ct=document.getElementById("searchCity").value;
-            if (ct!=="") { //checca solo se hei scritto qualcosa nel campo
-                checkCityword=true;
-                console.log("checkCity=true");
-                console.log("cityword is: " + ct);
-            }
-            else {
-                console.log("checkCity=false");
-            }
+
 
             //step34 checca il ruolo
             var filterByRole=false;
+
             var includeAnim=false;
             if (document.getElementById("checkAnim").checked) {
                 filterByRole=true;
@@ -670,40 +661,15 @@ angular.module('myApp.searchPageView', ['ngRoute'])
                     }
 
 
-                    if (filterByRole===false && kw_Found===true && checkCityword===false) {
+                    if (filterByRole===false && kw_Found===true) {
                         $scope.filterSearch[j] = $scope.filterUsers[i];
                         j++;
                     }
                 }
 
 
-                if (checkCityword===true && (kw_Found===true || checkKeyword===false)) {
-                    console.log("Fin qua ci siamo DIO CANE");
-                   var ct_Found=false;
 
-                    if (ct.toUpperCase() == $scope.filterUsers[i].city.toUpperCase()) {
-                        ct_Found = true;
-                        //break;
-                    }
-                    else {
-                        //e perché no guarda anche la provincia
-                        if (ct.toLowerCase() == $scope.filterUsers[i].province.toLowerCase()) {
-                            ct_Found = true;
-                            //break;
-                        }
-                    }
-
-
-                    if (ct_Found===true && filterByRole===false) {
-                        $scope.filterSearch[j] = $scope.filterUsers[i];
-                        j++;
-                    }
-
-                }
-
-
-
-                if (filterByRole===true && (kw_Found===true || checkKeyword===false) && (ct_Found===true || checkCityword===false)) { //la condizione "kw_Found===true" serve perché essendo la keyword un AND, se non corrisponde la keyword non sta a verificare il resto
+                if (filterByRole===true && (kw_Found===true || checkKeyword===false)) { //la condizione "kw_Found===true" serve perché essendo la keyword un AND, se non corrisponde la keyword non sta a verificare il resto
 
                     console.log("filterByRole? = true!");
 
