@@ -127,32 +127,9 @@ angular.module('myApp.publicProjectPageView', ['ngRoute'])
 
         $scope.addProjectToFavourite=function(){
 
-            var projectsIfollow = [];
-            if ($scope.profile.followingProjects === undefined) {
-                projectsIfollow.push(PID);
-
-                database.ref('users/' + UID).update({
-                    name: $scope.profile.name,
-                    lastName: $scope.profile.lastName,
-                    phone: $scope.profile.phone,
-                    permissionToShowPhone: $scope.profile.permissionToShowPhone,
-                    gender: $scope.profile.gender,
-                    roles: $scope.profile.roles,
-                    race: $scope.profile.race,
-
-                    country: $scope.profile.country,
-                    province: $scope.profile.province,
-                    city: $scope.profile.city,
-                    car: $scope.profile.car,
-                    payment: $scope.profile.payment,
-                    description: $scope.profile.description,
-                    dateOfBirth: $scope.profile.dateOfBirth,
-                    friends: $scope.profile.friends,
-                    followingProjects: projectsIfollow,
-                    email: $scope.profile.email,
-                    password: $scope.profile.password,
-                    logged: $scope.profile.logged
-                }).then(function () {
+            if ($scope.profile.followingProjects[0] === "init") {
+                $scope.profile.followingProjects[0] = PID;
+                $scope.profile.$save().then(function () {
                     var nObj = $firebaseObject(database.ref('users/' + UID));
                     nObj.$loaded().then(function () {
                         $scope.profile = nObj;
