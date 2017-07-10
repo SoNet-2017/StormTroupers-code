@@ -81,8 +81,9 @@ angular.module('myApp.publicProfilePageView', ['ngRoute'])
             localStorage.otherUserID = otherUserID;
         };
 
-        $scope.goToMyPublicProfile = function () {
+        $scope.goToMyPublicProfile = function (UID) {
             $location.path("/publicProfilePageView");
+            $route.reload();
             localStorage.otherUserID = UID;
         };
 
@@ -189,6 +190,11 @@ angular.module('myApp.publicProfilePageView', ['ngRoute'])
                     feedbackContainer.innerHTML += "<br\>";
                 }
             }
+            console.log(otherUserFeedback);
+            var avg=$scope.otherUser.votes.total/$scope.otherUser.votes.votes;
+            console.log(avg);
+            var avgF=avg.toFixed(2);
+            document.getElementById("averageVotes").innerHTML=avgF;
 
             $scope.getProjectsFromDB = {};
             var projectsBase = database.ref('projects/');
@@ -284,31 +290,31 @@ angular.module('myApp.publicProfilePageView', ['ngRoute'])
             document.getElementById(num).checked = true;
         };
 
-        $scope.addFeedback = function (otherUserID) {
+        $scope.addFeedback = function () {
+            console.log($scope.otherUser.name);
             $scope.otherUser = $firebaseObject(database.ref('users/' + otherUserID));
             $scope.otherUser.$loaded().then(function () {
                 var feedback = document.getElementById("feedbackText").value;
                 var utenteFeedback = $scope.profile.name + " " + $scope.profile.lastName;
-                var votes = $scope.otherUser.votes.votes;
-                var total = $scope.otherUser.votes.total;
                 var n = parseInt(localStorage.getItem("numStars"));
-                var newVotes = parseInt(votes) + 1;
-                var newTotal = parseInt(total) + n;
+                var votes=$scope.otherUser.votes.votes+1;
+                var total=$scope.otherUser.votes.total+n;
+                var newFeedback=[];
+                var otherUserFeedback = Object.values($scope.otherUser.feedback);
+                for (var k = 0; k < otherUserFeedback.length; k++) {
+                    newFeedback.push(otherUserFeedback[k]);
+                }
+                newFeedback.push(utenteFeedback + ":" + feedback + ":" + n);
                 database.ref('users/' + otherUserID).update({
+                    feedback: newFeedback,
                     votes: {
-                        votes: newVotes,
-                        total: newTotal
+                        votes: votes,
+                        total: total
                     }
                 }).then(function () {
-                    $scope.otherUser.feedback.push(utenteFeedback + ":" + feedback + ":" + n);
-                    $scope.otherUser.$save().then(function () {
-                        var nObj = $firebaseObject(database.ref('users/' + otherUserID));
-                        nObj.$loaded().then(function () {
-                            localStorage.otherUserID = otherUserID;
-                            $scope.goToDashboard();
-                        }).catch(function (error) {
-                            $scope.error = error;
-                        })
+                    var nObj = $firebaseObject(database.ref('users/' + otherUserID));
+                    nObj.$loaded().then(function () {
+                        $scope.goToDashboard();
                     }).catch(function (error) {
                         $scope.error = error;
                     })
