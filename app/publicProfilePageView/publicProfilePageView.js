@@ -18,11 +18,19 @@ angular.module('myApp.publicProfilePageView', ['ngRoute'])
         });
     }])
 
+    .filter('trusted', ['$sce', function ($sce) {
+        return function(url) {
+            return $sce.trustAsResourceUrl(url);
+        };
+    }])
+
     .controller('publicProfilePageViewCtrl', ['$scope', '$location', 'Auth', '$firebaseObject', 'Users', 'UsersChatService', 'currentAuth', '$firebaseAuth', '$firebaseArray', function ($scope, $location, Auth, $firebaseObject, Users, UsersChatService, currentAuth, $firebaseAuth, $firebaseArray) {
         $scope.dati = {};
         $scope.auth = Auth;
 
         $scope.countries = countries_list;
+
+
 
         if (localStorage.otherUserID === localStorage.UID) {
             document.getElementById("profileFeedbackWriter").style.display = "none";
@@ -177,6 +185,11 @@ angular.module('myApp.publicProfilePageView', ['ngRoute'])
                 $scope.friends[j] = currFriendObj;
 
             }
+
+            console.log($scope.otherUser.portfolio_video);
+            var portfolioVideo=Object.values($scope.otherUser.portfolio_video);
+            var portfolioUrl=Object.values(portfolioVideo[0]);
+            console.log(portfolioUrl);
 
             var feedbackContainer = document.getElementById("feedbackPar");
             var otherUserFeedback = Object.values($scope.otherUser.feedback);

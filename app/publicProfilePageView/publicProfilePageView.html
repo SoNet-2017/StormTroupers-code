@@ -233,7 +233,7 @@
             <div id="likedProjectsContainer" class="w3-container">
                 <h4>Projects <strong>{{otherUser.name}}</strong> is following</h4>
                 <ul style="list-style: none; padding: 0; display: inline-block;">
-                    <li ng-repeat="proj in followingProjects" class="w3-col s5 m5 l5"
+                    <li ng-repeat="proj in followingProjects" class="w3-col s12 m12 l12"
                         style="margin-right: 40px; margin-bottom: 20px">
                         <div id="projectPic2" class=" w3-container w3-card-2"
                              style="padding: 10px; border-radius: 4mm; background-color: #b7c3b8;">
@@ -300,12 +300,12 @@
             <div id="portfolioContainer" class="w3-container">
                 <h4>Portfolio</h4>
                 <ul style="list-style: none">
-                    <li>
+                    <li ng-repeat="video in otherUser.portfolio_video">
                         <div id="videoContainer" class="w3-col s12 m12 l12">
-                            <h4>Title</h4>
+                            <h4>{{video.title}}</h4>
                             <div class="w3-col s7 m7 l7">
                                 <iframe
-                                        src="https://www.youtube.com/embed/XGSy3_Czz8k">
+                                        ng-src="{{video.url | trusted}}">
                                 </iframe>
                             </div>
                             <div class="w3-col s4 m4 l4" style="color: white;">
@@ -328,6 +328,7 @@
             <div id="feedbackContainer" class="w3-container">
                 <h4>What other Troupers say about <strong>{{otherUser.name}}</strong></h4>
                 <h4>Average votes: <span id="averageVotes"></span></h4>
+                <br>
                 <div id="feedbackPar" style="color: white"></div>
             </div>
         </div>
