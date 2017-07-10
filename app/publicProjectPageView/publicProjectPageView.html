@@ -5,7 +5,7 @@
             class="glyphicon glyphicon-home w3-large"></i></a>
     <a class="w3-bar-item w3-button" id="userLinkHome" ng-click="goToSearchCrew()"><i
             class="glyphicon glyphicon-user w3-large"></i> Search Crew</a>
-    <a class="w3-bar-item w3-button" id="projectsLinkHome"><i class="glyphicon glyphicon-film w3-large"></i> Search Projects</a>
+    <a class="w3-bar-item w3-button" id="projectsLinkHome" ng-click="goToSearchProjects()"><i class="glyphicon glyphicon-film w3-large"></i> Search Projects</a>
 
 
     <!--
@@ -132,7 +132,12 @@
             <div class="w3-col l9 m9 s9" style="align-content: center">
                 <ul class="w3-left" style="padding: 0px;">
                     <li ng-repeat="user in prj.troupers" style="display: inline-block; list-style: none; padding-top: 10px">
-                        <a id="troupeUserImgLink" ng-click="goToPublicProfile(user)"><img id="troupeUserImg" alt="Avatar" class="w3-circle"></a>
+                        <a id="troupeUserImgLink" ng-click="goToPublicProfile(user)">
+                            <img class="media-object w3-circle" ng-src="../{{user.img_url}}" alt="{{user.img_alt}}" ng-if="!(user.img_url.includes('https://firebasestorage.googleapis.com')) && user.img_url!=''">
+                            <img class="media-object w3-circle" ng-src="{{user.img_url}}" alt="{{user.img_alt}}" ng-if="user.img_url.includes('https://firebasestorage.googleapis.com')">
+                            <img class="media-object w3-circle" ng-src="../images/StormTroupersLogo.png" alt="{{user.img_alt}}" ng-if="user.img_url == ''">
+                            <img id="troupeUserImg" alt="Avatar" class="w3-circle">
+                        </a>
                         <!--<h4><a ng-click="goToPublicProfile(user)">{{user}}</a></h4>-->
                     </li>
                 </ul>

@@ -17,11 +17,11 @@
 }
 
 #newUImg{
-    content: url("../../images/StormTroupersLogo.png");
+
     max-height: 75px;
 }
 #newUImg2{
-    content: url("../../images/StormTroupersLogo.png");
+
     max-height: 75px;
 }
 
@@ -66,8 +66,8 @@
     color: #636466;
 }
 
-#troupeUserImg{
-    content: url("../../images/StormTroupersLogo.png");
+
+#troupeUserImgLink2 img{
     max-height: 40px;
     margin: 5px;
 }

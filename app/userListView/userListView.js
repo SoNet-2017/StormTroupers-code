@@ -70,6 +70,10 @@ angular.module('myApp.userListView', ['ngRoute'])
             $location.path("/searchPageView");
         };
 
+        $scope.goToSearchProjects=function () {
+            $location.path("/searchProjectsView");
+        };
+
         $scope.goToEditProfile = function () {
             $location.path("/editProfileView");
         };

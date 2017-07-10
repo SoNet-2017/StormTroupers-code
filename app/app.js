@@ -21,6 +21,7 @@ angular.module('myApp', [
     'myApp.users',
     'myApp.fileUpload',
     'myApp.searchPageView',
+    'myApp.searchProjectsView',
     'myApp.myProjectsView',
     'myApp.newProjectView',
     'myApp.editProjectView',

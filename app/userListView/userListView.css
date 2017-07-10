@@ -61,17 +61,16 @@
     margin-left: -40px;
 }
 
-#newUImg{
-    content: url("../../images/StormTroupersLogo.png");
-    max-height: 75px;
-}
-
 #newUImgContainer{
     display: flex;
     justify-content: center;
     text-align: center;
     align-items:center;
     vertical-align: middle;
+}
+
+#newUImgContainer img{
+    max-height: 75px;
 }
 
 #newUDescListUsers{

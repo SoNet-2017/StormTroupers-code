@@ -5,7 +5,7 @@
             class="glyphicon glyphicon-home w3-large"></i></a>
     <a class="w3-bar-item w3-button" id="userLinkHome" ng-click="goToSearchCrew()"><i
             class="glyphicon glyphicon-user w3-large"></i> Search Crew</a>
-    <a class="w3-bar-item w3-button" id="projectsLinkHome"><i class="glyphicon glyphicon-film w3-large"></i> Search Projects</a>
+    <a class="w3-bar-item w3-button" id="projectsLinkHome" ng-click="goToSearchProjects()"><i class="glyphicon glyphicon-film w3-large"></i> Search Projects</a>
 
 
     <!--
@@ -52,6 +52,7 @@
 </div>
 
 <div id="bodyHome" class="w3-container w3-col l12 s12 m12">
+       <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=false"></script>
     <div id="sideUserHome" class="w3-col l3 m3 s3 w3-card-2">
         <h3 id="userNameAndLastHome" style="color: white;">{{profile.name}} {{profile.lastName}}</h3>
         <p id="userRolesHome"></p>
@@ -239,7 +240,9 @@
                         <div class=" w3-container w3-card-2"
                              style="padding: 10px; border-radius: 4mm; background-color: #333333; margin-right:50px">
                             <div class="w3-left" id="newUImgContainer">
-                                <img id="newUImg" alt="Avatar" class="w3-left w3-circle">
+                                <img class="media-object w3-left w3-circle" ng-src="../{{user.img_url}}" alt="{{user.img_alt}}" ng-if="!(user.img_url.includes('https://firebasestorage.googleapis.com')) && user.img_url!=''">
+                                <img class="media-object w3-left w3-circle" ng-src="{{user.img_url}}" alt="{{user.img_alt}}" ng-if="user.img_url.includes('https://firebasestorage.googleapis.com')">
+                                <img class="media-object w3-left w3-circle" ng-src="../images/StormTroupersLogo.png" alt="{{user.img_alt}}" ng-if="user.img_url == ''">
                             </div>
                             <div id="userDesc">
                                 <div class="w3-container w3-row" style="text-align: left;">
