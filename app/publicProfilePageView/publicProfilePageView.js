@@ -184,7 +184,12 @@ angular.module('myApp.publicProfilePageView', ['ngRoute'])
                     var followingProj = [];
                     //aggiungo il campo followingProjects
                     if ($scope.otherUser.followingProjects === undefined) {
-                        database.ref('users/' + otherUserID).update({
+
+                        var otherUserRef = $firebaseArray(database.ref('users/' + otherUserID));
+                        otherUserRef.$add({ followingProjects: followingProj }).then(function(otherUserRef) {
+                        });
+
+                        /*database.ref('users/' + otherUserID).update({
                             name: $scope.otherUser.name,
                             lastName: $scope.otherUser.lastName,
                             phone: $scope.otherUser.phone,
@@ -207,7 +212,7 @@ angular.module('myApp.publicProfilePageView', ['ngRoute'])
                             password: $scope.otherUser.password
                         }).catch(function (error) {
                             $scope.error = error;
-                        });
+                        });*/
                     } else {
                         var length2 = $scope.otherUser.followingProjects.length;
                         //progetti che l'utente loggato segue/ha messo like
@@ -275,7 +280,7 @@ angular.module('myApp.publicProfilePageView', ['ngRoute'])
             }).catch(function (error) {
                 $scope.error = error;
             });
-        }
+        };
 
 
         $scope.addUserToFriends = function (otherUserID) {

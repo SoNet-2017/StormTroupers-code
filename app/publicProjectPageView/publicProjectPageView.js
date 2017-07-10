@@ -101,6 +101,10 @@ angular.module('myApp.publicProjectPageView', ['ngRoute'])
             console.log("titolo progetto quiii: " + $scope.prj.title);
         });
 
+        $scope.proposeYourself=function(){
+
+        };
+
         $scope.addProjectToFavourite=function(){
 
             var projectsIfollow = [];
