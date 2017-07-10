@@ -5,7 +5,8 @@
             class="glyphicon glyphicon-home w3-large"></i></a>
     <a class="w3-bar-item w3-button" id="userLinkHome" ng-click="goToSearchCrew()"><i
             class="glyphicon glyphicon-user w3-large"></i> Search Crew</a>
-    <a class="w3-bar-item w3-button" id="projectsLinkHome" ng-click="goToSearchProjects()"><i class="glyphicon glyphicon-film w3-large"></i> Search Projects</a>
+    <a class="w3-bar-item w3-button" id="projectsLinkHome" ng-click="goToSearchProjects()"><i
+            class="glyphicon glyphicon-film w3-large"></i> Search Projects</a>
 
 
     <!--
@@ -33,7 +34,8 @@
     <div class="w3-bar-item w3-dropdown-click w3-right" id="logoBarHome" ng-click="showLogoItem()">
         {{profile.name}}
         <div class="w3-dropdown-content w3-bar-block w3-border w3-right" id="logoBarContentHome">
-            <a ng-click="goToMyPublicProfile()" class="w3-bar-item w3-button"><i class="glyphicon glyphicon-user w3-large"></i> Your Public
+            <a ng-click="goToMyPublicProfile()" class="w3-bar-item w3-button"><i
+                    class="glyphicon glyphicon-user w3-large"></i> Your Public
                 Profile</a>
             <a ng-click="goToEditProfile()" class="w3-bar-item w3-button"><i
                     class="glyphicon glyphicon-pencil w3-large"></i> Edit Profile</a>
@@ -42,32 +44,41 @@
     </div>
 
     <div id="logoBarImgContainerHome">
-        <img class="media-object" ng-src="../{{profile.img_url}}" alt="{{profile.img_alt}}" ng-if="!(profile.img_url.includes('https://firebasestorage.googleapis.com')) && profile.img_url!=''">
-        <img class="media-object" ng-src="{{profile.img_url}}" alt="{{profile.img_alt}}" ng-if="profile.img_url.includes('https://firebasestorage.googleapis.com')">
-        <img class="media-object" ng-src="../images/StormTroupersLogo.png" alt="{{profile.img_alt}}" ng-if="profile.img_url == ''">
+        <img class="media-object" ng-src="../{{profile.img_url}}" alt="{{profile.img_alt}}"
+             ng-if="!(profile.img_url.includes('https://firebasestorage.googleapis.com')) && profile.img_url!=''">
+        <img class="media-object" ng-src="{{profile.img_url}}" alt="{{profile.img_alt}}"
+             ng-if="profile.img_url.includes('https://firebasestorage.googleapis.com')">
+        <img class="media-object" ng-src="../images/StormTroupersLogo.png" alt="{{profile.img_alt}}"
+             ng-if="profile.img_url == ''">
     </div>
 
 </div>
 
 <div id="bodyHome" class="w3-container w3-col l12 s12 m12">
-    <div id="sideUserHome" class="w3-col l3 m3 s3 w3-card-2" style="background: linear-gradient(rgba(0,0,0,.5), rgba(0,0,0,.5));">
+    <div id="sideUserHome" class="w3-col l3 m3 s3 w3-card-2"
+         style="background: linear-gradient(rgba(0,0,0,.5), rgba(0,0,0,.5));">
         <h3 id="userNameAndLastHome">{{profile.name}} {{profile.lastName}}</h3>
         <p id="userRolesHome"></p>
         <p id="userCityHome"></p>
         <div id="userPhotoHome">
-            <img class="media-object" ng-src="../{{profile.img_url}}" alt="{{profile.img_alt}}" ng-if="!(profile.img_url.includes('https://firebasestorage.googleapis.com')) && profile.img_url!=''">
-            <img class="media-object" ng-src="{{profile.img_url}}" alt="{{profile.img_alt}}" ng-if="profile.img_url.includes('https://firebasestorage.googleapis.com')">
-            <img class="media-object" ng-src="../images/StormTroupersLogo.png" alt="{{profile.img_alt}}" ng-if="profile.img_url == ''">
+            <img class="media-object" ng-src="../{{profile.img_url}}" alt="{{profile.img_alt}}"
+                 ng-if="!(profile.img_url.includes('https://firebasestorage.googleapis.com')) && profile.img_url!=''">
+            <img class="media-object" ng-src="{{profile.img_url}}" alt="{{profile.img_alt}}"
+                 ng-if="profile.img_url.includes('https://firebasestorage.googleapis.com')">
+            <img class="media-object" ng-src="../images/StormTroupersLogo.png" alt="{{profile.img_alt}}"
+                 ng-if="profile.img_url == ''">
         </div>
         <br>
         <a ng-click="goToMyProjects()" class="w3-bar-item" id="userProjectHome">My Projects <i
                 class="glyphicon glyphicon-film w3-large"></i></a><br><br>
-        <a ng-click="goToMyTroupers(profile.$id)" class="w3-bar-item" id="userTroupeHome">My Troupers <i class="glyphicon glyphicon-user w3-large"></i></a><br><br>
+        <a ng-click="goToMyTroupers(profile.$id)" class="w3-bar-item" id="userTroupeHome">My Troupers <i
+                class="glyphicon glyphicon-user w3-large"></i></a><br><br>
         <a ng-click="goToEditProfile()" class="w3-bar-item" id="editProfileLinkHome">Edit Profile <i
                 class="glyphicon glyphicon-cog w3-large"></i></a>
     </div>
 
-    <div id="projectContainer" class="w3-col l8 m8 s8 w3-card-2" style="border-top-left-radius: 4mm;border-top-right-radius: 4mm;margin-left: 30px">
+    <div id="projectContainer" class="w3-col l8 m8 s8 w3-card-2"
+         style="border-top-left-radius: 4mm;border-top-right-radius: 4mm;margin-left: 30px">
         <div class="w3-row">
             <div class="w3-animate-opacity">
 
@@ -81,8 +92,9 @@
                                    style="color: white;"></i></a>
                             <br><br><br><br><br><br>
                             <div id="proposeButton" class="w3-tooltip">
-                                <a ng-click="proposeYourself()" data-toggle="modal" data-target="#myModal"><i class="glyphicon glyphicon-plus w3-xlarge"
-                                                  style="color: white;"></i>
+                                <a ng-click="proposeYourself()" data-toggle="modal" data-target="#myModal"><i
+                                        class="glyphicon glyphicon-plus w3-xlarge"
+                                        style="color: white;"></i>
                                     <span style="position:absolute;right:0;bottom:0px" class="w3-text w3-tag">Propose to collaborate!</span></a>
                             </div>
                         </div>
@@ -103,26 +115,39 @@
                     <div class="modal-content">
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal">&times;</button>
-                            <h4 style="color:red;"><span class="glyphicon glyphicon-random"></span> Propose to collaborate for <strong>{{prj.title}}</strong></h4>
+                            <h4 style="color:red;"><span class="glyphicon glyphicon-random"></span> Propose to
+                                collaborate for <strong>{{prj.title}}</strong></h4>
                         </div>
                         <div class="modal-body">
                             <form role="form">
                                 <div class="form-group">
-                                    <label for="usrname"><span class="glyphicon glyphicon-user"></span> Username</label>
-                                    <input type="text" class="form-control" id="usrname" placeholder="Enter email">
+                                    <label><span class="glyphicon glyphicon-user"></span> {{profile.name}} {{profile.lastName}}</label>
+                                    <input type="text" class="form-control" placeholder="Enter email" value="{{profile.email}}">
                                 </div>
                                 <div class="form-group">
-                                    <label for="psw"><span class="glyphicon glyphicon-eye-open"></span> Password</label>
-                                    <input type="text" class="form-control" id="psw" placeholder="Enter password">
+                                    <label><span class="glyphicon glyphicon-fire"></span> Why I'm the person you're looking for:</label>
+                                    <input type="text" class="form-control" placeholder="Write a message for the troupe">
                                 </div>
-                                <div class="checkbox">
-                                    <label><input type="checkbox" value="" checked>Remember me</label>
+                                <div class="form-group">
+                                    <label><span class="glyphicon glyphicon-briefcase"></span> I'd like to apply for:</label>
+                                    <ul style="text-align: left; color: #636466;list-style: none">
+                                        <div>
+                                            <li ng-repeat="roleNeeded in prj.rolesNeeded">
+                                                <label><input type="checkbox"
+                                                              value="{{roleNeeded}}">{{roleNeeded}}</label>
+                                            </li>
+                                        </div>
+                                    </ul>
                                 </div>
-                                <button type="submit" class="btn btn-default btn-success btn-block"><span class="glyphicon glyphicon-off"></span> Login</button>
+                                <button type="submit" class="btn btn-default btn-success btn-block" data-dismiss="modal">
+                                    <span class="glyphicon glyphicon-flash"></span> Apply!
+                                </button>
                             </form>
                         </div>
                         <div class="modal-footer">
-                            <button type="submit" class="btn btn-default btn-default pull-left" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Cancel</button>
+                            <button type="submit" class="btn btn-default btn-default pull-left" data-dismiss="modal">
+                                <span class="glyphicon glyphicon-remove"></span> Cancel
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -130,8 +155,10 @@
         </div>
 
         <div class="w3-row" style="margin: 10px;">
-            <h3 class="w3-right" style="color: lightgray; text-align: right; padding-right: 20px; margin-top: 10px">{{prj.progress}}</h3>
-            <h3 class="w3-left" style="color: lightgray; text-align: left; padding-left: 20px; margin-top: 10px">{{prj.type}}, {{prj.genre}}</h3>
+            <h3 class="w3-right" style="color: lightgray; text-align: right; padding-right: 20px; margin-top: 10px">
+                {{prj.progress}}</h3>
+            <h3 class="w3-left" style="color: lightgray; text-align: left; padding-left: 20px; margin-top: 10px">
+                {{prj.type}}, {{prj.genre}}</h3>
         </div>
         <hr style="margin: 10px;">
         <div class="w3-row">
@@ -166,11 +193,15 @@
             </div>
             <div class="w3-col l9 m9 s9" style="align-content: center">
                 <ul class="w3-left" style="padding: 0px;">
-                    <li ng-repeat="user in prj.troupers" style="display: inline-block; list-style: none; padding-top: 10px">
+                    <li ng-repeat="user in prj.troupers"
+                        style="display: inline-block; list-style: none; padding-top: 10px">
                         <a id="troupeUserImgLink" ng-click="goToPublicProfile(user)">
-                            <img class="media-object w3-circle" ng-src="../{{user.img_url}}" alt="{{user.img_alt}}" ng-if="!(user.img_url.includes('https://firebasestorage.googleapis.com')) && user.img_url!=''">
-                            <img class="media-object w3-circle" ng-src="{{user.img_url}}" alt="{{user.img_alt}}" ng-if="user.img_url.includes('https://firebasestorage.googleapis.com')">
-                            <img class="media-object w3-circle" ng-src="../images/StormTroupersLogo.png" alt="{{user.img_alt}}" ng-if="user.img_url == ''">
+                            <img class="media-object w3-circle" ng-src="../{{user.img_url}}" alt="{{user.img_alt}}"
+                                 ng-if="!(user.img_url.includes('https://firebasestorage.googleapis.com')) && user.img_url!=''">
+                            <img class="media-object w3-circle" ng-src="{{user.img_url}}" alt="{{user.img_alt}}"
+                                 ng-if="user.img_url.includes('https://firebasestorage.googleapis.com')">
+                            <img class="media-object w3-circle" ng-src="../images/StormTroupersLogo.png"
+                                 alt="{{user.img_alt}}" ng-if="user.img_url == ''">
                             <img id="troupeUserImg" alt="Avatar" class="w3-circle">
                         </a>
                         <!--<h4><a ng-click="goToPublicProfile(user)">{{user}}</a></h4>-->

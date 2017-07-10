@@ -70,6 +70,32 @@
                 class="glyphicon glyphicon-cog w3-large"></i></a>
     </div>
 
+    <div class="modalContainer">
+        <!-- Modal -->
+        <div class="modal fade" id="myModal" role="dialog">
+            <div class="modal-dialog">
+
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <!--<div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title" style="color: black;" ng-show="!alreadyFriend">Friend Request</h4>
+                        <h4 class="modal-title" style="color: black;" ng-show="alreadyFriend">Friend Request</h4>
+                    </div>-->
+                    <div class="modal-body">
+                        <p ng-show="!alreadyFriend">You added {{otherUser.name}} to your connections.</p>
+                        <p ng-show="alreadyFriend">You're already connected with {{otherUser.name}}</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
     <div id="searchCrewTools" class="w3-col l3 m3 s3 w3-card-2">
 
         <h3 style="text-align: center; font-family: 'ADAM.CG PRO'; color: white;">
@@ -79,10 +105,14 @@
         <hr>
 
         <label>Keyword</label>
-        <input type="text" id="searchKeyword" value="" class="searchPageInputFields" placeholder="Keyword"><br>
+        <form ng-submit="launchSearch()">
+            <input type="text" id="searchKeyword" value="" class="searchPageInputFields" placeholder="Keyword"><br>
+        </form>
         <br>
         <label>City</label>
-        <input type="text" id="searchCity" value="" class="searchPageInputFields" placeholder="City"><br>
+        <form ng-submit="launchSearch()">
+            <input type="text" id="searchCity" value="" class="searchPageInputFields" placeholder="City"><br>
+        </form>
         <br>
         <label>Range (Km)</label>
         <rzslider rz-slider-model="slider.value" style="display: inline-block; z-index: 0"
@@ -268,7 +298,7 @@
                                         style="color: white; text-align: left; position:absolute;left: 0px; padding: 5px;">
                                         See {{user.name}}'s profile</h6>
                                 </a>
-                                <a ng-click="addUserToFriends(user.$id)" class="w3-tooltip">
+                                <a ng-click="addUserToFriends(user.$id)" class="w3-tooltip" data-toggle="modal" data-target="#myModal">
                                     <i class="glyphicon glyphicon-screenshot w3-xlarge" style="color: lightgray;"></i>
                                     <h6 class="w3-center w3-text w3-tag"
                                         style="color: white; text-align: left; position:absolute;top: 0px; padding: 5px;">

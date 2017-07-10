@@ -168,13 +168,6 @@ angular.module('myApp.myProjectsView', ['ngRoute'])
             });
         };
 
-        // per cancellare i progetti
-        $scope.deleteProject = function (prjID) {
-            console.log("sto per cancellare il progetto con PID: " + prjID);
-            database.ref('projects/' + prjID).remove();
-            $scope.popolaMyProjects();
-        };
-
         $scope.logout = function () {
             Users.registerLogout(currentAuth.uid);
             $firebaseAuth().$signOut();

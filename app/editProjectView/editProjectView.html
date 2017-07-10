@@ -5,7 +5,8 @@
             class="glyphicon glyphicon-home w3-large"></i></a>
     <a class="w3-bar-item w3-button" id="userLinkHome" ng-click="goToSearchCrew()"><i
             class="glyphicon glyphicon-user w3-large"></i> Search Crew</a>
-    <a class="w3-bar-item w3-button" id="projectsLinkHome" ng-click="goToSearchProjects()"><i class="glyphicon glyphicon-film w3-large"></i> Search Projects</a>
+    <a class="w3-bar-item w3-button" id="projectsLinkHome" ng-click="goToSearchProjects()"><i
+            class="glyphicon glyphicon-film w3-large"></i> Search Projects</a>
 
 
     <!--
@@ -35,7 +36,8 @@
     <div class="w3-bar-item w3-dropdown-click w3-right" id="logoBarHome" ng-click="showLogoItem()">
         {{profile.name}}
         <div class="w3-dropdown-content w3-bar-block w3-border w3-right" id="logoBarContentHome">
-            <a ng-click="goToMyPublicProfile()" class="w3-bar-item w3-button"><i class="glyphicon glyphicon-user w3-large"></i> Your Public
+            <a ng-click="goToMyPublicProfile()" class="w3-bar-item w3-button"><i
+                    class="glyphicon glyphicon-user w3-large"></i> Your Public
                 Profile</a>
             <a ng-click="goToEditProfile()" class="w3-bar-item w3-button"><i
                     class="glyphicon glyphicon-pencil w3-large"></i> Edit Profile</a>
@@ -44,38 +46,81 @@
     </div>
 
     <div id="logoBarImgContainerHome">
-        <img class="media-object" ng-src="../{{profile.img_url}}" alt="{{profile.img_alt}}" ng-if="!(profile.img_url.includes('https://firebasestorage.googleapis.com')) && profile.img_url!=''">
-        <img class="media-object" ng-src="{{profile.img_url}}" alt="{{profile.img_alt}}" ng-if="profile.img_url.includes('https://firebasestorage.googleapis.com')">
-        <img class="media-object" ng-src="../images/StormTroupersLogo.png" alt="{{profile.img_alt}}" ng-if="profile.img_url == ''">
+        <img class="media-object" ng-src="../{{profile.img_url}}" alt="{{profile.img_alt}}"
+             ng-if="!(profile.img_url.includes('https://firebasestorage.googleapis.com')) && profile.img_url!=''">
+        <img class="media-object" ng-src="{{profile.img_url}}" alt="{{profile.img_alt}}"
+             ng-if="profile.img_url.includes('https://firebasestorage.googleapis.com')">
+        <img class="media-object" ng-src="../images/StormTroupersLogo.png" alt="{{profile.img_alt}}"
+             ng-if="profile.img_url == ''">
     </div>
 
 </div>
 
 <div id="bodyHome" class="w3-container w3-col l12 s12 m12">
-    <div id="sideUserHome" class="w3-col l3 m3 s3 w3-card-2" style="background: linear-gradient(rgba(0,0,0,.5), rgba(0,0,0,.5));">
+    <div id="sideUserHome" class="w3-col l3 m3 s3 w3-card-2"
+         style="background: linear-gradient(rgba(0,0,0,.5), rgba(0,0,0,.5));">
         <h3 id="userNameAndLastHome">{{profile.name}} {{profile.lastName}}</h3>
         <p id="userRolesHome"></p>
         <p id="userCityHome"></p>
         <div id="userPhotoHome">
-            <img class="media-object" ng-src="../{{profile.img_url}}" alt="{{profile.img_alt}}" ng-if="!(profile.img_url.includes('https://firebasestorage.googleapis.com')) && profile.img_url!=''">
-            <img class="media-object" ng-src="{{profile.img_url}}" alt="{{profile.img_alt}}" ng-if="profile.img_url.includes('https://firebasestorage.googleapis.com')">
-            <img class="media-object" ng-src="../images/StormTroupersLogo.png" alt="{{profile.img_alt}}" ng-if="profile.img_url == ''">
+            <img class="media-object" ng-src="../{{profile.img_url}}" alt="{{profile.img_alt}}"
+                 ng-if="!(profile.img_url.includes('https://firebasestorage.googleapis.com')) && profile.img_url!=''">
+            <img class="media-object" ng-src="{{profile.img_url}}" alt="{{profile.img_alt}}"
+                 ng-if="profile.img_url.includes('https://firebasestorage.googleapis.com')">
+            <img class="media-object" ng-src="../images/StormTroupersLogo.png" alt="{{profile.img_alt}}"
+                 ng-if="profile.img_url == ''">
         </div>
         <br>
         <a ng-click="goToMyProjects()" class="w3-bar-item" id="userProjectHome">My Projects <i
                 class="glyphicon glyphicon-film w3-large"></i></a><br><br>
-        <a ng-click="goToMyTroupers(profile.$id)" class="w3-bar-item" id="userTroupeHome">My Troupers <i class="glyphicon glyphicon-user w3-large"></i></a><br><br>
+        <a ng-click="goToMyTroupers(profile.$id)" class="w3-bar-item" id="userTroupeHome">My Troupers <i
+                class="glyphicon glyphicon-user w3-large"></i></a><br><br>
         <a ng-click="goToEditProfile()" class="w3-bar-item" id="editProfileLinkHome">Edit Profile <i
                 class="glyphicon glyphicon-cog w3-large"></i></a>
     </div>
 
-    <div id="alertBoxDiv">
+    <!--MODAL PER ELIMINARE PROGETTI-->
+    <div class="modalContainer">
+        <!-- Modal -->
+        <div class="modal fade" id="myModalDeleteProject" role="dialog">
+            <div class="modal-dialog">
 
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 style="color:red;"> Are you sure you want to delete
+                            <strong>{{prjTitle}}</strong>?</h4>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-default btn-default pull-right" data-dismiss="modal">
+                            <span class="glyphicon glyphicon-remove"></span> No
+                        </button>
+                        <button ng-click="deleteProject(projectID)" class="btn btn-default btn-success pull-right" data-dismiss="modal" style="margin-right: 10px;">
+                            <span class="glyphicon glyphicon-trash"></span> Yes
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
     <div id="editProjectContainer" class="w3-col l8 m8 s8 w3-card-2">
-        <h2>Edit Project: <strong>{{prjTitle}}</strong></h2>
-        <br>
+        <h2 class="w3-col s11 m11 l11" style="margin-bottom: 30px">Edit Project: <strong>{{prjTitle}}</strong></h2>
+        <div class="w3-row w3-col s1 m1 l1">
+            <div class="w3-tooltip">
+                <a ng-click="addUserToFriends(otherUser.$id)" data-toggle="modal" data-target="#myModal">
+                    <i class="glyphicon glyphicon-trash w3-xxlarge w3-left"
+                       style="color: white; cursor: pointer;padding-top: 20px;" data-toggle="modal" data-target="#myModalDeleteProject"></i>
+                </a>
+                <!--<h6 style="position:absolute;right:0;bottom:0px" class="w3-text w3-tag">Connect with {{otherUser.name}}</h6>-->
+                <h6 class="w3-center w3-text w3-tag"
+                    style="color: white; text-align: left; position:absolute;top: 0px; padding: 5px;">Delete project
+                    {{otherUser.name}}</h6>
+            </div>
+        </div>
+
         <div>
             <div id="projInfoContainer" class="w3-animate-opacity" style="width: 60%; float: left">
             <span id="projPicContainer" class="w3-left w3-animate-opacity"
@@ -138,37 +183,51 @@
 
                     <div class="w3-col s6 m6 l6 w3-animate-opacity" id="advancedJoinCheckboxes">
                         <form class="w3-container">
-                            <input ng-model="checkAnim" ng-checked="checkAnim" id="checkAnim" type="checkbox" class="w3-check"> <label>Animation</label>
+                            <input ng-model="checkAnim" ng-checked="checkAnim" id="checkAnim" type="checkbox"
+                                   class="w3-check"> <label>Animation</label>
                             <br>
-                            <input ng-model="checkAudio" ng-checked="checkAudio" id="checkAudio" type="checkbox" class="w3-check"> <label>Audio/Music/Sound</label>
+                            <input ng-model="checkAudio" ng-checked="checkAudio" id="checkAudio" type="checkbox"
+                                   class="w3-check"> <label>Audio/Music/Sound</label>
                             <br>
-                            <input ng-model="checkDP" ng-checked="checkDP" id="checkDP" type="checkbox" class="w3-check"> <label>Camera Crew/DP</label>
+                            <input ng-model="checkDP" ng-checked="checkDP" id="checkDP" type="checkbox"
+                                   class="w3-check"> <label>Camera Crew/DP</label>
                             <br>
-                            <input ng-model="checkArt" ng-checked="checkArt" id="checkArt" type="checkbox" class="w3-check"> <label>Design/Scenic/Constr.</label>
+                            <input ng-model="checkArt" ng-checked="checkArt" id="checkArt" type="checkbox"
+                                   class="w3-check"> <label>Design/Scenic/Constr.</label>
                             <br>
-                            <input ng-model="checkDirect" ng-checked="checkDirect" id="checkDirect" type="checkbox" class="w3-check"> <label>Director</label>
+                            <input ng-model="checkDirect" ng-checked="checkDirect" id="checkDirect" type="checkbox"
+                                   class="w3-check"> <label>Director</label>
                             <br>
-                            <input ng-model="checkGraphicDes" ng-checked="checkGraphicDes" id="checkGraphicDes" type="checkbox" class="w3-check"> <label>Graphic
+                            <input ng-model="checkGraphicDes" ng-checked="checkGraphicDes" id="checkGraphicDes"
+                                   type="checkbox" class="w3-check"> <label>Graphic
                             designer</label>
                             <br>
-                            <input ng-model="checkLight" ng-checked="checkLight" id="checkLight" type="checkbox" class="w3-check"> <label>Lighting/Electric</label>
+                            <input ng-model="checkLight" ng-checked="checkLight" id="checkLight" type="checkbox"
+                                   class="w3-check"> <label>Lighting/Electric</label>
                         </form>
                     </div>
                     <div class="w3-col s6 m6 l6 w3-animate-opacity" id="advancedJoinCheckboxes2">
                         <form class="w3-container">
-                            <input ng-model="checkPhot" ng-checked="checkPhot" id="checkPhot" type="checkbox" class="w3-check"> <label>Photographers</label>
+                            <input ng-model="checkPhot" ng-checked="checkPhot" id="checkPhot" type="checkbox"
+                                   class="w3-check"> <label>Photographers</label>
                             <br>
-                            <input ng-model="checkPostProd" ng-checked="checkPostProd" id="checkPostProd" type="checkbox" class="w3-check"> <label>Post Production</label>
+                            <input ng-model="checkPostProd" ng-checked="checkPostProd" id="checkPostProd"
+                                   type="checkbox" class="w3-check"> <label>Post Production</label>
                             <br>
-                            <input ng-model="checkProducers" id="checkProducers" ng-checked="checkProducers" type="checkbox" class="w3-check"> <label>Producers</label>
+                            <input ng-model="checkProducers" id="checkProducers" ng-checked="checkProducers"
+                                   type="checkbox" class="w3-check"> <label>Producers</label>
                             <br>
-                            <input ng-model="checkFX" ng-checked="checkFX" id="checkFX" type="checkbox" class="w3-check"> <label>Special Effects Crew</label>
+                            <input ng-model="checkFX" ng-checked="checkFX" id="checkFX" type="checkbox"
+                                   class="w3-check"> <label>Special Effects Crew</label>
                             <br>
-                            <input ng-model="checkStyle" ng-checked="checkStyle" id="checkStyle" type="checkbox" class="w3-check"> <label>Stylist/Vanities</label>
+                            <input ng-model="checkStyle" ng-checked="checkStyle" id="checkStyle" type="checkbox"
+                                   class="w3-check"> <label>Stylist/Vanities</label>
                             <br>
-                            <input ng-model="checkActor" ng-checked="checkActor" id="checkActor" type="checkbox" class="w3-check"> <label>Talent/Actors</label>
+                            <input ng-model="checkActor" ng-checked="checkActor" id="checkActor" type="checkbox"
+                                   class="w3-check"> <label>Talent/Actors</label>
                             <br>
-                            <input ng-model="checkCast" ng-checked="checkCast" id="checkCast" type="checkbox" class="w3-check"> <label>Talent/Casting</label>
+                            <input ng-model="checkCast" ng-checked="checkCast" id="checkCast" type="checkbox"
+                                   class="w3-check"> <label>Talent/Casting</label>
                         </form>
                     </div>
 
@@ -180,12 +239,19 @@
                 <h4 style="text-align: left; padding-left: 20px; color: white">SHARE WITH:</h4>
                 <ul style="list-style: none; text-align: left">
                     <li ng-repeat="user in sharingFriends" style="list-style: none; padding-top: 8px">
-                        <div class=" w3-container w3-card-2" style="padding: 10px;background: linear-gradient(rgba(255,255,255,.5), rgba(255,255,255,.5));">
+                        <div class=" w3-container w3-card-2"
+                             style="padding: 10px;background: linear-gradient(rgba(255,255,255,.5), rgba(255,255,255,.5));">
                             <div class="w3-left" id="newUImgContainer">
                                 <a id="troupeUserImgLink">
-                                    <img class="media-object w3-left w3-circle" ng-click="goToPublicProfile(user.uid)" ng-src="../{{user.img_url}}" alt="{{user.img_alt}}" ng-if="!(user.img_url.includes('https://firebasestorage.googleapis.com')) && user.img_url!=''">
-                                    <img class="media-object w3-left w3-circle" ng-click="goToPublicProfile(user.uid)" ng-src="{{user.img_url}}" alt="{{user.img_alt}}" ng-if="user.img_url.includes('https://firebasestorage.googleapis.com')">
-                                    <img class="media-object w3-left w3-circle" ng-click="goToPublicProfile(user.uid)" ng-src="../images/StormTroupersLogo.png" alt="{{user.img_alt}}" ng-if="user.img_url == ''">
+                                    <img class="media-object w3-left w3-circle" ng-click="goToPublicProfile(user.uid)"
+                                         ng-src="../{{user.img_url}}" alt="{{user.img_alt}}"
+                                         ng-if="!(user.img_url.includes('https://firebasestorage.googleapis.com')) && user.img_url!=''">
+                                    <img class="media-object w3-left w3-circle" ng-click="goToPublicProfile(user.uid)"
+                                         ng-src="{{user.img_url}}" alt="{{user.img_alt}}"
+                                         ng-if="user.img_url.includes('https://firebasestorage.googleapis.com')">
+                                    <img class="media-object w3-left w3-circle" ng-click="goToPublicProfile(user.uid)"
+                                         ng-src="../images/StormTroupersLogo.png" alt="{{user.img_alt}}"
+                                         ng-if="user.img_url == ''">
                                 </a>
                             </div>
                             <div id="newUDesc">
@@ -205,12 +271,19 @@
                         </div>
                     </li>
                     <li ng-repeat="user in suggestedFriends" style="list-style: none; padding-top: 8px">
-                        <div class=" w3-container w3-card-2" style="padding: 10px; background: linear-gradient(rgba(0,0,0,.5), rgba(0,0,0,.5));">
+                        <div class=" w3-container w3-card-2"
+                             style="padding: 10px; background: linear-gradient(rgba(0,0,0,.5), rgba(0,0,0,.5));">
                             <div class="w3-left" id="newUImgContainer2">
                                 <a id="troupeUserImgLink2">
-                                    <img class="media-object w3-left w3-circle" ng-click="goToPublicProfile(user.uid)" ng-src="../{{user.img_url}}" alt="{{user.img_alt}}" ng-if="!(user.img_url.includes('https://firebasestorage.googleapis.com')) && user.img_url!=''">
-                                    <img class="media-object w3-left w3-circle" ng-click="goToPublicProfile(user.uid)" ng-src="{{user.img_url}}" alt="{{user.img_alt}}" ng-if="user.img_url.includes('https://firebasestorage.googleapis.com')">
-                                    <img class="media-object w3-left w3-circle" ng-click="goToPublicProfile(user.uid)" ng-src="../images/StormTroupersLogo.png" alt="{{user.img_alt}}" ng-if="user.img_url == ''">
+                                    <img class="media-object w3-left w3-circle" ng-click="goToPublicProfile(user.uid)"
+                                         ng-src="../{{user.img_url}}" alt="{{user.img_alt}}"
+                                         ng-if="!(user.img_url.includes('https://firebasestorage.googleapis.com')) && user.img_url!=''">
+                                    <img class="media-object w3-left w3-circle" ng-click="goToPublicProfile(user.uid)"
+                                         ng-src="{{user.img_url}}" alt="{{user.img_alt}}"
+                                         ng-if="user.img_url.includes('https://firebasestorage.googleapis.com')">
+                                    <img class="media-object w3-left w3-circle" ng-click="goToPublicProfile(user.uid)"
+                                         ng-src="../images/StormTroupersLogo.png" alt="{{user.img_alt}}"
+                                         ng-if="user.img_url == ''">
                                 </a>
                             </div>
                             <div id="newUDesc2">
@@ -240,5 +313,3 @@
         </div>
     </div>
 </div>
-</div>
-
