@@ -84,6 +84,8 @@ angular.module('myApp.editProjectView', ['ngRoute'])
         var PID = localStorage.PID;
         var projObj = $firebaseObject(database.ref('projects/' + PID));
         projObj.$loaded().then(function () {
+            console.log("caricato proj con pid: "+projObj.$id);
+            $scope.projectID = projObj.$id;
             $scope.prjTitle = projObj.title;
             $scope.projectName = projObj.title;
             $scope.projectType = projObj.type;
@@ -298,6 +300,13 @@ angular.module('myApp.editProjectView', ['ngRoute'])
             }).catch(function (error) {
                 $scope.error = error;
             });
+        };
+
+        // per cancellare i progetti
+        $scope.deleteProject = function (prjID) {
+            console.log("sto per cancellare il progetto con PID: " + prjID);
+            database.ref('projects/' + prjID).remove();
+            $location.path("/myProjectsView");
         };
 
         $scope.logout = function () {
