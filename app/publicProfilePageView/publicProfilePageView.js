@@ -117,7 +117,7 @@ angular.module('myApp.publicProfilePageView', ['ngRoute'])
             //console.log("errore: "+error);
         });
 
-        // PER CHAT ASINCRONA CON UTENTI COL QUALE NON SEI AMICO
+        // PER CHAT ASINCRONA CON UTENTI COL QUALE NON SI E' AMICI
         $scope.dati.userId = currentAuth.uid;
 
         $scope.dati.recipientUserId = otherUserID;
@@ -218,38 +218,9 @@ angular.module('myApp.publicProfilePageView', ['ngRoute'])
                         }
                     }
 
-                    var followingProj = [];
                     //aggiungo il campo followingProjects
                     if ($scope.otherUser.followingProjects === undefined) {
-
-                        var otherUserRef = $firebaseArray(database.ref('users/' + otherUserID));
-                        otherUserRef.$add({followingProjects: followingProj}).then(function (otherUserRef) {
-                        });
-
-                        /*database.ref('users/' + otherUserID).update({
-                         name: $scope.otherUser.name,
-                         lastName: $scope.otherUser.lastName,
-                         phone: $scope.otherUser.phone,
-                         permissionToShowPhone: $scope.otherUser.permissionToShowPhone,
-                         gender: $scope.otherUser.gender,
-                         roles: $scope.otherUser.roles,
-                         race: $scope.otherUser.race,
-
-                         country: $scope.otherUser.country,
-                         province: $scope.otherUser.province,
-                         city: $scope.otherUser.city,
-                         logged: $scope.otherUser.logged,
-                         car: $scope.otherUser.car,
-                         payment: $scope.otherUser.payment,
-                         description: $scope.otherUser.description,
-                         dateOfBirth: $scope.otherUser.dateOfBirth,
-                         friends: $scope.otherUser.friends,
-                         followingProjects: followingProj,
-                         email: $scope.otherUser.email,
-                         password: $scope.otherUser.password
-                         }).catch(function (error) {
-                         $scope.error = error;
-                         });*/
+                        console.log("non segue progetti");
                     } else {
                         var length2 = $scope.otherUser.followingProjects.length;
                         //progetti che l'utente loggato segue/ha messo like

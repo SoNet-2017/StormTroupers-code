@@ -226,7 +226,10 @@ angular.module('myApp.advancedJoinView', ['ngRoute'])
             }
 
             var friends = [];
+            var followingProj = [];
             friends[0]="STORMTROUPERS_ADMIN";
+            followingProj[0]="init";
+
             var database = firebase.database();
 
             //bisogna usare il codice univoco del userID generato da firebase per un lavoro migliore
@@ -248,6 +251,7 @@ angular.module('myApp.advancedJoinView', ['ngRoute'])
                 race: race,
                 description: descriptionR, //c'era scritto "desciption" e l'ho corretto, ma non so se ho fatto bene?
                 friends:friends,
+                followingProjects: followingProj,
                 dateOfJoin: dateOfJ,
                 logged: true,
                 equipment: "",
