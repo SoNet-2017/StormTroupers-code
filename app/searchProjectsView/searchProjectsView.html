@@ -131,17 +131,33 @@
         <label>Status</label>
         <br>
         <div style="color: #636466; margin-left: 15px;">
-            <input id="checkProg" type="checkbox" class="w3-check"> <label>Completed</label>
+            <div class="w3-col s12 m12 l12 w3-left w3-animate-opacity">
+            <div class="w3-col s6 m6 l6 w3-animate-opacity" id="advancedStatusCheckboxes">
+                <form class="w3-container">
+                    <input id="checkComp" type="checkbox" class="w3-check"> <label>Completed</label>
+                    <br>
+                    <input id="checkProg" type="checkbox" class="w3-check"> <label>In Progress</label>
+                </form>
+            </div>
+            <div class="w3-col s6 m6 l6 w3-animate-opacity" id="advancedStatusCheckboxes2">
+                <form class="w3-container">
+                    <input id="checkYet" type="checkbox" class="w3-check"> <label>Yet to Start</label>
+                    <br>
+                    <input id="checkHold" type="checkbox" class="w3-check"> <label>On Hold</label>
             <br>
-            <input id="checkCompl" type="checkbox" class="w3-check"> <label>In Progress</label>
-            <br>
+            </form>
+        </div>
+        </div>
         </div>
         <hr>
+        <br>
+        <br>
+        <br>
         <div id="searchCrewButtonContainer">
             <button class="w3-button w3-round-large" id="searchCrewButton" ng-click="launchSearch()">SEARCH!</button>
         </div>
     </div>
-
+    <hr>
     <div id="searchCrewResults" class="w3-col l5 m5 s5 w3-card-2">
         <h3 style="text-align: center; font-family: 'ADAM.CG PRO';  color: white;">
             These are the projects you're looking for
