@@ -179,22 +179,27 @@ angular.module('myApp.publicProfilePageView', ['ngRoute'])
             }
 
             var feedbackContainer = document.getElementById("feedbackPar");
-            var otherUserFeedback = Object.values($scope.otherUser.feedback);
-            for (var k = 0; k < otherUserFeedback.length; k++) {
-                var feedbackNotParsed = otherUserFeedback[k].split(':');
-                var feedbackAuthor = feedbackNotParsed[0];
-                var feedbackText = feedbackNotParsed[1];
-                var feedbackVote = feedbackNotParsed[2];
-                feedbackContainer.innerHTML += "<h5><strong>" + feedbackAuthor + "</strong></h5>" + feedbackText + "<p>" + "Vote: " + feedbackVote + "</p>";
-                if (k < otherUserFeedback.length - 1) {
-                    feedbackContainer.innerHTML += "<br\>";
+
+            if($scope.otherUser.feedback !== undefined) {
+                var otherUserFeedback = Object.values($scope.otherUser.feedback);
+                for (var k = 0; k < otherUserFeedback.length; k++) {
+                    var feedbackNotParsed = otherUserFeedback[k].split(':');
+                    var feedbackAuthor = feedbackNotParsed[0];
+                    var feedbackText = feedbackNotParsed[1];
+                    var feedbackVote = feedbackNotParsed[2];
+                    feedbackContainer.innerHTML += "<h5><strong>" + feedbackAuthor + "</strong></h5>" + feedbackText + "<p>" + "Vote: " + feedbackVote + "</p>";
+                    if (k < otherUserFeedback.length - 1) {
+                        feedbackContainer.innerHTML += "<br\>";
+                    }
                 }
+                console.log(otherUserFeedback);
+                var avg = $scope.otherUser.votes.total / $scope.otherUser.votes.votes;
+                console.log(avg);
+                var avgF = avg.toFixed(2);
+                document.getElementById("averageVotes").innerHTML = avgF;
+            } else {
+                console.log("utente non ha il campo feedback");
             }
-            console.log(otherUserFeedback);
-            var avg=$scope.otherUser.votes.total/$scope.otherUser.votes.votes;
-            console.log(avg);
-            var avgF=avg.toFixed(2);
-            document.getElementById("averageVotes").innerHTML=avgF;
 
             $scope.getProjectsFromDB = {};
             var projectsBase = database.ref('projects/');
@@ -208,13 +213,13 @@ angular.module('myApp.publicProfilePageView', ['ngRoute'])
                 $scope.followingProjects = {};
 
                 var length = $scope.getProjectsFromDB.length;
-                console.log("length quii: " + length);
+                //console.log("length quii: " + length);
                 var j = 0; //indice di projPublicPage
                 var n = 0; //indice di followingProjects
 
                 for (var i = 0; i < length; i++) { //si scorre tutto l'array
                     var length3 = $scope.getProjectsFromDB[i].troupers.length;
-                    console.log("lenght ddi troupers: " + length3);
+                    //console.log("lenght ddi troupers: " + length3);
                     for (var k = 0; k < length3; k++) {
                         if ($scope.getProjectsFromDB[i].troupers[k] === otherUserID) {
                             $scope.projPublicPage[j] = $scope.getProjectsFromDB[i];
@@ -271,11 +276,17 @@ angular.module('myApp.publicProfilePageView', ['ngRoute'])
                 var votes=$scope.otherUser.votes.votes+1;
                 var total=$scope.otherUser.votes.total+n;
                 var newFeedback=[];
-                var otherUserFeedback = Object.values($scope.otherUser.feedback);
-                for (var k = 0; k < otherUserFeedback.length; k++) {
-                    newFeedback.push(otherUserFeedback[k]);
+
+                if($scope.otherUser.feedback !== undefined) {
+                    var otherUserFeedback = Object.values($scope.otherUser.feedback);
+                    for (var k = 0; k < otherUserFeedback.length; k++) {
+                        newFeedback.push(otherUserFeedback[k]);
+                    }
+                    newFeedback.push(utenteFeedback + ":" + feedback + ":" + n);
+                } else {
+                    newFeedback.push(utenteFeedback + ":" + feedback + ":" + n);
                 }
-                newFeedback.push(utenteFeedback + ":" + feedback + ":" + n);
+
                 database.ref('users/' + otherUserID).update({
                     feedback: newFeedback,
                     votes: {
@@ -290,7 +301,6 @@ angular.module('myApp.publicProfilePageView', ['ngRoute'])
                         $scope.error = error;
                     })
                 })
-
             }).catch(function (error) {
                 $scope.error = error;
             });
