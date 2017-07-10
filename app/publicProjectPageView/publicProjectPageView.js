@@ -102,8 +102,24 @@ angular.module('myApp.publicProjectPageView', ['ngRoute'])
         var PID = localStorage.PID;
         $scope.prj = $firebaseObject(database.ref('projects/' + PID));
         $scope.prj.$loaded().then(function () {
-            console.log("titolo progetto quiii: " + $scope.prj.title);
+            console.log("titolo progetto quiiiZ: " + $scope.prj.title);
+            $scope.findAdjustedRoles();
         });
+
+        $scope.findAdjustedRoles=function() {
+            //mia ajunta
+            var temp_adjustedRoles= $scope.prj.rolesNeeded;
+            console.log("step 1");
+            var ar_adj=temp_adjustedRoles.length;
+            console.log("step 2");
+            $scope.adjustedRoles = {};
+            console.log("step 3");
+            for (var abbabua=1; abbabua<ar_adj; abbabua++) {
+                $scope.adjustedRoles[abbabua-1]=temp_adjustedRoles[abbabua];
+                console.log($scope.adjustedRoles);
+            }
+            console.log("step 4");
+        };
 
         $scope.proposeYourself=function(){
 

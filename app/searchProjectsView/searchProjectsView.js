@@ -19,8 +19,8 @@ angular.module('myApp.searchProjectsView', ['ngRoute'])
     }])
 
     .controller('searchProjectsCtrl', ['$scope', '$location', 'Auth', '$firebaseObject','Users', 'currentAuth', '$firebaseAuth', '$firebaseArray', function ($scope,$location, Auth, $firebaseObject, Users, currentAuth, $firebaseAuth, $firebaseArray) {
-        $scope.dati={};
-        $scope.auth=Auth;
+        $scope.dati = {};
+        $scope.auth = Auth;
 
         $scope.slider = {
             minValue: 0,
@@ -60,11 +60,11 @@ angular.module('myApp.searchProjectsView', ['ngRoute'])
         console.log(localStorage.attName);
         console.log(localStorage.attLast);
         console.log(localStorage.attEmail);
-/*
-        document.getElementById("userNameHome").innerHTML=localStorage.attName;
-        document.getElementById("userNameAndLastHome").innerHTML=localStorage.attName+" "+localStorage.attLast;*/
+        /*
+         document.getElementById("userNameHome").innerHTML=localStorage.attName;
+         document.getElementById("userNameAndLastHome").innerHTML=localStorage.attName+" "+localStorage.attLast;*/
 
-        $scope.showLogoItem=function () {
+        $scope.showLogoItem = function () {
             var x = document.getElementById("logoBarContentHome");
             if (x.className.indexOf("w3-show") == -1)
                 x.className += " w3-show";
@@ -72,7 +72,7 @@ angular.module('myApp.searchProjectsView', ['ngRoute'])
                 x.className = x.className.replace(" w3-show", "");
         };
 
-        $scope.showSearchItem=function () {
+        $scope.showSearchItem = function () {
             var x = document.getElementById("typeSearchContentHome");
             if (x.className.indexOf("w3-show") == -1)
                 x.className += " w3-show";
@@ -80,40 +80,40 @@ angular.module('myApp.searchProjectsView', ['ngRoute'])
                 x.className = x.className.replace(" w3-show", "");
         };
 
-        $scope.goToDashboard=function () {
+        $scope.goToDashboard = function () {
             $location.path("/homePageView")
         };
 
-        $scope.goToSearchCrew=function () {
+        $scope.goToSearchCrew = function () {
             $location.path("/searchPageView");
         };
 
-        $scope.goToSearchProjects=function () {
+        $scope.goToSearchProjects = function () {
             $location.path("/searchProjectsView");
         };
 
-        $scope.goToEditProfile=function () {
+        $scope.goToEditProfile = function () {
             $location.path("/editProfileView");
         };
 
-        $scope.goToMyProjects=function () {
+        $scope.goToMyProjects = function () {
             $location.path("/myProjectsView");
         };
 
-        $scope.goToMyTroupers=function () {
+        $scope.goToMyTroupers = function () {
             $location.path("/friendsPageView");
             localStorage.otherUserID = UID;
         };
 
-        $scope.goToPublicProfile=function(userID) {
+        $scope.goToPublicProfile = function (userID) {
             $location.path("/publicProfilePageView");
-            console.log("utente che sto passando: "+userID);
+            console.log("utente che sto passando: " + userID);
             localStorage.otherUserID = userID;
         };
 
-        $scope.goToMyPublicProfile=function () {
+        $scope.goToMyPublicProfile = function () {
             $location.path("/publicProfilePageView");
-            localStorage.otherUserID=UID;
+            localStorage.otherUserID = UID;
         };
 
         $scope.goToPublicProjectPage = function (projectID) {
@@ -122,32 +122,32 @@ angular.module('myApp.searchProjectsView', ['ngRoute'])
             localStorage.PID = projectID;
         };
 
-        var UID=localStorage.UID;
-        var database=firebase.database();
+        var UID = localStorage.UID;
+        var database = firebase.database();
 
         var projectBase = database.ref('projects/');
         $scope.allProjects = $firebaseArray(projectBase);
 
 
-        var obj = $firebaseObject(database.ref('users/'+UID));
+        var obj = $firebaseObject(database.ref('users/' + UID));
         obj.$loaded().then(function () {
-            $scope.profile=obj;
+            $scope.profile = obj;
             var role = Object.values(obj.roles);
-            for(var i=0; i<role.length; i++){
-                document.getElementById("userRolesHome").innerHTML+=role[i];
-                if(i<role.length-1) {
-                    document.getElementById("userRolesHome").innerHTML+=", ";
+            for (var i = 0; i < role.length; i++) {
+                document.getElementById("userRolesHome").innerHTML += role[i];
+                if (i < role.length - 1) {
+                    document.getElementById("userRolesHome").innerHTML += ", ";
                 }
             }
 
-            $scope.filterSearch={};
+            $scope.filterSearch = {};
 
         }).catch(function (error) {
-            $scope.error=error;
+            $scope.error = error;
         });
 
-        $scope.addUserToFriends=function(otherUserID){
-            if($scope.profile.friends.indexOf(otherUserID)<0) {
+        $scope.addUserToFriends = function (otherUserID) {
+            if ($scope.profile.friends.indexOf(otherUserID) < 0) {
                 $scope.otherUser = $firebaseObject(database.ref('users/' + otherUserID));
                 $scope.otherUser.$loaded().then(function () {
                     //aggiorno il vettore anche nell'amico
@@ -159,7 +159,7 @@ angular.module('myApp.searchProjectsView', ['ngRoute'])
                     $scope.profile.friends.push(otherUserID);
                     //console.log("vettore amicicci dell'utente loggato: "+$scope.profile.friends);
                     $scope.profile.$save();
-                    console.log("Trouper aggiunto agli amici: " +  otherUserID);
+                    console.log("Trouper aggiunto agli amici: " + otherUserID);
                 }).catch(function (error) {
                     $scope.error = error;
                 });
@@ -169,15 +169,13 @@ angular.module('myApp.searchProjectsView', ['ngRoute'])
 
         $scope.launchSearch = function () {
             //resetta il filtersearch
-            $scope.filterSearch={};
+            $scope.filterSearch = {};
 
-            var resultIsOkFlag=false;
-
-            var checkKeyword=false;
+            var checkKeyword = false;
             //step1 checcka la keyword in nome e cognome
-            var kw="";
-            kw=document.getElementById("searchKeyword").value;
-            if (kw!=="") { //checca solo se hei scritto qualcosa nel campo
+            var kw = "";
+            kw = document.getElementById("searchKeyword").value;
+            if (kw !== "") { //checca solo se hei scritto qualcosa nel campo
                 checkKeyword = true;
                 console.log("checkKeyword=true");
                 console.log("keword is: " + kw);
@@ -205,41 +203,40 @@ angular.module('myApp.searchProjectsView', ['ngRoute'])
 
                 if (kw_pos_temp > 9999 && kw_pos_temp2 > 9999) {
                     kw_pos_1 = kw.indexOf(" ");
-                    if (kw_pos_1!==-1) {
-                        kw_mto=true;
-                        kw_oper[kw_op_index]="OR";
+                    if (kw_pos_1 !== -1) {
+                        kw_mto = true;
+                        kw_oper[kw_op_index] = "OR";
                         kw_op_index++;
-                        kw_slice_amount=1;
+                        kw_slice_amount = 1;
                     }
                 }
                 else {
                     if (kw_pos_temp < kw_pos_temp2) {
                         kw_pos_1 = kw_pos_temp;
-                        kw_mto=true;
-                        kw_oper[kw_op_index]="OR";
+                        kw_mto = true;
+                        kw_oper[kw_op_index] = "OR";
                         kw_op_index++;
-                        kw_slice_amount=4;
+                        kw_slice_amount = 4;
                     }
                     else {
                         kw_pos_1 = kw_pos_temp2;
-                        kw_mto=true;
-                        kw_oper[kw_op_index]="AND";
+                        kw_mto = true;
+                        kw_oper[kw_op_index] = "AND";
                         kw_op_index++;
-                        kw_slice_amount=5;
+                        kw_slice_amount = 5;
                     }
                 }
 
 
-
                 //console.log("First space found at: "+kw_pos_1.toString());
 
-                if (kw_mto===true) {
+                if (kw_mto === true) {
                     var kw_length = kw.length;
                     var o = 0;
                     do {
 
                         kw_word[o] = kw.slice(kw_pos_0, kw_pos_1);
-                        console.log("Slicing from "+kw_pos_0.toString()+" to "+kw_pos_1.toString());
+                        console.log("Slicing from " + kw_pos_0.toString() + " to " + kw_pos_1.toString());
                         kw_length = kw.length;
                         kw = kw.slice(kw_pos_1 + kw_slice_amount, kw_length);
                         kw_pos_0 = 0;
@@ -258,24 +255,24 @@ angular.module('myApp.searchProjectsView', ['ngRoute'])
 
                         if (kw_pos_temp > 9999 && kw_pos_temp2 > 9999) {
                             kw_pos_1 = kw.indexOf(" ");
-                            if (kw_pos_1!==-1) {
-                                kw_oper[kw_op_index]="OR";
+                            if (kw_pos_1 !== -1) {
+                                kw_oper[kw_op_index] = "OR";
                                 kw_op_index++;
-                                kw_slice_amount=1;
+                                kw_slice_amount = 1;
                             }
                         }
                         else {
                             if (kw_pos_temp < kw_pos_temp2) {
                                 kw_pos_1 = kw_pos_temp;
-                                kw_oper[kw_op_index]="OR";
+                                kw_oper[kw_op_index] = "OR";
                                 kw_op_index++;
-                                kw_slice_amount=4;
+                                kw_slice_amount = 4;
                             }
                             else {
                                 kw_pos_1 = kw_pos_temp2;
-                                kw_oper[kw_op_index]="AND";
+                                kw_oper[kw_op_index] = "AND";
                                 kw_op_index++;
-                                kw_slice_amount=5;
+                                kw_slice_amount = 5;
                             }
                         }
 
@@ -293,7 +290,7 @@ angular.module('myApp.searchProjectsView', ['ngRoute'])
                             if (kw_pos_temp === -1) {
                                 kw_ok = true;
                                 o++;
-                                kw_word[o]=kw;
+                                kw_word[o] = kw;
                                 console.log("Word " + (o + 1).toString() + ": |" + kw_word[o] + "|");
                             }
                             else {
@@ -302,12 +299,12 @@ angular.module('myApp.searchProjectsView', ['ngRoute'])
                         }
                     }
                     while (kw_ok === false)
-                    console.log("Words found: "+(o+1).toString());
+                    console.log("Words found: " + (o + 1).toString());
                 }
                 else {
-                    kw_word[0]=kw;
+                    kw_word[0] = kw;
                     console.log("Words found: 1");
-                    console.log("Word found is: "+kw_word[0]);
+                    console.log("Word found is: " + kw_word[0]);
                 }
             }
             else {
@@ -315,11 +312,11 @@ angular.module('myApp.searchProjectsView', ['ngRoute'])
             }
 
             //ricerca x città
-            var checkCityword=false;
-            var ct="";
-            ct=document.getElementById("searchCity").value;
-            if (ct!=="") { //checca solo se hei scritto qualcosa nel campo
-                checkCityword=true;
+            var checkCityword = false;
+            var ct = "";
+            ct = document.getElementById("searchCity").value;
+            if (ct !== "") { //checca solo se hei scritto qualcosa nel campo
+                checkCityword = true;
                 console.log("checkCity=true");
                 console.log("cityword is: " + ct);
             }
@@ -327,102 +324,193 @@ angular.module('myApp.searchProjectsView', ['ngRoute'])
                 console.log("checkCity=false");
             }
 
+            //ricerca x genere
+            var filterByGenre = false;
 
-            //step34 checca il ruolo che stanno cercando (per ora commentato)
-            var filterByRole=false;
-            /*
-            var includeAnim=false;
+            var includeAct = false;
+            if (document.getElementById("checkAct").checked) {
+                filterByGenre = true;
+                includeAct = true;
+            }
+            var includeAni = false;
+            if (document.getElementById("checkAni").checked) {
+                filterByGenre = true;
+                includeAni = true;
+            }
+            var includeDra = false;
+            if (document.getElementById("checkDra").checked) {
+                filterByGenre = true;
+                includeDra = true;
+            }
+            var includeCom = false;
+            if (document.getElementById("checkCom").checked) {
+                filterByGenre = true;
+                includeCom = true;
+            }
+            var includeEro = false;
+            if (document.getElementById("checkEro").checked) {
+                filterByGenre = true;
+                includeEro = true;
+            }
+            var includeHis = false;
+            if (document.getElementById("checkHis").checked) {
+                filterByGenre = true;
+                includeHis = true;
+            }
+            var includeHor = false;
+            if (document.getElementById("checkHor").checked) {
+                filterByGenre = true;
+                includeHor = true;
+            }
+            var includeMar = false;
+            if (document.getElementById("checkMar").checked) {
+                filterByGenre = true;
+                includeMar = true;
+            }
+            var includeMus = false;
+            if (document.getElementById("checkMus").checked) {
+                filterByGenre = true;
+                includeMus = true;
+            }
+            var includeRom = false;
+            if (document.getElementById("checkRom").checked) {
+                filterByGenre = true;
+                includeRom = true;
+            }
+            var includeSci = false;
+            if (document.getElementById("checkSci").checked) {
+                filterByGenre = true;
+                includeSci = true;
+            }
+            var includeWar = false;
+            if (document.getElementById("checkWar").checked) {
+                filterByGenre = true;
+                includeWar = true;
+            }
+            var includeWes = false;
+            if (document.getElementById("checkWes").checked) {
+                filterByGenre = true;
+                includeWes = true;
+            }
+
+
+            //step34 checca il ruolo che stanno cercando
+            var filterByRole = false;
+
+            var includeAnim = false;
             if (document.getElementById("checkAnim").checked) {
-                filterByRole=true;
-                includeAnim=true;
+                filterByRole = true;
+                includeAnim = true;
             }
-            var includeAudio=false;
+            var includeAudio = false;
             if (document.getElementById("checkAudio").checked) {
-                filterByRole=true;
-                includeAudio=true;
+                filterByRole = true;
+                includeAudio = true;
             }
-            var includeDP=false;
+            var includeDP = false;
             if (document.getElementById("checkDP").checked) {
-                filterByRole=true;
-                includeDP=true;
+                filterByRole = true;
+                includeDP = true;
             }
-            var includeArt=false;
+            var includeArt = false;
             if (document.getElementById("checkArt").checked) {
-                filterByRole=true;
-                includeArt=true;
+                filterByRole = true;
+                includeArt = true;
             }
-            var includeDirect=false;
+            var includeDirect = false;
             if (document.getElementById("checkDirect").checked) {
-                filterByRole=true;
-                includeDirect=true;
+                filterByRole = true;
+                includeDirect = true;
             }
 
-            var includeGraphic=false;
+            var includeGraphic = false;
             if (document.getElementById("checkGraphicDes").checked) {
-                filterByRole=true;
-                includeGraphic=true;
+                filterByRole = true;
+                includeGraphic = true;
             }
-            var includeLight=false;
+            var includeLight = false;
             if (document.getElementById("checkLight").checked) {
-                filterByRole=true;
-                includeLight=true;
+                filterByRole = true;
+                includeLight = true;
             }
-            var includePhot=false;
+            var includePhot = false;
             if (document.getElementById("checkPhot").checked) {
-                filterByRole=true;
-                includePhot=true;
+                filterByRole = true;
+                includePhot = true;
             }
-            var includePost=false;
+            var includePost = false;
             if (document.getElementById("checkPostProd").checked) {
-                filterByRole=true;
-                includePost=true;
+                filterByRole = true;
+                includePost = true;
             }
-            var includeProd=false;
+            var includeProd = false;
             if (document.getElementById("checkProducers").checked) {
-                filterByRole=true;
-                includeProd=true;
+                filterByRole = true;
+                includeProd = true;
             }
-            var includeFX=false;
+            var includeFX = false;
             if (document.getElementById("checkFX").checked) {
-                filterByRole=true;
-                includeFX=true;
+                filterByRole = true;
+                includeFX = true;
             }
-            var includeStyle=false;
+            var includeStyle = false;
             if (document.getElementById("checkStyle").checked) {
-                filterByRole=true;
-                includeStyle=true;
+                filterByRole = true;
+                includeStyle = true;
             }
-            var includeCast=false;
+            var includeCast = false;
             if (document.getElementById("checkCast").checked) {
-                filterByRole=true;
-                includeCast=true;
+                filterByRole = true;
+                includeCast = true;
             }
-            var includeActor=false;
+            var includeActor = false;
             if (document.getElementById("checkActor").checked) {
-                filterByRole=true;
-                includeActor=true;
+                filterByRole = true;
+                includeActor = true;
             }
-            */
+
+
+            //ricerca x status progress
+            var filterByProgress = false;
+
+            var includeYet = false;
+            if (document.getElementById("checkYet").checked) {
+                filterByProgress = true;
+                includeYet = true;
+            }
+            var includeHold = false;
+            if (document.getElementById("checkHold").checked) {
+                filterByProgress = true;
+                includeHold = true;
+            }
+            var includeComp = false;
+            if (document.getElementById("checkComp").checked) {
+                filterByProgress = true;
+                includeComp = true;
+            }
+            var includeProg = false;
+            if (document.getElementById("checkProg").checked) {
+                filterByProgress = true;
+                includeProg = true;
+            }
+
 
             //parte il coso per davvero
-            var length=$scope.allProjects.length;
-            var j=0;
+            var length = $scope.allProjects.length;
+            var j = 0;
             console.log("Fin qua siamo arrivati");
-            for(var i=0; i<length; i++){ //si scorre tutto l'array
-
-                resultIsOkFlag=false;
+            for (var i = 0; i < length; i++) { //si scorre tutto l'array
 
                 /*
-                if ($scope.allProjects[i].$id === $scope.profile.$id) {
-                    console.log("SELF SKIPPED");
-                    i++;
-                    if (i>=length) {break;}
-                }
-                */
+                 if ($scope.allProjects[i].$id === $scope.profile.$id) {
+                 console.log("SELF SKIPPED");
+                 i++;
+                 if (i>=length) {break;}
+                 }
+                 */
 
 
-
-                if (checkKeyword===true) {
+                if (checkKeyword === true) {
                     var kw_Found = false;
                     var kw_Found_Vector = [false, false, false, false, false, false, false, false, false, false];
                     //le singole parole sono tra di loro filtri OR (per ora), ma la keyword è un AND con gli altri campi!!!!
@@ -434,28 +522,32 @@ angular.module('myApp.searchProjectsView', ['ngRoute'])
                     }
                     var kw_trueLen = p - 1;
 
+                    var xyz = "";
+
                     for (p = 0; p <= kw_trueLen; p++) {
                         //prima cerca nel titolo
-                        var xyz=$scope.allProjects[i].title.toLowerCase().search(kw_word[p].toLowerCase());
-                        if (xyz!==-1) {
+                        xyz = $scope.allProjects[i].title.toLowerCase().search(kw_word[p].toLowerCase());
+                        if (xyz !== -1) {
                             kw_Found_Vector[p] = true;
                             //break;
                         }
                         else {
                             //poi cerca nella descrizione
-                            if (kw_word[p].toLowerCase() == $scope.allProjects[i].description.toLowerCase()) {
+                            xyz = $scope.allProjects[i].description.toLowerCase().search(kw_word[p].toLowerCase());
+                            if (xyz !== -1) {
                                 kw_Found_Vector[p] = true;
                                 //break;
                             }
                             else {
-                                //già che ci siamo cerca anche nel genere
+                                //già che ci siamo cerca anche nel genere (il nome deve essere preciso qua)
                                 if (kw_word[p].toUpperCase() == $scope.allProjects[i].genre.toUpperCase()) {
                                     kw_Found_Vector[p] = true;
                                     //break;
                                 }
                                 else {
                                     //e perché no guarda anche la città
-                                    if (kw_word[p].toLowerCase() == $scope.allProjects[i].city.toLowerCase()) {
+                                    xyz = $scope.allProjects[i].city.toLowerCase().search(kw_word[p].toLowerCase());
+                                    if (xyz !== -1) {
                                         kw_Found_Vector[p] = true;
                                         //break;
                                     }
@@ -467,25 +559,31 @@ angular.module('myApp.searchProjectsView', ['ngRoute'])
 
                     //arrivati a questo punto lui ha messo in kw_Found_Vector vero o falso se ha trovato le singole parole
                     //adesso gli butto dentro un check coi filtri OR e AND (kw_oper[n])per vedere che siano rispettate tutte le condizioni booleane
-                    if (kw_trueLen===0) {
-                        if (kw_Found_Vector[0]===true) {kw_Found = true;}
-                         //caso in cui hai una sola keyword, senza stare a farsi troppe seghe mentali sugli operatori
+                    if (kw_trueLen === 0) {
+                        if (kw_Found_Vector[0] === true) {
+                            kw_Found = true;
+                        }
+                        //caso in cui hai una sola keyword, senza stare a farsi troppe seghe mentali sugli operatori
                     }
                     else {
                         //questa matrice è incredibilmente inefficiente, ma non mi viene in mente nessun altra soluzione
 
-                        console.log("Sto partendo a verificare per "+$scope.allProjects[i].name+" "+$scope.allProjects[i].lastName+"..");
+                        console.log("Sto partendo a verificare per " + $scope.allProjects[i].name + " " + $scope.allProjects[i].lastName + "..");
 
-                        var kw_Boolean_Group= [[],[],[],[],[],[],[],[],[],[]];
+                        var kw_Boolean_Group = [[], [], [], [], [], [], [], [], [], []];
 
-                        var kwb_riga=0;
-                        var kwb_groups=0;
+                        var kwb_riga = 0;
+                        var kwb_groups = 0;
 
                         //compila la matrice
                         for (p = 0; p <= kw_trueLen; p++) {
                             kw_Boolean_Group[kwb_riga].push(p)
-                            if (kw_oper[p]==="OR") {kwb_riga++; kwb_groups++;}
-                            else {}
+                            if (kw_oper[p] === "OR") {
+                                kwb_riga++;
+                                kwb_groups++;
+                            }
+                            else {
+                            }
                         }
 
                         //facciamogliela stampare per controllare
@@ -502,14 +600,15 @@ angular.module('myApp.searchProjectsView', ['ngRoute'])
 
                         //a questo punto controlla veramente le condizioni
 
-                        var kwb_Verified_Flag=true;
+                        var kwb_Verified_Flag = true;
 
-                        for (var ppp = 0; ppp<=kwb_groups; ppp++) {
-                            kwb_Verified_Flag=true;
+                        for (var ppp = 0; ppp <= kwb_groups; ppp++) {
+                            kwb_Verified_Flag = true;
 
-                            if (kw_Boolean_Group[ppp].length==0) {
+                            if (kw_Boolean_Group[ppp].length == 0) {
                                 console.log("Breaking cycle due to insufficient length...");
-                                break;}
+                                break;
+                            }
                             else {
 
                                 for (var q = 0; q <= kw_Boolean_Group[ppp].length - 1; q++) {
@@ -522,354 +621,201 @@ angular.module('myApp.searchProjectsView', ['ngRoute'])
 
                                 if (kwb_Verified_Flag === true) { //se è verificato uno qualsiasi degli OR, allora è tutto vero!
                                     console.log("Boolean Block #" + ppp.toString() + " is all true!");
-                                    console.log("Quindi l'utente "+$scope.allProjects[i].name+" "+$scope.allProjects[i].lastName+" dovrebbe essere a posto!");
+                                    console.log("Quindi l'utente " + $scope.allProjects[i].name + " " + $scope.allProjects[i].lastName + " dovrebbe essere a posto!");
                                     kw_Found = true;
                                     break;
                                 }
                                 else {
                                     console.log("Going to the following block...");
-                                    console.log("KWB GROUPS: "+kwb_groups.toString());
+                                    console.log("KWB GROUPS: " + kwb_groups.toString());
                                 }
                             }
                         }
                     }
-
-
-                    if (filterByRole===false && kw_Found===true) {
-                        $scope.filterSearch[j] = $scope.allProjects[i];
-                        j++;
-                    }
                 }
 
-                if (checkCityword===true && (kw_Found===true || checkKeyword===false)) {
-                    var ct_Found=false;
+                if (checkCityword === true && (kw_Found === true || checkKeyword === false)) {
+                    var ct_Found = false;
 
                     if (ct.toUpperCase() == $scope.allProjects[i].city.toUpperCase()) {
                         ct_Found = true;
                         //break;
                     }
 
-
-                    if (ct_Found===true && filterByRole===false) {
-                        $scope.filterSearch[j] = $scope.allProjects[i];
-                        j++;
-                    }
-
                 }
 
-                if (filterByRole===true && (kw_Found===true || checkKeyword===false)) { //la condizione "kw_Found===true" serve perché essendo la keyword un AND, se non corrisponde la keyword non sta a verificare il resto
+                if (filterByGenre === true && (kw_Found === true || checkKeyword === false) && (ct_Found === true || checkCityword === false)) {
+                    var gen_Found = false;
+                    console.log("filterByGenre? = true!");
+                    var gen_g = $scope.allProjects[i].genre;
+                    if (gen_g === "Action" && includeAct === true) {
+                        gen_Found = true;
+                    }
+                    if (gen_g === "Action" && includeAct === true) {
+                        gen_Found = true;
+                    }
+                    if (gen_g === "Animation" && includeAni === true) {
+                        gen_Found = true;
+                    }
+                    if (gen_g === "Comedy" && includeCom === true) {
+                        gen_Found = true;
+                    }
+                    if (gen_g === "Drama" && includeDra === true) {
+                        gen_Found = true;
+                    }
+                    if (gen_g === "Erotic" && includeEro === true) {
+                        gen_Found = true;
+                    }
+                    if ((gen_g === "Historical" || gen_g === "Hystorical") && includeHis === true) {
+                        gen_Found = true;
+                    }
+                    if (gen_g === "Horror" && includeHor === true) {
+                        gen_Found = true;
+                    }
+                    if (gen_g === "Martial Arts" && includeMar === true) {
+                        gen_Found = true;
+                    }
+                    if (gen_g === "Musical" && includeMus === true) {
+                        gen_Found = true;
+                    }
+                    if (gen_g === "Romance" && includeRom === true) {
+                        gen_Found = true;
+                    }
+                    if (gen_g === "Sci" && includeSci === true) {
+                        gen_Found = true;
+                    }
+                    if (gen_g === "War" && includeWar === true) {
+                        gen_Found = true;
+                    }
+                    if (gen_g === "Western" && includeWes === true) {
+                        gen_Found = true;
+                    }
+                }
 
-                    console.log("filterByRole? = true!");
+                if (filterByRole === true && (kw_Found === true || checkKeyword === false)) { //la condizione "kw_Found===true" serve perché essendo la keyword un AND, se non corrisponde la keyword non sta a verificare il resto
 
-                    var roles = $scope.allProjects[i].roles;
+                    var rl_Found=false;
+
+                    console.log("filterByRoleNeeded? = true!");
+                    console.log("searching vacant roles in: "+$scope.allProjects[i].title);
+
+                    var roles = $scope.allProjects[i].rolesNeeded;
                     var rl = roles.length;
 
                     for (var n = 0; n < rl; n++) {
+
+
                         if (includeAnim === true && roles[n] === "Animation") {
-                            $scope.filterSearch[j] = $scope.allProjects[i];
-                            j++;
-                            resultIsOkFlag = true;
+                            rl_Found = true;
                             break;
                         }
                         if (includeAudio === true && roles[n] === "Audio/Music/Sound") {
-                            $scope.filterSearch[j] = $scope.allProjects[i];
-                            j++;
-                            resultIsOkFlag = true;
+                            rl_Found = true;
                             break;
                         }
                         if (includeDP === true && roles[n] === "Camera Crew/DP") {
-                            $scope.filterSearch[j] = $scope.allProjects[i];
-                            j++;
-                            resultIsOkFlag = true;
+                            rl_Found = true;
                             break;
                         }
                         if (includeArt === true && roles[n] === "Crew art/Design/Scenic/Construction") {
-                            $scope.filterSearch[j] = $scope.allProjects[i];
-                            j++;
-                            resultIsOkFlag = true;
+                            rl_Found = true;
                             break;
                         }
                         if (includeDirect === true && roles[n] === "Director") {
-                            $scope.filterSearch[j] = $scope.allProjects[i];
-                            j++;
-                            resultIsOkFlag = true;
+                            rl_Found = true;
                             break;
                         }
                         if (includeLight === true && roles[n] === "Lighting/Electric") {
-                            $scope.filterSearch[j] = $scope.allProjects[i];
-                            j++;
-                            resultIsOkFlag = true;
+                            rl_Found = true;
                             break;
                         }
                         if (includeGraphic === true && roles[n] === "Graphic designer") {
-                            $scope.filterSearch[j] = $scope.allProjects[i];
-                            j++;
-                            resultIsOkFlag = true;
+                            rl_Found = true;
                             break;
                         }
                         if (includePost === true && roles[n] === "Post Production People") {
-                            $scope.filterSearch[j] = $scope.allProjects[i];
-                            j++;
-                            resultIsOkFlag = true;
+                            rl_Found = true;
                             break;
                         }
                         if (includeProd === true && roles[n] === "Producers") {
-                            $scope.filterSearch[j] = $scope.allProjects[i];
-                            j++;
-                            resultIsOkFlag = true;
+                            console.log("Producers needed here.");
+                            rl_Found = true;
                             break;
                         }
                         if (includeFX === true && roles[n] === "Special Effects Crew") {
-                            $scope.filterSearch[j] = $scope.allProjects[i];
-                            j++;
-                            resultIsOkFlag = true;
+                            rl_Found = true;
                             break;
                         }
                         if (includeStyle === true && roles[n] === "Stylist/Vanities") {
-                            $scope.filterSearch[j] = $scope.allProjects[i];
-                            j++;
-                            resultIsOkFlag = true;
+                            rl_Found = true;
                             break;
                         }
                         if (includeCast === true && roles[n] === "Talent/Casting - People") {
-                            $scope.filterSearch[j] = $scope.allProjects[i];
-                            j++;
-                            resultIsOkFlag = true;
+                            rl_Found = true;
                             break;
                         }
                         if (includeActor === true && roles[n] === "Talent/Actors") {
-
-                            var age_is_ok = false;
-
-                            //step 97 cecca l'età
-                            var actorAgeMin = $scope.slider3.minValue;
-                            var actorAgeMax = $scope.slider3.maxValue;
-
-                            console.log("Age: " + actorAgeMin + " - " + actorAgeMax);
-
-                            var ageString = $scope.allProjects[i].dateOfBirth;
-                            var ageStringYear = ageString.slice(0, 4);
-                            var ageIntYear = parseInt(ageStringYear);
-                            var ageStringMonth = ageString.slice(5, 7);
-                            var ageIntMonth = parseInt(ageStringMonth);
-                            var ageStringDay = ageString.slice(8, 10);
-                            var ageIntDay = parseInt(ageStringDay);
-
-                            var actorAge = ageIntDay + (ageIntMonth * 30) + (ageIntYear * 365);
-
-
-                            var today = new Date();
-                            var dd = today.getDate();
-                            var mm = today.getMonth()+1; //January is 0!
-                            var yyyy = today.getFullYear();
-
-                            console.log ("Date con la function: "+dd+"/"+mm+"/"+yyyy)
-
-
-                            var currentDate = dd + (mm * 30) + (yyyy * 365);
-
-
-                            var trueActorAge = currentDate - actorAge;
-
-                            if (trueActorAge >= (actorAgeMin * 365) && trueActorAge <= (actorAgeMax * 365)) {
-                                age_is_ok = true;
-                            }
-                            if (age_is_ok===true) {
-                            if (skipSex === true && skipEtn === true) {
-                                $scope.filterSearch[j] = $scope.allProjects[i];
-                                j++;
-                                resultIsOkFlag = true;
-                                break;
-                            }
-
-                            else {
-                                if (skipSex == false && skipEtn == true) {
-                                    if (includeF === true) {
-                                        if ($scope.allProjects[i].gender === "female") {
-                                            if (actorANDetn === false) {
-                                                $scope.filterSearch[j] = $scope.allProjects[i];
-                                                j++;
-                                                resultIsOkFlag = true;
-                                                break;
-                                            }
-                                        }
-                                    }
-
-                                    if (includeM === true) {
-                                        if ($scope.allProjects[i].gender === "male") {
-                                            if (actorANDetn === false) {
-                                                $scope.filterSearch[j] = $scope.allProjects[i];
-                                                j++;
-                                                resultIsOkFlag = true;
-                                                break;
-                                            }
-                                        }
-                                    }
-                                }
-                                else {
-                                    if (skipSex === true && skipEtn === false) {
-                                        if (includeCau === true) {
-                                            if ($scope.allProjects[i].race === "Caucasian") {
-                                                $scope.filterSearch[j] = $scope.allProjects[i];
-                                                j++;
-                                                resultIsOkFlag = true;
-                                                break;
-                                            }
-                                        }
-                                        if (includeLat === true) {
-                                            if ($scope.allProjects[i].race === "Hispanic") {
-                                                $scope.filterSearch[j] = $scope.allProjects[i];
-                                                j++;
-                                                resultIsOkFlag = true;
-                                                break;
-                                            }
-                                        }
-                                        if (includeSAs === true) {
-                                            if ($scope.allProjects[i].race === "South_Asian") {
-                                                $scope.filterSearch[j] = $scope.allProjects[i];
-                                                j++;
-                                                resultIsOkFlag = true;
-                                                break;
-                                            }
-                                        }
-                                        if (includeNat === true) {
-                                            if ($scope.allProjects[i].race === "Native_American") {
-                                                $scope.filterSearch[j] = $scope.allProjects[i];
-                                                j++;
-                                                resultIsOkFlag = true;
-                                                break;
-                                            }
-                                        }
-                                        if (includeAfr === true) {
-                                            if ($scope.allProjects[i].race === "African") {
-                                                $scope.filterSearch[j] = $scope.allProjects[i];
-                                                j++;
-                                                resultIsOkFlag = true;
-                                                break;
-                                            }
-                                        }
-                                        if (includeSEA === true) {
-                                            if ($scope.allProjects[i].race === "South_East_Asian") {
-                                                $scope.filterSearch[j] = $scope.allProjects[i];
-                                                j++;
-                                                resultIsOkFlag = true;
-                                                break;
-                                            }
-                                        }
-                                        if (includeMid === true) {
-                                            if ($scope.allProjects[i].race === "Middle_Eastern") {
-                                                $scope.filterSearch[j] = $scope.allProjects[i];
-                                                j++;
-                                                resultIsOkFlag = true;
-                                                break;
-                                            }
-                                        }
-                                        if (includeAmb === true) {
-                                            if ($scope.allProjects[i].race === "Mixed") {
-                                                $scope.filterSearch[j] = $scope.allProjects[i];
-                                                j++;
-                                                resultIsOkFlag = true;
-                                                break;
-                                            }
-                                        }
-
-                                    }
-                                    else {
-                                        var sex_is_ok = false;
-                                        var race_is_ok = false;
-                                        if (includeF === true) {
-                                            if ($scope.allProjects[i].gender === "female") {
-                                                sex_is_ok = true;
-                                            }
-                                        }
-
-                                        if (includeM === true) {
-                                            if ($scope.allProjects[i].gender === "male") {
-                                                sex_is_ok = true;
-                                            }
-                                        }
-
-                                        if (sex_is_ok === true) {
-                                            if (includeCau === true) {
-                                                if ($scope.allProjects[i].race === "Caucasian") {
-                                                    race_is_ok = true;
-                                                }
-                                            }
-                                            if (includeLat === true) {
-                                                if ($scope.allProjects[i].race === "Hispanic") {
-                                                    race_is_ok = true;
-                                                }
-                                            }
-                                            if (includeSAs === true) {
-                                                if ($scope.allProjects[i].race === "South_Asian") {
-                                                    race_is_ok = true;
-                                                }
-                                            }
-                                            if (includeNat === true) {
-                                                if ($scope.allProjects[i].race === "Native_American") {
-                                                    race_is_ok = true;
-                                                }
-                                            }
-                                            if (includeAfr === true) {
-                                                if ($scope.allProjects[i].race === "African") {
-                                                    race_is_ok = true;
-                                                }
-                                            }
-                                            if (includeSEA === true) {
-                                                if ($scope.allProjects[i].race === "South_East_Asian") {
-                                                    race_is_ok = true;
-                                                }
-                                            }
-                                            if (includeMid === true) {
-                                                if ($scope.allProjects[i].race === "Middle_Eastern") {
-                                                    race_is_ok = true;
-                                                }
-                                            }
-                                            if (includeAmb === true) {
-                                                if ($scope.allProjects[i].race === "Mixed") {
-                                                    race_is_ok = true;
-                                                }
-                                            }
-                                        }
-
-                                        if (sex_is_ok === true && race_is_ok === true) {
-                                            $scope.filterSearch[j] = $scope.allProjects[i];
-                                            j++;
-                                            resultIsOkFlag = true;
-                                            break;
-                                        }
-                                    }
-                                }
-                            }
-
-
+                            rl_Found = true;
+                            break;
                         }
+
                     }
 
+                    if (rl_Found===true) {
+                        console.log("Found Role in this project");
                     }
 
                 }
 
-                if (resultIsOkFlag==true) {
-                    console.log($scope.allProjects[i].title);
-                    console.log(roles);
+                if (filterByProgress === true && (kw_Found === true || checkKeyword === false)) {
+                    var prg_Found = false;
+                    console.log("filterByProgress? = true!");
+                    var prg_p=$scope.allProjects[i].progress;
+                    if (prg_p === "Yet to start" && includeYet === true) {
+                        prg_Found = true;
+                    }
+                    if (prg_p === "Completed" && includeComp === true) {
+                        prg_Found = true;
+                    }
+                    if (prg_p === "On Hold" && includeHold === true) {
+                        prg_Found = true;
+                    }
+                    if (prg_p === "In Progress" && includeProg === true) {
+                        prg_Found = true;
+                    }
+
+                }
+
+
+                //check finale, se corrisponde tutto allora aggiungi a filterSearch (dovrei fare così anke per la crew, prima o poi lo farò)
+                //CORRENTI: Keyword, City, Genre, Needed Roles, Progress State
+                if ((kw_Found === true || checkKeyword === false) &&
+                    (ct_Found === true || checkCityword === false) &&
+                    (gen_Found === true || filterByGenre === false) &&
+                    (rl_Found === true || filterByRole === false) &&
+                    (prg_Found === true || filterByProgress === false)) {
+
+                    $scope.filterSearch[j] = $scope.allProjects[i];
+                    j++;
+                    console.log($scope.allProjects[i].title + "added to results.");
                 }
 
                 //ricerca di prova in base al nome TENIAMOLA LI'
                 /*
-                if($scope.allProjects[i].name==="Branda"){
-                    arr[j]=$scope.allProjects[i];
-                    $scope.filterSearch[j]=$scope.allProjects[i];
-                    console.log($scope.filterSearch[j]);
-                    j++;
-                }
-                */
+                 if($scope.allProjects[i].name==="Branda"){
+                 arr[j]=$scope.allProjects[i];
+                 $scope.filterSearch[j]=$scope.allProjects[i];
+                 console.log($scope.filterSearch[j]);
+                 j++;
+                 }
+                 */
 
             }
 
             document.body.scrollTop = 0;
 
         };
+
 
         $scope.logout = function () {
             Users.registerLogout(currentAuth.uid);
