@@ -140,8 +140,26 @@ angular.module('myApp.searchPageView', ['ngRoute'])
             $scope.error=error;
         });
 
+        $scope.removeUserFromFriends=function(friendToRemove){
+            console.log("$scope.profile.friends.indexOf(friendToRemove: "+$scope.profile.friends.indexOf(friendToRemove));
+            $scope.profile.friends.splice($scope.profile.friends.indexOf(friendToRemove),1);
+            $scope.profile.$save();
+            console.log("trouper eliminato: "+friendToRemove);
+
+            //lo elimino anche dall'altro?
+            $scope.otherUser = $firebaseObject(database.ref('users/' + friendToRemove));
+            $scope.otherUser.$loaded().then(function () {
+                $scope.otherUser.friends.splice($scope.otherUser.friends.indexOf(UID),1);
+                $scope.otherUser.$save();
+                console.log("trouper eliminato dall'amico: "+UID);
+            }).catch(function (error) {
+                $scope.error = error;
+            });
+        };
+
         $scope.addUserToFriends=function(otherUserID){
             if($scope.profile.friends.indexOf(otherUserID)<0) {
+                $scope.alreadyFriend = false;
                 $scope.otherUser = $firebaseObject(database.ref('users/' + otherUserID));
                 $scope.otherUser.$loaded().then(function () {
                     //aggiorno il vettore anche nell'amico
@@ -158,7 +176,15 @@ angular.module('myApp.searchPageView', ['ngRoute'])
                     $scope.error = error;
                 });
             }
-            else console.log("trouper già inserito");
+            else {
+                $scope.alreadyFriend = true;
+                $scope.otherUser = $firebaseObject(database.ref('users/' + otherUserID));
+                $scope.otherUser.$loaded().then(function () {
+                    console.log("trouper già inserito");
+                }).catch(function (error) {
+                    $scope.error = error;
+                });
+            }
         };
 
         $scope.launchSearch = function () {

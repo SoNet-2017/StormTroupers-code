@@ -95,6 +95,9 @@ angular.module('myApp.publicProfilePageView', ['ngRoute'])
         var UID = localStorage.UID;
         var database = firebase.database();
 
+        // UID dell'utente di cui si vuole vedere il profilo pubblico
+        var otherUserID = localStorage.otherUserID;
+
         $scope.profile = $firebaseObject(database.ref('users/' + UID));
         $scope.profile.$loaded().then(function () {
             var role = Object.values($scope.profile.roles);
@@ -104,13 +107,15 @@ angular.module('myApp.publicProfilePageView', ['ngRoute'])
                     document.getElementById("userRolesHome").innerHTML += ", ";
                 }
             }
+            if($scope.profile.friends.indexOf(otherUserID) < 0){
+                $scope.alreadyFriend = false;
+            } else {
+                $scope.alreadyFriend = true;
+            }
         }).catch(function (error) {
             $scope.error = error;
             //console.log("errore: "+error);
         });
-
-        // UID dell'utente di cui si vuole vedere il profilo pubblico
-        var otherUserID = localStorage.otherUserID;
 
         if(otherUserID !== UID)
             $scope.myPublicPage = false;
@@ -286,6 +291,22 @@ angular.module('myApp.publicProfilePageView', ['ngRoute'])
             });
         };
 
+        $scope.removeUserFromFriends=function(friendToRemove){
+            console.log("$scope.profile.friends.indexOf(friendToRemove: "+$scope.profile.friends.indexOf(friendToRemove));
+            $scope.profile.friends.splice($scope.profile.friends.indexOf(friendToRemove),1);
+            $scope.profile.$save();
+            console.log("trouper eliminato: "+friendToRemove);
+
+            //lo elimino anche dall'altro?
+            $scope.otherUser = $firebaseObject(database.ref('users/' + friendToRemove));
+            $scope.otherUser.$loaded().then(function () {
+                $scope.otherUser.friends.splice($scope.otherUser.friends.indexOf(UID),1);
+                $scope.otherUser.$save();
+                console.log("trouper eliminato dall'amico: "+UID);
+            }).catch(function (error) {
+                $scope.error = error;
+            });
+        };
 
         $scope.addUserToFriends = function (otherUserID) {
             if ($scope.profile.friends.indexOf(otherUserID) < 0) {
