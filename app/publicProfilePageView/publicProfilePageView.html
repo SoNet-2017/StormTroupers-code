@@ -5,7 +5,8 @@
             class="glyphicon glyphicon-home w3-large"></i></a>
     <a class="w3-bar-item w3-button" id="userLinkHome" ng-click="goToSearchCrew()"><i
             class="glyphicon glyphicon-user w3-large"></i> Search Crew</a>
-    <a class="w3-bar-item w3-button" id="projectsLinkHome" ng-click="goToSearchProjects()"><i class="glyphicon glyphicon-film w3-large"></i> Search Projects</a>
+    <a class="w3-bar-item w3-button" id="projectsLinkHome" ng-click="goToSearchProjects()"><i
+            class="glyphicon glyphicon-film w3-large"></i> Search Projects</a>
 
 
     <!--
@@ -35,7 +36,8 @@
     <div class="w3-bar-item w3-dropdown-click w3-right" id="logoBarHome" ng-click="showLogoItem()">
         {{profile.name}}
         <div class="w3-dropdown-content w3-bar-block w3-border w3-right" id="logoBarContentHome">
-            <a ng-click="goToMyPublicProfile()" class="w3-bar-item w3-button"><i class="glyphicon glyphicon-user w3-large"></i> Your Public
+            <a ng-click="goToMyPublicProfile()" class="w3-bar-item w3-button"><i
+                    class="glyphicon glyphicon-user w3-large"></i> Your Public
                 Profile</a>
             <a ng-click="goToEditProfile()" class="w3-bar-item w3-button"><i
                     class="glyphicon glyphicon-pencil w3-large"></i> Edit Profile</a>
@@ -44,9 +46,12 @@
     </div>
 
     <div id="logoBarImgContainerHome">
-        <img class="media-object" ng-src="../{{profile.img_url}}" alt="{{profile.img_alt}}" ng-if="!(profile.img_url.includes('https://firebasestorage.googleapis.com')) && profile.img_url!=''">
-        <img class="media-object" ng-src="{{profile.img_url}}" alt="{{profile.img_alt}}" ng-if="profile.img_url.includes('https://firebasestorage.googleapis.com')">
-        <img class="media-object" ng-src="../images/StormTroupersLogo.png" alt="{{profile.img_alt}}" ng-if="profile.img_url == ''">
+        <img class="media-object" ng-src="../{{profile.img_url}}" alt="{{profile.img_alt}}"
+             ng-if="!(profile.img_url.includes('https://firebasestorage.googleapis.com')) && profile.img_url!=''">
+        <img class="media-object" ng-src="{{profile.img_url}}" alt="{{profile.img_alt}}"
+             ng-if="profile.img_url.includes('https://firebasestorage.googleapis.com')">
+        <img class="media-object" ng-src="../images/StormTroupersLogo.png" alt="{{profile.img_alt}}"
+             ng-if="profile.img_url == ''">
     </div>
 
 </div>
@@ -57,14 +62,18 @@
         <p id="userRolesHome"></p>
         <p id="userCityHome"></p>
         <div id="userPhotoHome">
-            <img class="media-object" ng-src="../{{profile.img_url}}" alt="{{profile.img_alt}}" ng-if="!(profile.img_url.includes('https://firebasestorage.googleapis.com')) && profile.img_url!=''">
-            <img class="media-object" ng-src="{{profile.img_url}}" alt="{{profile.img_alt}}" ng-if="profile.img_url.includes('https://firebasestorage.googleapis.com')">
-            <img class="media-object" ng-src="../images/StormTroupersLogo.png" alt="{{profile.img_alt}}" ng-if="profile.img_url == ''">
+            <img class="media-object" ng-src="../{{profile.img_url}}" alt="{{profile.img_alt}}"
+                 ng-if="!(profile.img_url.includes('https://firebasestorage.googleapis.com')) && profile.img_url!=''">
+            <img class="media-object" ng-src="{{profile.img_url}}" alt="{{profile.img_alt}}"
+                 ng-if="profile.img_url.includes('https://firebasestorage.googleapis.com')">
+            <img class="media-object" ng-src="../images/StormTroupersLogo.png" alt="{{profile.img_alt}}"
+                 ng-if="profile.img_url == ''">
         </div>
         <br>
         <a ng-click="goToMyProjects()" class="w3-bar-item" id="userProjectHome">My Projects <i
                 class="glyphicon glyphicon-film w3-large"></i></a><br><br>
-        <a ng-click="goToMyTroupers(profile.$id)" class="w3-bar-item" id="userTroupeHome">My Troupers <i class="glyphicon glyphicon-user w3-large"></i></a><br><br>
+        <a ng-click="goToMyTroupers(profile.$id)" class="w3-bar-item" id="userTroupeHome">My Troupers <i
+                class="glyphicon glyphicon-user w3-large"></i></a><br><br>
         <a ng-click="goToEditProfile()" class="w3-bar-item" id="editProfileLinkHome">Edit Profile <i
                 class="glyphicon glyphicon-cog w3-large"></i></a>
     </div>
@@ -73,9 +82,48 @@
         <div id="profileGeneralInfoContainer" class="w3-container  w3-col l12 m12 s12 w3-card-2"
              style="background: linear-gradient(rgba(0,0,0,.5), rgba(0,0,0,.5));background-color:#333333;border-top-left-radius: 4mm;border-top-right-radius: 4mm;">
 
+            <!--MODAL PER MESSAGGI ASINCRONI-->
             <div class="modalContainer">
                 <!-- Modal -->
-                <div class="modal fade" id="myModal" role="dialog">
+                <div class="modal fade" id="myModalMessage" role="dialog">
+                    <div class="modal-dialog">
+
+                        <!-- Modal content-->
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                <h4 style="color:red;"><span class="glyphicon glyphicon-envelope"></span> Send a message to
+                                    <strong>{{otherUser.name}}</strong></h4>
+                            </div>
+                            <div class="modal-body">
+                                <form role="form">
+                                    <div class="form-group">
+                                        <label><span class="glyphicon glyphicon-user"></span> {{profile.name}} {{profile.lastName}}</label>
+                                        <input type="text" class="form-control" placeholder="Enter email" value="{{profile.email}}">
+                                    </div>
+                                    <div class="form-group">
+                                        <label><span class="glyphicon glyphicon-envelope"></span> Message:</label>
+                                        <input id="txtMessage" ng-model="dati.msg" type="text" class="form-control" placeholder="Write a message for {{otherUser.name}}">
+                                    </div>
+                                    <button type="submit" class="btn btn-default btn-success btn-block" data-dismiss="modal" ng-click="addMessage()">
+                                        <span class="glyphicon glyphicon-send"></span> Send
+                                    </button>
+                                </form>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="submit" class="btn btn-default btn-default pull-left" data-dismiss="modal">
+                                    <span class="glyphicon glyphicon-remove"></span> Cancel
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!--MODAL PER CONFERMA AMICIZIA/RIMOZIONE-->
+            <div class="modalContainer">
+                <!-- Modal -->
+                <div class="modal fade" id="myModalFriendRequest" role="dialog">
                     <div class="modal-dialog">
 
                         <!-- Modal content-->
@@ -103,9 +151,12 @@
             <span class="w3-left w3-animate-opacity"
                   style="margin-left: 20px; margin-bottom: 25px; width: 100%">
                 <div id="profilePicture">
-                    <img class="media-object" ng-src="../{{otherUser.img_url}}" alt="{{otherUser.img_alt}}" ng-if="!(otherUser.img_url.includes('https://firebasestorage.googleapis.com')) && otherUser.img_url!=''">
-                    <img class="media-object" ng-src="{{otherUser.img_url}}" alt="{{otherUser.img_alt}}" ng-if="otherUser.img_url.includes('https://firebasestorage.googleapis.com')">
-                    <img class="media-object" ng-src="../images/StormTroupersLogo.png" alt="{{otherUser.img_alt}}" ng-if="otherUser.img_url == ''">
+                    <img class="media-object" ng-src="../{{otherUser.img_url}}" alt="{{otherUser.img_alt}}"
+                         ng-if="!(otherUser.img_url.includes('https://firebasestorage.googleapis.com')) && otherUser.img_url!=''">
+                    <img class="media-object" ng-src="{{otherUser.img_url}}" alt="{{otherUser.img_alt}}"
+                         ng-if="otherUser.img_url.includes('https://firebasestorage.googleapis.com')">
+                    <img class="media-object" ng-src="../images/StormTroupersLogo.png" alt="{{otherUser.img_alt}}"
+                         ng-if="otherUser.img_url == ''">
                 </div>
 
             </span>
@@ -221,9 +272,12 @@
                 <ul class="w3-left" style="padding: 0px;">
                     <li ng-repeat="user in friends" style="display: inline-block; list-style: none; padding-top: 10px">
                         <a id="troupeUserImgLink" ng-click="goToPublicProfile(user.$id)">
-                            <img class="media-object w3-circle" ng-src="../{{user.img_url}}" alt="{{user.img_alt}}" ng-if="!(user.img_url.includes('https://firebasestorage.googleapis.com')) && user.img_url!=''">
-                            <img class="media-object w3-circle" ng-src="{{user.img_url}}" alt="{{user.img_alt}}" ng-if="user.img_url.includes('https://firebasestorage.googleapis.com')">
-                            <img class="media-object w3-circle" ng-src="../images/StormTroupersLogo.png" alt="{{user.img_alt}}" ng-if="user.img_url == ''">
+                            <img class="media-object w3-circle" ng-src="../{{user.img_url}}" alt="{{user.img_alt}}"
+                                 ng-if="!(user.img_url.includes('https://firebasestorage.googleapis.com')) && user.img_url!=''">
+                            <img class="media-object w3-circle" ng-src="{{user.img_url}}" alt="{{user.img_alt}}"
+                                 ng-if="user.img_url.includes('https://firebasestorage.googleapis.com')">
+                            <img class="media-object w3-circle" ng-src="../images/StormTroupersLogo.png"
+                                 alt="{{user.img_alt}}" ng-if="user.img_url == ''">
                         </a>
                         <!--<h4><a ng-click="goToPublicProfile(user)">{{user}}</a></h4>-->
                     </li>
@@ -245,7 +299,26 @@
              style="margin-top: 30px; padding-top: 20px; background: linear-gradient(rgba(0,0,0,.5), rgba(0,0,0,.5));">
             <div id="portfolioContainer" class="w3-container">
                 <h4>Portfolio</h4>
-
+                <ul style="list-style: none">
+                    <li>
+                        <div id="videoContainer" class="w3-col s12 m12 l12">
+                            <h4>Title</h4>
+                            <div class="w3-col s7 m7 l7">
+                                <iframe
+                                        src="https://www.youtube.com/embed/XGSy3_Czz8k">
+                                </iframe>
+                            </div>
+                            <div class="w3-col s4 m4 l4" style="color: white;">
+                                <h5>My roles:</h5>
+                                <ul>
+                                    <li ng-repeat="role in otherUser.roles">
+                                        {{role}}
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
             </div>
         </div>
         <br>
@@ -301,19 +374,20 @@
         </div>
         <div class="w3-row w3-col s1 m1 l1" ng-show="alreadyFriend">
             <div class="w3-tooltip">
-                <a ng-click="removeUserFromFriends(otherUser.$id)" data-toggle="modal" data-target="#myModal">
+                <a ng-click="removeUserFromFriends(otherUser.$id)" data-toggle="modal" data-target="#myModalFriendRequest">
                     <i class="glyphicon glyphicon-remove w3-xlarge w3-left"
                        style="color: white; cursor: pointer; padding-bottom: 20px;"></i>
                 </a>
                 <!--<h6 style="position:absolute;right:0;bottom:0px" class="w3-text w3-tag">Connect with {{otherUser.name}}</h6>-->
                 <h6 class="w3-center w3-text w3-tag"
-                    style="color: white; text-align: left; position:absolute;top: 0px; padding: 5px;">Remove {{otherUser.name}}</h6>
+                    style="color: white; text-align: left; position:absolute;top: 0px; padding: 5px;">Remove
+                    {{otherUser.name}}</h6>
             </div>
         </div>
         <br>
         <div class="w3-row w3-col s1 m1 l1">
             <div class="w3-tooltip">
-                <a ng-click="">
+                <a data-toggle="modal" data-target="#myModalMessage">
                     <i class="glyphicon glyphicon-send w3-xlarge w3-left"
                        style="color: white; cursor: pointer; padding-bottom: 20px;"></i>
                 </a>

@@ -18,15 +18,15 @@ angular.module('myApp.publicProfilePageView', ['ngRoute'])
         });
     }])
 
-    .controller('publicProfilePageViewCtrl', ['$scope', '$location', 'Auth', '$firebaseObject', 'Users', 'currentAuth', '$firebaseAuth', '$firebaseArray', function ($scope, $location, Auth, $firebaseObject, Users, currentAuth, $firebaseAuth, $firebaseArray) {
+    .controller('publicProfilePageViewCtrl', ['$scope', '$location', 'Auth', '$firebaseObject', 'Users', 'UsersChatService', 'currentAuth', '$firebaseAuth', '$firebaseArray', function ($scope, $location, Auth, $firebaseObject, Users, UsersChatService, currentAuth, $firebaseAuth, $firebaseArray) {
         $scope.dati = {};
         $scope.auth = Auth;
 
         $scope.countries = countries_list;
 
-        if(localStorage.otherUserID===localStorage.UID){
-            document.getElementById("profileFeedbackWriter").style.display="none";
-            document.getElementById("lateralLinks").style.display="none";
+        if (localStorage.otherUserID === localStorage.UID) {
+            document.getElementById("profileFeedbackWriter").style.display = "none";
+            document.getElementById("lateralLinks").style.display = "none";
         }
 
         $scope.showLogoItem = function () {
@@ -53,7 +53,7 @@ angular.module('myApp.publicProfilePageView', ['ngRoute'])
             $location.path("/searchPageView");
         };
 
-        $scope.goToSearchProjects=function () {
+        $scope.goToSearchProjects = function () {
             $location.path("/searchProjectsView");
         };
 
@@ -107,7 +107,7 @@ angular.module('myApp.publicProfilePageView', ['ngRoute'])
                     document.getElementById("userRolesHome").innerHTML += ", ";
                 }
             }
-            if($scope.profile.friends.indexOf(otherUserID) < 0){
+            if ($scope.profile.friends.indexOf(otherUserID) < 0) {
                 $scope.alreadyFriend = false;
             } else {
                 $scope.alreadyFriend = true;
@@ -117,7 +117,35 @@ angular.module('myApp.publicProfilePageView', ['ngRoute'])
             //console.log("errore: "+error);
         });
 
-        if(otherUserID !== UID)
+        // PER CHAT ASINCRONA CON UTENTI COL QUALE NON SEI AMICO
+        $scope.dati.userId = currentAuth.uid;
+
+        $scope.dati.recipientUserId = otherUserID;
+        $scope.dati.recipientUserInfo = UsersChatService.getUserInfo($scope.dati.recipientUserId);
+
+        $scope.orderProp = 'utctime';
+        $scope.dati.userInfo = UsersChatService.getUserInfo($scope.dati.userId);
+
+        //get messages from firebase
+        $scope.dati.messages = UsersChatService.getMessages();
+        //function that add a message on firebase
+        $scope.addMessage = function () {
+            $scope.textMessage = document.getElementById("txtMessage").value;
+            //console.log("mes che voglio inviare: " + $scope.textMessage);
+
+            //console.log("$scope.dati.userId: " + $scope.dati.userId);
+            //console.log("$scope.dati.userInfo.email: " + $scope.dati.userInfo.email);
+            //console.log("$scope.dati.userInfo.email: " + $scope.dati.recipientUserId);
+            //console.log("$scope.dati.msg: " + $scope.dati.msg);
+
+            //create the JSON structure that should be sent to Firebase
+            var newMessage = UsersChatService.createMessage($scope.dati.userId, $scope.dati.userInfo.email, $scope.dati.recipientUserId, $scope.dati.msg);
+            //console.log("newMessage.senderName: "+newMessage.senderName);
+            UsersChatService.addMessage(newMessage);
+            $scope.dati.msg = "";
+        };
+
+        if (otherUserID !== UID)
             $scope.myPublicPage = false;
         else
             $scope.myPublicPage = true;
@@ -149,16 +177,16 @@ angular.module('myApp.publicProfilePageView', ['ngRoute'])
 
             }
 
-            var feedbackContainer=document.getElementById("feedbackPar");
+            var feedbackContainer = document.getElementById("feedbackPar");
             var otherUserFeedback = Object.values($scope.otherUser.feedback);
-            for (var k=0; k<otherUserFeedback.length; k++){
-                var feedbackNotParsed=otherUserFeedback[k].split(':');
-                var feedbackAuthor=feedbackNotParsed[0];
-                var feedbackText=feedbackNotParsed[1];
-                var feedbackVote=feedbackNotParsed[2];
-                feedbackContainer.innerHTML+="<h5><strong>"+feedbackAuthor+"</strong></h5>"+feedbackText+"<p>"+"Vote: "+feedbackVote+"</p>";
-                if(k<otherUserFeedback.length-1){
-                    feedbackContainer.innerHTML+="<br\>";
+            for (var k = 0; k < otherUserFeedback.length; k++) {
+                var feedbackNotParsed = otherUserFeedback[k].split(':');
+                var feedbackAuthor = feedbackNotParsed[0];
+                var feedbackText = feedbackNotParsed[1];
+                var feedbackVote = feedbackNotParsed[2];
+                feedbackContainer.innerHTML += "<h5><strong>" + feedbackAuthor + "</strong></h5>" + feedbackText + "<p>" + "Vote: " + feedbackVote + "</p>";
+                if (k < otherUserFeedback.length - 1) {
+                    feedbackContainer.innerHTML += "<br\>";
                 }
             }
 
@@ -195,33 +223,33 @@ angular.module('myApp.publicProfilePageView', ['ngRoute'])
                     if ($scope.otherUser.followingProjects === undefined) {
 
                         var otherUserRef = $firebaseArray(database.ref('users/' + otherUserID));
-                        otherUserRef.$add({ followingProjects: followingProj }).then(function(otherUserRef) {
+                        otherUserRef.$add({followingProjects: followingProj}).then(function (otherUserRef) {
                         });
 
                         /*database.ref('users/' + otherUserID).update({
-                            name: $scope.otherUser.name,
-                            lastName: $scope.otherUser.lastName,
-                            phone: $scope.otherUser.phone,
-                            permissionToShowPhone: $scope.otherUser.permissionToShowPhone,
-                            gender: $scope.otherUser.gender,
-                            roles: $scope.otherUser.roles,
-                            race: $scope.otherUser.race,
+                         name: $scope.otherUser.name,
+                         lastName: $scope.otherUser.lastName,
+                         phone: $scope.otherUser.phone,
+                         permissionToShowPhone: $scope.otherUser.permissionToShowPhone,
+                         gender: $scope.otherUser.gender,
+                         roles: $scope.otherUser.roles,
+                         race: $scope.otherUser.race,
 
-                            country: $scope.otherUser.country,
-                            province: $scope.otherUser.province,
-                            city: $scope.otherUser.city,
-                            logged: $scope.otherUser.logged,
-                            car: $scope.otherUser.car,
-                            payment: $scope.otherUser.payment,
-                            description: $scope.otherUser.description,
-                            dateOfBirth: $scope.otherUser.dateOfBirth,
-                            friends: $scope.otherUser.friends,
-                            followingProjects: followingProj,
-                            email: $scope.otherUser.email,
-                            password: $scope.otherUser.password
-                        }).catch(function (error) {
-                            $scope.error = error;
-                        });*/
+                         country: $scope.otherUser.country,
+                         province: $scope.otherUser.province,
+                         city: $scope.otherUser.city,
+                         logged: $scope.otherUser.logged,
+                         car: $scope.otherUser.car,
+                         payment: $scope.otherUser.payment,
+                         description: $scope.otherUser.description,
+                         dateOfBirth: $scope.otherUser.dateOfBirth,
+                         friends: $scope.otherUser.friends,
+                         followingProjects: followingProj,
+                         email: $scope.otherUser.email,
+                         password: $scope.otherUser.password
+                         }).catch(function (error) {
+                         $scope.error = error;
+                         });*/
                     } else {
                         var length2 = $scope.otherUser.followingProjects.length;
                         //progetti che l'utente loggato segue/ha messo like
@@ -245,41 +273,41 @@ angular.module('myApp.publicProfilePageView', ['ngRoute'])
             console.log("sono in errore2: " + error);
         });
 
-        $scope.check=function(val){
+        $scope.check = function (val) {
             localStorage.setItem("numStars", val);
             $scope.checkStars();
         };
 
-        $scope.checkStars=function(){
+        $scope.checkStars = function () {
             var st = localStorage.getItem("numStars");
             var num = "star-" + st;
-            document.getElementById(num).checked=true;
+            document.getElementById(num).checked = true;
         };
 
-        $scope.addFeedback=function (otherUserID) {
-            $scope.otherUser=$firebaseObject(database.ref('users/'+otherUserID));
+        $scope.addFeedback = function (otherUserID) {
+            $scope.otherUser = $firebaseObject(database.ref('users/' + otherUserID));
             $scope.otherUser.$loaded().then(function () {
-                var feedback=document.getElementById("feedbackText").value;
-                var utenteFeedback=$scope.profile.name+" "+$scope.profile.lastName;
-                var votes=$scope.otherUser.votes.votes;
-                var total=$scope.otherUser.votes.total;
-                var n=parseInt(localStorage.getItem("numStars"));
-                var newVotes=parseInt(votes)+1;
-                var newTotal=parseInt(total)+n;
-                database.ref('users/'+otherUserID).update({
-                    votes:{
+                var feedback = document.getElementById("feedbackText").value;
+                var utenteFeedback = $scope.profile.name + " " + $scope.profile.lastName;
+                var votes = $scope.otherUser.votes.votes;
+                var total = $scope.otherUser.votes.total;
+                var n = parseInt(localStorage.getItem("numStars"));
+                var newVotes = parseInt(votes) + 1;
+                var newTotal = parseInt(total) + n;
+                database.ref('users/' + otherUserID).update({
+                    votes: {
                         votes: newVotes,
                         total: newTotal
                     }
                 }).then(function () {
-                    $scope.otherUser.feedback.push(utenteFeedback+":"+feedback+":"+n);
+                    $scope.otherUser.feedback.push(utenteFeedback + ":" + feedback + ":" + n);
                     $scope.otherUser.$save().then(function () {
-                        var nObj=$firebaseObject(database.ref('users/'+otherUserID));
+                        var nObj = $firebaseObject(database.ref('users/' + otherUserID));
                         nObj.$loaded().then(function () {
-                            localStorage.otherUserID=otherUserID;
+                            localStorage.otherUserID = otherUserID;
                             $scope.goToDashboard();
                         }).catch(function (error) {
-                            $scope.error=error;
+                            $scope.error = error;
                         })
                     }).catch(function (error) {
                         $scope.error = error;
@@ -291,18 +319,18 @@ angular.module('myApp.publicProfilePageView', ['ngRoute'])
             });
         };
 
-        $scope.removeUserFromFriends=function(friendToRemove){
-            console.log("$scope.profile.friends.indexOf(friendToRemove: "+$scope.profile.friends.indexOf(friendToRemove));
-            $scope.profile.friends.splice($scope.profile.friends.indexOf(friendToRemove),1);
+        $scope.removeUserFromFriends = function (friendToRemove) {
+            console.log("$scope.profile.friends.indexOf(friendToRemove: " + $scope.profile.friends.indexOf(friendToRemove));
+            $scope.profile.friends.splice($scope.profile.friends.indexOf(friendToRemove), 1);
             $scope.profile.$save();
-            console.log("trouper eliminato: "+friendToRemove);
+            console.log("trouper eliminato: " + friendToRemove);
 
             //lo elimino anche dall'altro?
             $scope.otherUser = $firebaseObject(database.ref('users/' + friendToRemove));
             $scope.otherUser.$loaded().then(function () {
-                $scope.otherUser.friends.splice($scope.otherUser.friends.indexOf(UID),1);
+                $scope.otherUser.friends.splice($scope.otherUser.friends.indexOf(UID), 1);
                 $scope.otherUser.$save();
-                console.log("trouper eliminato dall'amico: "+UID);
+                console.log("trouper eliminato dall'amico: " + UID);
             }).catch(function (error) {
                 $scope.error = error;
             });
