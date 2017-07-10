@@ -36,7 +36,7 @@
     <div class="w3-bar-item w3-dropdown-click w3-right" id="logoBarHome" ng-click="showLogoItem()">
         {{profile.name}}
         <div class="w3-dropdown-content w3-bar-block w3-border w3-right" id="logoBarContentHome">
-            <a ng-click="goToMyPublicProfile()" class="w3-bar-item w3-button"><i
+            <a ng-click="goToMyPublicProfile(profile.$id)" class="w3-bar-item w3-button"><i
                     class="glyphicon glyphicon-user w3-large"></i> Your Public
                 Profile</a>
             <a ng-click="goToEditProfile()" class="w3-bar-item w3-button"><i
@@ -327,6 +327,7 @@
              style="margin-top: 30px; padding-top: 20px; background: linear-gradient(rgba(0,0,0,.5), rgba(0,0,0,.5));">
             <div id="feedbackContainer" class="w3-container">
                 <h4>What other Troupers say about <strong>{{otherUser.name}}</strong></h4>
+                <h4>Average votes: <span id="averageVotes"></span></h4>
                 <div id="feedbackPar" style="color: white"></div>
             </div>
         </div>
