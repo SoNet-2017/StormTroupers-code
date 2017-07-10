@@ -96,7 +96,7 @@
         <br>
         <div class="w3-col s12 m12 l12 w3-left w3-animate-opacity">
 
-            <div class="w3-col s6 m6 l6 w3-animate-opacity" id="advancedJoinCheckboxes">
+            <div class="w3-col s6 m6 l6 w3-animate-opacity" id="advancedGenreCheckboxes">
                 <form class="w3-container">
                     <input id="checkAct" type="checkbox" class="w3-check"> <label>Action</label>
                     <br>
@@ -113,7 +113,7 @@
                     <input id="checkHor" type="checkbox" class="w3-check"> <label>Horror</label>
                 </form>
             </div>
-            <div class="w3-col s6 m6 l6 w3-animate-opacity" id="advancedJoinCheckboxes2">
+            <div class="w3-col s6 m6 l6 w3-animate-opacity" id="advancedGenreCheckboxes2">
                 <form class="w3-container">
                     <input id="checkMar" type="checkbox" class="w3-check"> <label>Martial Arts</label>
                     <br>
@@ -131,21 +131,77 @@
         </div>
         <br>
         <label> </label>
+        <label>Searching for role?</label>
+        <br>
+        <div class="w3-col s12 m12 l12 w3-left w3-animate-opacity">
+
+            <div class="w3-col s6 m6 l6 w3-animate-opacity" id="advancedJoinCheckboxes">
+                <form class="w3-container">
+                    <input id="checkAnim" type="checkbox" class="w3-check"> <label>Animation</label>
+                    <br>
+                    <input id="checkAudio" type="checkbox" class="w3-check"> <label>Audio/Music/Sound</label>
+                    <br>
+                    <input id="checkDP" type="checkbox" class="w3-check"> <label>Camera Crew/DP</label>
+                    <br>
+                    <input id="checkArt" type="checkbox" class="w3-check"> <label>Design/Scenic/Constr.</label>
+                    <br>
+                    <input id="checkDirect" type="checkbox" class="w3-check"> <label>Director</label>
+                    <br>
+                    <input id="checkGraphicDes" type="checkbox" class="w3-check"> <label>Graphic designer</label>
+                    <br>
+                    <input id="checkLight" type="checkbox" class="w3-check"> <label>Lighting/Electric</label>
+                </form>
+            </div>
+            <div class="w3-col s6 m6 l6 w3-animate-opacity" id="advancedJoinCheckboxes2">
+                <form class="w3-container">
+                    <input id="checkPhot" type="checkbox" class="w3-check"> <label>Photographers</label>
+                    <br>
+                    <input id="checkPostProd" type="checkbox" class="w3-check"> <label>Post Production</label>
+                    <br>
+                    <input id="checkProducers" type="checkbox" class="w3-check"> <label>Producers</label>
+                    <br>
+                    <input id="checkFX" type="checkbox" class="w3-check"> <label>Special Effects Crew</label>
+                    <br>
+                    <input id="checkStyle" type="checkbox" class="w3-check"> <label>Stylist/Vanities</label>
+                    <br>
+                    <input id="checkActor" type="checkbox" class="w3-check" ng-model="showActorSpec" ng-init="showActorSpec = false"> <label>Talent/Actors</label>
+                    <br>
+                    <input id="checkCast" type="checkbox" class="w3-check"> <label>Talent/Casting</label>
+                </form>
+            </div>
+        </div>
+        <br>
         <br>
         <label>Status</label>
         <br>
         <div style="color: #636466; margin-left: 15px;">
-            <input id="checkProg" type="checkbox" class="w3-check"> <label>Completed</label>
+            <div class="w3-col s12 m12 l12 w3-left w3-animate-opacity">
+            <div class="w3-col s6 m6 l6 w3-animate-opacity" id="advancedStatusCheckboxes">
+                <form class="w3-container">
+                    <input id="checkComp" type="checkbox" class="w3-check"> <label>Completed</label>
+                    <br>
+                    <input id="checkProg" type="checkbox" class="w3-check"> <label>In Progress</label>
+                </form>
+            </div>
+            <div class="w3-col s6 m6 l6 w3-animate-opacity" id="advancedStatusCheckboxes2">
+                <form class="w3-container">
+                    <input id="checkYet" type="checkbox" class="w3-check"> <label>Yet to Start</label>
+                    <br>
+                    <input id="checkHold" type="checkbox" class="w3-check"> <label>On Hold</label>
             <br>
-            <input id="checkCompl" type="checkbox" class="w3-check"> <label>In Progress</label>
-            <br>
+            </form>
+        </div>
+        </div>
         </div>
         <hr>
+        <br>
+        <br>
+        <br>
         <div id="searchCrewButtonContainer">
             <button class="w3-button w3-round-large" id="searchCrewButton" ng-click="launchSearch()">SEARCH!</button>
         </div>
     </div>
-
+    <hr>
     <div id="searchCrewResults" class="w3-col l5 m5 s5 w3-card-2">
         <h3 style="text-align: center; font-family: 'ADAM.CG PRO';  color: white;">
             These are the projects you're looking for
@@ -155,7 +211,7 @@
         <div id="foundUsersShow" class="w3-container w3-col l12 m12 s12">
             <div class="w3-container">
                 <ul>
-                                <li ng-repeat="project in filterProjects">
+                                <li ng-repeat="project in filterSearch">
                                     <div id="projectPic" class=" w3-container w3-card-2"
                                          style="padding: 10px; border-radius: 4mm; background-color: #b7c3b8">
                                         <div class="w3-container w3-row w3-col s10 m10 l10">

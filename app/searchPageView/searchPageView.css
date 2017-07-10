@@ -59,6 +59,7 @@
     align-items:center;
     text-align: left;
     font-size: 8pt;
+    color: #636466;
 }
 
 #raceCheckBoxes{
@@ -79,9 +80,7 @@
     color: #636466;
 }
 
-#advancedJoinCheckboxes2{
-    color: #636466;
-}
+
 
 #searchCrewActorSpecific{
     margin-left: 0px;

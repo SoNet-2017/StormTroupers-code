@@ -31,6 +31,7 @@ angular.module('myApp', [
     'myApp.friendsPageView',
     'myApp.userListView',
     'myApp.chatView',
+    'myApp.jobApplicationsView',
     'rzModule'
 ])
 

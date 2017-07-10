@@ -704,7 +704,6 @@ angular.module('myApp.searchPageView', ['ngRoute'])
 
 
                 if (checkCityword===true && (kw_Found===true || checkKeyword===false)) {
-                    console.log("Fin qua ci siamo DIO CANE");
                    var ct_Found=false;
 
                     if (ct.toUpperCase() == $scope.filterUsers[i].city.toUpperCase()) {
