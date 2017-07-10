@@ -59,6 +59,43 @@
     align-items:center;
     text-align: left;
     font-size: 8pt;
+    color: #636466;
+}
+
+#advancedGenreCheckboxes{
+    display: inline-block;
+    justify-content:left;
+    align-items:center;
+    text-align: left;
+    font-size: 8pt;
+    color: #636466;
+}
+
+#advancedGenreCheckboxes2{
+    display: inline-block;
+    justify-content:left;
+    align-items:center;
+    text-align: left;
+    font-size: 8pt;
+    color: #636466;
+}
+
+#advancedStatusCheckboxes{
+    display: inline-block;
+    justify-content:left;
+    align-items:center;
+    text-align: left;
+    font-size: 8pt;
+    color: #636466;
+}
+
+#advancedStatusCheckboxes2{
+    display: inline-block;
+    justify-content:left;
+    align-items:center;
+    text-align: left;
+    font-size: 8pt;
+    color: #636466;
 }
 
 #newProjectTitle{
@@ -96,10 +133,6 @@
     align-items:center;
     text-align: left;
     font-size: 8pt;
-    color: #636466;
-}
-
-#advancedJoinCheckboxes2{
     color: #636466;
 }
 
