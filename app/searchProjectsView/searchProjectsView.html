@@ -78,10 +78,14 @@
         <hr>
 
         <label>Keyword</label>
-        <input type="text" id="searchKeyword" value="" class="searchPageInputFields" placeholder="Keyword"><br>
+        <form ng-submit="launchSearch()">
+            <input type="text" id="searchKeyword" value="" class="searchPageInputFields" placeholder="Keyword"><br>
+        </form>
         <br>
         <label>City</label>
-        <input type="text" id="searchCity" value="" class="searchPageInputFields" placeholder="City"><br>
+        <form ng-submit="launchSearch()">
+            <input type="text" id="searchCity" value="" class="searchPageInputFields" placeholder="City"><br>
+        </form>
         <br>
         <label>Range (Km)</label>
         <rzslider rz-slider-model="slider.value" style="display: inline-block; z-index: 0"
