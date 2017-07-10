@@ -101,6 +101,11 @@ angular.module('myApp.publicProfilePageView', ['ngRoute'])
             localStorage.otherUserID = userID;
         };
 
+        $scope.goToPortfolio=function (userID) {
+            $location.path("/portfolioView");
+            localStorage.otherUserID=userID;
+        };
+
         var UID = localStorage.UID;
         var database = firebase.database();
 
@@ -186,10 +191,14 @@ angular.module('myApp.publicProfilePageView', ['ngRoute'])
 
             }
 
-            console.log($scope.otherUser.portfolio_video);
-            var portfolioVideo=Object.values($scope.otherUser.portfolio_video);
-            var portfolioUrl=Object.values(portfolioVideo[0]);
-            console.log(portfolioUrl);
+            $scope.getPortfolioFromDB = {};
+            $scope.filterPortfolio={};
+            var idPortf=otherUserID+"_portfolio";
+            var portfolioBase = database.ref('portfolioVideo/'+idPortf);
+            $scope.getPortfolioFromDB = $firebaseArray(portfolioBase);
+            console.log($scope.getPortfolioFromDB);
+            var queryPortfolio=portfolioBase.orderByChild("id_utente").equalTo(otherUserID);
+            $scope.filterPortfolio=$firebaseArray(queryPortfolio);
 
             var feedbackContainer = document.getElementById("feedbackPar");
 

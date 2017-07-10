@@ -32,6 +32,7 @@ angular.module('myApp', [
     'myApp.userListView',
     'myApp.chatView',
     'myApp.jobApplicationsView',
+    'myApp.portfolioView',
     'rzModule'
 ])
 

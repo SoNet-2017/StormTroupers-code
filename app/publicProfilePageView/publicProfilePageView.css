@@ -36,6 +36,22 @@
     padding-top: 30px;
     padding-bottom: 30px;
     background-color: #b7c3b8;
+    color: white;
+}
+
+#profilePortfolioLink{
+    color: white;
+}
+
+#profilePortfolioLinkContainer{
+    /*Per centrare il contenuto*/
+    text-align: center;
+    align-items:center;
+    vertical-align: middle;
+}
+
+#profilePortfolioLink:hover{
+    cursor: pointer;
 }
 
 #profileFeedbackContainer{
