@@ -135,6 +135,13 @@ angular.module('myApp.searchPageView', ['ngRoute'])
             }
 
             $scope.filterSearch={};
+            console.log("Variabili ricevute.");
+            console.log("immediateSearch = "+localStorage.immediateSearch.toString());
+            console.log("ImmediateSearchKeyword = "+localStorage.immediateSearchKeyword);
+            if (localStorage.immediateSearch.toString()==="true") {
+                console.log("Sto lanciando la ricerca");
+                $scope.launchSearch();
+            }
 
         }).catch(function (error) {
             $scope.error=error;
@@ -196,7 +203,13 @@ angular.module('myApp.searchPageView', ['ngRoute'])
             var checkKeyword=false;
             //step1 checcka la keyword in nome e cognome
             var kw="";
-            kw=document.getElementById("searchKeyword").value;
+            if (localStorage.immediateSearch.toString()==="true") {
+                localStorage.immediateSearch=false;
+                kw = localStorage.immediateSearchKeyword;
+            }
+            else {
+                kw = document.getElementById("searchKeyword").value;
+            }
             if (kw!=="") { //checca solo se hei scritto qualcosa nel campo
                 checkKeyword = true;
                 console.log("checkKeyword=true");
