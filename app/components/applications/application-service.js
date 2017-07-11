@@ -13,6 +13,12 @@ angular.module('myApp.applicationService', [])
                 var projectRef = firebase.database().ref().child("projects").child(projectID);
                 return $firebaseObject(projectRef);
             },
+
+            getProjects: function() {
+                var projectRef = firebase.database().ref().child("projects");
+                return $firebaseArray(projectRef);
+            },
+
             createApplication: function(sender, project, projectTitle, motivationalMsg, roles){
                 var newApplication = {};
                 newApplication['sender'] = sender;

@@ -108,6 +108,10 @@ angular.module('myApp.chatView', ['ngRoute'])
             localStorage.otherUserID = UID;
         };
 
+        $scope.goToMyApplications=function() {
+            $location.path("/jobApplicationsView");
+        };
+
         $scope.goToPublicProfile = function (userID) {
             $location.path("/publicProfilePageView");
             console.log("utente che sto passando: " + userID);

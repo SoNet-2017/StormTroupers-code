@@ -1,0 +1,25 @@
+#calendarContainer{
+    padding-top: 0px;
+    padding-bottom: 30px;
+}
+
+#calendar{
+    border: 0;
+    width: 100%;
+    height: 500px;
+}
+
+/*
+#userDesc{
+    color: #636466;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    align-items:center;
+    vertical-align: middle;
+}
+
+#friendsPicture {
+    content: url("../../images/upload_pic.jpg");
+    max-width: 90%;
+}*/

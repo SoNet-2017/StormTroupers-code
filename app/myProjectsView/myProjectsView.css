@@ -5,8 +5,7 @@
     margin-top: 25px;
 }
 
-#projectXimg{
-    content: url("../../images/Kim-Jong-n2000.jpg");
+#projectXimg img{
     width: 150px;
     height: 150px;
     margin: 10px;

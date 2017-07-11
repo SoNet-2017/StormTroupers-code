@@ -1,11 +1,11 @@
 'use strict';
 
-angular.module('myApp.jobApplicationsView', ['ngRoute'])
+angular.module('myApp.calendarView', ['ngRoute'])
 
     .config(['$routeProvider', function ($routeProvider) {
-        $routeProvider.when('/jobApplicationsView', {
-            templateUrl: 'jobApplicationsView/jobApplicationsView.html',
-            controller: 'jobApplicationsViewCtrl',
+        $routeProvider.when('/calendarView', {
+            templateUrl: 'calendarView/calendarView.html',
+            controller: 'calendarViewCtrl',
             resolve: {
                 // controller will not be loaded until $requireSignIn resolves
                 // Auth refers to our $firebaseAuth wrapper in the factory below
@@ -18,14 +18,15 @@ angular.module('myApp.jobApplicationsView', ['ngRoute'])
         });
     }])
 
-    .controller('jobApplicationsViewCtrl', ['$scope', '$rootScope', '$location', 'Auth', '$firebaseObject', 'Users', 'ApplicationsService', 'currentAuth', '$firebaseAuth', '$firebaseArray', function ($scope, $rootScope, $location, Auth, $firebaseObject, Users, ApplicationsService, currentAuth, $firebaseAuth, $firebaseArray) {
+    .controller('calendarViewCtrl', ['$scope', '$location', 'Auth', '$firebaseObject', 'Users', 'currentAuth', '$firebaseAuth', '$firebaseArray', function ($scope, $location, Auth, $firebaseObject, Users, currentAuth, $firebaseAuth, $firebaseArray) {
         $scope.dati = {};
         $scope.auth = Auth;
 
-        $scope.dati.applications = ApplicationsService.getApplications();
-        $scope.dati.userId = currentAuth.uid;
-
-        $scope.dati.filterProjects = ApplicationsService.getProjects();
+        $scope.eventSource = {
+            url: "http://www.google.com/calendar/feeds/usa__en%40holiday.calendar.google.com/public/basic",
+            className: 'gcal-event',           // an option!
+            currentTimezone: 'America/Chicago' // an option!
+        };
 
         $scope.showLogoItem = function () {
             var x = document.getElementById("logoBarContentHome");
@@ -33,12 +34,6 @@ angular.module('myApp.jobApplicationsView', ['ngRoute'])
                 x.className += " w3-show";
             else
                 x.className = x.className.replace(" w3-show", "");
-        };
-
-        $scope.launchSearchInSearchPage = function () {
-            $location.path("/searchPageView");
-            localStorage.immediateSearch=true;
-            localStorage.immediateSearchKeyword=document.getElementById("searchItemHomeKeyword").value;
         };
 
         $scope.showSearchItem = function () {
@@ -57,7 +52,7 @@ angular.module('myApp.jobApplicationsView', ['ngRoute'])
             $location.path("/searchPageView");
         };
 
-        $scope.goToSearchProjects = function () {
+        $scope.goToSearchProjects=function () {
             $location.path("/searchProjectsView");
         };
 
@@ -72,17 +67,17 @@ angular.module('myApp.jobApplicationsView', ['ngRoute'])
         $scope.goToMyTroupers = function () {
             $location.path("/friendsPageView");
             localStorage.otherUserID = UID;
+            $scope.refresh();
         };
 
-        $scope.goToPublicProjectPage = function (projectID) {
-            $location.path("/publicProjectPageView");
-            console.log("progetto che sto passando: " + projectID);
-            localStorage.PID = projectID;
+        $scope.goToMyApplications=function() {
+            $location.path("/jobApplicationsView");
         };
 
-        $scope.goToFriendsPage = function (otherUserID) {
-            $location.path("/friendsPageView");
-            localStorage.otherUserID = otherUserID;
+        $scope.goToPublicProfile = function (userID) {
+            $location.path("/publicProfilePageView");
+            console.log("utente che sto passando: " + userID);
+            localStorage.otherUserID = userID;
         };
 
         $scope.goToMyPublicProfile = function () {
@@ -90,17 +85,8 @@ angular.module('myApp.jobApplicationsView', ['ngRoute'])
             localStorage.otherUserID = UID;
         };
 
-        $scope.goToPublicProfile = function (userID) {
-            $location.path("/publicProfilePageView");
-            //console.log("utente che sto passando: "+userID);
-            localStorage.otherUserID = userID;
-        };
-
         var UID = localStorage.UID;
         var database = firebase.database();
-
-        // UID dell'utente di cui si vuole vedere il profilo pubblico
-        var otherUserID = localStorage.otherUserID;
 
         $scope.profile = $firebaseObject(database.ref('users/' + UID));
         $scope.profile.$loaded().then(function () {
@@ -111,10 +97,17 @@ angular.module('myApp.jobApplicationsView', ['ngRoute'])
                     document.getElementById("userRolesHome").innerHTML += ", ";
                 }
             }
-
         }).catch(function (error) {
             $scope.error = error;
-            //console.log("errore: "+error);
+        });
+
+        var PID = localStorage.PID;
+        console.log("PID: "+PID);
+        var prjObj = $firebaseObject(database.ref('projects/' + PID));
+        prjObj.$loaded().then(function () {
+            $scope.project = prjObj;
+        }).catch(function (error) {
+            $scope.error = error;
         });
 
         $scope.logout = function () {

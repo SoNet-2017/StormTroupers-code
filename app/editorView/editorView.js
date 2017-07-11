@@ -1,11 +1,11 @@
 'use strict';
 
-angular.module('myApp.jobApplicationsView', ['ngRoute'])
+angular.module('myApp.editorView', ['ngRoute'])
 
     .config(['$routeProvider', function ($routeProvider) {
-        $routeProvider.when('/jobApplicationsView', {
-            templateUrl: 'jobApplicationsView/jobApplicationsView.html',
-            controller: 'jobApplicationsViewCtrl',
+        $routeProvider.when('/editorView', {
+            templateUrl: 'editorView/editorView.html',
+            controller: 'editorViewCtrl',
             resolve: {
                 // controller will not be loaded until $requireSignIn resolves
                 // Auth refers to our $firebaseAuth wrapper in the factory below
@@ -18,14 +18,12 @@ angular.module('myApp.jobApplicationsView', ['ngRoute'])
         });
     }])
 
-    .controller('jobApplicationsViewCtrl', ['$scope', '$rootScope', '$location', 'Auth', '$firebaseObject', 'Users', 'ApplicationsService', 'currentAuth', '$firebaseAuth', '$firebaseArray', function ($scope, $rootScope, $location, Auth, $firebaseObject, Users, ApplicationsService, currentAuth, $firebaseAuth, $firebaseArray) {
+    .controller('editorViewCtrl', ['$scope', '$location', 'Auth', '$firebaseObject', 'Users', 'UsersChatService', 'currentAuth', '$firebaseAuth', '$firebaseArray', function ($scope, $location, Auth, $firebaseObject, Users, UsersChatService, currentAuth, $firebaseAuth, $firebaseArray) {
         $scope.dati = {};
         $scope.auth = Auth;
 
-        $scope.dati.applications = ApplicationsService.getApplications();
-        $scope.dati.userId = currentAuth.uid;
+        $scope.countries = countries_list;
 
-        $scope.dati.filterProjects = ApplicationsService.getProjects();
 
         $scope.showLogoItem = function () {
             var x = document.getElementById("logoBarContentHome");
@@ -33,12 +31,6 @@ angular.module('myApp.jobApplicationsView', ['ngRoute'])
                 x.className += " w3-show";
             else
                 x.className = x.className.replace(" w3-show", "");
-        };
-
-        $scope.launchSearchInSearchPage = function () {
-            $location.path("/searchPageView");
-            localStorage.immediateSearch=true;
-            localStorage.immediateSearchKeyword=document.getElementById("searchItemHomeKeyword").value;
         };
 
         $scope.showSearchItem = function () {
@@ -85,8 +77,9 @@ angular.module('myApp.jobApplicationsView', ['ngRoute'])
             localStorage.otherUserID = otherUserID;
         };
 
-        $scope.goToMyPublicProfile = function () {
+        $scope.goToMyPublicProfile = function (UID) {
             $location.path("/publicProfilePageView");
+            $route.reload();
             localStorage.otherUserID = UID;
         };
 
@@ -99,7 +92,6 @@ angular.module('myApp.jobApplicationsView', ['ngRoute'])
         var UID = localStorage.UID;
         var database = firebase.database();
 
-        // UID dell'utente di cui si vuole vedere il profilo pubblico
         var otherUserID = localStorage.otherUserID;
 
         $scope.profile = $firebaseObject(database.ref('users/' + UID));
@@ -111,11 +103,30 @@ angular.module('myApp.jobApplicationsView', ['ngRoute'])
                     document.getElementById("userRolesHome").innerHTML += ", ";
                 }
             }
-
+            if ($scope.profile.friends.indexOf(otherUserID) < 0) {
+                $scope.alreadyFriend = false;
+            } else {
+                $scope.alreadyFriend = true;
+            }
         }).catch(function (error) {
             $scope.error = error;
             //console.log("errore: "+error);
         });
+
+        $scope.tinymceModel = 'Initial content';
+
+        $scope.getContent = function() {
+            console.log('Editor content:', $scope.tinymceModel);
+        };
+
+        $scope.setContent = function() {
+            $scope.tinymceModel = 'Time: ' + (new Date());
+        };
+
+        $scope.tinymceOptions = {
+            plugins: 'link image code',
+            toolbar: 'undo redo | bold italic | alignleft aligncenter alignright | code'
+        };
 
         $scope.logout = function () {
             Users.registerLogout(currentAuth.uid);

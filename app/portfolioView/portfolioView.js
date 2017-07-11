@@ -78,6 +78,10 @@ angular.module('myApp.portfolioView', ['ngRoute'])
             localStorage.otherUserID = UID;
         };
 
+        $scope.goToMyApplications=function() {
+            $location.path("/jobApplicationsView");
+        };
+
         $scope.goToPublicProjectPage = function (projectID) {
             $location.path("/publicProjectPageView");
             console.log("progetto che sto passando: " + projectID);

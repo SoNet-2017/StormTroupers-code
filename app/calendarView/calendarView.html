@@ -21,10 +21,9 @@
 
     <form id="searchItemHome">
         <div class="input-group">
-            <input id="searchItemHomeKeyword" type="text" class="form-control" placeholder="Search"
-                   ng-submit="launchSearchInSearchPage()">
+            <input type="text" class="form-control" placeholder="Search">
             <div class="input-group-btn">
-                <button class="btn btn-default" type="submit" ng-click="launchSearchInSearchPage()">
+                <button class="btn btn-default" type="submit">
                     <i class="glyphicon glyphicon-search"></i>
                 </button>
             </div>
@@ -73,51 +72,60 @@
         <br>
         <a ng-click="goToMyProjects()" class="w3-bar-item" id="userProjectHome">My Projects <i
                 class="glyphicon glyphicon-film w3-large"></i></a><br><br>
-        <a ng-click="goToMyTroupers(profile.$id)" class="w3-bar-item" id="userTroupeHome">My Troupers <i
+        <a ng-click="goToMyTroupers()" class="w3-bar-item" id="userTroupeHome">My Troupers <i
                 class="glyphicon glyphicon-user w3-large"></i></a><br><br>
         <a ng-click="goToMyApplications()" class="w3-bar-item" id="userApplicationHome">My Applications <i
                 class="glyphicon glyphicon-briefcase w3-large"></i></a><br><br>
         <a ng-click="goToEditProfile()" class="w3-bar-item" id="editProfileLinkHome">Edit Profile <i
                 class="glyphicon glyphicon-cog w3-large"></i></a>
+
     </div>
 
-    <div id="mainContainerProfile" class="w3-container w3-col l7 m7 s7" style="margin-left: 30px;">
-        <div id="profileGeneralInfoContainer" class="w3-container  w3-col l12 m12 s12 w3-card-2"
-             style="background: linear-gradient(rgba(0,0,0,.5), rgba(0,0,0,.5));">
+    <div class="modalContainer">
+        <!-- Modal -->
+        <div class="modal fade" id="myModal" role="dialog">
+            <div class="modal-dialog">
 
-            <div id="profilePortfolioContainer" class="w3-container w3-row w3-col l12 m12 s12 w3-card-2"
-                 style="margin-top: 30px; padding-top: 20px; background: linear-gradient(rgba(0,0,0,.5), rgba(0,0,0,.5));background-color:#333333;">
-                <div id="portfolioContainer" class="w3-container">
-                    <h4>Applications for:</h4>
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <!--<div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title" style="color: black;" ng-show="!alreadyFriend">Friend Request</h4>
+                        <h4 class="modal-title" style="color: black;" ng-show="alreadyFriend">Friend Request</h4>
+                    </div>-->
+                    <div class="modal-body">
 
-                    <div class="w3-col s12 m12 l12">
-                        <div style="color: white;"
-                             ng-repeat="appl in dati.applications | filter:{sender: dati.userId}">
-                            <ul style="list-style: none">
-                                <li ng-repeat="proj in dati.filterProjects | filter:{$id: appl.project}">
-                                    <div id="projectPic2" class=" w3-container w3-card-2 w3-col s5 m5 l5"
-                                         style="padding: 10px; border-radius: 4mm; background-color: #b7c3b8;">
-                                        <h3 style="color: white;text-shadow: 2px 2px 2px #333333;cursor: pointer;"
-                                            ng-click="goToPublicProjectPage(proj.$id)">
-                                            {{proj.title}}
-                                        </h3>
-                                    </div>
-
-                                    <div class="w3-col s6 m6 l6" style="color: white; margin-left:20px;">
-                                        <h4>Roles I applied for: {{appl.roles}}</h4>
-                                        <h4>Message you sent: <em>{{appl.motivationalMsg}}</em><br></h4>
-                                    </div>
-
-                                </li>
-                            </ul>
-                        </div>
                     </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
 
+            </div>
+        </div>
+
+    </div>
+
+    <div class="w3-container w3-col l8 m8 s8" style="padding-right: 0px">
+
+        <div class="w3-container" style="padding-top: 0px; padding-right: 0px">
+            <div class="w3-container"
+                 style="padding-left: 40px; margin-left: 20px; background: linear-gradient(rgba(0,0,0,.5), rgba(0,0,0,.5));">
+                <h4 style="color: white; margin-top: 20px; margin-bottom: 0"><strong>{{project.title}}'s</strong> Planning
+                </h4>
+                <br>
+
+                <!--<section id="directives-calendar">
+                    <div ui-calendar="{{uiConfig.calendar}}" calendar="myCalendar" class="span8 calendar" ng-model="eventSources"> </div>
+                </section>-->
+                <div id="calendarContainer">
+                    <iframe id="calendar" src="https://calendar.google.com/calendar/embed?showTitle=0&amp;showPrint=0&amp;height=600&amp;wkst=1&amp;bgcolor=%23999999&amp;src=r7sjqm37dleu42bjdb59r1j500%40group.calendar.google.com&amp;color=%23691426&amp;ctz=Europe%2FRome">
+                    </iframe>
                 </div>
             </div>
-
-            <br>
         </div>
+        <br>
+
     </div>
 
 </div>
