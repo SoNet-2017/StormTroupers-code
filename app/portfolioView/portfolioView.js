@@ -24,12 +24,12 @@ angular.module('myApp.portfolioView', ['ngRoute'])
         };
     }])
 
-    .controller('portfolioViewCtrl', ['$scope', '$location', 'Auth', '$firebaseObject', 'Users', 'UsersChatService', 'currentAuth', '$firebaseAuth', '$firebaseArray', function ($scope, $location, Auth, $firebaseObject, Users, UsersChatService, currentAuth, $firebaseAuth, $firebaseArray) {
+    .controller('portfolioViewCtrl', ['$scope', '$location', 'Auth', '$firebaseObject', 'Users', 'CurrentDateService', 'ReminderService', 'UsersChatService', 'currentAuth', '$firebaseAuth', '$firebaseArray', function ($scope, $location, Auth, $firebaseObject, Users, CurrentDateService, ReminderService, UsersChatService, currentAuth, $firebaseAuth, $firebaseArray) {
         $scope.dati = {};
         $scope.auth = Auth;
 
-        $scope.countries = countries_list;
-
+        $scope.dati.reminders = ReminderService.getReminders();
+        $scope.dati.currentDate = CurrentDateService.getCurrentDate();
 
         $scope.showLogoItem = function () {
             var x = document.getElementById("logoBarContentHome");

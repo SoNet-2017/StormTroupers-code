@@ -18,9 +18,12 @@ angular.module('myApp.chatView', ['ngRoute'])
         });
     }])
 
-    .controller('chatViewCtrl', ['$scope', '$location', '$routeParams', 'Auth', '$firebaseObject', 'Users', 'UserList', 'UsersChatService', 'currentAuth', '$firebaseAuth', '$firebaseArray', function ($scope, $location, $routeParams, Auth, $firebaseObject, Users, UserList, UsersChatService, currentAuth, $firebaseAuth, $firebaseArray) {
+    .controller('chatViewCtrl', ['$scope', '$location', '$routeParams', 'Auth', '$firebaseObject', 'Users', 'CurrentDateService', 'ReminderService', 'UserList', 'UsersChatService', 'currentAuth', '$firebaseAuth', '$firebaseArray', function ($scope, $location, $routeParams, Auth, $firebaseObject, Users, CurrentDateService, ReminderService, UserList, UsersChatService, currentAuth, $firebaseAuth, $firebaseArray) {
         $scope.dati = {};
         $scope.auth = Auth;
+
+        $scope.dati.reminders = ReminderService.getReminders();
+        $scope.dati.currentDate = CurrentDateService.getCurrentDate();
 
         $scope.dati.userId = currentAuth.uid;
 

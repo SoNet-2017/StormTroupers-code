@@ -10,9 +10,6 @@ angular.module('myApp.currentDateService', [])
                 var day = today.getUTCDate();
                 var month = today.getUTCMonth()+1; //January is 0!
                 var year = today.getUTCFullYear();
-                var hours = today.getUTCHours();
-                var minutes = today.getUTCMinutes();
-                var seconds = today.getUTCSeconds();
 
                 if(day<10) {
                     day='0'+day;

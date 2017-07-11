@@ -18,15 +18,18 @@ angular.module('myApp.friendsPageView', ['ngRoute'])
         });
     }])
 
-    .controller('friendsPageViewCtrl', ['$scope', '$location', 'Auth', '$firebaseObject', 'Users', 'currentAuth', '$firebaseAuth', '$firebaseArray', function ($scope, $location, Auth, $firebaseObject, Users, currentAuth, $firebaseAuth, $firebaseArray) {
+    .controller('friendsPageViewCtrl', ['$scope', '$location', '$route', 'Auth', '$firebaseObject', 'Users', 'CurrentDateService', 'ReminderService', 'currentAuth', '$firebaseAuth', '$firebaseArray', function ($scope, $location, $route, Auth, $firebaseObject, Users, CurrentDateService, ReminderService, currentAuth, $firebaseAuth, $firebaseArray) {
         $scope.dati = {};
         $scope.auth = Auth;
 
-        $scope.eventSource = {
+        $scope.dati.reminders = ReminderService.getReminders();
+        $scope.dati.currentDate = CurrentDateService.getCurrentDate();
+
+        /*$scope.eventSource = {
             url: "http://www.google.com/calendar/feeds/usa__en%40holiday.calendar.google.com/public/basic",
             className: 'gcal-event',           // an option!
             currentTimezone: 'America/Chicago' // an option!
-        };
+        };*/
 
 
         $scope.showLogoItem = function () {
@@ -74,7 +77,7 @@ angular.module('myApp.friendsPageView', ['ngRoute'])
         $scope.goToMyTroupers = function () {
             $location.path("/friendsPageView");
             localStorage.otherUserID = UID;
-            $scope.refresh();
+            $route.reload();
         };
 
         $scope.goToMyApplications=function() {
@@ -171,30 +174,6 @@ angular.module('myApp.friendsPageView', ['ngRoute'])
                 });
             }
             else console.log("trouper già inserito");
-        };
-
-        $scope.refresh=function () {
-
-            $scope.myTroupersPage=true;
-
-            // UID dell'utente di cui si vuole vedere il profilo pubblico
-            $scope.friends = {};
-            $scope.profile = $firebaseObject(database.ref('users/' + UID));
-            $scope.profile.$loaded().then(function () {
-                //console.log("nome other user: "+$scope.otherUser.name+" ID: "+otherUserID+" DESCR: "+$scope.otherUser.description);
-                var length = $scope.profile.friends.length;
-                var currFriendID;
-                //console.log("length: "+length);
-                for (var j = 0; j < length; j++) {
-                    currFriendID = $scope.profile.friends[j];
-                    //console.log("curFriendID: "+currFriendID);
-                    var currFriendObj = $firebaseObject(database.ref('users/' + currFriendID));
-
-                    //console.log("curr friend: "+currFriendObj);
-                    $scope.friends[j] = currFriendObj;
-
-                }
-            });
         };
 
         $scope.logout = function () {

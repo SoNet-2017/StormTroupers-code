@@ -24,9 +24,12 @@ angular.module('myApp.publicProfilePageView', ['ngRoute'])
         };
     }])
 
-    .controller('publicProfilePageViewCtrl', ['$scope', '$location', '$route', 'Auth', '$firebaseObject', 'Users', 'UsersChatService', 'currentAuth', '$firebaseAuth', '$firebaseArray', function ($scope, $location, $route, Auth, $firebaseObject, Users, UsersChatService, currentAuth, $firebaseAuth, $firebaseArray) {
+    .controller('publicProfilePageViewCtrl', ['$scope', '$location', '$route', 'Auth', '$firebaseObject', 'Users', 'CurrentDateService', 'ReminderService', 'UsersChatService', 'currentAuth', '$firebaseAuth', '$firebaseArray', function ($scope, $location, $route, Auth, $firebaseObject, Users, CurrentDateService, ReminderService, UsersChatService, currentAuth, $firebaseAuth, $firebaseArray) {
         $scope.dati = {};
         $scope.auth = Auth;
+
+        $scope.dati.reminders = ReminderService.getReminders();
+        $scope.dati.currentDate = CurrentDateService.getCurrentDate();
 
         if (localStorage.otherUserID === localStorage.UID) {
             document.getElementById("profileFeedbackWriter").style.display = "none";

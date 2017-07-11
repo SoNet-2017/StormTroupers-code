@@ -18,9 +18,12 @@ angular.module('myApp.calendarView', ['ngRoute'])
         });
     }])
 
-    .controller('calendarViewCtrl', ['$scope', '$location', 'Auth', '$firebaseObject', 'Users', 'currentAuth', '$firebaseAuth', '$firebaseArray', function ($scope, $location, Auth, $firebaseObject, Users, currentAuth, $firebaseAuth, $firebaseArray) {
+    .controller('calendarViewCtrl', ['$scope', '$location', 'Auth', '$firebaseObject', 'Users', 'CurrentDateService', 'ReminderService', 'currentAuth', '$firebaseAuth', '$firebaseArray', function ($scope, $location, Auth, $firebaseObject, Users, CurrentDateService, ReminderService, currentAuth, $firebaseAuth, $firebaseArray) {
         $scope.dati = {};
         $scope.auth = Auth;
+
+        $scope.dati.reminders = ReminderService.getReminders();
+        $scope.dati.currentDate = CurrentDateService.getCurrentDate();
 
         $scope.eventSource = {
             url: "http://www.google.com/calendar/feeds/usa__en%40holiday.calendar.google.com/public/basic",

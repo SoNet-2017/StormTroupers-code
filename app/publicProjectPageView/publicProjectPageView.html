@@ -32,6 +32,18 @@
 
     <div class="w3-bar-item w3-right" id="logoChatBarHome"><span><a href="#!/usersList"><i
             class="w3-right glyphicon glyphicon-comment w3-xlarge" style="color: white;"></i></a></span></div>
+    <div class="w3-bar-item w3-right w3-dropdown-hover" id="logoReminderBarHome">
+        <span>
+            <i class="w3-right glyphicon glyphicon-bell w3-xlarge" style="color: white;"></i>
+        </span>
+        <div class="w3-dropdown-content w3-bar-block w3-card-4">
+            <iframe src="https://calendar.google.com/calendar/embed?showTitle=0&amp;showPrint=0&amp;mode=AGENDA&amp;height=200&amp;wkst=1&amp;bgcolor=%23999999&amp;src=r7sjqm37dleu42bjdb59r1j500%40group.calendar.google.com&amp;color=%23691426&amp;ctz=Europe%2FRome"
+                    style="border-width:0" min-width="400" width="100%" height="300" frameborder="0" scrolling="no"></iframe>
+            <a ng-repeat="reminder in dati.reminders | filter:{user: profile.$id} | filter:{date:dati.currentDate}" class="w3-bar-item w3-button">
+                <i class="glyphicon glyphicon-exclamation-sign w3-large w3-center" style="padding-right:4px"></i>
+                <strong>{{reminder.projectName}}:</strong> {{reminder.reminder}}</a>
+        </div>
+    </div>
 
     <div class="w3-bar-item w3-dropdown-click w3-right" id="logoBarHome" ng-click="showLogoItem()">
         {{profile.name}}
@@ -87,23 +99,34 @@
             <div class="w3-animate-opacity">
 
                 <div class="w3-container" id="publicProjectImage" style="background-image:url({{prj.img_url}});">
-                    <div id="likePanel" class="w3-container w3-col l1 m1 s1"
+                    <div id="likePanel" class="w3-container w3-col l2 m2 s2"
                          style="min-height: 350px; background: linear-gradient(rgba(0,0,0,.5), rgba(0,0,0,.8)); margin: 0px;">
                         <div class="w3-content w3-center" id="likePanelHover">
+                            <div>
+                                <i class="glyphicon glyphicon-map-marker w3-xxlarge"
+                                   style="color: white;"></i>
+                                <h5 class="" style="color: white;text-shadow: 2px 2px 4px #333333;">
+                                    {{prj.city}}
+                                </h5>
+                            </div>
+                            <br><br>
                             <h4 class="w3-content w3-center" style="color: white;">{{prj.likes}}</h4>
                             <a ng-click="addProjectToFavourite()">
-                                <i class="glyphicon glyphicon-heart-empty w3-xlarge"
+                                <i class="glyphicon glyphicon-heart-empty w3-xxlarge"
                                    style="color: white;"></i></a>
-                            <br><br><br><br><br><br>
+                            <br><br><br><br>
                             <div id="proposeButton" class="w3-tooltip">
-                                <a ng-click="proposeYourself()" data-toggle="modal" data-target="#myModal"><i
-                                        class="glyphicon glyphicon-plus w3-xlarge"
+                                <a data-toggle="modal" data-target="#myModal"><i
+                                        class="glyphicon glyphicon-plus w3-xxlarge"
                                         style="color: white;"></i>
                                     <span style="position:absolute;right:0;bottom:0px" class="w3-text w3-tag">Propose to collaborate!</span></a>
                             </div>
                         </div>
                     </div>
-                    <h2 class="w3-col l11 m11 s11"><strong>{{prj.title}}</strong></h2>
+                    <div class="w3-col l10 m10 s10">
+                        <h2><strong>{{prj.title}}</strong></h2>
+                    </div>
+
                 </div>
 
             </div>

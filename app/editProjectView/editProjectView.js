@@ -22,9 +22,12 @@ angular.module('myApp.editProjectView', ['ngRoute'])
         });
     }])
 
-    .controller('editProjectViewCtrl', ['$scope', '$location', 'Auth', '$firebaseObject','Users', 'currentAuth', '$firebaseAuth', '$firebaseArray', function ($scope,$location, Auth, $firebaseObject, Users, currentAuth, $firebaseAuth, $firebaseArray) {
+    .controller('editProjectViewCtrl', ['$scope', '$location', 'Auth', '$firebaseObject','Users', 'CurrentDateService', 'ReminderService', 'currentAuth', '$firebaseAuth', '$firebaseArray', function ($scope,$location, Auth, $firebaseObject, Users, CurrentDateService, ReminderService, currentAuth, $firebaseAuth, $firebaseArray) {
         $scope.dati={};
         $scope.auth=Auth;
+
+        $scope.dati.reminders = ReminderService.getReminders();
+        $scope.dati.currentDate = CurrentDateService.getCurrentDate();
 
         $scope.showLogoItem=function () {
             var x = document.getElementById("logoBarContentHome");
