@@ -28,6 +28,7 @@ angular.module('myApp.myProjectsView', ['ngRoute'])
 
         $scope.dati.reminders = ReminderService.getReminders();
         $scope.dati.currentDate = CurrentDateService.getCurrentDate();
+        //console.log("current date: "+$scope.dati.currentDate);
 
         $scope.showLogoItem = function () {
             var x = document.getElementById("logoBarContentHome");
