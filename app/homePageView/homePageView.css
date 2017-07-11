@@ -284,3 +284,9 @@
 #projectPic a:hover{
     cursor: pointer;
 }
+
+#searchItemHomeKeyword {
+    color: white;
+    background-color: rgba(80,80,80,165);
+    border: none;
+}
