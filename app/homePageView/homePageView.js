@@ -18,7 +18,7 @@ angular.module('myApp.homePageView', ['ngRoute'])
         });
     }])
 
-    .controller('homePageCtrl', ['$scope', '$location', 'Auth', '$firebaseObject', 'Users', 'currentAuth', '$firebaseAuth', '$firebaseArray', function ($scope, $location, Auth, $firebaseObject, Users, currentAuth, $firebaseAuth, $firebaseArray) {
+    .controller('homePageCtrl', ['$scope', '$location', '$rootScope', 'Auth', '$firebaseObject', 'Users', 'currentAuth', '$firebaseAuth', '$firebaseArray', function ($scope, $location, $rootScope, Auth, $firebaseObject, Users, currentAuth, $firebaseAuth, $firebaseArray) {
         $scope.dati = {};
         $scope.auth = Auth;
 

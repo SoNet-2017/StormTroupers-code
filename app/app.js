@@ -14,6 +14,7 @@ angular.module('myApp', [
     'ngRoute',
     'ngSanitize',
     "firebase",
+    'myApp.calendar',
     'myApp.loginView',
     'myApp.advancedJoinView',
     'myApp.authentication',
@@ -21,6 +22,7 @@ angular.module('myApp', [
     'myApp.editProfileView',
     'myApp.users',
     'myApp.applicationService',
+    'myApp.reminderService',
     'myApp.fileUpload',
     'myApp.searchPageView',
     'myApp.searchProjectsView',
@@ -34,6 +36,7 @@ angular.module('myApp', [
     'myApp.chatView',
     'myApp.jobApplicationsView',
     'myApp.portfolioView',
+    'myApp.calendarView',
     'rzModule'
 ])
 

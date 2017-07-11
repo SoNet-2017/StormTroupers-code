@@ -22,7 +22,12 @@ angular.module('myApp.friendsPageView', ['ngRoute'])
         $scope.dati = {};
         $scope.auth = Auth;
 
-        $scope.countries = countries_list;
+        $scope.eventSource = {
+            url: "http://www.google.com/calendar/feeds/usa__en%40holiday.calendar.google.com/public/basic",
+            className: 'gcal-event',           // an option!
+            currentTimezone: 'America/Chicago' // an option!
+        };
+
 
         $scope.showLogoItem = function () {
             var x = document.getElementById("logoBarContentHome");
@@ -64,6 +69,10 @@ angular.module('myApp.friendsPageView', ['ngRoute'])
             $location.path("/friendsPageView");
             localStorage.otherUserID = UID;
             $scope.refresh();
+        };
+
+        $scope.goToMyApplications=function() {
+            $location.path("/jobApplicationsView");
         };
 
         $scope.goToPublicProfile = function (userID) {

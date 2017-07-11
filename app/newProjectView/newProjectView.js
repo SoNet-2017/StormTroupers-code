@@ -67,9 +67,8 @@ angular.module('myApp.newProjectView', ['ngRoute'])
             localStorage.otherUserID = UID;
         };
 
-        // CAMBIARE URL
-        $scope.goToPublicProfile = function (userID) {
-            $location.path("/homePageView");
+        $scope.goToMyApplications=function() {
+            $location.path("/jobApplicationsView");
         };
 
         $scope.goToMyPublicProfile=function () {

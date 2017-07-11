@@ -22,7 +22,7 @@ angular.module('myApp.myProjectsView', ['ngRoute'])
         });
     }])
 
-    .controller('myProjectsViewCtrl', ['$scope', '$location', 'Auth', '$firebaseObject', 'Users', 'currentAuth', '$firebaseAuth', '$firebaseArray', function ($scope, $location, Auth, $firebaseObject, Users, currentAuth, $firebaseAuth, $firebaseArray) {
+    .controller('myProjectsViewCtrl', ['$scope', '$location', 'Auth', '$firebaseObject', 'Users', 'ReminderService', 'currentAuth', '$firebaseAuth', '$firebaseArray', function ($scope, $location, Auth, $firebaseObject, Users, ReminderService, currentAuth, $firebaseAuth, $firebaseArray) {
         $scope.dati = {};
         $scope.auth = Auth;
 
@@ -67,9 +67,18 @@ angular.module('myApp.myProjectsView', ['ngRoute'])
             localStorage.otherUserID = UID;
         };
 
+        $scope.goToMyApplications=function() {
+            $location.path("/jobApplicationsView");
+        };
+
         $scope.goToEditProjectX = function (prjXID) {
             $location.path("/editProjectView");
             console.log("Titolo passato: " + prjXID);
+            localStorage.PID = prjXID;
+        };
+
+        $scope.goToCalendar=function(prjXID){
+            $location.path("/calendarView");
             localStorage.PID = prjXID;
         };
 
@@ -186,6 +195,25 @@ angular.module('myApp.myProjectsView', ['ngRoute'])
 
                 }
             });
+        };
+
+        $scope.saveCurrentProject=function(projID, projName){
+            // Salvo i dati per il nuovo reminder
+            $scope.dati.projectIDReminder = projID;
+
+            $scope.dati.projectNameReminder = projName;
+
+        };
+
+        $scope.addReminder = function () {
+            $scope.dati.userId = currentAuth.uid;
+
+            //create the JSON structure that should be sent to Firebase: user, projID, projectName, reminder
+            var newReminder = ReminderService.createReminder($scope.dati.userId, $scope.dati.projectIDReminder, $scope.dati.projectNameReminder, $scope.dati.reminder);
+            console.log("newApplication.sender: "+newReminder.user);
+            ReminderService.addReminder(newReminder);
+            $scope.dati.reminder = "";
+
         };
 
         $scope.logout = function () {
