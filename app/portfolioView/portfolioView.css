@@ -1,0 +1,30 @@
+#portfolioContainer{
+    margin-top: 30px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    background: linear-gradient(rgba(0,0,0,.5), rgba(0,0,0,.5));
+    color: white;
+}
+
+#portfolioContainer h3{
+    color: white;
+    font-family: "ADAM.CG PRO";
+}
+
+#portfolioContainer h4{
+    color: white;
+    font-family: "ADAM.CG PRO";
+}
+
+#portfolioContainer button{
+    background-color: #333333;
+}
+
+#portfolioContainer input{
+    color: #333333;
+}
+
+#spaziaturaTattica{
+    height: 20px;
+    clear: both;
+}

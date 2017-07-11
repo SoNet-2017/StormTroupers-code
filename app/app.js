@@ -12,6 +12,7 @@ firebase.initializeApp(config);
 
 angular.module('myApp', [
     'ngRoute',
+    'ngSanitize',
     "firebase",
     'myApp.loginView',
     'myApp.advancedJoinView',
@@ -31,6 +32,7 @@ angular.module('myApp', [
     'myApp.userListView',
     'myApp.chatView',
     'myApp.jobApplicationsView',
+    'myApp.portfolioView',
     'rzModule'
 ])
 
