@@ -86,7 +86,16 @@
         <div class="w3-content w3-display-container">
 
             <div class="w3-row-padding" >
-                <div class="w3-col l4 m4 s4" ng-repeat="photo in otherUser.portfolioImages"><img style="width: 100%" ng-src="{{photo}}"></div>
+                <div class="w3-col l4 m4 s4" ng-repeat="photo in otherUser.portfolioImages">
+                    <img style="width: 100%; cursor: pointer" ng-src="{{photo}}" ng-click="openImage({photo})" class="w3-hover-opacity">
+                </div>
+            </div>
+
+            <div id="modal01" class="w3-modal" onclick="this.style.display='none'">
+                <span class="w3-button w3-hover-red w3-xlarge w3-display-topright">&times;</span>
+                <div class="w3-modal-content w3-animate-zoom">
+                    <img id="img01" style="width:100%">
+                </div>
             </div>
         </div>
         <form id="addANewPhotoForm">

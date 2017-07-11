@@ -226,14 +226,22 @@ angular.module('myApp.portfolioView', ['ngRoute'])
             }
 
 
-
-
-
         }).catch(function (error) {
             $scope.error = error;
             console.log("sono in errore2: " + error);
         });
 
+
+        $scope.openImage=function (element) {
+            for(var key in element) {
+                if(element.hasOwnProperty(key)) {
+                    var value = element[key];
+                    console.log(value);
+                    document.getElementById("img01").src = value;
+                    document.getElementById("modal01").style.display = "block";
+                }
+            }
+        };
 
         $scope.logout = function () {
             Users.registerLogout(currentAuth.uid);
