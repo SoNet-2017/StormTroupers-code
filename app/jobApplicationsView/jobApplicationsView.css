@@ -7,3 +7,21 @@
     padding-bottom: 30px;
     background-color: #b7c3b8;
 }
+
+#projectPic2{
+    background-image: url("../../images/lens_sat.jpg");
+    background-size: cover;
+    min-height: 150px;
+}
+
+#profileEquipmentContainer{
+    padding-top: 30px;
+    padding-bottom: 30px;
+    background-color: #b7c3b8;
+}
+
+#profilePortfolioContainer{
+    padding-top: 30px;
+    padding-bottom: 30px;
+    background-color: #b7c3b8;
+}
