@@ -21,15 +21,17 @@
 
     <form id="searchItemHome">
         <div class="input-group">
-            <input type="text" class="form-control" placeholder="Search">
+            <input id="searchItemHomeKeyword" type="text" class="form-control" placeholder="Search" ng-submit="launchSearchInSearchPage()">
             <div class="input-group-btn">
-                <button class="btn btn-default" type="submit">
+                <button class="btn btn-default" type="submit" ng-click="launchSearchInSearchPage()">
                     <i class="glyphicon glyphicon-search"></i>
                 </button>
             </div>
         </div>
     </form>
 
+    <div class="w3-bar-item w3-right" id="logoChatBarHome"><span><a href="#!/usersList"><i
+            class="w3-right glyphicon glyphicon-comment w3-xlarge" style="color: white;"></i></a></span></div>
 
     <div class="w3-bar-item w3-dropdown-click w3-right" id="logoBarHome" ng-click="showLogoItem()">
         {{profile.name}}
@@ -73,6 +75,8 @@
                 class="glyphicon glyphicon-film w3-large"></i></a><br><br>
         <a ng-click="goToMyTroupers(profile.$id)" class="w3-bar-item" id="userTroupeHome">My Troupers <i
                 class="glyphicon glyphicon-user w3-large"></i></a><br><br>
+        <a ng-click="goToMyApplications()" class="w3-bar-item" id="userApplicationHome">My Applications <i
+                class="glyphicon glyphicon-briefcase w3-large"></i></a><br><br>
         <a ng-click="goToEditProfile()" class="w3-bar-item" id="editProfileLinkHome">Edit Profile <i
                 class="glyphicon glyphicon-cog w3-large"></i></a>
     </div>
@@ -126,20 +130,20 @@
                                 </div>
                                 <div class="form-group">
                                     <label><span class="glyphicon glyphicon-fire"></span> Why I'm the person you're looking for:</label>
-                                    <input ng-model="motivationalMsg" type="text" class="form-control" placeholder="Write a message for the troupe">
+                                    <input ng-model="dati.motivationalMsg" type="text" class="form-control" placeholder="Write a message for the troupe">
                                 </div>
                                 <div class="form-group">
                                     <label><span class="glyphicon glyphicon-briefcase"></span> I'd like to apply for:</label>
                                     <ul style="text-align: left; color: #636466;list-style: none">
                                         <div>
-                                            <li ng-repeat="roleNeeded in prj.rolesNeeded">
+                                            <li ng-repeat="roleNeeded in adjustedRoles">
                                                 <label><input type="checkbox"
-                                                              value="{{roleNeeded}}" ng-model="roleAppliedFor">{{roleNeeded}}</label>
+                                                              value="{{roleNeeded}}" name="roleAppliedFor">{{roleNeeded}}</label>
                                             </li>
                                         </div>
                                     </ul>
                                 </div>
-                                <button ng-click="proposeYourself()" type="submit" class="btn btn-default btn-success btn-block" data-dismiss="modal">
+                                <button ng-click="addApplication()" type="submit" class="btn btn-default btn-success btn-block" data-dismiss="modal">
                                     <span class="glyphicon glyphicon-flash"></span> Apply!
                                 </button>
                             </form>
@@ -193,9 +197,9 @@
             </div>
             <div class="w3-col l9 m9 s9" style="align-content: center">
                 <ul class="w3-left" style="padding: 0px;">
-                    <li ng-repeat="user in prj.troupers"
+                    <li ng-repeat="user in projTroupers"
                         style="display: inline-block; list-style: none; padding-top: 10px">
-                        <a id="troupeUserImgLink" ng-click="goToPublicProfile(user)">
+                        <a id="troupeUserImgLink" ng-click="goToPublicProfile(user.$id)">
                             <img class="media-object w3-circle" ng-src="../{{user.img_url}}" alt="{{user.img_alt}}"
                                  ng-if="!(user.img_url.includes('https://firebasestorage.googleapis.com')) && user.img_url!=''">
                             <img class="media-object w3-circle" ng-src="{{user.img_url}}" alt="{{user.img_alt}}"

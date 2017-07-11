@@ -20,9 +20,9 @@
 
     <form id="searchItemHome">
         <div class="input-group">
-            <input type="text" class="form-control" placeholder="Search">
+            <input id="searchItemHomeKeyword" type="text" class="form-control" placeholder="Search" ng-submit="launchSearchInSearchPage()">
             <div class="input-group-btn">
-                <button class="btn btn-default" type="submit">
+                <button class="btn btn-default" type="submit" ng-click="launchSearchInSearchPage()">
                     <i class="glyphicon glyphicon-search"></i>
                 </button>
             </div>
@@ -65,6 +65,8 @@
         <a ng-click="goToMyProjects()" class="w3-bar-item" id="userProjectHome">My Projects <i
                 class="glyphicon glyphicon-film w3-large"></i></a><br><br>
         <a ng-click="goToMyTroupers()" class="w3-bar-item" id="userTroupeHome">My Troupers <i class="glyphicon glyphicon-user w3-large"></i></a><br><br>
+        <a ng-click="goToMyApplications()" class="w3-bar-item" id="userApplicationHome">My Applications <i
+                class="glyphicon glyphicon-briefcase w3-large"></i></a><br><br>
         <a ng-click="goToEditProfile()" class="w3-bar-item" id="editProfileLinkHome">Edit Profile <i
                 class="glyphicon glyphicon-cog w3-large"></i></a>
     </div>

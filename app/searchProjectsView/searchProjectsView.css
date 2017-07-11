@@ -71,6 +71,24 @@
     color: #636466;
 }
 
+#helpCaption {
+    font-size: 9pt;
+    color: ghostwhite;
+}
+
+#helpCaption2 {
+    font-size: 9pt;
+}
+
+#helpCaption3 {
+    font-size: 9pt;
+    color: ghostwhite;
+}
+
+#helpCaption4 {
+    font-size: 9pt;
+}
+
 #advancedGenreCheckboxes2{
     display: inline-block;
     justify-content:left;

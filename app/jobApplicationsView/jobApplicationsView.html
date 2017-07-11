@@ -21,9 +21,9 @@
 
     <form id="searchItemHome">
         <div class="input-group">
-            <input type="text" class="form-control" placeholder="Search">
+            <input id="searchItemHomeKeyword" type="text" class="form-control" placeholder="Search" ng-submit="launchSearchInSearchPage()">
             <div class="input-group-btn">
-                <button class="btn btn-default" type="submit">
+                <button class="btn btn-default" type="submit" ng-click="launchSearchInSearchPage()">
                     <i class="glyphicon glyphicon-search"></i>
                 </button>
             </div>
@@ -74,340 +74,44 @@
                 class="glyphicon glyphicon-film w3-large"></i></a><br><br>
         <a ng-click="goToMyTroupers(profile.$id)" class="w3-bar-item" id="userTroupeHome">My Troupers <i
                 class="glyphicon glyphicon-user w3-large"></i></a><br><br>
+        <a ng-click="goToMyApplications()" class="w3-bar-item" id="userApplicationHome">My Applications <i
+                class="glyphicon glyphicon-briefcase w3-large"></i></a><br><br>
         <a ng-click="goToEditProfile()" class="w3-bar-item" id="editProfileLinkHome">Edit Profile <i
                 class="glyphicon glyphicon-cog w3-large"></i></a>
     </div>
 
     <div id="mainContainerProfile" class="w3-container w3-col l7 m7 s7" style="margin-left: 30px;">
         <div id="profileGeneralInfoContainer" class="w3-container  w3-col l12 m12 s12 w3-card-2"
-             style="background: linear-gradient(rgba(0,0,0,.5), rgba(0,0,0,.5));background-color:#333333;border-top-left-radius: 4mm;border-top-right-radius: 4mm;">
+             style="background: linear-gradient(rgba(0,0,0,.5), rgba(0,0,0,.5));">
 
-            <!--MODAL PER MESSAGGI ASINCRONI-->
-            <div class="modalContainer">
-                <!-- Modal -->
-                <div class="modal fade" id="myModalMessage" role="dialog">
-                    <div class="modal-dialog">
-
-                        <!-- Modal content-->
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                <h4 style="color:red;"><span class="glyphicon glyphicon-envelope"></span> Send a message to
-                                    <strong>{{otherUser.name}}</strong></h4>
-                            </div>
-                            <div class="modal-body">
-                                <form role="form">
-                                    <div class="form-group">
-                                        <label><span class="glyphicon glyphicon-user"></span> {{profile.name}} {{profile.lastName}}</label>
-                                        <input type="text" class="form-control" placeholder="Enter email" value="{{profile.email}}">
+            <div id="profilePortfolioContainer" class="w3-container w3-row w3-col l12 m12 s12 w3-card-2"
+                 style="margin-top: 30px; padding-top: 20px; background: linear-gradient(rgba(0,0,0,.5), rgba(0,0,0,.5));background-color:#333333;">
+                <div id="portfolioContainer" class="w3-container">
+                    <h4>Applications for:</h4>
+                    <ul style="list-style: none">
+                        <li ng-repeat="proj in dati.filterProjects">
+                            <div id="projContainer" class="w3-col s12 m12 l12" style="margin-bottom: 30px;">
+                                <div id="projectPic2" class=" w3-container w3-card-2 w3-col s5 m5 l5"
+                                     style="padding: 10px; border-radius: 4mm; background-color: #b7c3b8;">
+                                    <h3 style="color: white;text-shadow: 2px 2px 2px #333333;cursor: pointer;" ng-click="goToPublicProjectPage(proj.$id)">
+                                        {{proj.title}}
+                                    </h3>
+                                </div>
+                                <div class="w3-col s6 m6 l6" style="color: white; margin-left:20px;">
+                                    <div style="color: white;"
+                                         ng-repeat="appl in dati.applications | filter:{$id: dati.userId} | filter:{project: proj.$id}">
+                                        <h4>Roles I applied for: {{appl.roles}}</h4>
+                                        <h4>Message you sent: <em>{{appl.motivationalMsg}}</em><br></h4>
                                     </div>
-                                    <div class="form-group">
-                                        <label><span class="glyphicon glyphicon-envelope"></span> Message:</label>
-                                        <input id="txtMessage" ng-model="dati.msg" type="text" class="form-control" placeholder="Write a message for {{otherUser.name}}">
-                                    </div>
-                                    <button type="submit" class="btn btn-default btn-success btn-block" data-dismiss="modal" ng-click="addMessage()">
-                                        <span class="glyphicon glyphicon-send"></span> Send
-                                    </button>
-                                </form>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="submit" class="btn btn-default btn-default pull-left" data-dismiss="modal">
-                                    <span class="glyphicon glyphicon-remove"></span> Cancel
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!--MODAL PER CONFERMA AMICIZIA/RIMOZIONE-->
-            <div class="modalContainer">
-                <!-- Modal -->
-                <div class="modal fade" id="myModalFriendRequest" role="dialog">
-                    <div class="modal-dialog">
-
-                        <!-- Modal content-->
-                        <div class="modal-content">
-                            <!--<div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                <h4 class="modal-title" style="color: black;" ng-show="!alreadyFriend">Friend Request</h4>
-                                <h4 class="modal-title" style="color: black;" ng-show="alreadyFriend">Friend Request</h4>
-                            </div>-->
-                            <div class="modal-body">
-                                <p ng-show="!alreadyFriend">You added {{otherUser.name}} to your connections.</p>
-                                <p ng-show="alreadyFriend">You removed {{otherUser.name}} from your connections.</p>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-
-            </div>
-
-            <div id="pictureContainer" class="w3-container w3-col s4 m4 l4">
-            <span class="w3-left w3-animate-opacity"
-                  style="margin-left: 20px; margin-bottom: 25px; width: 100%">
-                <div id="profilePicture">
-                    <img class="media-object" ng-src="../{{otherUser.img_url}}" alt="{{otherUser.img_alt}}"
-                         ng-if="!(otherUser.img_url.includes('https://firebasestorage.googleapis.com')) && otherUser.img_url!=''">
-                    <img class="media-object" ng-src="{{otherUser.img_url}}" alt="{{otherUser.img_alt}}"
-                         ng-if="otherUser.img_url.includes('https://firebasestorage.googleapis.com')">
-                    <img class="media-object" ng-src="../images/StormTroupersLogo.png" alt="{{otherUser.img_alt}}"
-                         ng-if="otherUser.img_url == ''">
-                </div>
-
-            </span>
-            </div>
-            <div id="generalInfoContainer" class="w3-container w3-col s8 m8 l8">
-                <h4 style="color: white;">About <strong>{{otherUser.name}} {{otherUser.lastName}}</strong>, {{age}}
-                    years old</h4>
-                <div class="w3-container">
-                    <div class="w3-col s1 m1 l1"><i class="glyphicon glyphicon-briefcase w3-large"
-                                                    style="padding-top: 8px; color: white;"></i></div>
-                    <div class="w3-col s11 m11 l11">
-                        <h5 style="color: lightgray;"><p id="userRoles"></p></h5>
-                    </div>
-                </div>
-                <div class="w3-container">
-                    <div class="w3-col s1 m1 l1"><i class="glyphicon glyphicon-map-marker w3-large"
-                                                    style="padding-top: 8px; color: white;"></i></div>
-                    <div class="w3-col s11 m11 l11">
-                        <h5 style="color: lightgray;"><p id="position">{{otherUser.city}}, {{otherUser.province}},
-                            {{otherUser.country}}</p></h5>
-                    </div>
-                </div>
-                <div class="w3-container">
-                    <div class="w3-col s1 m1 l1"><i class="glyphicon glyphicon-pushpin w3-large"
-                                                    style="padding-top: 8px; color: white;"></i></div>
-                    <div class="w3-col s11 m11 l11">
-                        <h5 style="color: lightgray;"><p>{{otherUser.description}}</p></h5>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-        <br>
-
-        <div id="profileProjectsContainer" class="w3-container w3-row w3-col l12 m12 s12 w3-card-2"
-             style="margin-top: 30px; padding-top: 20px; background: linear-gradient(rgba(0,0,0,.5), rgba(0,0,0,.5));">
-            <div id="projectsContainer" class="w3-container">
-                <h4>Current/Completed Projects</h4>
-                <br>
-                <ul style="list-style: none; padding: 0; display: inline-block;">
-                    <li ng-repeat="project in projPublicPage" class="w3-col s12 m12 l12"
-                        style="margin-right: 40px; margin-bottom: 20px">
-                        <div id="projectPic" class=" w3-container w3-card-2">
-
-                            <div class="w3-container w3-row">
-                                <h2 style="color: white; text-shadow: 2px 2px 2px #333333;">{{project.title}}</h2>
-                            </div>
-                            <div id="likePanel" class="w3-container w3-row w3-right"
-                                 style="min-height:20px; background: linear-gradient(rgba(0,0,0,.5), rgba(0,0,0,.9)); margin-top: 100px;">
-                                <div id="newPDesc">
-                                    <div class="w3-container w3-row w3-col s10 m10 l10">
-                                        <h5 style="color: white;">{{project.progress}}</h5>
-                                    </div>
-                                    <a ng-click="goToPublicProjectPage(project.$id)"><i
-                                            class="glyphicon glyphicon-eye-open w3-xlarge w3-col s1 m1 l1"
-                                            style="color: white; margin-right: 15px"></i>
-                                        <a ng-click=""><i
-                                                class="glyphicon glyphicon-heart-empty w3-xlarge w3-col s1 m1 l1"
-                                                style="color: white;"></i></a>
-                                    </a>
                                 </div>
                             </div>
-                        </div>
-                        <br>
-                    </li>
-                </ul>
-
-            </div>
-        </div>
-        <br>
-
-        <div id="profileLikedProjectsContainer" class="w3-container w3-row w3-col l12 m12 s12 w3-card-2"
-             style="margin-top: 30px; padding-top: 20px;background: linear-gradient(rgba(0,0,0,.5), rgba(0,0,0,.5));">
-            <div id="likedProjectsContainer" class="w3-container">
-                <h4>Projects <strong>{{otherUser.name}}</strong> is following</h4>
-                <ul style="list-style: none; padding: 0; display: inline-block;">
-                    <li ng-repeat="proj in followingProjects" class="w3-col s5 m5 l5"
-                        style="margin-right: 40px; margin-bottom: 20px">
-                        <div id="projectPic2" class=" w3-container w3-card-2"
-                             style="padding: 10px; border-radius: 4mm; background-color: #b7c3b8;">
-
-                            <div class="w3-container w3-row">
-                                <h2 style="color: white;
-                                                text-shadow: 2px 2px 2px #333333;">{{proj.title}}</h2>
-                            </div>
-                            <div id="likePanel2" class="w3-container w3-row w3-right"
-                                 style="min-height:20px; background: linear-gradient(rgba(0,0,0,.5), rgba(0,0,0,.9)); margin-top: 100px;">
-                                <div id="newPDesc2">
-                                    <div class="w3-container w3-row w3-col s10 m10 l10">
-                                        <h5 style="color: white;">{{proj.progress}}</h5>
-                                    </div>
-                                    <a ng-click="goToPublicProjectPage(proj.$id)"><i
-                                            class="glyphicon glyphicon-eye-open w3-xlarge w3-col s1 m1 l1"
-                                            style="color: white; margin-right: 15px"></i>
-                                        <a ng-click=""><i
-                                                class="glyphicon glyphicon-heart-empty w3-xlarge w3-col s1 m1 l1"
-                                                style="color: white;"></i></a>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                        <br>
-                    </li>
-                </ul>
-            </div>
-        </div>
-        <br>
-
-        <div id="profileFriendsContainer" class="w3-container w3-row w3-col l12 m12 s12 w3-card-2"
-             style="margin-top: 30px; padding-top: 20px; background: linear-gradient(rgba(0,0,0,.5), rgba(0,0,0,.5));">
-            <div id="friendsContainer" class="w3-container">
-                <h4><strong>{{otherUser.name}}</strong>'s Troupers</h4>
-                <ul class="w3-left" style="padding: 0px;">
-                    <li ng-repeat="user in friends" style="display: inline-block; list-style: none; padding-top: 10px">
-                        <a id="troupeUserImgLink" ng-click="goToPublicProfile(user.$id)">
-                            <img class="media-object w3-circle" ng-src="../{{user.img_url}}" alt="{{user.img_alt}}"
-                                 ng-if="!(user.img_url.includes('https://firebasestorage.googleapis.com')) && user.img_url!=''">
-                            <img class="media-object w3-circle" ng-src="{{user.img_url}}" alt="{{user.img_alt}}"
-                                 ng-if="user.img_url.includes('https://firebasestorage.googleapis.com')">
-                            <img class="media-object w3-circle" ng-src="../images/StormTroupersLogo.png"
-                                 alt="{{user.img_alt}}" ng-if="user.img_url == ''">
-                        </a>
-                        <!--<h4><a ng-click="goToPublicProfile(user)">{{user}}</a></h4>-->
-                    </li>
-                </ul>
-            </div>
-        </div>
-        <br>
-
-        <div id="profileEquipmentContainer" class="w3-container w3-row w3-col l12 m12 s12 w3-card-2"
-             style="margin-top: 30px; padding-top: 20px; background: linear-gradient(rgba(0,0,0,.5), rgba(0,0,0,.5));">
-            <div id="equipmentContainer" class="w3-container">
-                <h4>Equipment</h4>
-                <p style="color: white">{{otherUser.equipment}}</p>
-            </div>
-        </div>
-        <br>
-
-        <div id="profilePortfolioContainer" class="w3-container w3-row w3-col l12 m12 s12 w3-card-2"
-             style="margin-top: 30px; padding-top: 20px; background: linear-gradient(rgba(0,0,0,.5), rgba(0,0,0,.5));">
-            <div id="portfolioContainer" class="w3-container">
-                <h4>Portfolio</h4>
-                <ul style="list-style: none">
-                    <li>
-                        <div id="videoContainer" class="w3-col s12 m12 l12">
-                            <h4>Title</h4>
-                            <div class="w3-col s7 m7 l7">
-                                <iframe
-                                        src="https://www.youtube.com/embed/XGSy3_Czz8k">
-                                </iframe>
-                            </div>
-                            <div class="w3-col s4 m4 l4" style="color: white;">
-                                <h5>My roles:</h5>
-                                <ul>
-                                    <li ng-repeat="role in otherUser.roles">
-                                        {{role}}
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </li>
-                </ul>
-            </div>
-        </div>
-        <br>
-
-        <div id="profileFeedbackContainer" class="w3-container w3-row w3-col l12 m12 s12 w3-card-2"
-             style="margin-top: 30px; padding-top: 20px; background: linear-gradient(rgba(0,0,0,.5), rgba(0,0,0,.5));">
-            <div id="feedbackContainer" class="w3-container">
-                <h4>What other Troupers say about <strong>{{otherUser.name}}</strong></h4>
-                <div id="feedbackPar" style="color: white"></div>
-            </div>
-        </div>
-
-        <div id="profileFeedbackWriter" class="w3-container w3-row w3-col l12 m12 s12 w3-card-2"
-             style="margin-top: 30px; padding-top: 20px; background: linear-gradient(rgba(0,0,0,.5), rgba(0,0,0,.5));">
-            <h4>Write a feedback about <strong>{{otherUser.name}}</strong></h4>
-            <br>
-            <form>
-                <textarea placeholder="Write a feedback" id="feedbackText"></textarea>
-            </form>
-            <br>
-            <form id="rate" name="rate">
-                <div class="stars">
-                    <input type="radio" name="star" class="star-1" id="star-1" value="1" ng-click="check(1)"/>
-                    <label class="star-1" for="star-1">1</label>
-                    <input type="radio" name="star" class="star-2" id="star-2" value="2" ng-click="check(2)"/>
-                    <label class="star-2" for="star-2">2</label>
-                    <input type="radio" name="star" class="star-3" id="star-3" value="3" ng-click="check(3)"/>
-                    <label class="star-3" for="star-3">3</label>
-                    <input type="radio" name="star" class="star-4" id="star-4" value="4" ng-click="check(4)"/>
-                    <label class="star-4" for="star-4">4</label>
-                    <input type="radio" name="star" class="star-5" id="star-5" value="5" ng-click="check(5)"/>
-                    <label class="star-5" for="star-5">5</label>
-                    <span></span>
+                        </li>
+                    </ul>
                 </div>
-            </form>
+            </div>
+
             <br>
-            <button id="sendTheFeedback" class="w3-button w3-right" ng-click="addFeedback()">Add a feedback</button>
         </div>
     </div>
 
-    <div id="lateralLinks">
-        <div class="w3-row w3-col s1 m1 l1" ng-show="!alreadyFriend">
-            <div class="w3-tooltip">
-                <a ng-click="addUserToFriends(otherUser.$id)" data-toggle="modal" data-target="#myModal">
-                    <i class="glyphicon glyphicon-screenshot w3-xlarge w3-left"
-                       style="color: white; cursor: pointer; padding-bottom: 20px;"></i>
-                </a>
-                <!--<h6 style="position:absolute;right:0;bottom:0px" class="w3-text w3-tag">Connect with {{otherUser.name}}</h6>-->
-                <h6 class="w3-center w3-text w3-tag"
-                    style="color: white; text-align: left; position:absolute;top: 0px; padding: 5px;">Connect with
-                    {{otherUser.name}}</h6>
-            </div>
-        </div>
-        <div class="w3-row w3-col s1 m1 l1" ng-show="alreadyFriend">
-            <div class="w3-tooltip">
-                <a ng-click="removeUserFromFriends(otherUser.$id)" data-toggle="modal" data-target="#myModalFriendRequest">
-                    <i class="glyphicon glyphicon-remove w3-xlarge w3-left"
-                       style="color: white; cursor: pointer; padding-bottom: 20px;"></i>
-                </a>
-                <!--<h6 style="position:absolute;right:0;bottom:0px" class="w3-text w3-tag">Connect with {{otherUser.name}}</h6>-->
-                <h6 class="w3-center w3-text w3-tag"
-                    style="color: white; text-align: left; position:absolute;top: 0px; padding: 5px;">Remove
-                    {{otherUser.name}}</h6>
-            </div>
-        </div>
-        <br>
-        <div class="w3-row w3-col s1 m1 l1">
-            <div class="w3-tooltip">
-                <a data-toggle="modal" data-target="#myModalMessage">
-                    <i class="glyphicon glyphicon-send w3-xlarge w3-left"
-                       style="color: white; cursor: pointer; padding-bottom: 20px;"></i>
-                </a>
-                <h6 class="w3-center w3-text w3-tag"
-                    style="color: white; text-align: left; position:absolute;top: 0px; padding: 5px;">Send a
-                    message</h6>
-            </div>
-        </div>
-        <br>
-        <div class="w3-row w3-col s1 m1 l1">
-            <div class="w3-tooltip">
-                <a ng-click="goToFriendsPage(otherUser.$id)">
-                    <i class="glyphicon glyphicon-link w3-xlarge w3-left"
-                       style="color: white; cursor: pointer;"></i>
-                </a>
-                <h6 class="w3-center w3-text w3-tag"
-                    style="color: white; text-align: left; position:absolute;top: 0px; padding: 5px;">See
-                    {{otherUser.name}}'s friends</h6>
-            </div>
-        </div>
-    </div>
 </div>
-

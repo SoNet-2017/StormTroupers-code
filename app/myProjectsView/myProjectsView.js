@@ -34,6 +34,12 @@ angular.module('myApp.myProjectsView', ['ngRoute'])
                 x.className = x.className.replace(" w3-show", "");
         };
 
+        $scope.launchSearchInSearchPage = function () {
+            $location.path("/searchPageView");
+            localStorage.immediateSearch=true;
+            localStorage.immediateSearchKeyword=document.getElementById("searchItemHomeKeyword").value;
+        };
+
         $scope.showSearchItem = function () {
             var x = document.getElementById("typeSearchContentHome");
             if (x.className.indexOf("w3-show") == -1)
@@ -110,11 +116,12 @@ angular.module('myApp.myProjectsView', ['ngRoute'])
         $scope.getProjectsFromDB={};
         var PID = localStorage.PID;
         var projectsBase = database.ref('projects/');
+        $scope.filterProjects={};
+
         $scope.getProjectsFromDB = $firebaseArray(projectsBase);
 
         $scope.getProjectsFromDB.$loaded().then(function () {
             //resetta il filtersearch
-            $scope.filterProjects={};
 
             var length=$scope.getProjectsFromDB.length;
             var j=0;
@@ -132,8 +139,8 @@ angular.module('myApp.myProjectsView', ['ngRoute'])
                         break;
                     }
                 }
-                //console.log("getProjectsFromDB["+i+"]="+$scope.getProjectsFromDB[i].title);
             }
+            //console.log("getProjectsFromDB["+i+"]="+$scope.getProjectsFromDB[i].title);
         });
 
         $scope.popolaMyProjects=function () {
@@ -163,7 +170,26 @@ angular.module('myApp.myProjectsView', ['ngRoute'])
                             break;
                         }
                     }
-                    //console.log("getProjectsFromDB["+i+"]="+$scope.getProjectsFromDB[i].title);
+                    console.log("getProjectsFromDB["+i+"]="+$scope.getProjectsFromDB[i].title);
+                }
+
+                console.log("sono fuori dal primo ciclo");
+                for(var i=0; i< $scope.filterProjects.length; i++){
+                    console.log("titolo progetto quiiiZ: " + $scope.filterProjects[i].title);
+                    console.log("$scope.prj.troupers: "+$scope.filterProjects[i].troupers);
+
+                    var length = $scope.filterProjects[i].troupers.length;
+                    for(var k=0; k<length; k++){
+                        console.log("$scope.prj.troupers[i]: "+$scope.filterProjects[i].troupers[k]);
+
+                        var currTrouperUID = $scope.filterProjects[i].troupers[k];
+                        var trouperObj = $firebaseObject(database.ref('users/' + currTrouperUID));
+                        //console.log("indirizzo: "+database.ref('users/' + trouperUID));
+
+                        $scope.projTroupers[k] = trouperObj;
+                        console.log(($scope.projTroupers[k]));
+                    }
+
                 }
             });
         };

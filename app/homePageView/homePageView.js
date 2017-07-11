@@ -39,6 +39,15 @@ angular.module('myApp.homePageView', ['ngRoute'])
                 x.className = x.className.replace(" w3-show", "");
         };
 
+        $scope.launchSearchInSearchPage = function () {
+            $location.path("/searchPageView");
+            localStorage.immediateSearch=true;
+            localStorage.immediateSearchKeyword=document.getElementById("searchItemHomeKeyword").value;
+            console.log("Variabili passate.");
+            console.log("immediateSearch = "+localStorage.immediateSearch.toString());
+            console.log("ImmediateSearchKeyword = "+localStorage.immediateSearchKeyword);
+        };
+
         $scope.goToDashboard = function () {
             $location.path("/homePageView")
         };
@@ -62,6 +71,10 @@ angular.module('myApp.homePageView', ['ngRoute'])
         $scope.goToMyTroupers = function () {
             $location.path("/friendsPageView");
             localStorage.otherUserID = UID;
+        };
+
+        $scope.goToMyApplications=function() {
+            $location.path("/jobApplicationsView");
         };
 
         $scope.goToEditor=function(){
