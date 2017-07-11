@@ -45,13 +45,13 @@
 }
 
 #advancedJoinCheckboxes{
-    display: inline-block;
-    justify-content:left;
-    align-items:center;
-    text-align: left;
-    font-size: 8pt;
-    color: #636466;
-}
+     display: inline-block;
+     justify-content:left;
+     align-items:center;
+     text-align: left;
+     font-size: 8pt;
+     color: #636466;
+ }
 
 #advancedJoinCheckboxes2{
     display: inline-block;
@@ -60,6 +60,15 @@
     text-align: left;
     font-size: 8pt;
     color: #636466;
+}
+
+#helpCaption {
+    font-size: 9pt;
+    color: ghostwhite;
+}
+
+#helpCaption2 {
+    font-size: 9pt;
 }
 
 #raceCheckBoxes{

@@ -80,10 +80,15 @@
         <hr>
 
         <label>Keyword</label>
-        <form ng-submit="launchSearch()">
-            <input type="text" id="searchKeyword" value="" class="searchPageInputFields" placeholder="Keyword"><br>
+        <form ng-submit="launchSearch()" ng-init="showHelpCaption = false">
+            <input type="text" id="searchKeyword" ng-mouseenter="showHelpCaption = true"  ng-mouseleave="showHelpCaption = false" value="" class="searchPageInputFields" placeholder="Keyword"><br>
+            <div id="helpCaption" ng-if="showHelpCaption" class="w3-animate-opacity">
+                You can also use "AND" and "OR" boolean operators to improve your search
+            </div>
         </form>
-        <br>
+        <div ng-if="showHelpCaption === false" id="helpCaption2">
+            <br>
+        </div>
         <label>City</label>
         <form ng-submit="launchSearch()">
             <input type="text" id="searchCity" value="" class="searchPageInputFields" placeholder="City"><br>

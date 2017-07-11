@@ -691,6 +691,9 @@ angular.module('myApp.searchProjectsView', ['ngRoute'])
                         gen_Found = true;
                     }
                 }
+                else {
+                    console.log("Filter by Genre = false!")
+                }
 
                 if (filterByRole === true && (kw_Found === true || checkKeyword === false)) { //la condizione "kw_Found===true" serve perché essendo la keyword un AND, se non corrisponde la keyword non sta a verificare il resto
 
@@ -738,7 +741,6 @@ angular.module('myApp.searchProjectsView', ['ngRoute'])
                             break;
                         }
                         if (includeProd === true && roles[n] === "Producers") {
-                            console.log("Producers needed here.");
                             rl_Found = true;
                             break;
                         }
@@ -766,6 +768,9 @@ angular.module('myApp.searchProjectsView', ['ngRoute'])
                     }
 
                 }
+                else {
+                    console.log("Filter by Role = false!")
+                }
 
                 if (filterByProgress === true && (kw_Found === true || checkKeyword === false)) {
                     var prg_Found = false;
@@ -785,11 +790,16 @@ angular.module('myApp.searchProjectsView', ['ngRoute'])
                     }
 
                 }
+                else {
+                    console.log("Filter by Progress = false!")
+                }
 
 
-                //check finale, se corrisponde tutto allora aggiungi a filterSearch (dovrei fare così anke per la crew, prima o poi lo farò)
+                //check finale, se corrisponde tutto allora aggiungi a filterSearch
                 //CORRENTI: Keyword, City, Genre, Needed Roles, Progress State
-                if ((kw_Found === true || checkKeyword === false) &&
+                //cerca solo se hai compilato almeno un campo
+                if ((checkKeyword===true || checkCityword===true || filterByRole===true || filterByGenre===true || filterByProgress===true) &&
+                    (kw_Found === true || checkKeyword === false) &&
                     (ct_Found === true || checkCityword === false) &&
                     (gen_Found === true || filterByGenre === false) &&
                     (rl_Found === true || filterByRole === false) &&
@@ -797,7 +807,7 @@ angular.module('myApp.searchProjectsView', ['ngRoute'])
 
                     $scope.filterSearch[j] = $scope.allProjects[i];
                     j++;
-                    console.log($scope.allProjects[i].title + "added to results.");
+                    console.log($scope.allProjects[i].title + " added to results.");
                 }
 
                 //ricerca di prova in base al nome TENIAMOLA LI'
