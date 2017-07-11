@@ -78,6 +78,10 @@ angular.module('myApp.publicProjectPageView', ['ngRoute'])
             localStorage.otherUserID=UID;
         };
 
+        $scope.goToEditor=function () {
+            $location.path("/editorView");
+        };
+
         var database=firebase.database();
 
         var UID=localStorage.UID;

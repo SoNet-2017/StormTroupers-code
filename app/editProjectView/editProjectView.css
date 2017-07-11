@@ -116,6 +116,7 @@
     cursor: pointer;
 }
 
-#projectPicture{
-    content: url("../../images/upload_pic.jpg");
+#projPicContainer img{
+    padding-right: 5px;
+    max-width: 90%;
 }

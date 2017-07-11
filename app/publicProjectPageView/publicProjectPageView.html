@@ -82,7 +82,7 @@
         <div class="w3-row">
             <div class="w3-animate-opacity">
 
-                <div class="w3-container" id="flowImage">
+                <div class="w3-container" id="publicProjectImage" style="background-image:url({{prj.img_url}});">
                     <div id="likePanel" class="w3-container w3-col l1 m1 s1"
                          style="min-height: 350px; background: linear-gradient(rgba(0,0,0,.5), rgba(0,0,0,.8)); margin: 0px;">
                         <div class="w3-content w3-center" id="likePanelHover">
@@ -202,7 +202,6 @@
                                  ng-if="user.img_url.includes('https://firebasestorage.googleapis.com')">
                             <img class="media-object w3-circle" ng-src="../images/StormTroupersLogo.png"
                                  alt="{{user.img_alt}}" ng-if="user.img_url == ''">
-                            <img id="troupeUserImg" alt="Avatar" class="w3-circle">
                         </a>
                         <!--<h4><a ng-click="goToPublicProfile(user)">{{user}}</a></h4>-->
                     </li>

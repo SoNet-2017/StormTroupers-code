@@ -22,20 +22,13 @@
     max-width: 100%;
 }
 
-#troupeUserImg{
-    content: url("../../images/StormTroupersLogo.png");
-    max-height: 40px;
-    margin: 5px;
-}
-
 #troupeUserImgLink img{
     max-height: 40px;
     margin: 5px;
 }
 
-#flowImage{
-    /* The image used */
-    background-image: url("../../images/troopers.jpg");
+#publicProjectImage{
+
 
     /* Set a specific height */
     min-height: 350px;

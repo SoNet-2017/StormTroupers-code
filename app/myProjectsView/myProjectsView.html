@@ -88,8 +88,10 @@
             <ul style="list-style: none">
                 <li ng-repeat="prj in filterProjects">
                     <div id="projectXPanel" class="w3-panel w3-card-2 w3-col l12 m12 s12">
-                        <div class="w3-row w3-col l3 m3 s3 w3-left">
-                            <img id="projectXimg">
+                        <div class="w3-row w3-col l3 m3 s3 w3-left" id="projectXimg">
+                            <img class="media-object w3-circle"  ng-src="../{{prj.img_url}}" ng-if="!(prj.img_url.includes('https://firebasestorage.googleapis.com')) && prj.img_url!=''">
+                            <img class="media-object w3-circle"  ng-src="{{prj.img_url}}" ng-if="prj.img_url.includes('https://firebasestorage.googleapis.com')">
+                            <img class="media-object w3-circle"  ng-src="../images/Kim-Jong-n2000.jpg" ng-if="prj.img_url == ''">
                         </div>
                         <div id="projectXLink" class="w3-col l9 m9 s9">
                             <h4><a class="w3-left w3-col l10 m10 s10" ng-click="goToEditProjectX(prj.$id)">
@@ -118,8 +120,6 @@
                                             <img class="media-object w3-circle"  ng-src="../{{user.img_url}}" alt="{{user.img_alt}}" ng-if="!(user.img_url.includes('https://firebasestorage.googleapis.com')) && user.img_url!=''">
                                             <img class="media-object w3-circle"  ng-src="{{user.img_url}}" alt="{{user.img_alt}}" ng-if="user.img_url.includes('https://firebasestorage.googleapis.com')">
                                             <img class="media-object w3-circle"  ng-src="../images/StormTroupersLogo.png" alt="{{user.img_alt}}" ng-if="user.img_url == ''">
-                                            <img
-                                                id="troupeUserImg" alt="Avatar" class="w3-circle">
                                         </a>
                                         <!--<h4><a ng-click="goToPublicProfile(user)">{{user}}</a></h4>-->
                                     </li>

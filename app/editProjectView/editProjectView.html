@@ -125,7 +125,9 @@
             <div id="projInfoContainer" class="w3-animate-opacity" style="width: 60%; float: left">
             <span id="projPicContainer" class="w3-left w3-animate-opacity"
                   style="margin-left: 20px; margin-bottom: 10px; width: 35%">
-                <img id="projectPicture" style="padding-right: 5px;">
+                <img class="media-object"  ng-src="../{{prjUrl}}" ng-if="!(prjUrl.includes('https://firebasestorage.googleapis.com')) && prjUrl!=''">
+                <img class="media-object"  ng-src="{{prjUrl}}" ng-if="prjUrl.includes('https://firebasestorage.googleapis.com')">
+                <img class="media-object"  ng-src="../images/upload_pic.jpg" ng-if="prjUrl == ''">
             </span>
                 <form name="formInfo" class="w3-right w3-animate-opacity" style="width: 60%; padding-right: 20px">
                     <input type="text" ng-model="projectName" id="projectName" name="projectName"
@@ -306,7 +308,7 @@
 
             </div>
             <div class="w3-row w3-left" style="margin-top: 30px; margin-bottom: 15px; width: 60%;">
-                <button ng-click="editProjectDB()" class="w3-button w3-large w3-dark-gray">Save changes</button>
+                <button ng-click="addImage()" class="w3-button w3-large w3-dark-gray">Save changes</button>
                 <button ng-click="goToMyProjects()" class="w3-button w3-large w3-dark-gray w3-opacity">Cancel
                 </button>
             </div>

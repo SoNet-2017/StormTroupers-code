@@ -1,4 +1,4 @@
-<div class="w3-container w3-bar w3-top w3-card-2" id="topBarHome">
+ <div class="w3-container w3-bar w3-top w3-card-2" id="topBarHome">
 
 
     <a class="w3-bar-item w3-button" id="homeLinkHome" ng-click="goToDashboard()"><i
@@ -35,7 +35,7 @@
     <div class="w3-bar-item w3-dropdown-click w3-right" id="logoBarHome" ng-click="showLogoItem()">
         {{profile.name}}
         <div class="w3-dropdown-content w3-bar-block w3-border w3-right" id="logoBarContentHome">
-            <a ng-click="goToMyPublicProfile()" class="w3-bar-item w3-button"><i class="glyphicon glyphicon-user w3-large"></i> Your Public
+            <a ng-click="goToMyPublicProfile(profile.$id)" class="w3-bar-item w3-button"><i class="glyphicon glyphicon-user w3-large"></i> Your Public
                 Profile</a>
             <a ng-click="goToEditProfile()" class="w3-bar-item w3-button"><i
                     class="glyphicon glyphicon-pencil w3-large"></i> Edit Profile</a>
@@ -205,7 +205,7 @@
             </div>
 
             <div class="w3-row w3-left" style="margin-top: 30px; margin-bottom: 15px; width: 60%;">
-                <button ng-click="createProjectDB()" class="w3-button w3-large w3-dark-gray">Create</button>
+                <button ng-click="addImage()" class="w3-button w3-large w3-dark-gray">Create</button>
                 <button ng-click="goToMyProjects()" class="w3-button w3-large w3-dark-gray w3-opacity">Cancel</button>
             </div>
         </div>
