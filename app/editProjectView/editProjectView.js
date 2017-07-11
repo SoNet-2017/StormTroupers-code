@@ -98,8 +98,10 @@ angular.module('myApp.editProjectView', ['ngRoute'])
             $scope.projectDescription = projObj.description;
             $scope.projectTroupers = projObj.troupers;
             $scope.rolesNeeded = projObj.rolesNeeded;
+            $scope.prjUrl=projObj.img_url;
             console.log("vettore troupers: "+$scope.projectTroupers);
             console.log("vettore rolesNeeded: "+$scope.rolesNeeded+" | length: "+$scope.rolesNeeded.length);
+            console.log(projObj.img_url);
 
             //per settare i check dei ruoli richiesti
             for(var i=0; i<$scope.rolesNeeded.length; i++){
@@ -211,45 +213,101 @@ angular.module('myApp.editProjectView', ['ngRoute'])
             console.log("trouper "+userID+" eliminato");
         };
 
+        var projTitle="";
+        var newImage="";
+
+        $scope.addImage=function () {
+
+            if(document.getElementById("projPicUpload").files[0]!==undefined){
+                var file=document.getElementById("projPicUpload").files[0];
+                projTitle = document.getElementById("projectName").value;
+
+                if (projTitle === "") {
+                    //////////////////////////////////////////////////////////
+                    var errorMainDiv = document.getElementById("alertBoxDiv");
+                    var errorDiv = document.createElement("div");
+                    errorDiv.className = "w3-panel w3-round-large w3-row";
+                    errorDiv.style.display = "flex";
+                    errorDiv.style.justifyContent = "center";
+                    errorDiv.style.backgroundColor = "indianred";
+                    errorDiv.style.opacity = "0.8";
+                    errorDiv.style.color = "white";
+                    errorMainDiv.appendChild(errorDiv);
+
+                    var errorIcon = document.createElement("div");
+                    errorIcon.className = "w3-col s1 m1 l1 w3-left";
+                    errorIcon.style.display = "flex";
+                    errorIcon.style.justifyContent = "left";
+                    errorIcon.style.padding = "7.5px";
+                    errorIcon.style.verticalAlign = "middle";
+                    errorDiv.appendChild(errorIcon);
+
+                    var errorIconGlyph = document.createElement("i");
+                    errorIconGlyph.className = "w3-xlarge glyphicon glyphicon-exclamation-sign";
+                    errorIcon.appendChild(errorIconGlyph);
+
+                    var errorText = document.createElement("h4");
+                    errorText.className = "w3-col s11 m11 l11";
+                    errorText.style.color = "white";
+                    errorDiv.appendChild(errorText);
+                    errorText.innerHTML = "Title is required.";
+                    return;
+                }
+                var PID=$scope.projectID;
+                var storage=firebase.storage().ref('projects/'+PID);
+                var uploadTask=storage.put(file);
+                uploadTask.then(function (snapshot) {
+                    newImage=snapshot.downloadURL;
+                    localStorage.downloadURL=newImage;
+                    console.log($scope.imgPath);
+                    $scope.editProjectDB();
+                })
+            }else{
+                projTitle = document.getElementById("projectName").value;
+
+                if (projTitle === "") {
+                    //////////////////////////////////////////////////////////
+                    var errorMainDiv = document.getElementById("alertBoxDiv");
+                    var errorDiv = document.createElement("div");
+                    errorDiv.className = "w3-panel w3-round-large w3-row";
+                    errorDiv.style.display = "flex";
+                    errorDiv.style.justifyContent = "center";
+                    errorDiv.style.backgroundColor = "indianred";
+                    errorDiv.style.opacity = "0.8";
+                    errorDiv.style.color = "white";
+                    errorMainDiv.appendChild(errorDiv);
+
+                    var errorIcon = document.createElement("div");
+                    errorIcon.className = "w3-col s1 m1 l1 w3-left";
+                    errorIcon.style.display = "flex";
+                    errorIcon.style.justifyContent = "left";
+                    errorIcon.style.padding = "7.5px";
+                    errorIcon.style.verticalAlign = "middle";
+                    errorDiv.appendChild(errorIcon);
+
+                    var errorIconGlyph = document.createElement("i");
+                    errorIconGlyph.className = "w3-xlarge glyphicon glyphicon-exclamation-sign";
+                    errorIcon.appendChild(errorIconGlyph);
+
+                    var errorText = document.createElement("h4");
+                    errorText.className = "w3-col s11 m11 l11";
+                    errorText.style.color = "white";
+                    errorDiv.appendChild(errorText);
+                    errorText.innerHTML = "Title is required.";
+                    return;
+                }
+                newImage=projObj.img_url;
+                $scope.editProjectDB();
+            }
+
+        };
+
         $scope.editProjectDB=function() {
 
             console.log("sto salvando le modifche al project: "+$scope.prjTitle);
 
             $scope.error = null;
 
-            var projTitle = document.getElementById("projectName").value;
-
-            if(projTitle === "") {
-                //////////////////////////////////////////////////////////
-                var errorMainDiv = document.getElementById("alertBoxDiv");
-                var errorDiv = document.createElement("div");
-                errorDiv.className = "w3-panel w3-round-large w3-row";
-                errorDiv.style.display = "flex";
-                errorDiv.style.justifyContent = "center";
-                errorDiv.style.backgroundColor = "indianred";
-                errorDiv.style.opacity = "0.8";
-                errorDiv.style.color = "white";
-                errorMainDiv.appendChild(errorDiv);
-
-                var errorIcon = document.createElement("div");
-                errorIcon.className = "w3-col s1 m1 l1 w3-left";
-                errorIcon.style.display = "flex";
-                errorIcon.style.justifyContent = "left";
-                errorIcon.style.padding = "7.5px";
-                errorIcon.style.verticalAlign = "middle";
-                errorDiv.appendChild(errorIcon);
-
-                var errorIconGlyph = document.createElement("i");
-                errorIconGlyph.className = "w3-xlarge glyphicon glyphicon-exclamation-sign";
-                errorIcon.appendChild(errorIconGlyph);
-
-                var errorText = document.createElement("h4");
-                errorText.className = "w3-col s11 m11 l11";
-                errorText.style.color = "white";
-                errorDiv.appendChild(errorText);
-                errorText.innerHTML="Title is required.";
-                return;
-            }
 
             var projType = document.getElementById("projectType").value;
             var projGenre = document.getElementById('projectGenre').value;
@@ -261,6 +319,7 @@ angular.module('myApp.editProjectView', ['ngRoute'])
             console.log("Type: " + projType);
             console.log("Genre: " + projGenre);
             console.log("Descr: " + projDesc);
+            console.log("Url: "+newImage);
 
             localStorage.projectTitle = projTitle;
             localStorage.projectType = projType;
@@ -283,7 +342,8 @@ angular.module('myApp.editProjectView', ['ngRoute'])
                 genre: projGenre,
                 description: projDesc,
                 progress: projProgress,
-                troupers: $scope.projectTroupers
+                troupers: $scope.projectTroupers,
+                img_url: newImage
             }).then(function () {
                 console.log("salvate le modifiche al project in DB; PID: " + PID);
                 var obj = $firebaseObject(database.ref('projects/' + PID));
@@ -296,6 +356,7 @@ angular.module('myApp.editProjectView', ['ngRoute'])
                     localStorage.attGenre = obj.genre;
                     localStorage.attDescription = obj.description;
                     localStorage.attDateOfCreation = obj.dateOfCreation;
+                    localStorage.imgURL=obj.img_url;
                     //localStorage.attTroupers=JSON.stringify(obj.troupers);
                     $scope.goToMyProjects();
                 }).catch(function (error) {

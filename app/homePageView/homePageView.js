@@ -18,7 +18,7 @@ angular.module('myApp.homePageView', ['ngRoute'])
         });
     }])
 
-    .controller('homePageCtrl', ['$scope', '$location', '$rootScope', 'Auth', '$firebaseObject', 'Users', 'currentAuth', '$firebaseAuth', '$firebaseArray', function ($scope, $location, $rootScope, Auth, $firebaseObject, Users, currentAuth, $firebaseAuth, $firebaseArray) {
+    .controller('homePageCtrl', ['$scope', '$location', 'Auth', '$firebaseObject', 'Users', 'currentAuth', '$firebaseAuth', '$firebaseArray', '$route', function ($scope, $location, Auth, $firebaseObject, Users, currentAuth, $firebaseAuth, $firebaseArray, $route) {
         $scope.dati = {};
         $scope.auth = Auth;
 
@@ -76,6 +76,10 @@ angular.module('myApp.homePageView', ['ngRoute'])
         $scope.goToMyApplications=function() {
             $location.path("/jobApplicationsView");
         };
+
+        $scope.goToEditor=function(){
+            $location.path("/editorView");
+        }
 
         // CAMBIARE URL
         $scope.goToPublicProfile = function (userID) {

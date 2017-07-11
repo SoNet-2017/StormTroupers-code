@@ -113,8 +113,10 @@
             <ul style="list-style: none">
                 <li ng-repeat="prj in filterProjects">
                     <div id="projectXPanel" class="w3-panel w3-card-2 w3-col l12 m12 s12">
-                        <div class="w3-row w3-col l3 m3 s3 w3-left">
-                            <img id="projectXimg">
+                        <div class="w3-row w3-col l3 m3 s3 w3-left" id="projectXimg">
+                            <img class="media-object w3-circle"  ng-src="../{{prj.img_url}}" ng-if="!(prj.img_url.includes('https://firebasestorage.googleapis.com')) && prj.img_url!=''">
+                            <img class="media-object w3-circle"  ng-src="{{prj.img_url}}" ng-if="prj.img_url.includes('https://firebasestorage.googleapis.com')">
+                            <img class="media-object w3-circle"  ng-src="../images/Kim-Jong-n2000.jpg" ng-if="prj.img_url == ''">
                         </div>
                         <div id="projectXLink" class="w3-col l9 m9 s9">
                             <h4><a class="w3-left w3-col l9 m9 s9" ng-click="goToEditProjectX(prj.$id)">
@@ -134,6 +136,26 @@
                                 <li>{{prj.type}}</li>
                                 <li>{{prj.progress}}</li>
                             </ul>
+                        </div>
+
+                        <!--div per vedere i membri della troupe
+                        <div id="containerTroupe" class="row w3-container w3-right w3-col s8 m8 l8">
+                            <div class="w3-row w3-right">
+                                <h4 style="margin: 0; color: lightgray;"> The Troupe: </h4>
+                            </div>
+                            <div class="w3-row w3-col l12 m12 s12" style="align-content: center">
+                                <ul class="w3-right" style="margin-bottom: 20px; padding: 0;">
+                                    <li ng-repeat="user in prj.troupers"
+                                        style="display: inline-block; list-style: none; padding-top: 10px">
+                                        <a id="troupeUserImgLink" ng-click="goToPublicProfile(user)">
+                                            <img class="media-object w3-circle"  ng-src="../{{user.img_url}}" alt="{{user.img_alt}}" ng-if="!(user.img_url.includes('https://firebasestorage.googleapis.com')) && user.img_url!=''">
+                                            <img class="media-object w3-circle"  ng-src="{{user.img_url}}" alt="{{user.img_alt}}" ng-if="user.img_url.includes('https://firebasestorage.googleapis.com')">
+                                            <img class="media-object w3-circle"  ng-src="../images/StormTroupersLogo.png" alt="{{user.img_alt}}" ng-if="user.img_url == ''">
+                                        </a>
+                                        <!--<h4><a ng-click="goToPublicProfile(user)">{{user}}</a></h4>-->
+                                    </li>
+                                </ul>
+                            </div>
                         </div>
                     </div>
 

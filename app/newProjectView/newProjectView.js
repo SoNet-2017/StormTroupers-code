@@ -126,6 +126,99 @@ angular.module('myApp.newProjectView', ['ngRoute'])
             else console.log("trouper già inserito");
         };
 
+        var projTitle="";
+        var PID="";
+
+        $scope.addImage=function () {
+
+            if(document.getElementById("projPicUpload").files[0]!==undefined){
+                var file=document.getElementById("projPicUpload").files[0];
+                projTitle = document.getElementById("projectName").value;
+
+                if (projTitle === "") {
+                    //////////////////////////////////////////////////////////
+                    var errorMainDiv = document.getElementById("alertBoxDiv");
+                    var errorDiv = document.createElement("div");
+                    errorDiv.className = "w3-panel w3-round-large w3-row";
+                    errorDiv.style.display = "flex";
+                    errorDiv.style.justifyContent = "center";
+                    errorDiv.style.backgroundColor = "indianred";
+                    errorDiv.style.opacity = "0.8";
+                    errorDiv.style.color = "white";
+                    errorMainDiv.appendChild(errorDiv);
+
+                    var errorIcon = document.createElement("div");
+                    errorIcon.className = "w3-col s1 m1 l1 w3-left";
+                    errorIcon.style.display = "flex";
+                    errorIcon.style.justifyContent = "left";
+                    errorIcon.style.padding = "7.5px";
+                    errorIcon.style.verticalAlign = "middle";
+                    errorDiv.appendChild(errorIcon);
+
+                    var errorIconGlyph = document.createElement("i");
+                    errorIconGlyph.className = "w3-xlarge glyphicon glyphicon-exclamation-sign";
+                    errorIcon.appendChild(errorIconGlyph);
+
+                    var errorText = document.createElement("h4");
+                    errorText.className = "w3-col s11 m11 l11";
+                    errorText.style.color = "white";
+                    errorDiv.appendChild(errorText);
+                    errorText.innerHTML = "Title is required.";
+                    return;
+                }
+                PID = UID + "_" + (new Date()).getTime() + "_" + projTitle;
+                localStorage.PID = PID;
+                var storage=firebase.storage().ref('projects/'+PID);
+                var uploadTask=storage.put(file);
+                uploadTask.then(function (snapshot) {
+                    $scope.imgPath=snapshot.downloadURL;
+                    localStorage.downloadURL=$scope.imgPath;
+                    console.log($scope.imgPath);
+                    $scope.createProjectDB();
+                })
+            }else{
+                projTitle = document.getElementById("projectName").value;
+
+                if (projTitle === "") {
+                    //////////////////////////////////////////////////////////
+                    var errorMainDiv = document.getElementById("alertBoxDiv");
+                    var errorDiv = document.createElement("div");
+                    errorDiv.className = "w3-panel w3-round-large w3-row";
+                    errorDiv.style.display = "flex";
+                    errorDiv.style.justifyContent = "center";
+                    errorDiv.style.backgroundColor = "indianred";
+                    errorDiv.style.opacity = "0.8";
+                    errorDiv.style.color = "white";
+                    errorMainDiv.appendChild(errorDiv);
+
+                    var errorIcon = document.createElement("div");
+                    errorIcon.className = "w3-col s1 m1 l1 w3-left";
+                    errorIcon.style.display = "flex";
+                    errorIcon.style.justifyContent = "left";
+                    errorIcon.style.padding = "7.5px";
+                    errorIcon.style.verticalAlign = "middle";
+                    errorDiv.appendChild(errorIcon);
+
+                    var errorIconGlyph = document.createElement("i");
+                    errorIconGlyph.className = "w3-xlarge glyphicon glyphicon-exclamation-sign";
+                    errorIcon.appendChild(errorIconGlyph);
+
+                    var errorText = document.createElement("h4");
+                    errorText.className = "w3-col s11 m11 l11";
+                    errorText.style.color = "white";
+                    errorDiv.appendChild(errorText);
+                    errorText.innerHTML = "Title is required.";
+                    return;
+                }
+                PID = UID + "_" + (new Date()).getTime() + "_" + projTitle;
+                localStorage.PID = PID;
+                $scope.imgPath="https://firebasestorage.googleapis.com/v0/b/stormtroupers-d1a6d.appspot.com/o/troopers.jpg?alt=media&token=972e4b96-a590-4754-9748-1017bed72d89";
+                $scope.createProjectDB();
+            }
+
+
+        };
+
         $scope.createProjectDB = function () {
 
             console.log("entrato in create project");
@@ -183,39 +276,7 @@ angular.module('myApp.newProjectView', ['ngRoute'])
 
             console.log("roles needed: "+rolesNeeded);
 
-            var projTitle = document.getElementById("projectName").value;
 
-            if (projTitle === "") {
-                //////////////////////////////////////////////////////////
-                var errorMainDiv = document.getElementById("alertBoxDiv");
-                var errorDiv = document.createElement("div");
-                errorDiv.className = "w3-panel w3-round-large w3-row";
-                errorDiv.style.display = "flex";
-                errorDiv.style.justifyContent = "center";
-                errorDiv.style.backgroundColor = "indianred";
-                errorDiv.style.opacity = "0.8";
-                errorDiv.style.color = "white";
-                errorMainDiv.appendChild(errorDiv);
-
-                var errorIcon = document.createElement("div");
-                errorIcon.className = "w3-col s1 m1 l1 w3-left";
-                errorIcon.style.display = "flex";
-                errorIcon.style.justifyContent = "left";
-                errorIcon.style.padding = "7.5px";
-                errorIcon.style.verticalAlign = "middle";
-                errorDiv.appendChild(errorIcon);
-
-                var errorIconGlyph = document.createElement("i");
-                errorIconGlyph.className = "w3-xlarge glyphicon glyphicon-exclamation-sign";
-                errorIcon.appendChild(errorIconGlyph);
-
-                var errorText = document.createElement("h4");
-                errorText.className = "w3-col s11 m11 l11";
-                errorText.style.color = "white";
-                errorDiv.appendChild(errorText);
-                errorText.innerHTML = "Title is required.";
-                return;
-            }
 
             var projType = document.getElementById("projectType").value;
             var projGenre = document.getElementById('projectGenre').value;
@@ -262,7 +323,8 @@ angular.module('myApp.newProjectView', ['ngRoute'])
                 city: project_province,
                 troupers: troupers,
                 rolesNeeded: rolesNeeded,
-                likes: 0
+                likes: 0,
+                img_url: $scope.imgPath
             }).then(function () {
                 console.log("creato project in DB; PID: " + PID);
                 var obj = $firebaseObject(database.ref('projects/' + PID));
@@ -276,6 +338,7 @@ angular.module('myApp.newProjectView', ['ngRoute'])
                     localStorage.attDescription = obj.description;
                     localStorage.attDateOfCreation = obj.dateOfCreation;
                     localStorage.attCity = obj.city;
+                    localStorage.attURL=obj.img_url;
                     //localStorage.attTroupers=JSON.stringify(obj.troupers);
                     $scope.goToMyProjects();
                 }).catch(function (error) {
