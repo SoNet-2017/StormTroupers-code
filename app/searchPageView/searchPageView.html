@@ -105,10 +105,15 @@
         <hr>
 
         <label>Keyword</label>
-        <form ng-submit="launchSearch()">
-            <input type="text" id="searchKeyword" value="" class="searchPageInputFields" placeholder="Keyword"><br>
+        <form ng-submit="launchSearch()" ng-init="showHelpCaption = false">
+            <input type="text" placeholder="Keyword" ng-mouseenter="showHelpCaption = true"  ng-mouseleave="showHelpCaption = false" id="searchKeyword" value="" class="searchPageInputFields"><br>
+            <div id="helpCaption" ng-if="showHelpCaption" class="w3-animate-opacity">
+            You can also use "AND" and "OR" boolean operators to improve your search
+            </div>
         </form>
+        <div ng-if="showHelpCaption === false" id="helpCaption2">
         <br>
+        </div>
         <label>City</label>
         <form ng-submit="launchSearch()">
             <input type="text" id="searchCity" value="" class="searchPageInputFields" placeholder="City"><br>
@@ -177,9 +182,6 @@
             <br>
             <label>Ethnicity</label>
             <br>
-            <!--
-            <input type="text" name="actorAge" value="Diversamente Bianco" class="searchPageInputFields"><br>
-            -->
             <div class="w3-col s12 m12 l12 w3-left w3-animate-opacity">
 
                 <div class="w3-col s6 m6 l6 w3-animate-opacity" id="raceCheckBoxes">
@@ -240,17 +242,25 @@
         <label>Paid/Free v2</label>
         <br>
         <div style="color: #636466; margin-left: 15px;">
-            <input id="checkPay" type="checkbox" class="w3-check" checked> <label>Paid</label>
+            <input id="checkPay" type="checkbox" class="w3-check"> <label>Paid</label>
             <br>
-            <input id="checkFre" type="checkbox" class="w3-check" checked> <label>Free</label>
+            <input id="checkFre" type="checkbox" class="w3-check"> <label>Free</label>
             <br>
         </div>
         <br>
+        <div ng-model="feedbackHelpCaption" ng-init="feedbackHelpCaption = false" ng-mouseenter="feedbackHelpCaption = true"  ng-mouseleave="feedbackHelpCaption = false">
         <label>Minimal Feedback</label>
         <rzslider rz-slider-model="slider2.value" style="display: inline-block"
                   rz-slider-options="slider2.options"></rzslider>
-        <br>
-        <br>
+            <div id="helpCaption3" ng-if="feedbackHelpCaption" class="w3-animate-opacity">
+                <br>
+                Leave Minimal Feedback to 0 if you don't want to filter resluts by feedback
+            </div>
+            <div id="helpCaption4" ng-if="feedbackHelpCaption === false" class="w3-animate-opacity">
+                <br>
+                <br>
+            </div>
+        </div>
         <hr>
         <div id="searchCrewButtonContainer">
             <button class="w3-button w3-round-large" id="searchCrewButton" ng-click="launchSearch()">SEARCH!</button>

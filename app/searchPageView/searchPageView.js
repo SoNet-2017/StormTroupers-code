@@ -36,11 +36,11 @@ angular.module('myApp.searchPageView', ['ngRoute'])
 
         $scope.slider2 = {
             minValue: 0,
-            maxValue: 10,
+            maxValue: 5,
             value: 0,
             options: {
                 floor: 0,
-                ceil: 10,
+                ceil: 5,
                 step: 1,
                 showTicks: true
             }
@@ -551,6 +551,27 @@ angular.module('myApp.searchPageView', ['ngRoute'])
             }
 
 
+            //step390 checca se lavori pagato oppure no
+            var filterByPay=false;
+            var includePay=false;
+            if (document.getElementById("checkPay").checked) {
+                filterByPay=true;
+                includePay=true;
+            }
+            var includeFre=false;
+            if (document.getElementById("checkFre").checked) {
+                filterByPay=true;
+                includeFre=true;
+            }
+
+
+            //step4574 checca il feedback
+            var filterByFeed=false;
+            if ($scope.slider2.value>0) {
+                filterByFeed=true;
+            }
+
+
             //parte il coso per davvero
             var length=$scope.filterUsers.length;
             var j=0;
@@ -695,11 +716,6 @@ angular.module('myApp.searchPageView', ['ngRoute'])
                         }
                     }
 
-
-                    if (filterByRole===false && kw_Found===true && checkCityword===false) {
-                        $scope.filterSearch[j] = $scope.filterUsers[i];
-                        j++;
-                    }
                 }
 
 
@@ -719,14 +735,45 @@ angular.module('myApp.searchPageView', ['ngRoute'])
                     }
 
 
-                    if (ct_Found===true && filterByRole===false) {
-                        $scope.filterSearch[j] = $scope.filterUsers[i];
-                        j++;
+                }
+
+                //controllo sul payment
+                if (filterByPay===true && (kw_Found===true || checkKeyword===false)) {
+                    var pay_Found=false;
+
+                    if (includePay===true && $scope.filterUsers[i].payment===1) {
+                        pay_Found = true;
                     }
+                    if (includeFre===true && $scope.filterUsers[i].payment===0) {
+                        pay_Found = true;
+                    }
+
 
                 }
 
+                //controllo sul feedback
+                if (filterByFeed===true && (kw_Found===true || checkKeyword===false)) {
 
+                    if ($scope.filterUsers[i].votes.votes!==0) {
+
+                        var fdd_Found = false;
+                        var fdd_df = $scope.slider2.value;
+                        var fdd_uft = $scope.filterUsers[i].votes.total;
+                        var fdd_ufv = $scope.filterUsers[i].votes.votes;
+                        var fdd_uf = (fdd_uft/fdd_ufv);
+                        console.log($scope.filterUsers[i].name + " "+$scope.filterUsers[i].lastName + " is being checked.");
+                        console.log("Desired Feedback Value: " + fdd_df.toString());
+                        console.log("This user's feedback is: " + fdd_uf.toString());
+                        if (fdd_uf>=(fdd_df-0.1)) {
+                            fdd_Found = true;
+                        }
+                    }
+                    else {
+                        fdd_Found=false;
+                        console.log($scope.filterUsers[i].name + " "+$scope.filterUsers[i].lastName + " doesn't have any votes yet.");
+                    }
+
+                }
 
                 if (filterByRole===true && (kw_Found===true || checkKeyword===false) && (ct_Found===true || checkCityword===false)) { //la condizione "kw_Found===true" serve perché essendo la keyword un AND, se non corrisponde la keyword non sta a verificare il resto
 
@@ -735,76 +782,66 @@ angular.module('myApp.searchPageView', ['ngRoute'])
                     var roles = $scope.filterUsers[i].roles;
                     var rl = roles.length;
 
+                    var rl_Found = false;
+
                     for (var n = 0; n < rl; n++) {
                         if (includeAnim === true && roles[n] === "Animation") {
-                            $scope.filterSearch[j] = $scope.filterUsers[i];
-                            j++;
+                            rl_Found = true;
                             resultIsOkFlag = true;
                             break;
                         }
                         if (includeAudio === true && roles[n] === "Audio/Music/Sound") {
-                            $scope.filterSearch[j] = $scope.filterUsers[i];
-                            j++;
+                            rl_Found = true;
                             resultIsOkFlag = true;
                             break;
                         }
                         if (includeDP === true && roles[n] === "Camera Crew/DP") {
-                            $scope.filterSearch[j] = $scope.filterUsers[i];
-                            j++;
+                            rl_Found = true;
                             resultIsOkFlag = true;
                             break;
                         }
                         if (includeArt === true && roles[n] === "Crew art/Design/Scenic/Construction") {
-                            $scope.filterSearch[j] = $scope.filterUsers[i];
-                            j++;
+                            rl_Found = true;
                             resultIsOkFlag = true;
                             break;
                         }
                         if (includeDirect === true && roles[n] === "Director") {
-                            $scope.filterSearch[j] = $scope.filterUsers[i];
-                            j++;
+                            rl_Found = true;
                             resultIsOkFlag = true;
                             break;
                         }
                         if (includeLight === true && roles[n] === "Lighting/Electric") {
-                            $scope.filterSearch[j] = $scope.filterUsers[i];
-                            j++;
+                            rl_Found = true;
                             resultIsOkFlag = true;
                             break;
                         }
                         if (includeGraphic === true && roles[n] === "Graphic designer") {
-                            $scope.filterSearch[j] = $scope.filterUsers[i];
-                            j++;
+                            rl_Found = true;
                             resultIsOkFlag = true;
                             break;
                         }
                         if (includePost === true && roles[n] === "Post Production People") {
-                            $scope.filterSearch[j] = $scope.filterUsers[i];
-                            j++;
+                            rl_Found = true;
                             resultIsOkFlag = true;
                             break;
                         }
                         if (includeProd === true && roles[n] === "Producers") {
-                            $scope.filterSearch[j] = $scope.filterUsers[i];
-                            j++;
+                            rl_Found = true;
                             resultIsOkFlag = true;
                             break;
                         }
                         if (includeFX === true && roles[n] === "Special Effects Crew") {
-                            $scope.filterSearch[j] = $scope.filterUsers[i];
-                            j++;
+                            rl_Found = true;
                             resultIsOkFlag = true;
                             break;
                         }
                         if (includeStyle === true && roles[n] === "Stylist/Vanities") {
-                            $scope.filterSearch[j] = $scope.filterUsers[i];
-                            j++;
+                            rl_Found = true;
                             resultIsOkFlag = true;
                             break;
                         }
                         if (includeCast === true && roles[n] === "Talent/Casting - People") {
-                            $scope.filterSearch[j] = $scope.filterUsers[i];
-                            j++;
+                            rl_Found = true;
                             resultIsOkFlag = true;
                             break;
                         }
@@ -847,8 +884,7 @@ angular.module('myApp.searchPageView', ['ngRoute'])
                             }
                             if (age_is_ok===true) {
                             if (skipSex === true && skipEtn === true) {
-                                $scope.filterSearch[j] = $scope.filterUsers[i];
-                                j++;
+                                rl_Found = true;
                                 resultIsOkFlag = true;
                                 break;
                             }
@@ -858,8 +894,7 @@ angular.module('myApp.searchPageView', ['ngRoute'])
                                     if (includeF === true) {
                                         if ($scope.filterUsers[i].gender === "female") {
                                             if (actorANDetn === false) {
-                                                $scope.filterSearch[j] = $scope.filterUsers[i];
-                                                j++;
+                                                rl_Found = true;
                                                 resultIsOkFlag = true;
                                                 break;
                                             }
@@ -869,8 +904,7 @@ angular.module('myApp.searchPageView', ['ngRoute'])
                                     if (includeM === true) {
                                         if ($scope.filterUsers[i].gender === "male") {
                                             if (actorANDetn === false) {
-                                                $scope.filterSearch[j] = $scope.filterUsers[i];
-                                                j++;
+                                                rl_Found = true;
                                                 resultIsOkFlag = true;
                                                 break;
                                             }
@@ -881,64 +915,56 @@ angular.module('myApp.searchPageView', ['ngRoute'])
                                     if (skipSex === true && skipEtn === false) {
                                         if (includeCau === true) {
                                             if ($scope.filterUsers[i].race === "Caucasian") {
-                                                $scope.filterSearch[j] = $scope.filterUsers[i];
-                                                j++;
+                                                rl_Found = true;
                                                 resultIsOkFlag = true;
                                                 break;
                                             }
                                         }
                                         if (includeLat === true) {
                                             if ($scope.filterUsers[i].race === "Hispanic") {
-                                                $scope.filterSearch[j] = $scope.filterUsers[i];
-                                                j++;
+                                                rl_Found = true;
                                                 resultIsOkFlag = true;
                                                 break;
                                             }
                                         }
                                         if (includeSAs === true) {
                                             if ($scope.filterUsers[i].race === "South_Asian") {
-                                                $scope.filterSearch[j] = $scope.filterUsers[i];
-                                                j++;
+                                                rl_Found = true;
                                                 resultIsOkFlag = true;
                                                 break;
                                             }
                                         }
                                         if (includeNat === true) {
                                             if ($scope.filterUsers[i].race === "Native_American") {
-                                                $scope.filterSearch[j] = $scope.filterUsers[i];
-                                                j++;
+                                                rl_Found = true;
                                                 resultIsOkFlag = true;
                                                 break;
                                             }
                                         }
                                         if (includeAfr === true) {
                                             if ($scope.filterUsers[i].race === "African") {
-                                                $scope.filterSearch[j] = $scope.filterUsers[i];
-                                                j++;
+                                                rl_Found = true;
                                                 resultIsOkFlag = true;
                                                 break;
                                             }
                                         }
                                         if (includeSEA === true) {
                                             if ($scope.filterUsers[i].race === "South_East_Asian") {
-                                                $scope.filterSearch[j] = $scope.filterUsers[i];
-                                                j++;
+                                                rl_Found = true;
                                                 resultIsOkFlag = true;
                                                 break;
                                             }
                                         }
                                         if (includeMid === true) {
                                             if ($scope.filterUsers[i].race === "Middle_Eastern") {
-                                                $scope.filterSearch[j] = $scope.filterUsers[i];
-                                                j++;
+                                                rl_Found = true;
                                                 resultIsOkFlag = true;
                                                 break;
                                             }
                                         }
                                         if (includeAmb === true) {
                                             if ($scope.filterUsers[i].race === "Mixed") {
-                                                $scope.filterSearch[j] = $scope.filterUsers[i];
-                                                j++;
+                                                rl_Found = true;
                                                 resultIsOkFlag = true;
                                                 break;
                                             }
@@ -1004,8 +1030,7 @@ angular.module('myApp.searchPageView', ['ngRoute'])
                                         }
 
                                         if (sex_is_ok === true && race_is_ok === true) {
-                                            $scope.filterSearch[j] = $scope.filterUsers[i];
-                                            j++;
+                                            rl_Found = true;
                                             resultIsOkFlag = true;
                                             break;
                                         }
@@ -1019,6 +1044,22 @@ angular.module('myApp.searchPageView', ['ngRoute'])
 
                     }
 
+                }
+
+
+                //check finale, se corrisponde tutto allora aggiungi a filterSearch
+                //CORRENTI: Keyword, City, Roles (con tutti gli annessi e connessi), Payment, Feedback
+                //funziona solo se hai compilato almeno un campo
+                if ((checkKeyword===true || checkCityword===true || filterByRole===true || filterByPay===true || filterByFeed===true) &&
+                    (kw_Found === true || checkKeyword === false) &&
+                    (ct_Found === true || checkCityword === false) &&
+                    (rl_Found === true || filterByRole === false) &&
+                    (pay_Found === true || filterByPay === false) &&
+                    (fdd_Found === true || filterByFeed === false)) {
+
+                    $scope.filterSearch[j] = $scope.filterUsers[i];
+                    j++;
+                    console.log($scope.filterUsers[i].name + "added to results.");
                 }
 
                 if (resultIsOkFlag==true) {
