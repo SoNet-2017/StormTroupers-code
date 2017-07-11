@@ -100,11 +100,20 @@ angular.module('myApp.publicProjectPageView', ['ngRoute'])
         });
 
         var PID = localStorage.PID;
+        $scope.projTroupers=[];
         $scope.prj = $firebaseObject(database.ref('projects/' + PID));
         $scope.prj.$loaded().then(function () {
             console.log("titolo progetto quiiiZ: " + $scope.prj.title);
             $scope.findAdjustedRoles();
+
+            for(var i=0; i<$scope.prj.troupers; i++){
+                var trouperObj = $firebaseObject(database.ref('users/' + $scope.prj.troupers[i]));
+                trouperObj.$loaded().then(function () {
+                    $scope.projTroupers[i] = trouperObj;
+                })
+            }
         });
+
 
         $scope.findAdjustedRoles=function() {
             //mia ajunta
@@ -120,8 +129,6 @@ angular.module('myApp.publicProjectPageView', ['ngRoute'])
                 $scope.adjustedRoles=$scope.prj.rolesNeeded;
             }
         };
-
-        /*$scope.proposeYourself=function(){
 
         // INVIO DOMANDA DI LAVORO
         $scope.dati.userId = currentAuth.uid;
@@ -163,7 +170,7 @@ angular.module('myApp.publicProjectPageView', ['ngRoute'])
             $scope.dati.motivationalMsg = "";
 
             $location.path("/jobApplicationsView");
-        };*/
+        };
 
         $scope.addProjectToFavourite=function(){
 

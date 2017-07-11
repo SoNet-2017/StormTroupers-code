@@ -30,6 +30,8 @@
         </div>
     </form>
 
+    <div class="w3-bar-item w3-right" id="logoChatBarHome"><span><a href="#!/usersList"><i
+            class="w3-right glyphicon glyphicon-comment w3-xlarge" style="color: white;"></i></a></span></div>
 
     <div class="w3-bar-item w3-dropdown-click w3-right" id="logoBarHome" ng-click="showLogoItem()">
         {{profile.name}}
@@ -73,6 +75,8 @@
                 class="glyphicon glyphicon-film w3-large"></i></a><br><br>
         <a ng-click="goToMyTroupers(profile.$id)" class="w3-bar-item" id="userTroupeHome">My Troupers <i
                 class="glyphicon glyphicon-user w3-large"></i></a><br><br>
+        <a ng-click="goToMyApplications()" class="w3-bar-item" id="userApplicationHome">My Applications <i
+                class="glyphicon glyphicon-briefcase w3-large"></i></a><br><br>
         <a ng-click="goToEditProfile()" class="w3-bar-item" id="editProfileLinkHome">Edit Profile <i
                 class="glyphicon glyphicon-cog w3-large"></i></a>
     </div>
@@ -193,9 +197,9 @@
             </div>
             <div class="w3-col l9 m9 s9" style="align-content: center">
                 <ul class="w3-left" style="padding: 0px;">
-                    <li ng-repeat="user in prj.troupers"
+                    <li ng-repeat="user in projTroupers"
                         style="display: inline-block; list-style: none; padding-top: 10px">
-                        <a id="troupeUserImgLink" ng-click="goToPublicProfile(user)">
+                        <a id="troupeUserImgLink" ng-click="goToPublicProfile(user.$id)">
                             <img class="media-object w3-circle" ng-src="../{{user.img_url}}" alt="{{user.img_alt}}"
                                  ng-if="!(user.img_url.includes('https://firebasestorage.googleapis.com')) && user.img_url!=''">
                             <img class="media-object w3-circle" ng-src="{{user.img_url}}" alt="{{user.img_alt}}"

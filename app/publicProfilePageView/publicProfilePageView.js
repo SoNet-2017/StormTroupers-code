@@ -24,13 +24,9 @@ angular.module('myApp.publicProfilePageView', ['ngRoute'])
         };
     }])
 
-    .controller('publicProfilePageViewCtrl', ['$scope', '$location', 'Auth', '$firebaseObject', 'Users', 'UsersChatService', 'currentAuth', '$firebaseAuth', '$firebaseArray', function ($scope, $location, Auth, $firebaseObject, Users, UsersChatService, currentAuth, $firebaseAuth, $firebaseArray) {
+    .controller('publicProfilePageViewCtrl', ['$scope', '$location', '$route', 'Auth', '$firebaseObject', 'Users', 'UsersChatService', 'currentAuth', '$firebaseAuth', '$firebaseArray', function ($scope, $location, $route, Auth, $firebaseObject, Users, UsersChatService, currentAuth, $firebaseAuth, $firebaseArray) {
         $scope.dati = {};
         $scope.auth = Auth;
-
-        $scope.countries = countries_list;
-
-
 
         if (localStorage.otherUserID === localStorage.UID) {
             document.getElementById("profileFeedbackWriter").style.display = "none";
@@ -99,6 +95,7 @@ angular.module('myApp.publicProfilePageView', ['ngRoute'])
             $location.path("/publicProfilePageView");
             //console.log("utente che sto passando: "+userID);
             localStorage.otherUserID = userID;
+            $route.reload();
         };
 
         $scope.goToPortfolio=function (userID) {
