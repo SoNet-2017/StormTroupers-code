@@ -109,16 +109,16 @@ angular.module('myApp.publicProjectPageView', ['ngRoute'])
         $scope.findAdjustedRoles=function() {
             //mia ajunta
             var temp_adjustedRoles= $scope.prj.rolesNeeded;
-            console.log("step 1");
-            var ar_adj=temp_adjustedRoles.length;
-            console.log("step 2");
-            $scope.adjustedRoles = {};
-            console.log("step 3");
-            for (var abbabua=1; abbabua<ar_adj; abbabua++) {
-                $scope.adjustedRoles[abbabua-1]=temp_adjustedRoles[abbabua];
-                console.log($scope.adjustedRoles);
+            if (temp_adjustedRoles[0]=="init") {
+                var ar_adj = temp_adjustedRoles.length;
+                $scope.adjustedRoles = {};
+                for (var a = 1; a < ar_adj; a++) {
+                    $scope.adjustedRoles[a - 1] = temp_adjustedRoles[a];
+                }
             }
-            console.log("step 4");
+            else {
+                $scope.adjustedRoles=$scope.prj.rolesNeeded;
+            }
         };
 
         /*$scope.proposeYourself=function(){

@@ -132,7 +132,7 @@
                                     <label><span class="glyphicon glyphicon-briefcase"></span> I'd like to apply for:</label>
                                     <ul style="text-align: left; color: #636466;list-style: none">
                                         <div>
-                                            <li ng-repeat="roleNeeded in prj.rolesNeeded">
+                                            <li ng-repeat="roleNeeded in adjustedRoles">
                                                 <label><input type="checkbox"
                                                               value="{{roleNeeded}}" name="roleAppliedFor">{{roleNeeded}}</label>
                                             </li>
