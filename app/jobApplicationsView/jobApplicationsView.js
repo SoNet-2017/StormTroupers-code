@@ -21,29 +21,11 @@ angular.module('myApp.jobApplicationsView', ['ngRoute'])
     .controller('jobApplicationsViewCtrl', ['$scope', '$rootScope', '$location', 'Auth', '$firebaseObject', 'Users', 'ApplicationsService', 'currentAuth', '$firebaseAuth', '$firebaseArray', function ($scope, $rootScope, $location, Auth, $firebaseObject, Users, ApplicationsService, currentAuth, $firebaseAuth, $firebaseArray) {
         $scope.dati = {};
         $scope.auth = Auth;
-        var database = firebase.database();
 
         $scope.dati.applications = ApplicationsService.getApplications();
+        $scope.dati.userId = currentAuth.uid;
 
-        $scope.dati.filterProjects={};
-
-        var projectBase = database.ref('projects/');
-        $scope.allProjects = $firebaseArray(projectBase);
-        $scope.allProjects.$loaded().then(function () {
-            var n=0;
-            for (var i=0; i<$scope.allProjects.length; i++) {
-                for(var j=0; j<$scope.dati.applications.length; j++)
-                if($scope.allProjects[i].$id === $scope.dati.applications[j].project) {
-                    $scope.dati.filterProjects[n] = $scope.allProjects[i];
-                    console.log("$scope.dati.filterProjects[n]: "+$scope.dati.filterProjects[n].title);
-                    n++;
-                    break;
-                }
-            }
-
-        }).catch(function (error) {
-            $scope.error = error;
-        });
+        $scope.dati.filterProjects = ApplicationsService.getProjects();
 
         $scope.showLogoItem = function () {
             var x = document.getElementById("logoBarContentHome");

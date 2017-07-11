@@ -5,7 +5,8 @@
             class="glyphicon glyphicon-home w3-large"></i></a>
     <a class="w3-bar-item w3-button" id="userLinkHome" ng-click="goToSearchCrew()"><i
             class="glyphicon glyphicon-user w3-large"></i> Search Crew</a>
-    <a class="w3-bar-item w3-button" id="projectsLinkHome" ng-click="goToSearchProjects()"><i class="glyphicon glyphicon-film w3-large"></i> Search Projects</a>
+    <a class="w3-bar-item w3-button" id="projectsLinkHome" ng-click="goToSearchProjects()"><i
+            class="glyphicon glyphicon-film w3-large"></i> Search Projects</a>
 
 
     <!--
@@ -20,7 +21,8 @@
 
     <form id="searchItemHome">
         <div class="input-group">
-            <input id="searchItemHomeKeyword" type="text" class="form-control" placeholder="Search" ng-submit="launchSearchInSearchPage()">
+            <input id="searchItemHomeKeyword" type="text" class="form-control" placeholder="Search"
+                   ng-submit="launchSearchInSearchPage()">
             <div class="input-group-btn">
                 <button class="btn btn-default" type="submit" ng-click="launchSearchInSearchPage()">
                     <i class="glyphicon glyphicon-search"></i>
@@ -30,12 +32,25 @@
     </form>
 
     <div class="w3-bar-item w3-right" id="logoChatBarHome"><span><a href="#!/usersList"><i
-            class="w3-right glyphicon glyphicon-comment w3-xlarge" style="color: white;"></i></a></span></div>
+            class="w3-right glyphicon glyphicon-comment w3-xlarge" style="color: white"></i></a></span></div>
+    <div class="w3-bar-item w3-right w3-dropdown-hover" id="logoReminderBarHome">
+        <span>
+            <i class="w3-right glyphicon glyphicon-bell w3-xlarge" style="color: white;"></i>
+        </span>
+        <div class="w3-dropdown-content w3-bar-block w3-card-4">
+            <iframe src="https://calendar.google.com/calendar/embed?showTitle=0&amp;showPrint=0&amp;mode=AGENDA&amp;height=200&amp;wkst=1&amp;bgcolor=%23999999&amp;src=r7sjqm37dleu42bjdb59r1j500%40group.calendar.google.com&amp;color=%23691426&amp;ctz=Europe%2FRome"
+                    style="border-width:0" min-width="400" width="100%" height="300" frameborder="0" scrolling="no"></iframe>
+            <a ng-repeat="reminder in dati.reminders | filter:{user: profile.$id} | filter:{date:dati.currentDate}" class="w3-bar-item w3-button">
+                <strong>{{reminder.projectName}}:</strong> {{reminder.reminder}}</a>
+            <!--<a ng-repeat="role in profile.roles" class="w3-bar-item w3-button">{{role}}</a>-->
+        </div>
+    </div>
 
     <div class="w3-bar-item w3-dropdown-click w3-right" id="logoBarHome" ng-click="showLogoItem()">
         {{profile.name}}
         <div class="w3-dropdown-content w3-bar-block w3-border w3-right" id="logoBarContentHome">
-            <a ng-click="goToMyPublicProfile()" class="w3-bar-item w3-button"><i class="glyphicon glyphicon-user w3-large"></i> Your Public
+            <a ng-click="goToMyPublicProfile()" class="w3-bar-item w3-button"><i
+                    class="glyphicon glyphicon-user w3-large"></i> Your Public
                 Profile</a>
             <a ng-click="goToEditProfile()" class="w3-bar-item w3-button"><i
                     class="glyphicon glyphicon-pencil w3-large"></i> Edit Profile</a>
@@ -44,27 +59,35 @@
     </div>
 
     <div id="logoBarImgContainerHome">
-        <img class="media-object" ng-src="../{{profile.img_url}}" alt="{{profile.img_alt}}" ng-if="!(profile.img_url.includes('https://firebasestorage.googleapis.com')) && profile.img_url!=''">
-        <img class="media-object" ng-src="{{profile.img_url}}" alt="{{profile.img_alt}}" ng-if="profile.img_url.includes('https://firebasestorage.googleapis.com')">
-        <img class="media-object" ng-src="../images/StormTroupersLogo.png" alt="{{profile.img_alt}}" ng-if="profile.img_url == ''">
+        <img class="media-object" ng-src="../{{profile.img_url}}" alt="{{profile.img_alt}}"
+             ng-if="!(profile.img_url.includes('https://firebasestorage.googleapis.com')) && profile.img_url!=''">
+        <img class="media-object" ng-src="{{profile.img_url}}" alt="{{profile.img_alt}}"
+             ng-if="profile.img_url.includes('https://firebasestorage.googleapis.com')">
+        <img class="media-object" ng-src="../images/StormTroupersLogo.png" alt="{{profile.img_alt}}"
+             ng-if="profile.img_url == ''">
     </div>
 
 </div>
 
 <div id="bodyHome" class="w3-container w3-col l12 s12 m12">
-    <div id="sideUserHome" class="w3-col l3 m3 s3 w3-card-2" style="background: linear-gradient(rgba(0,0,0,.5), rgba(0,0,0,.5));">
+    <div id="sideUserHome" class="w3-col l3 m3 s3 w3-card-2"
+         style="background: linear-gradient(rgba(0,0,0,.5), rgba(0,0,0,.5));">
         <h3 id="userNameAndLastHome">{{profile.name}} {{profile.lastName}}</h3>
         <p id="userRolesHome"></p>
         <p id="userCityHome"></p>
         <div id="userPhotoHome">
-            <img class="media-object" ng-src="../{{profile.img_url}}" alt="{{profile.img_alt}}" ng-if="!(profile.img_url.includes('https://firebasestorage.googleapis.com')) && profile.img_url!=''">
-            <img class="media-object" ng-src="{{profile.img_url}}" alt="{{profile.img_alt}}" ng-if="profile.img_url.includes('https://firebasestorage.googleapis.com')">
-            <img class="media-object" ng-src="../images/StormTroupersLogo.png" alt="{{profile.img_alt}}" ng-if="profile.img_url == ''">
+            <img class="media-object" ng-src="../{{profile.img_url}}" alt="{{profile.img_alt}}"
+                 ng-if="!(profile.img_url.includes('https://firebasestorage.googleapis.com')) && profile.img_url!=''">
+            <img class="media-object" ng-src="{{profile.img_url}}" alt="{{profile.img_alt}}"
+                 ng-if="profile.img_url.includes('https://firebasestorage.googleapis.com')">
+            <img class="media-object" ng-src="../images/StormTroupersLogo.png" alt="{{profile.img_alt}}"
+                 ng-if="profile.img_url == ''">
         </div>
         <br>
         <a ng-click="goToMyProjects()" class="w3-bar-item" id="userProjectHome">My Projects <i
                 class="glyphicon glyphicon-film w3-large"></i></a><br><br>
-        <a ng-click="goToMyTroupers(profile.$id)" class="w3-bar-item" id="userTroupeHome">My Troupers <i class="glyphicon glyphicon-user w3-large"></i></a><br><br>
+        <a ng-click="goToMyTroupers(profile.$id)" class="w3-bar-item" id="userTroupeHome">My Troupers <i
+                class="glyphicon glyphicon-user w3-large"></i></a><br><br>
         <a ng-click="goToMyApplications()" class="w3-bar-item" id="userApplicationHome">My Applications <i
                 class="glyphicon glyphicon-briefcase w3-large"></i></a><br><br>
         <a ng-click="goToEditProfile()" class="w3-bar-item" id="editProfileLinkHome">Edit Profile <i
@@ -102,10 +125,12 @@
                             <a><i class="w3-right w3-col l1 m1 s1 glyphicon glyphicon-calendar w3-xlarge"
                                   ng-click="goToCalendar(prj.$id)"></i></a>
                             <a><i class="w3-right w3-col l1 m1 s1 glyphicon glyphicon-bell w3-xlarge"
-                                  ng-click="saveCurrentProject(prj.$id, prj.title)" data-toggle="modal" data-target="#myModal"></i></a>
+                                  ng-click="saveCurrentProject(prj.$id, prj.title)" data-toggle="modal"
+                                  data-target="#myModal"></i></a>
                             <br>
                             <hr style="margin-left: 7px; margin-right: 6px;">
-                            <ul class="w3-left" style="list-style: none; text-align: left; padding-left: 25px; color: gray;">
+                            <ul class="w3-left"
+                                style="list-style: none; text-align: left; padding-left: 25px; color: gray;">
                                 <li>{{prj.type}}</li>
                                 <li>{{prj.progress}}</li>
                             </ul>
@@ -132,15 +157,18 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 style="color:red;"><span class="glyphicon glyphicon-bell"></span> Create a reminder for <strong>{{dati.projectNameReminder}}</strong></h4>
+                    <h4 style="color:red;"><span class="glyphicon glyphicon-bell"></span> Create a reminder for <strong>{{dati.projectNameReminder}}</strong>
+                    </h4>
                 </div>
                 <div class="modal-body">
                     <form role="form">
                         <div class="form-group">
                             <label><span class="glyphicon glyphicon-list"></span> What I need to remember:</label>
-                            <input ng-model="dati.reminder" type="text" class="form-control" placeholder="Write here...">
+                            <input ng-model="dati.reminder" type="text" class="form-control"
+                                   placeholder="Write here...">
                         </div>
-                        <button ng-click="addReminder()" type="submit" class="btn btn-default btn-success btn-block" data-dismiss="modal">
+                        <button ng-click="addReminder()" type="submit" class="btn btn-default btn-success btn-block"
+                                data-dismiss="modal">
                             Create
                         </button>
                     </form>

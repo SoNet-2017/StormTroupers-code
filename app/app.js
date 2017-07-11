@@ -23,6 +23,7 @@ angular.module('myApp', [
     'myApp.users',
     'myApp.applicationService',
     'myApp.reminderService',
+    'myApp.currentDateService',
     'myApp.fileUpload',
     'myApp.searchPageView',
     'myApp.searchProjectsView',

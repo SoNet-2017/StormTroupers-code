@@ -21,7 +21,8 @@
 
     <form id="searchItemHome">
         <div class="input-group">
-            <input id="searchItemHomeKeyword" type="text" class="form-control" placeholder="Search" ng-submit="launchSearchInSearchPage()">
+            <input id="searchItemHomeKeyword" type="text" class="form-control" placeholder="Search"
+                   ng-submit="launchSearchInSearchPage()">
             <div class="input-group-btn">
                 <button class="btn btn-default" type="submit" ng-click="launchSearchInSearchPage()">
                     <i class="glyphicon glyphicon-search"></i>
@@ -88,25 +89,30 @@
                  style="margin-top: 30px; padding-top: 20px; background: linear-gradient(rgba(0,0,0,.5), rgba(0,0,0,.5));background-color:#333333;">
                 <div id="portfolioContainer" class="w3-container">
                     <h4>Applications for:</h4>
-                    <ul style="list-style: none">
-                        <li ng-repeat="proj in dati.filterProjects">
-                            <div id="projContainer" class="w3-col s12 m12 l12" style="margin-bottom: 30px;">
-                                <div id="projectPic2" class=" w3-container w3-card-2 w3-col s5 m5 l5"
-                                     style="padding: 10px; border-radius: 4mm; background-color: #b7c3b8;">
-                                    <h3 style="color: white;text-shadow: 2px 2px 2px #333333;cursor: pointer;" ng-click="goToPublicProjectPage(proj.$id)">
-                                        {{proj.title}}
-                                    </h3>
-                                </div>
-                                <div class="w3-col s6 m6 l6" style="color: white; margin-left:20px;">
-                                    <div style="color: white;"
-                                         ng-repeat="appl in dati.applications | filter:{$id: dati.userId} | filter:{project: proj.$id}">
+
+                    <div class="w3-col s12 m12 l12">
+                        <div style="color: white;"
+                             ng-repeat="appl in dati.applications | filter:{sender: dati.userId}">
+                            <ul style="list-style: none">
+                                <li ng-repeat="proj in dati.filterProjects | filter:{$id: appl.project}">
+                                    <div id="projectPic2" class=" w3-container w3-card-2 w3-col s5 m5 l5"
+                                         style="padding: 10px; border-radius: 4mm; background-color: #b7c3b8;">
+                                        <h3 style="color: white;text-shadow: 2px 2px 2px #333333;cursor: pointer;"
+                                            ng-click="goToPublicProjectPage(proj.$id)">
+                                            {{proj.title}}
+                                        </h3>
+                                    </div>
+
+                                    <div class="w3-col s6 m6 l6" style="color: white; margin-left:20px;">
                                         <h4>Roles I applied for: {{appl.roles}}</h4>
                                         <h4>Message you sent: <em>{{appl.motivationalMsg}}</em><br></h4>
                                     </div>
-                                </div>
-                            </div>
-                        </li>
-                    </ul>
+
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
                 </div>
             </div>
 
