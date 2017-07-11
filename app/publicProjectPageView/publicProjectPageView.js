@@ -100,20 +100,31 @@ angular.module('myApp.publicProjectPageView', ['ngRoute'])
         });
 
         var PID = localStorage.PID;
-        $scope.projTroupers=[];
+        $scope.projTroupers={};
+
         $scope.prj = $firebaseObject(database.ref('projects/' + PID));
         $scope.prj.$loaded().then(function () {
             console.log("titolo progetto quiiiZ: " + $scope.prj.title);
+            console.log("$scope.prj.troupers: "+$scope.prj.troupers);
+
+            var length = $scope.prj.troupers.length;
+            for(var i=0; i<length; i++){
+                console.log("$scope.prj.troupers[i]: "+$scope.prj.troupers[i]);
+
+                var currTrouperUID = $scope.prj.troupers[i];
+                var trouperObj = $firebaseObject(database.ref('users/' + currTrouperUID));
+                //console.log("indirizzo: "+database.ref('users/' + trouperUID));
+
+                $scope.projTroupers[i] = trouperObj;
+                console.log(($scope.projTroupers[i]));
+            }
+
             $scope.findAdjustedRoles();
 
-            for(var i=0; i<$scope.prj.troupers; i++){
-                var trouperObj = $firebaseObject(database.ref('users/' + $scope.prj.troupers[i]));
-                trouperObj.$loaded().then(function () {
-                    $scope.projTroupers[i] = trouperObj;
-                })
-            }
+        }).catch(function (error) {
+            console.log("sono in errore project load");
+            $scope.error=error;
         });
-
 
         $scope.findAdjustedRoles=function() {
             //mia ajunta

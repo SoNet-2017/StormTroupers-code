@@ -106,28 +106,6 @@
                                 <li>{{prj.progress}}</li>
                             </ul>
                         </div>
-
-                        <!--div per vedere i membri della troupe-->
-                        <div id="containerTroupe" class="row w3-container w3-right w3-col s8 m8 l8">
-                            <div class="w3-row w3-right">
-                                <h4 style="margin: 0; color: lightgray;"> The Troupe: </h4>
-                            </div>
-                            <div class="w3-row w3-col l12 m12 s12" style="align-content: center">
-                                <ul class="w3-right" style="margin-bottom: 20px; padding: 0;">
-                                    <li ng-repeat="user in prj.troupers"
-                                        style="display: inline-block; list-style: none; padding-top: 10px">
-                                        <a id="troupeUserImgLink" ng-click="goToPublicProfile(user)">
-                                            <img class="media-object w3-circle"  ng-src="../{{user.img_url}}" alt="{{user.img_alt}}" ng-if="!(user.img_url.includes('https://firebasestorage.googleapis.com')) && user.img_url!=''">
-                                            <img class="media-object w3-circle"  ng-src="{{user.img_url}}" alt="{{user.img_alt}}" ng-if="user.img_url.includes('https://firebasestorage.googleapis.com')">
-                                            <img class="media-object w3-circle"  ng-src="../images/StormTroupersLogo.png" alt="{{user.img_alt}}" ng-if="user.img_url == ''">
-                                            <img
-                                                id="troupeUserImg" alt="Avatar" class="w3-circle">
-                                        </a>
-                                        <!--<h4><a ng-click="goToPublicProfile(user)">{{user}}</a></h4>-->
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
                     </div>
 
                     <br>
