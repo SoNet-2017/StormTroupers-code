@@ -101,6 +101,12 @@ angular.module('myApp.publicProfilePageView', ['ngRoute'])
 
         $scope.profile = $firebaseObject(database.ref('users/' + UID));
         $scope.profile.$loaded().then(function () {
+            if($scope.profile.friends.indexOf(otherUserID) < 0) {
+                $scope.alreadyFriend = false;
+            } else {
+                $scope.alreadyFriend = true;
+            }
+
             var role = Object.values($scope.profile.roles);
             for (var i = 0; i < role.length; i++) {
                 document.getElementById("userRolesHome").innerHTML += role[i];
@@ -108,14 +114,9 @@ angular.module('myApp.publicProfilePageView', ['ngRoute'])
                     document.getElementById("userRolesHome").innerHTML += ", ";
                 }
             }
-            if ($scope.profile.friends.indexOf(otherUserID) < 0) {
-                $scope.alreadyFriend = false;
-            } else {
-                $scope.alreadyFriend = true;
-            }
         }).catch(function (error) {
             $scope.error = error;
-            //console.log("errore: "+error);
+            console.log("errore ruoli: "+error);
         });
 
         // PER CHAT ASINCRONA CON UTENTI COL QUALE NON SI E' AMICI

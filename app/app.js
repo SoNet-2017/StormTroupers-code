@@ -19,6 +19,7 @@ angular.module('myApp', [
     'myApp.homePageView',
     'myApp.editProfileView',
     'myApp.users',
+    'myApp.applicationService',
     'myApp.fileUpload',
     'myApp.searchPageView',
     'myApp.searchProjectsView',

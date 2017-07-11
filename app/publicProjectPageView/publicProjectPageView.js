@@ -22,7 +22,7 @@ angular.module('myApp.publicProjectPageView', ['ngRoute'])
         });
     }])
 
-    .controller('publicProjectPageViewCtrl', ['$scope', '$location', 'Auth', '$firebaseObject','Users', 'currentAuth', '$firebaseAuth', '$firebaseArray', function ($scope,$location, Auth, $firebaseObject, Users, currentAuth, $firebaseAuth, $firebaseArray) {
+    .controller('publicProjectPageViewCtrl', ['$scope', '$location', 'Auth', '$firebaseObject','Users', 'ApplicationsService', 'currentAuth', '$firebaseAuth', '$firebaseArray', function ($scope,$location, Auth, $firebaseObject, Users, ApplicationsService, currentAuth, $firebaseAuth, $firebaseArray) {
         $scope.dati={};
         $scope.auth=Auth;
 
@@ -87,7 +87,7 @@ angular.module('myApp.publicProjectPageView', ['ngRoute'])
 
         $scope.profile = $firebaseObject(database.ref('users/'+UID));
         $scope.profile.$loaded().then(function () {
-            var role = Object.values(obj.roles);
+            var role = Object.values($scope.profile.roles);
             for(var i=0; i<role.length; i++){
                 document.getElementById("userRolesHome").innerHTML+=role[i];
                 if(i<role.length-1) {
@@ -105,8 +105,50 @@ angular.module('myApp.publicProjectPageView', ['ngRoute'])
             console.log("titolo progetto quiii: " + $scope.prj.title);
         });
 
-        $scope.proposeYourself=function(){
+        /*$scope.proposeYourself=function(){
+            ApplicationsService.createApplication();
+        };*/
 
+        // INVIO DOMANDA DI LAVORO
+        $scope.dati.userId = currentAuth.uid;
+
+        $scope.dati.projectAppliedFor = PID;
+        $scope.dati.projectAppliedForInfo = ApplicationsService.getProjectInfo($scope.dati.projectAppliedFor);
+        //$scope.dati.userInfo = UsersChatService.getUserInfo($scope.dati.userId);
+
+        //get messages from firebase
+        //$scope.dati.applications = ApplicationsService.getApplications();
+        //function that add a message on firebase
+        $scope.addApplication = function () {
+
+            // non so come prendere i campi checkati dei ruoli richiesti
+            /*var roles =  document.getElementsByName("roleAppliedFor");
+            console.log("roles: " + roles);
+
+            for(var i=0; i<roles.length; i++) {
+                $scope.dati.roles += roles[i];
+                if(i<roles.length-1) {
+                    $scope.dati.roles +=", ";
+                }
+            }
+            console.log("$scope.dati.roles: " + $scope.dati.roles);*/
+            var roles="";
+            for(var i=1; i<$scope.prj.rolesNeeded.length; i++)
+                roles+=$scope.prj.rolesNeeded[i].toString()+';';
+            //console.log("$scope.dati.roles: " + $scope.roles);
+            $scope.dati.roles = roles;
+            $scope.dati.projTitle = $scope.prj.title;
+            //console.log("$scope.dati.userId: " + $scope.dati.userId);
+            //console.log("$scope.dati.project: " + $scope.dati.projectAppliedFor);
+            //console.log("$scope.dati.motivationalMsg: " + $scope.dati.motivationalMsg);
+
+            //create the JSON structure that should be sent to Firebase
+            var newApplication = ApplicationsService.createApplication($scope.dati.userId, $scope.dati.projectAppliedFor, $scope.dati.projTitle, $scope.dati.motivationalMsg, $scope.dati.roles);
+            console.log("newApplication.sender: "+newApplication.sender);
+            ApplicationsService.addApplication(newApplication);
+            $scope.dati.motivationalMsg = "";
+
+            $location.path("/jobApplicationsView");
         };
 
         $scope.addProjectToFavourite=function(){

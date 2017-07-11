@@ -18,16 +18,32 @@ angular.module('myApp.jobApplicationsView', ['ngRoute'])
         });
     }])
 
-    .controller('jobApplicationsViewCtrl', ['$scope', '$location', 'Auth', '$firebaseObject', 'Users', 'UsersChatService', 'currentAuth', '$firebaseAuth', '$firebaseArray', function ($scope, $location, Auth, $firebaseObject, Users, UsersChatService, currentAuth, $firebaseAuth, $firebaseArray) {
+    .controller('jobApplicationsViewCtrl', ['$scope', '$location', 'Auth', '$firebaseObject', 'Users', 'ApplicationsService', 'currentAuth', '$firebaseAuth', '$firebaseArray', function ($scope, $location, Auth, $firebaseObject, Users, ApplicationsService, currentAuth, $firebaseAuth, $firebaseArray) {
         $scope.dati = {};
         $scope.auth = Auth;
+        var database = firebase.database();
 
-        $scope.countries = countries_list;
+        $scope.dati.applications = ApplicationsService.getApplications();
 
-        if (localStorage.otherUserID === localStorage.UID) {
-            document.getElementById("profileFeedbackWriter").style.display = "none";
-            document.getElementById("lateralLinks").style.display = "none";
-        }
+        $scope.dati.filterProjects={};
+
+        var projectBase = database.ref('projects/');
+        $scope.allProjects = $firebaseArray(projectBase);
+        $scope.allProjects.$loaded().then(function () {
+            var n=0;
+            for (var i=0; i<$scope.allProjects.length; i++) {
+                for(var j=0; j<$scope.dati.applications.length; j++)
+                if($scope.allProjects[i].$id === $scope.dati.applications[j].project) {
+                    $scope.dati.filterProjects[n] = $scope.allProjects[i];
+                    console.log("$scope.dati.filterProjects[n]: "+$scope.dati.filterProjects[n].title);
+                    n++;
+                    break;
+                }
+            }
+
+        }).catch(function (error) {
+            $scope.error = error;
+        });
 
         $scope.showLogoItem = function () {
             var x = document.getElementById("logoBarContentHome");

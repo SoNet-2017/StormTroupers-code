@@ -126,7 +126,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label><span class="glyphicon glyphicon-fire"></span> Why I'm the person you're looking for:</label>
-                                    <input ng-model="motivationalMsg" type="text" class="form-control" placeholder="Write a message for the troupe">
+                                    <input ng-model="dati.motivationalMsg" type="text" class="form-control" placeholder="Write a message for the troupe">
                                 </div>
                                 <div class="form-group">
                                     <label><span class="glyphicon glyphicon-briefcase"></span> I'd like to apply for:</label>
@@ -134,12 +134,12 @@
                                         <div>
                                             <li ng-repeat="roleNeeded in prj.rolesNeeded">
                                                 <label><input type="checkbox"
-                                                              value="{{roleNeeded}}" ng-model="roleAppliedFor">{{roleNeeded}}</label>
+                                                              value="{{roleNeeded}}" name="roleAppliedFor">{{roleNeeded}}</label>
                                             </li>
                                         </div>
                                     </ul>
                                 </div>
-                                <button ng-click="proposeYourself()" type="submit" class="btn btn-default btn-success btn-block" data-dismiss="modal">
+                                <button ng-click="addApplication()" type="submit" class="btn btn-default btn-success btn-block" data-dismiss="modal">
                                     <span class="glyphicon glyphicon-flash"></span> Apply!
                                 </button>
                             </form>
