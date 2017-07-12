@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('myApp.calendarView', ['ngRoute'])
+angular.module('myApp.calendarView', ['ngRoute','myApp.calendar', 'myApp.insertAgendaService'])
 
     .config(['$routeProvider', function ($routeProvider) {
         $routeProvider.when('/calendarView', {
@@ -18,18 +18,127 @@ angular.module('myApp.calendarView', ['ngRoute'])
         });
     }])
 
-    .controller('calendarViewCtrl', ['$scope', '$location', 'Auth', '$firebaseObject', 'Users', 'CurrentDateService', 'ReminderService', 'currentAuth', '$firebaseAuth', '$firebaseArray', function ($scope, $location, Auth, $firebaseObject, Users, CurrentDateService, ReminderService, currentAuth, $firebaseAuth, $firebaseArray) {
+    .controller('calendarViewCtrl', ['$scope', '$location', 'Auth', '$firebaseObject', 'Users', 'CurrentDateService', 'ReminderService', 'InsertAgendaService', 'currentAuth', '$firebaseAuth', '$firebaseArray', function ($scope, $location, Auth, $firebaseObject, Users, CurrentDateService, ReminderService, InsertAgendaService, currentAuth, $firebaseAuth, $firebaseArray) {
         $scope.dati = {};
         $scope.auth = Auth;
 
         $scope.dati.reminders = ReminderService.getReminders();
         $scope.dati.currentDate = CurrentDateService.getCurrentDate();
 
-        $scope.eventSource = {
-            url: "http://www.google.com/calendar/feeds/usa__en%40holiday.calendar.google.com/public/basic",
-            className: 'gcal-event',           // an option!
-            currentTimezone: 'America/Chicago' // an option!
+
+        // controller del calendario
+        var date = new Date();
+        var d = date.getDate();
+        var m = date.getMonth();
+        var y = date.getFullYear();
+
+        /* event source that contains custom events on the scope */
+        $scope.events = [
+            {title: 'All Day Event',start: new Date(y, m, 1), editable: true},
+            {title: 'Long Event',start: new Date(y, m, d - 5),end: new Date(y, m, d - 2)},
+            {id: 999,title: 'Repeating Event',start: new Date(y, m, d - 3, 16, 3),allDay: true},
+            {id: 999,title: 'Repeating Event',start: new Date(y, m, d + 4, 16.5, 0),allDay: false},
+            {title: 'Birthday Party',start: new Date(y, m, d + 1, 19, 0),end: new Date(y, m, d + 1, 22, 30),allDay: false},
+            {title: 'Click for Google',start: new Date(y, m, 28),end: new Date(y, m, 29),url: 'http://google.com/'}
+        ];
+
+        /* Render Tooltip */
+        $scope.eventRender = function( event, element, view ) {
+            element.attr({'tooltip': event.title,
+                'tooltip-append-to-body': true});
+            $compile(element)($scope);
+            console.log("-- Calling tooltip");
         };
+
+        /* config object */
+        $scope.uiConfig = {
+            calendar:{
+                height: 650,
+                width: 450,
+                editable: true,
+                header:{
+                    left: 'today prev,next',
+                    center: 'title',
+                    right: 'month,basicWeek,basicDay'
+                },
+                eventClick: $scope.alertOnEventClick,
+                eventDrop: $scope.alertOnDrop,
+                eventResize: $scope.alertOnResize,
+                eventRender: $scope.eventRender
+            }
+        };
+
+        /* Change View */
+        $scope.renderCalender = function(calendar) {
+            if(uiCalendarConfig.calendars[calendar]){
+                uiCalendarConfig.calendars[calendar].fullCalendar('render');
+            }
+        };
+
+        /* add and removes an event source of choice */
+        $scope.addRemoveEventSource = function(sources,source) {
+            var canAdd = 0;
+            angular.forEach(sources,function(value, key){
+                if(sources[key] === source){
+                    sources.splice(key,1);
+                    canAdd = 1;
+                }
+            });
+            if(canAdd === 0){
+                sources.push(source);
+            }
+        };
+
+        /* event sources array*/
+        $scope.eventSources 	= [$scope.events];
+        $scope.eventSources2 	= [$scope.calEventsExt, $scope.eventsF, $scope.events];
+        $scope.sources 			= "";
+        $scope.source 			= "";
+
+        /* add custom event*/
+        $scope.addEvent = function() {
+            console.log("-- Storing Data");
+            //  1. Store new event in db
+            // Simple POST request example (passing data) :
+            $http.post('/api/addEvent', {
+                title: $scope.newEventTitle,
+                start: $scope.newEventStart,
+                end: $scope.newEventEnd,
+                allDay: false,
+                url: ""
+            }).
+            success(function(data, status, headers, config) {
+                // this callback will be called asynchronously
+                // when the response is available
+                console.log("-- Storing Data" + data + status);
+                // 2. Render it in calendar
+                $scope.events = res;
+
+                callback($scope.events);
+            }).
+            error(function(data, status, headers, config) {
+                // called asynchronously if an error occurs
+                // or server returns response with an error status.
+                $scope.events = [{}];
+
+                console.log("-- Unable to Store Data" + data + status);
+            });
+
+        };
+
+        console.log("-- Calling the Calendar controller");
+
+        /* remove event */
+        $scope.remove = function(index) {
+            $scope.events.splice(index,1);
+        };
+
+        /* Change View */
+        $scope.changeView = function(view,calendar) {
+            uiCalendarConfig.calendars[calendar].fullCalendar('changeView',view);
+        };
+
+        /////////////////////////////////////////// fine controller calendario
 
         $scope.showLogoItem = function () {
             var x = document.getElementById("logoBarContentHome");
@@ -70,7 +179,6 @@ angular.module('myApp.calendarView', ['ngRoute'])
         $scope.goToMyTroupers = function () {
             $location.path("/friendsPageView");
             localStorage.otherUserID = UID;
-            $scope.refresh();
         };
 
         $scope.goToMyApplications=function() {
@@ -109,9 +217,28 @@ angular.module('myApp.calendarView', ['ngRoute'])
         var prjObj = $firebaseObject(database.ref('projects/' + PID));
         prjObj.$loaded().then(function () {
             $scope.project = prjObj;
+
+            //preparo i dati per il nuovo evento per il calendario
+            $scope.dati.projectAgenda = $scope.project.$id;
+            $scope.dati.projectTroupers = $scope.project.troupers;
         }).catch(function (error) {
             $scope.error = error;
         });
+
+
+
+        $scope.addNewAgenda = function () {
+            $scope.dati.userId = currentAuth.uid;
+
+            var newAgenda = InsertAgendaService.createAgenda($scope.dati.agendaTitle, $scope.dati.agendaDate, $scope.dati.agendaTime, $scope.dati.agendaAddress, $scope.dati.agendaInfo, $scope.dati.projectAgenda, $scope.dati.projectTroupers);
+            console.log("newAgenda.agendaTitle: "+newAgenda.title);
+            InsertAgendaService.addAgenda(newAgenda);
+            $scope.dati.agendaTitle = "";
+            $scope.dati.agendaDate = "";
+            $scope.dati.agendaTime = "";
+            $scope.dati.agendaAddress = "";
+            $scope.dati.agendaInfo = "";
+        };
 
         $scope.logout = function () {
             Users.registerLogout(currentAuth.uid);

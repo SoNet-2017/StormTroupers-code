@@ -15,12 +15,14 @@ angular.module('myApp', [
     'ngSanitize',
     "firebase",
     'ui.tinymce',
+    'ui.bootstrap',
     'myApp.loginView',
     'myApp.advancedJoinView',
     'myApp.authentication',
     'myApp.homePageView',
     'myApp.editProfileView',
     'myApp.users',
+    'myApp.insertAgendaService',
     'myApp.applicationService',
     'myApp.reminderService',
     'myApp.currentDateService',
@@ -43,6 +45,7 @@ angular.module('myApp', [
     'myApp.portfolioView',
     'myApp.editorView',
     'myApp.calendarView',
+    'myApp.calendar',
     'rzModule'
 ])
 
