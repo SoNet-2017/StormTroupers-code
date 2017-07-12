@@ -129,32 +129,47 @@ angular.module('myApp.searchPageView', ['ngRoute'])
             localStorage.otherUserID=UID;
         };
 
-        $scope.askapi = function() {
+        $scope.askAPI = function(city, returnType) {
             delete $http.defaults.headers.common['X-Requested-With'];
-            $http({
+            var promise = $http({
                 method: 'GET',
-                url: 'https://maps.googleapis.com/maps/api/geocode/json?address=Ivrea,+Italy&key=AIzaSyDE8j_aPc1gVS_lVn-c3qnO0YlRL7iMiqg'
+                url: 'https://maps.googleapis.com/maps/api/geocode/json?address=' + city + ',+Italy&key=AIzaSyDE8j_aPc1gVS_lVn-c3qnO0YlRL7iMiqg'
             }).then(function successCallback(response) {
-                console.log("SUCCESS");
-                console.log(response);
 
-                $scope.parJson(response.data);
+                console.log("SUCCESS");
+
+
+                console.log(response);
+                console.log(response.data);
+                console.log("parsing JSON");
+                var temp_data = angular.fromJson(response.data.results);
+
+                return temp_data;
+
 
             }, function errorCallback(response) {
                 console.log("ERROR OCCURRED");
                 console.log(response);
             });
 
+            promise.then(function (coolback) {
+
+                console.log(coolback[0]);
+                console.log("latitude: " + coolback[0].geometry.location.lat.toString());
+                console.log("longitude: " + coolback[0].geometry.location.lng.toString());
+
+                switch (returnType) {
+                    case 0:
+                        return coolback[0].geometry.location.lat;
+                        break;
+                    case 1:
+                        return coolback[0].geometry.location.lng;
+                        break;
+                }
+            });
+
         }
 
-
-        $scope.parJson = function (json) {
-            console.log("parsing JSON");
-            var temp_data = angular.fromJson(json.results);
-            console.log(temp_data[0]);
-            console.log("latitude: "+temp_data[0].geometry.location.lat.toString());
-            console.log("longitude: "+temp_data[0].geometry.location.lng.toString());
-        }
 
 
         $scope.calculateDistance = function(lat1, lon1, lat2, lon2) {
@@ -207,6 +222,33 @@ angular.module('myApp.searchPageView', ['ngRoute'])
         }).catch(function (error) {
             $scope.error=error;
         });
+
+        /*
+        $scope.oneTimeScript = function () {
+
+            var length=$scope.filterUsers.length;
+            //var j=0;
+            //for(var i=0; i<length; i++) {
+
+                delete $http.defaults.headers.common['X-Requested-With'];
+
+                var latR = 0;
+                var lonR = 0;
+
+                console.log(length);
+
+                var UTENTNUMBER=24;
+
+                var cityR=$scope.filterUsers[UTENTNUMBER].city;
+                var currentUserID=$scope.filterUsers[UTENTNUMBER].$id;
+                console.log($scope.filterUsers[UTENTNUMBER].name+" "+$scope.filterUsers[UTENTNUMBER].lastName);
+                console.log(currentUserID);
+
+
+
+            //
+        }
+        */
 
         $scope.removeUserFromFriends=function(friendToRemove){
             console.log("$scope.profile.friends.indexOf(friendToRemove: "+$scope.profile.friends.indexOf(friendToRemove));
@@ -645,6 +687,17 @@ angular.module('myApp.searchPageView', ['ngRoute'])
                 filterByFeed=true;
             }
 
+            //step95678bis checca il range
+            var filterByRange=false;
+            if ($scope.slider.value>0) {
+
+                var rng_YourLat = 0;
+                var rng_YourLng = 0;
+
+                filterByRange=true;
+                console.log("filterbyRange==true!");
+            }
+
 
             //parte il coso per davvero
             var length=$scope.filterUsers.length;
@@ -822,6 +875,45 @@ angular.module('myApp.searchPageView', ['ngRoute'])
                         pay_Found = true;
                     }
 
+
+                }
+
+                //controllo sul range
+                if (filterByRange===true && (kw_Found===true || checkKeyword===false)) {
+
+                    var rng_Found=false;
+
+                    if (checkCityword===true) {  ///in questo caso devi fare una richiesta JSON
+
+                        console.log("Calculating distance from position in City field.");
+
+                        if (rng_YourLat===0) {
+
+                            rng_YourLat = $scope.askAPI(ct, 0);
+                            rng_YourLng = $scope.askAPI(ct, 1);
+                        }
+
+                    }
+                    else { // in questo caso banalmente legge le tue coordinate dal localStorage
+
+                        console.log("Calculating distance from your position...");
+
+                        rng_YourLat = $scope.profile.lat;
+                        rng_YourLng = $scope.profile.lon;
+
+                    }
+
+                    var rng_SearchLat = $scope.filterUsers[i].lat;
+                    var rng_SearchLng = $scope.filterUsers[i].lon;
+
+                    var rng_distance = $scope.calculateDistance(rng_YourLat, rng_YourLng, rng_SearchLat, rng_SearchLng);
+                    var rng_distance = Math.ceil(rng_distance);
+
+                    console.log("Found distance: "+rng_distance.toString()+"km");
+
+                    if (rng_distance<=$scope.slider.value) {
+                        rng_Found=true;
+                    }
 
                 }
 
@@ -1122,14 +1214,15 @@ angular.module('myApp.searchPageView', ['ngRoute'])
 
 
                 //check finale, se corrisponde tutto allora aggiungi a filterSearch
-                //CORRENTI: Keyword, City, Roles (con tutti gli annessi e connessi), Payment, Feedback
+                //CORRENTI: Keyword, City, Roles (con tutti gli annessi e connessi), Payment, Feedback, Range
                 //funziona solo se hai compilato almeno un campo
-                if ((checkKeyword===true || checkCityword===true || filterByRole===true || filterByPay===true || filterByFeed===true) &&
+                if ((checkKeyword===true || checkCityword===true || filterByRole===true || filterByPay===true || filterByFeed===true || filterByRange===true) &&
                     (kw_Found === true || checkKeyword === false) &&
                     (ct_Found === true || checkCityword === false) &&
                     (rl_Found === true || filterByRole === false) &&
                     (pay_Found === true || filterByPay === false) &&
-                    (fdd_Found === true || filterByFeed === false)) {
+                    (fdd_Found === true || filterByFeed === false) &&
+                    (rng_Found === true || filterByRange === false)) {
 
                     $scope.filterSearch[j] = $scope.filterUsers[i];
                     j++;
