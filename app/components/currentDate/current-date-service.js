@@ -2,7 +2,7 @@
 
 angular.module('myApp.currentDateService', [])
 
-    .factory('CurrentDateService', function usersChatService() {
+    .factory('CurrentDateService', function() {
         return {
 
             getCurrentDate: function(){

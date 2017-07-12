@@ -2,7 +2,7 @@
 
 angular.module('myApp.reminderService', [])
 
-    .factory('ReminderService', function usersChatService($firebaseArray, $firebaseObject) {
+    .factory('ReminderService', function reminderService($firebaseArray, $firebaseObject) {
         var ref = firebase.database().ref().child("reminders");
         return {
             getReminders: function() {

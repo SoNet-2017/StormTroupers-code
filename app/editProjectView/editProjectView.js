@@ -22,7 +22,7 @@ angular.module('myApp.editProjectView', ['ngRoute'])
         });
     }])
 
-    .controller('editProjectViewCtrl', ['$scope', '$location', 'Auth', '$firebaseObject','Users', 'CurrentDateService', 'ReminderService', 'currentAuth', '$firebaseAuth', '$firebaseArray', function ($scope,$location, Auth, $firebaseObject, Users, CurrentDateService, ReminderService, currentAuth, $firebaseAuth, $firebaseArray) {
+    .controller('editProjectViewCtrl', ['$scope', '$location', 'Auth', '$firebaseObject','Users', 'EditProjectService', 'CurrentDateService', 'ReminderService', 'currentAuth', '$firebaseAuth', '$firebaseArray', function ($scope,$location, Auth, $firebaseObject, EditProjectService, Users, CurrentDateService, ReminderService, currentAuth, $firebaseAuth, $firebaseArray) {
         $scope.dati={};
         $scope.auth=Auth;
 
@@ -91,6 +91,7 @@ angular.module('myApp.editProjectView', ['ngRoute'])
 
         var PID = localStorage.PID;
         var projObj = $firebaseObject(database.ref('projects/' + PID));
+        //var projObj=EditProjectService.getProjectInfo(PID);
         projObj.$loaded().then(function () {
             console.log("caricato proj con pid: "+projObj.$id);
             $scope.projectID = projObj.$id;
@@ -191,11 +192,13 @@ angular.module('myApp.editProjectView', ['ngRoute'])
             for (var j = 0; j < length; j++) {
                 currFriendID = $scope.profile.friends[j];
                 var currFriendObj = $firebaseObject(database.ref('users/' + currFriendID));
-                if($scope.projectTroupers.indexOf(currFriendID) < 0) {
-                    //console.log("curFriendID: "+currFriendID);
-                    //console.log("curr friend: "+currFriendObj);
-                    $scope.suggestedFriends[j] = currFriendObj;
-                } else $scope.sharingFriends[j] = currFriendObj;
+                if (currFriendObj.$id !== "STORMTROUPERS_ADMIN") {
+                    if ($scope.projectTroupers.indexOf(currFriendID) < 0) {
+                        //console.log("curFriendID: "+currFriendID);
+                        //console.log("curr friend: "+currFriendObj);
+                        $scope.suggestedFriends[j] = currFriendObj;
+                    } else $scope.sharingFriends[j] = currFriendObj;
+                }
             }
         }).catch(function (error) {
             $scope.error = error;
