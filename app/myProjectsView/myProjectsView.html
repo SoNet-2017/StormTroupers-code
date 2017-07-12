@@ -122,12 +122,14 @@
                             <img class="media-object w3-circle" ng-src="../images/Kim-Jong-n2000.jpg"
                                  ng-if="prj.img_url == ''">
                         </div>
-                        <div id="projectXLink" class="w3-col l9 m9 s9">
-                            <h4><a class="w3-left w3-col l9 m9 s9" ng-click="goToEditProjectX(prj.$id)">
+                        <div id="projectXLink" class="w3-col l8 m8 s8">
+                            <h4><a class="w3-left w3-col l8 m8 s8" ng-click="goToEditProjectX(prj.$id)">
                                 <strong>{{prj.title}}</strong>
                             </a></h4>
                             <a><i class="w3-right w3-col l1 m1 s1 glyphicon glyphicon-pencil w3-xlarge"
                                   ng-click="goToEditProjectX(prj.$id)"></i></a>
+                            <a><i class="w3-right w3-col l1 m1 s1 glyphicon glyphicon-file w3-xlarge"
+                                  ng-click="goToEditor(prj.$id)"></i></a>
                             <a><i class="w3-right w3-col l1 m1 s1 glyphicon glyphicon-calendar w3-xlarge"
                                   ng-click="goToCalendar(prj.$id)"></i></a>
                             <a><i class="w3-right w3-col l1 m1 s1 glyphicon glyphicon-bell w3-xlarge"

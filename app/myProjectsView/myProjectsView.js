@@ -108,6 +108,11 @@ angular.module('myApp.myProjectsView', ['ngRoute'])
             $location.path("/newProjectView");
         };
 
+        $scope.goToEditor=function(prjXID){
+            $location.path("/editorView");
+            localStorage.PID=prjXID;
+        };
+
         var UID = localStorage.UID;
         var database = firebase.database();
 
@@ -126,7 +131,6 @@ angular.module('myApp.myProjectsView', ['ngRoute'])
         });
 
         $scope.getProjectsFromDB={};
-        var PID = localStorage.PID;
         var projectsBase = database.ref('projects/');
         $scope.filterProjects={};
 
