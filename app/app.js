@@ -22,6 +22,7 @@ angular.module('myApp', [
     'myApp.homePageView',
     'myApp.editProfileView',
     'myApp.users',
+    'myApp.agendaService',
     'myApp.insertAgendaService',
     'myApp.applicationService',
     'myApp.reminderService',

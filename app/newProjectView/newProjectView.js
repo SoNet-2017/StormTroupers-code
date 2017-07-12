@@ -108,9 +108,10 @@ angular.module('myApp.newProjectView', ['ngRoute'])
                 currFriendID = $scope.profile.friends[j];
                 //console.log("curFriendID: "+currFriendID);
                 var currFriendObj = $firebaseObject(database.ref('users/' + currFriendID));
-
-                //console.log("curr friend: "+currFriendObj);
-                $scope.suggestedFriends[j] = currFriendObj;
+                if(currFriendObj.$id !== "STORMTROUPERS_ADMIN") {
+                    //console.log("curr friend: "+currFriendObj);
+                    $scope.suggestedFriends[j] = currFriendObj;
+                }
             }
         }).catch(function (error) {
             $scope.error = error;

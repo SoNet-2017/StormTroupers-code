@@ -19,7 +19,8 @@
 
     <form id="searchItemHome">
         <div class="input-group">
-            <input id="searchItemHomeKeyword" type="text" class="form-control" placeholder="Search" ng-submit="launchSearchInSearchPage()">
+            <input id="searchItemHomeKeyword" type="text" class="form-control" placeholder="Search"
+                   ng-submit="launchSearchInSearchPage()">
             <div class="input-group-btn">
                 <button class="btn btn-default" type="submit" ng-click="launchSearchInSearchPage()">
                     <i class="glyphicon glyphicon-search"></i>
@@ -157,15 +158,31 @@
                                    placeholder="Title">
                         </div>
                         <div class="form-group">
-                            <label><span class="glyphicon glyphicon-calendar"></span> Date:</label>
-                            <input ng-model="dati.agendaDate" type="text" class="form-control"
-                                   placeholder="(yyyy-mm-dd)">
+                            <div class="w3-col s6 m6 l6">
+                                <label><span class="glyphicon glyphicon-calendar"></span> Start date:</label>
+                                <input ng-model="agendaStartDate" type="text" class="form-control"
+                                       placeholder="(yyyy-mm-dd)">
+                            </div>
+                            <div class="w3-col s6 m6 l6">
+                                <label><span class="glyphicon glyphicon-time"></span> Start time:</label>
+                                <input ng-model="agendaStartTime" type="text" class="form-control"
+                                       placeholder="(hh:mm)">
+                            </div>
                         </div>
+
                         <div class="form-group">
-                            <label><span class="glyphicon glyphicon-time"></span> Time:</label>
-                            <input ng-model="dati.agendaTime" type="text" class="form-control"
-                                   placeholder="(hh:mm)">
+                            <div class="w3-col s6 m6 l6">
+                                <label><span class="glyphicon glyphicon-calendar"></span> End date:</label>
+                                <input ng-model="agendaEndDate" type="text" class="form-control"
+                                       placeholder="(yyyy-mm-dd)">
+                            </div>
+                            <div class="w3-col s6 m6 l6">
+                                <label><span class="glyphicon glyphicon-time"></span> End time:</label>
+                                <input ng-model="agendaEndTime" type="text" class="form-control"
+                                       placeholder="(hh:mm)">
+                            </div>
                         </div>
+
                         <div class="form-group">
                             <label><span class="glyphicon glyphicon-map-marker"></span> Where:</label>
                             <input ng-model="dati.agendaAddress" type="text" class="form-control"

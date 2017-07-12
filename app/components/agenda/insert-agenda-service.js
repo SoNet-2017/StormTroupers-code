@@ -6,11 +6,11 @@ angular.module('myApp.insertAgendaService', [])
         var ref = firebase.database().ref().child("agendas");
 
         return {
-            createAgenda: function(title, date, time, address, info, project, troupers){
+            createAgenda: function(title, start, end, address, info, project, troupers){
                 var newAgenda = {};
                 newAgenda['title'] = title;
-                newAgenda['date'] = date;
-                newAgenda['time'] = time;
+                newAgenda['start'] = start;
+                newAgenda['end'] = end;
                 newAgenda['address'] = address;
                 newAgenda['info'] = info;
                 newAgenda['project'] = project;

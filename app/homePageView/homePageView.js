@@ -19,8 +19,6 @@ angular.module('myApp.homePageView', ['ngRoute'])
     }])
 
     .controller('homePageCtrl', ['$scope', '$location', 'Auth', '$firebaseObject', 'Users', 'CurrentDateService', 'ReminderService', 'currentAuth', '$firebaseAuth', '$firebaseArray', '$route', function ($scope, $location, Auth, $firebaseObject, Users, CurrentDateService, ReminderService, currentAuth, $firebaseAuth, $firebaseArray, $route) {
-        document.body.scrollTop = 0;
-
         $scope.dati = {};
         $scope.auth = Auth;
 
