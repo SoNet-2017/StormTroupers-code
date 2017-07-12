@@ -129,33 +129,47 @@ angular.module('myApp.searchPageView', ['ngRoute'])
             localStorage.otherUserID=UID;
         };
 
-        $scope.askapi = function() {
+        $scope.askAPI = function(city, returnType) {
             delete $http.defaults.headers.common['X-Requested-With'];
-            $http({
+            var promise = $http({
                 method: 'GET',
-                url: 'https://maps.googleapis.com/maps/api/geocode/json?address=Ivrea,+Italy&key=AIzaSyDE8j_aPc1gVS_lVn-c3qnO0YlRL7iMiqg'
+                url: 'https://maps.googleapis.com/maps/api/geocode/json?address=' + city + ',+Italy&key=AIzaSyDE8j_aPc1gVS_lVn-c3qnO0YlRL7iMiqg'
             }).then(function successCallback(response) {
+
                 console.log("SUCCESS");
+
+
                 console.log(response);
                 console.log(response.data);
+                console.log("parsing JSON");
+                var temp_data = angular.fromJson(response.data.results);
 
-                $scope.parJson(response.data);
+                return temp_data;
+
 
             }, function errorCallback(response) {
                 console.log("ERROR OCCURRED");
                 console.log(response);
             });
 
+            promise.then(function (coolback) {
+
+                console.log(coolback[0]);
+                console.log("latitude: " + coolback[0].geometry.location.lat.toString());
+                console.log("longitude: " + coolback[0].geometry.location.lng.toString());
+
+                switch (returnType) {
+                    case 0:
+                        return coolback[0].geometry.location.lat;
+                        break;
+                    case 1:
+                        return coolback[0].geometry.location.lng;
+                        break;
+                }
+            });
+
         }
 
-
-        $scope.parJson = function (json) {
-            console.log("parsing JSON");
-            var temp_data = angular.fromJson(json.results);
-            console.log(temp_data[0]);
-            console.log("latitude: "+temp_data[0].geometry.location.lat.toString());
-            console.log("longitude: "+temp_data[0].geometry.location.lng.toString());
-        }
 
 
         $scope.calculateDistance = function(lat1, lon1, lat2, lon2) {
@@ -230,47 +244,7 @@ angular.module('myApp.searchPageView', ['ngRoute'])
                 console.log($scope.filterUsers[UTENTNUMBER].name+" "+$scope.filterUsers[UTENTNUMBER].lastName);
                 console.log(currentUserID);
 
-                var promise = $http({
-                    method: 'GET',
-                    url: 'https://maps.googleapis.com/maps/api/geocode/json?address=' + cityR + ',+Italy&key=AIzaSyDE8j_aPc1gVS_lVn-c3qnO0YlRL7iMiqg'
-                }).then(function successCallback(response) {
 
-                    console.log("SUCCESS");
-
-
-                    console.log(response);
-                    console.log(response.data);
-                    console.log("parsing JSON");
-                    var temp_data = angular.fromJson(response.data.results);
-
-                    return temp_data;
-
-
-                }, function errorCallback(response) {
-                    console.log("ERROR OCCURRED");
-                    console.log(response);
-                });
-
-                promise.then(function (culo) {
-                    // receives the data returned from the http handler
-
-                    console.log(culo[0]);
-                    console.log("latitude: " + culo[0].geometry.location.lat.toString());
-                    console.log("longitude: " + culo[0].geometry.location.lng.toString());
-
-                    latR = culo[0].geometry.location.lat;
-                    lonR = culo[0].geometry.location.lng;
-
-                    database.ref('users/' + currentUserID).update({
-                        lat: latR,
-                        lon: lonR
-                    }).then(function () {
-                        console.log("Aggiornate lotitudine e langitudine");
-                    }).catch(function (error) {
-                        $scope.error = error;
-                        console.log("ERRORE! IL CUMPUTER STA PER ESPLODERE!!!!");
-                    });
-                });
 
             //
         }
@@ -716,6 +690,10 @@ angular.module('myApp.searchPageView', ['ngRoute'])
             //step95678bis checca il range
             var filterByRange=false;
             if ($scope.slider.value>0) {
+
+                var rng_YourLat = 0;
+                var rng_YourLng = 0;
+
                 filterByRange=true;
                 console.log("filterbyRange==true!");
             }
@@ -903,12 +881,27 @@ angular.module('myApp.searchPageView', ['ngRoute'])
                 //controllo sul range
                 if (filterByRange===true && (kw_Found===true || checkKeyword===false)) {
 
-                    console.log("Calculating distance...");
-
                     var rng_Found=false;
 
-                    var rng_YourLat = $scope.profile.lat;
-                    var rng_YourLng = $scope.profile.lon;
+                    if (checkCityword===true) {  ///in questo caso devi fare una richiesta JSON
+
+                        console.log("Calculating distance from position in City field.");
+
+                        if (rng_YourLat===0) {
+
+                            rng_YourLat = $scope.askAPI(ct, 0);
+                            rng_YourLng = $scope.askAPI(ct, 1);
+                        }
+
+                    }
+                    else { // in questo caso banalmente legge le tue coordinate dal localStorage
+
+                        console.log("Calculating distance from your position...");
+
+                        rng_YourLat = $scope.profile.lat;
+                        rng_YourLng = $scope.profile.lon;
+
+                    }
 
                     var rng_SearchLat = $scope.filterUsers[i].lat;
                     var rng_SearchLng = $scope.filterUsers[i].lon;
