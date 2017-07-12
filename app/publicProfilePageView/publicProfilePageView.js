@@ -25,6 +25,8 @@ angular.module('myApp.publicProfilePageView', ['ngRoute'])
     }])
 
     .controller('publicProfilePageViewCtrl', ['$scope', '$location', '$route', 'Auth', '$firebaseObject', 'Users', 'CurrentDateService', 'ReminderService', 'UsersChatService', 'currentAuth', '$firebaseAuth', '$firebaseArray', function ($scope, $location, $route, Auth, $firebaseObject, Users, CurrentDateService, ReminderService, UsersChatService, currentAuth, $firebaseAuth, $firebaseArray) {
+        document.body.scrollTop = 0;
+
         $scope.dati = {};
         $scope.auth = Auth;
 

@@ -19,6 +19,8 @@ angular.module('myApp.friendsPageView', ['ngRoute'])
     }])
 
     .controller('friendsPageViewCtrl', ['$scope', '$location', '$route', 'Auth', '$firebaseObject', 'Users', 'ApplicationsService', 'CurrentDateService', 'ReminderService', 'currentAuth', '$firebaseAuth', '$firebaseArray', function ($scope, $location, $route, Auth, $firebaseObject, Users, ApplicationsService, CurrentDateService, ReminderService, currentAuth, $firebaseAuth, $firebaseArray) {
+        document.body.scrollTop = 0;
+
         $scope.dati = {};
         $scope.auth = Auth;
 
