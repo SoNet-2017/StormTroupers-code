@@ -380,6 +380,10 @@ angular.module('myApp.publicProfilePageView', ['ngRoute'])
             else console.log("trouper già inserito");
         };
 
+        $scope.refresh=function () {
+            $route.reload();
+        };
+
         $scope.calculateAge = function () {
             var ageString = $scope.otherUser.dateOfBirth;
             var ageStringYear = ageString.slice(0, 4);

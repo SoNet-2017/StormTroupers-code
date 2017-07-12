@@ -150,7 +150,7 @@
                                 <p ng-show="alreadyFriend">You removed {{otherUser.name}} from your connections.</p>
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                <button ng-click="refresh()" type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                             </div>
                         </div>
 
@@ -392,7 +392,7 @@
     <div id="lateralLinks">
         <div class="w3-row w3-col s1 m1 l1" ng-show="!alreadyFriend">
             <div class="w3-tooltip">
-                <a ng-click="addUserToFriends(otherUser.$id)" data-toggle="modal" data-target="#myModal">
+                <a ng-click="addUserToFriends(otherUser.$id)" data-toggle="modal" data-target="#myModalFriendRequest">
                     <i class="glyphicon glyphicon-screenshot w3-xlarge w3-left"
                        style="color: white; cursor: pointer; padding-bottom: 20px;"></i>
                 </a>
@@ -440,4 +440,3 @@
         </div>
     </div>
 </div>
-
