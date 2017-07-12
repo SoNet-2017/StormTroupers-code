@@ -74,7 +74,7 @@ angular.module('myApp.advancedJoinView', ['ngRoute'])
         });
     }])
 
-    .controller('adJoinCtrl', ['$scope', 'Auth', '$location', '$firebaseObject', function ($scope, Auth, $location, $firebaseObject) {
+    .controller('adJoinCtrl', ['$scope', 'Auth', '$location', '$firebaseObject', '$http', function ($scope, Auth, $location, $firebaseObject, $http) {
         $scope.dati = {};
         $scope.countries = countries_list;
 
@@ -140,6 +140,54 @@ angular.module('myApp.advancedJoinView', ['ngRoute'])
             /*console.log("PARSED COUNTRY: " + countryR);
             console.log("PARSED PROVINCE: " + provinceR);
             console.log("PARSED CITY: " + cityR);*/
+
+
+            delete $http.defaults.headers.common['X-Requested-With'];
+
+            var latR=0;
+            var lonR=0;
+
+            var promise = $http({
+                method: 'GET',
+                url: 'https://maps.googleapis.com/maps/api/geocode/json?address='+cityR+',+Italy&key=AIzaSyDE8j_aPc1gVS_lVn-c3qnO0YlRL7iMiqg'
+            }).then(function successCallback(response) {
+
+                console.log("SUCCESS");
+
+
+                    console.log(response);
+                    console.log(response.data);
+                    console.log("parsing JSON");
+                    var temp_data = angular.fromJson(response.data.results);
+
+                    return temp_data;
+
+
+
+            }, function errorCallback(response) {
+                console.log("ERROR OCCURRED");
+                console.log(response);
+            });
+
+            promise.then(function(culo) {
+                // receives the data returned from the http handler
+
+                console.log(culo[0]);
+                console.log("latitude: "+culo[0].geometry.location.lat.toString());
+                console.log("longitude: "+culo[0].geometry.location.lng.toString());
+
+                latR=culo[0].geometry.location.lat;
+                lonR=culo[0].geometry.location.lng;
+
+                database.ref('users/' + UID).update({
+                    lat: latR,
+                    lon: lonR
+                }).then(function () {
+                    console.log("Aggiornate lotitudine e langitudine");
+                }).catch(function (error) {
+                    $scope.error = error;
+                });
+            });
 
             var carR;
             if (document.getElementById("carYes").checked) {
@@ -245,6 +293,8 @@ angular.module('myApp.advancedJoinView', ['ngRoute'])
                 country: countryR,
                 province: provinceR,
                 city: cityR,
+                lat: latR,
+                lon: lonR,
                 car: carR,
                 payment: payR,
                 roles: roles,
