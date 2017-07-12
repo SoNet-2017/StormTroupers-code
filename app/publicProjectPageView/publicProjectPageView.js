@@ -22,9 +22,12 @@ angular.module('myApp.publicProjectPageView', ['ngRoute'])
         });
     }])
 
-    .controller('publicProjectPageViewCtrl', ['$scope', '$location', 'Auth', '$firebaseObject','Users', 'ApplicationsService', 'currentAuth', '$firebaseAuth', '$firebaseArray', function ($scope,$location, Auth, $firebaseObject, Users, ApplicationsService, currentAuth, $firebaseAuth, $firebaseArray) {
+    .controller('publicProjectPageViewCtrl', ['$scope', '$location', 'Auth', '$firebaseObject','Users', 'CurrentDateService', 'ReminderService', 'ApplicationsService', 'currentAuth', '$firebaseAuth', '$firebaseArray', function ($scope,$location, Auth, $firebaseObject, Users, CurrentDateService, ReminderService, ApplicationsService, currentAuth, $firebaseAuth, $firebaseArray) {
         $scope.dati={};
         $scope.auth=Auth;
+
+        $scope.dati.reminders = ReminderService.getReminders();
+        $scope.dati.currentDate = CurrentDateService.getCurrentDate();
 
         $scope.showLogoItem=function () {
             var x = document.getElementById("logoBarContentHome");

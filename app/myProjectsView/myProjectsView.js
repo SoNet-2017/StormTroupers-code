@@ -211,18 +211,17 @@ angular.module('myApp.myProjectsView', ['ngRoute'])
             $scope.dati.projectIDReminder = projID;
 
             $scope.dati.projectNameReminder = projName;
-
         };
 
         $scope.addReminder = function () {
             $scope.dati.userId = currentAuth.uid;
 
             //create the JSON structure that should be sent to Firebase: user, projID, projectName, reminder
-            var newReminder = ReminderService.createReminder($scope.dati.userId, $scope.dati.projectIDReminder, $scope.dati.projectNameReminder, $scope.dati.reminder);
+            var newReminder = ReminderService.createReminder($scope.dati.userId, $scope.dati.projectIDReminder, $scope.dati.projectNameReminder, $scope.dati.reminder, $scope.dati.date);
             console.log("newApplication.sender: "+newReminder.user);
             ReminderService.addReminder(newReminder);
             $scope.dati.reminder = "";
-
+            $scope.dati.date = "";
         };
 
         $scope.logout = function () {

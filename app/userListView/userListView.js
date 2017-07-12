@@ -18,9 +18,12 @@ angular.module('myApp.userListView', ['ngRoute'])
         });
     }])
 
-    .controller('userListViewCtrl', ['$scope', '$location', 'Auth', '$firebaseObject', 'Users', 'UserList', 'currentAuth', '$firebaseAuth', '$firebaseArray', function ($scope, $location, Auth, $firebaseObject, Users, UserList, currentAuth, $firebaseAuth, $firebaseArray) {
+    .controller('userListViewCtrl', ['$scope', '$location', 'Auth', '$firebaseObject', 'Users', 'CurrentDateService', 'ReminderService', 'UserList', 'currentAuth', '$firebaseAuth', '$firebaseArray', function ($scope, $location, Auth, $firebaseObject, Users, CurrentDateService, ReminderService, UserList, currentAuth, $firebaseAuth, $firebaseArray) {
         $scope.dati = {};
         $scope.auth = Auth;
+
+        $scope.dati.reminders = ReminderService.getReminders();
+        $scope.dati.currentDate = CurrentDateService.getCurrentDate();
 
         //var availableUsers=[];
         //availableUsers = UserList.getListOfUsers();

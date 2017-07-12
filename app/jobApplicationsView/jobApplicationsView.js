@@ -18,9 +18,12 @@ angular.module('myApp.jobApplicationsView', ['ngRoute'])
         });
     }])
 
-    .controller('jobApplicationsViewCtrl', ['$scope', '$rootScope', '$location', 'Auth', '$firebaseObject', 'Users', 'ApplicationsService', 'currentAuth', '$firebaseAuth', '$firebaseArray', function ($scope, $rootScope, $location, Auth, $firebaseObject, Users, ApplicationsService, currentAuth, $firebaseAuth, $firebaseArray) {
+    .controller('jobApplicationsViewCtrl', ['$scope', '$rootScope', '$location', 'Auth', '$firebaseObject', 'Users', 'CurrentDateService', 'ReminderService', 'ApplicationsService', 'currentAuth', '$firebaseAuth', '$firebaseArray', function ($scope, $rootScope, $location, Auth, $firebaseObject, Users, CurrentDateService, ReminderService, ApplicationsService, currentAuth, $firebaseAuth, $firebaseArray) {
         $scope.dati = {};
         $scope.auth = Auth;
+
+        $scope.dati.reminders = ReminderService.getReminders();
+        $scope.dati.currentDate = CurrentDateService.getCurrentDate();
 
         $scope.dati.applications = ApplicationsService.getApplications();
         $scope.dati.userId = currentAuth.uid;

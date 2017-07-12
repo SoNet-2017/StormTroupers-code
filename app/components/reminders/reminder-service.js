@@ -14,28 +14,13 @@ angular.module('myApp.reminderService', [])
                 return $firebaseObject(projectRef);
             },*/
 
-            createReminder: function(user, projID, projectName, reminder){
+            createReminder: function(user, projID, projectName, reminder, date){
                 var newReminder = {};
                 newReminder['user'] = user;
                 newReminder['projID'] = projID;
                 newReminder['projectName'] = projectName;
                 newReminder['reminder'] = reminder;
-
-                var today = new Date();
-                var day = today.getUTCDate();
-                var month = today.getUTCMonth()+1; //January is 0!
-                var year = today.getUTCFullYear();
-
-                if(day<10) {
-                    day='0'+day;
-                }
-
-                if(month<10) {
-                    month='0'+month;
-                }
-                var currentDate = year.toString()+'-'+month.toString()+'-'+day.toString();
-
-                newReminder['date'] = currentDate;
+                newReminder['date'] = date;
                 return newReminder;
             },
 

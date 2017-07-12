@@ -18,10 +18,14 @@ angular.module('myApp.homePageView', ['ngRoute'])
         });
     }])
 
-    .controller('homePageCtrl', ['$scope', '$location', 'Auth', '$firebaseObject', 'Users', 'currentAuth', '$firebaseAuth', '$firebaseArray', '$route', function ($scope, $location, Auth, $firebaseObject, Users, currentAuth, $firebaseAuth, $firebaseArray, $route) {
+    .controller('homePageCtrl', ['$scope', '$location', 'Auth', '$firebaseObject', 'Users', 'CurrentDateService', 'ReminderService', 'currentAuth', '$firebaseAuth', '$firebaseArray', '$route', function ($scope, $location, Auth, $firebaseObject, Users, CurrentDateService, ReminderService, currentAuth, $firebaseAuth, $firebaseArray, $route) {
         $scope.dati = {};
         $scope.auth = Auth;
 
+        $scope.dati.reminders = ReminderService.getReminders();
+        $scope.dati.currentDate = CurrentDateService.getCurrentDate();
+
+        localStorage.immediateSearch=false;
 
         $scope.showLogoItem = function () {
             var x = document.getElementById("logoBarContentHome");

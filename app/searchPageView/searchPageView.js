@@ -18,9 +18,12 @@ angular.module('myApp.searchPageView', ['ngRoute'])
         });
     }])
 
-    .controller('searchPageCtrl', ['$scope', '$location', 'Auth', '$firebaseObject','Users', 'currentAuth', '$firebaseAuth', '$firebaseArray','$http', function ($scope,$location, Auth, $firebaseObject, Users, currentAuth, $firebaseAuth, $firebaseArray, $http) {
+    .controller('searchPageCtrl', ['$scope', '$location', 'Auth', '$firebaseObject','Users', 'CurrentDateService', 'ReminderService', 'currentAuth', '$firebaseAuth', '$firebaseArray','$http', function ($scope,$location, Auth, $firebaseObject, Users, CurrentDateService, ReminderService, currentAuth, $firebaseAuth, $firebaseArray, $http) {
         $scope.dati={};
         $scope.auth=Auth;
+
+        $scope.dati.reminders = ReminderService.getReminders();
+        $scope.dati.currentDate = CurrentDateService.getCurrentDate();
 
         $scope.slider = {
             minValue: 0,
@@ -127,32 +130,16 @@ angular.module('myApp.searchPageView', ['ngRoute'])
         };
 
         $scope.askapi = function() {
-            //"https://maps.googleapis.com/maps/api/distancematrix/json?origins=Vancouver+BC|Seattle&destinations=San+Francisco|Victoria+BC&mode=bicycling&language=fr-FR&key=AIzaSyDW2hQlfi3FQO8iYCH01v0s0Rjdix8YlUM"
-
-            /*
-            $http.get('https://maps.googleapis.com/maps/api/distancematrix/json?origins=Vancouver+BC|Seattle&destinations=San+Francisco|Victoria+BC&mode=bicycling&language=fr-FR&key=AIzaSyDW2hQlfi3FQO8iYCH01v0s0Rjdix8YlUM')
-                .then(function (response) {
-
-                    var temp_data = response.data;
-                    var temp_status = response.status;
-                    var temp_statusText = response.statusText;
-                    var temp_headers = response.headers;
-                    var temp_config = response.config;
-
-                    console.log("row 1: "+temp_data);
-                    console.log("row 2: "+temp_status);
-                    console.log("row 3: "+temp_statusText);
-                    console.log("row 4: "+temp_headers);
-                    console.log("row 5: "+temp_config);
-                });
-             */
             delete $http.defaults.headers.common['X-Requested-With'];
             $http({
                 method: 'GET',
-                url: 'http://maps.googleapis.com/maps/api/distancematrix/json?origins=Vancouver+BC|Seattle&destinations=San+Francisco|Victoria+BC&mode=bicycling&language=fr-FR&key=AIzaSyDW2hQlfi3FQO8iYCH01v0s0Rjdix8YlUM'
+                url: 'https://maps.googleapis.com/maps/api/geocode/json?address=Ivrea,+Italy&key=AIzaSyDE8j_aPc1gVS_lVn-c3qnO0YlRL7iMiqg'
             }).then(function successCallback(response) {
                 console.log("SUCCESS");
                 console.log(response);
+
+                $scope.parJson(response.data);
+
             }, function errorCallback(response) {
                 console.log("ERROR OCCURRED");
                 console.log(response);
@@ -161,7 +148,33 @@ angular.module('myApp.searchPageView', ['ngRoute'])
         }
 
 
+        $scope.parJson = function (json) {
+            console.log("parsing JSON");
+            var temp_data = angular.fromJson(json.results);
+            console.log(temp_data[0]);
+            console.log("latitude: "+temp_data[0].geometry.location.lat.toString());
+            console.log("longitude: "+temp_data[0].geometry.location.lng.toString());
+        }
 
+
+        $scope.calculateDistance = function(lat1, lon1, lat2, lon2) {
+            var R = 6371e3; // metres
+            var φ1 = lat1/57.29578;  // divider per 57.3 equivale a conversione in radianti (più o meno)
+            var φ2 = lat2/57.29578;
+            var Δφ = (lat2-lat1)/57.29578;
+            var Δλ = (lon2-lon1)/57.29578;
+
+            var a = Math.sin(Δφ/2) * Math.sin(Δφ/2) +
+                Math.cos(φ1) * Math.cos(φ2) *
+                Math.sin(Δλ/2) * Math.sin(Δλ/2);
+            var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+
+            var d = R * c;
+
+            d=d/1000;
+
+            return d; //ritorna la distanza in kilometri
+        }
 
 
             var UID=localStorage.UID;
