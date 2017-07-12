@@ -36,6 +36,15 @@ angular.module('myApp.editorView', ['ngRoute'])
                 x.className = x.className.replace(" w3-show", "");
         };
 
+        $scope.launchSearchInSearchPage = function () {
+            $location.path("/searchPageView");
+            localStorage.immediateSearch=true;
+            localStorage.immediateSearchKeyword=document.getElementById("searchItemHomeKeyword").value;
+            console.log("Variabili passate.");
+            console.log("immediateSearch = "+localStorage.immediateSearch.toString());
+            console.log("ImmediateSearchKeyword = "+localStorage.immediateSearchKeyword);
+        };
+
         $scope.showSearchItem = function () {
             var x = document.getElementById("typeSearchContentHome");
             if (x.className.indexOf("w3-show") == -1)

@@ -148,6 +148,12 @@ angular.module('myApp.calendarView', ['ngRoute','myApp.calendar', 'myApp.insertA
                 x.className = x.className.replace(" w3-show", "");
         };
 
+        $scope.launchSearchInSearchPage = function () {
+            $location.path("/searchPageView");
+            localStorage.immediateSearch=true;
+            localStorage.immediateSearchKeyword=document.getElementById("searchItemHomeKeyword").value;
+        };
+
         $scope.showSearchItem = function () {
             var x = document.getElementById("typeSearchContentHome");
             if (x.className.indexOf("w3-show") == -1)

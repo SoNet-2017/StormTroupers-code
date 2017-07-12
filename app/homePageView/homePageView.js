@@ -25,6 +25,8 @@ angular.module('myApp.homePageView', ['ngRoute'])
         $scope.dati.reminders = ReminderService.getReminders();
         $scope.dati.currentDate = CurrentDateService.getCurrentDate();
 
+        localStorage.immediateSearch=false;
+
         $scope.showLogoItem = function () {
             var x = document.getElementById("logoBarContentHome");
             if (x.className.indexOf("w3-show") == -1)
