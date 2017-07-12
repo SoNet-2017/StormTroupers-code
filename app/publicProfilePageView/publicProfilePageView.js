@@ -198,7 +198,8 @@ angular.module('myApp.publicProfilePageView', ['ngRoute'])
                 var currFriendObj = $firebaseObject(database.ref('users/' + currFriendID));
 
                 //console.log("curr friend: "+currFriendObj);
-                $scope.friends[j] = currFriendObj;
+                if(currFriendObj.$id !== "STORMTROUPERS_ADMIN")
+                    $scope.friends[j] = currFriendObj;
 
             }
 

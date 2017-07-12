@@ -13,6 +13,24 @@ angular.module('myApp.users.usersChatService', [])
                 var userRef = firebase.database().ref().child("users").child(userId);
                 return $firebaseObject(userRef);
             },
+
+            getFriends: function(user) {
+                var length = user.friends.length;
+                var currFriendID;
+                var friends=[];
+
+                //console.log("length: "+length);
+                for (var j = 0; j < length; j++) {
+                    currFriendID = user.friends[j];
+                    //console.log("curFriendID: "+currFriendID);
+                    var currFriendObj = $firebaseObject(firebase.database().ref().child("users").child(currFriendID));
+                    if(currFriendObj.$id !== "STORMTROUPERS_ADMIN") {
+                        //console.log("curr friend: "+currFriendObj);
+                        friends[j] = currFriendObj;
+                    }
+                }
+                return friends;
+            },
             createMessage: function(sender, senderName, receiver, text){
                 var newMessage = {};
                 newMessage['sender'] = sender;

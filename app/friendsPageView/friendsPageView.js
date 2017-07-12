@@ -18,7 +18,7 @@ angular.module('myApp.friendsPageView', ['ngRoute'])
         });
     }])
 
-    .controller('friendsPageViewCtrl', ['$scope', '$location', '$route', 'Auth', '$firebaseObject', 'Users', 'CurrentDateService', 'ReminderService', 'currentAuth', '$firebaseAuth', '$firebaseArray', function ($scope, $location, $route, Auth, $firebaseObject, Users, CurrentDateService, ReminderService, currentAuth, $firebaseAuth, $firebaseArray) {
+    .controller('friendsPageViewCtrl', ['$scope', '$location', '$route', 'Auth', '$firebaseObject', 'Users', 'ApplicationsService', 'CurrentDateService', 'ReminderService', 'currentAuth', '$firebaseAuth', '$firebaseArray', function ($scope, $location, $route, Auth, $firebaseObject, Users, ApplicationsService, CurrentDateService, ReminderService, currentAuth, $firebaseAuth, $firebaseArray) {
         $scope.dati = {};
         $scope.auth = Auth;
 
@@ -132,7 +132,8 @@ angular.module('myApp.friendsPageView', ['ngRoute'])
                     var currFriendObj = $firebaseObject(database.ref('users/' + currFriendID));
 
                     //console.log("curr friend: "+currFriendObj);
-                    $scope.friends[j] = currFriendObj;
+                    if(currFriendObj.$id !== "STORMTROUPERS_ADMIN")
+                        $scope.friends[j] = currFriendObj;
 
             }
         });
@@ -152,7 +153,7 @@ angular.module('myApp.friendsPageView', ['ngRoute'])
             }).catch(function (error) {
                 $scope.error = error;
             });
-            $scope.refresh();
+            $route.reload();
         };
 
         $scope.addUserToFriends=function(otherUserID){
