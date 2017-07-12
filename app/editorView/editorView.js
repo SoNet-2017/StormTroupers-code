@@ -127,6 +127,8 @@ angular.module('myApp.editorView', ['ngRoute'])
 
         $scope.tinymceModel = 'Initial content';
 
+
+
         $scope.getContent = function() {
             console.log('Editor content:', $scope.tinymceModel);
         };
@@ -135,10 +137,24 @@ angular.module('myApp.editorView', ['ngRoute'])
             $scope.tinymceModel = 'Time: ' + (new Date());
         };
 
-        $scope.tinymceOptions = {
-            plugins: 'link image code',
-            toolbar: 'undo redo | bold italic | alignleft aligncenter alignright | code'
+        $scope.showScreenplay=function(){
+            $scope.tinymceOptions = {
+                toolbar: 'undo redo | bold italic | alignleft aligncenter alignright | code'
+            };
+            document.getElementById("campoDiTesto").style.display="block";
         };
+
+        $scope.showStoryboard=function () {
+            $scope.tinymceOptions = {
+                plugins: 'link image code',
+                toolbar: 'undo redo | bold italic | alignleft aligncenter alignright | code'
+            };
+            document.getElementById("campoDiTesto").style.display="block";
+        }
+
+
+
+
 
         $scope.logout = function () {
             Users.registerLogout(currentAuth.uid);
