@@ -25,6 +25,23 @@
     max-height: 75px;
 }
 
+#searchCrewButtonContainer {
+    width: 100%;
+    display: inline-block;
+    align-items: center;
+    horiz-align: center;
+}
+
+
+#searchCrewButton {
+    display: flex;
+    color: white;
+    background-color: black;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+}
+
 #newUImgContainer{
     display: flex;
     justify-content: center;
