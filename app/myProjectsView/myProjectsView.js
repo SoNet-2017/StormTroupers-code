@@ -94,6 +94,11 @@ angular.module('myApp.myProjectsView', ['ngRoute'])
             }
         };
 
+        $scope.goToPublicProjectPage=function (projID) {
+            $location.path("/publicProjectPageView");
+            localStorage.PID = projID;
+        };
+
         $scope.goToMyPublicProfile=function () {
             $location.path("/publicProfilePageView");
             localStorage.otherUserID=UID;

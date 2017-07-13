@@ -76,10 +76,12 @@
 }
 
 #projectPic2{
-    background-image: url("../../images/lens_sat.jpg");
     background-size: cover;
     min-height: 150px;
-    padding: 10px; border-radius: 4mm; background-color: #b7c3b8;
+    padding: 10px;
+    border-radius: 4mm;
+    cursor: pointer;
+
 }
 
 #projectPic2 a:hover{

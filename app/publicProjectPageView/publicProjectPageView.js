@@ -22,7 +22,7 @@ angular.module('myApp.publicProjectPageView', ['ngRoute'])
         });
     }])
 
-    .controller('publicProjectPageViewCtrl', ['$scope', '$location', 'Auth', '$firebaseObject','UiService','Users', 'CurrentDateService', 'ReminderService', 'ApplicationsService', 'currentAuth', '$firebaseAuth', '$firebaseArray', function ($scope,$location, Auth, $firebaseObject,UiService, Users, CurrentDateService, ReminderService, ApplicationsService, currentAuth, $firebaseAuth, $firebaseArray) {
+    .controller('publicProjectPageViewCtrl', ['$scope', '$location', 'Auth', '$firebaseObject','UiService','Users', 'UserList', 'ProfileService', 'ProjectService', 'CurrentDateService', 'ReminderService', 'ApplicationsService', 'currentAuth', '$firebaseAuth', '$firebaseArray', function ($scope,$location, Auth, $firebaseObject,UiService, Users, UserList, ProfileService, ProjectService, CurrentDateService, ReminderService, ApplicationsService, currentAuth, $firebaseAuth, $firebaseArray) {
         document.body.scrollTop = 0;
 
         $scope.dati={};
@@ -98,7 +98,7 @@ angular.module('myApp.publicProjectPageView', ['ngRoute'])
         var userQuery=usersBase.limitToLast(5);
         $scope.filterUsers=$firebaseArray(userQuery);
 
-        $scope.profile = $firebaseObject(database.ref('users/'+UID));
+        $scope.profile = ProfileService.getUserInfo(UID);
         $scope.profile.$loaded().then(function () {
             var role = Object.values($scope.profile.roles);
             for(var i=0; i<role.length; i++){
@@ -115,22 +115,11 @@ angular.module('myApp.publicProjectPageView', ['ngRoute'])
         var PID = localStorage.PID;
         $scope.projTroupers={};
 
-        $scope.prj = $firebaseObject(database.ref('projects/' + PID));
+        $scope.prj = ProjectService.getProjectInfo(PID);
         $scope.prj.$loaded().then(function () {
-            console.log("titolo progetto quiiiZ: " + $scope.prj.title);
-            console.log("$scope.prj.troupers: "+$scope.prj.troupers);
 
-            var length = $scope.prj.troupers.length;
-            for(var i=0; i<length; i++){
-                console.log("$scope.prj.troupers[i]: "+$scope.prj.troupers[i]);
-
-                var currTrouperUID = $scope.prj.troupers[i];
-                var trouperObj = $firebaseObject(database.ref('users/' + currTrouperUID));
-                //console.log("indirizzo: "+database.ref('users/' + trouperUID));
-
-                $scope.projTroupers[i] = trouperObj;
-                console.log(($scope.projTroupers[i]));
-            }
+            $scope.projTroupers = ProjectService.getTroupers($scope.prj);
+            //console.log(($scope.projTroupers[]));
 
             $scope.findAdjustedRoles();
 
@@ -201,7 +190,7 @@ angular.module('myApp.publicProjectPageView', ['ngRoute'])
             if ($scope.profile.followingProjects[0] === "init") {
                 $scope.profile.followingProjects[0] = PID;
                 $scope.profile.$save().then(function () {
-                    var nObj = $firebaseObject(database.ref('users/' + UID));
+                    var nObj = ProfileService.getUserInfo(UID);
                     nObj.$loaded().then(function () {
                         $scope.profile = nObj;
                         $scope.prj.likes++;
