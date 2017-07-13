@@ -137,7 +137,8 @@
                   rz-slider-options="slider.options"
                   ng-mouseenter="showHelpCaption5 = true"  ng-mouseleave="showHelpCaption5 = false"></rzslider>
         <div id="helpCaption5" ng-init="showHelpCaption5 = false" ng-if="showHelpCaption5" class="w3-animate-opacity">
-            Due to a programming mishap "Range" and "City" fields DON'T work together!
+            Due to a programming mishap "Range" and "City" fields DON'T work together!<br>
+            With an empty "City" field, range will be calculated from your hometown
         </div>
         <div ng-if="showHelpCaption5 === false" id="helpCaption5">
             <br>
