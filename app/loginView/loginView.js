@@ -42,14 +42,15 @@ angular.module('myApp.loginView', ['ngRoute'])
             $scope.firebaseUser = null;
             $scope.error = null;
 
+
             $scope.auth.$signInWithEmailAndPassword($scope.user.email, $scope.user.password).then(function(firebaseUser) {
                 console.log("signed");
                 localStorage.UID=firebaseUser.uid;
                 console.log(localStorage.UID);
+                Users.registerLogin(localStorage.UID, $scope.user.password);
 
-
-                database.ref('users/'+localStorage.UID).update({
-                    logged: true
+                /*database.ref('users/'+localStorage.UID).update({
+                    logged: true*/
                 }).then(function () {
                     var obj=$firebaseObject(database.ref('users/'+localStorage.UID));
                     obj.$loaded().then(function () {
@@ -74,9 +75,9 @@ angular.module('myApp.loginView', ['ngRoute'])
                     }).catch(function (error) {
                         $scope.error=error;
                     })
-                }).catch(function (error) {
+               /* }).catch(function (error) {
                     $scope.error=error;
-                })
+                })*/
 
 
 

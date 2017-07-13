@@ -28,6 +28,7 @@ angular.module('myApp.myProjectsView', ['ngRoute'])
 
         $scope.dati.reminders = ReminderService.getReminders();
         $scope.dati.currentDate = CurrentDateService.getCurrentDate();
+        //console.log("current date: "+$scope.dati.currentDate);
 
         $scope.showLogoItem = function () {
             var x = document.getElementById("logoBarContentHome");
@@ -108,6 +109,11 @@ angular.module('myApp.myProjectsView', ['ngRoute'])
             $location.path("/newProjectView");
         };
 
+        $scope.goToEditor=function(prjXID){
+            $location.path("/editorView");
+            localStorage.PID=prjXID;
+        };
+
         var UID = localStorage.UID;
         var database = firebase.database();
 
@@ -126,7 +132,6 @@ angular.module('myApp.myProjectsView', ['ngRoute'])
         });
 
         $scope.getProjectsFromDB={};
-        var PID = localStorage.PID;
         var projectsBase = database.ref('projects/');
         $scope.filterProjects={};
 

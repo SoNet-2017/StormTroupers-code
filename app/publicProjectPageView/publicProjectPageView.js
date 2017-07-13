@@ -23,6 +23,8 @@ angular.module('myApp.publicProjectPageView', ['ngRoute'])
     }])
 
     .controller('publicProjectPageViewCtrl', ['$scope', '$location', 'Auth', '$firebaseObject','Users', 'CurrentDateService', 'ReminderService', 'ApplicationsService', 'currentAuth', '$firebaseAuth', '$firebaseArray', function ($scope,$location, Auth, $firebaseObject, Users, CurrentDateService, ReminderService, ApplicationsService, currentAuth, $firebaseAuth, $firebaseArray) {
+        document.body.scrollTop = 0;
+
         $scope.dati={};
         $scope.auth=Auth;
 

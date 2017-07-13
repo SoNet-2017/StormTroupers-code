@@ -81,10 +81,6 @@ angular.module('myApp.homePageView', ['ngRoute'])
             $location.path("/jobApplicationsView");
         };
 
-        $scope.goToEditor=function(){
-            $location.path("/editorView");
-        }
-
         // CAMBIARE URL
         $scope.goToPublicProfile = function (userID) {
             $location.path("/publicProfilePageView");

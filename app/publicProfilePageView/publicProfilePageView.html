@@ -150,7 +150,7 @@
                                 <p ng-show="alreadyFriend">You removed {{otherUser.name}} from your connections.</p>
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                <button ng-click="refresh()" type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                             </div>
                         </div>
 
@@ -211,7 +211,7 @@
                 <ul style="list-style: none; padding: 0; display: inline-block;">
                     <li ng-repeat="project in projPublicPage" class="w3-col s12 m12 l12"
                         style="margin-right: 40px; margin-bottom: 20px">
-                        <div id="projectPic" class=" w3-container w3-card-2" style="background-image:url({{project.img_url}});">
+                        <div ng-click="goToPublicProjectPage(project.$id)" id="projectPic" class=" w3-container w3-card-2" style="cursor:pointer;background-image:url({{project.img_url}});">
 
                             <div class="w3-container w3-row">
                                 <h2 style="color: white; text-shadow: 2px 2px 2px #333333;">{{project.title}}</h2>
@@ -247,8 +247,8 @@
                 <ul style="list-style: none; padding: 0; display: inline-block;">
                     <li ng-repeat="proj in followingProjects" class="w3-col s12 m12 l12"
                         style="margin-right: 40px; margin-bottom: 20px">
-                        <div id="projectPic2" class=" w3-container w3-card-2"
-                             style="padding: 10px; border-radius: 4mm; background-color: #b7c3b8;">
+                        <div ng-click="goToPublicProjectPage(proj.$id)" id="projectPic2" class=" w3-container w3-card-2"
+                             style="cursor: pointer;padding: 10px; border-radius: 4mm; background-color: #b7c3b8;">
 
                             <div class="w3-container w3-row">
                                 <h2 style="color: white;
@@ -392,7 +392,7 @@
     <div id="lateralLinks">
         <div class="w3-row w3-col s1 m1 l1" ng-show="!alreadyFriend">
             <div class="w3-tooltip">
-                <a ng-click="addUserToFriends(otherUser.$id)" data-toggle="modal" data-target="#myModal">
+                <a ng-click="addUserToFriends(otherUser.$id)" data-toggle="modal" data-target="#myModalFriendRequest">
                     <i class="glyphicon glyphicon-screenshot w3-xlarge w3-left"
                        style="color: white; cursor: pointer; padding-bottom: 20px;"></i>
                 </a>
@@ -418,7 +418,7 @@
         <div class="w3-row w3-col s1 m1 l1">
             <div class="w3-tooltip">
                 <a data-toggle="modal" data-target="#myModalMessage">
-                    <i class="glyphicon glyphicon-send w3-xlarge w3-left"
+                    <i class="glyphicon glyphicon-envelope w3-xlarge w3-left"
                        style="color: white; cursor: pointer; padding-bottom: 20px;"></i>
                 </a>
                 <h6 class="w3-center w3-text w3-tag"
@@ -440,4 +440,3 @@
         </div>
     </div>
 </div>
-

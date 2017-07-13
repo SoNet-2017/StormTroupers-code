@@ -25,6 +25,8 @@ angular.module('myApp.publicProfilePageView', ['ngRoute'])
     }])
 
     .controller('publicProfilePageViewCtrl', ['$scope', '$location', '$route', 'Auth', '$firebaseObject', 'Users', 'CurrentDateService', 'ReminderService', 'UsersChatService', 'currentAuth', '$firebaseAuth', '$firebaseArray', function ($scope, $location, $route, Auth, $firebaseObject, Users, CurrentDateService, ReminderService, UsersChatService, currentAuth, $firebaseAuth, $firebaseArray) {
+        document.body.scrollTop = 0;
+
         $scope.dati = {};
         $scope.auth = Auth;
 
@@ -198,7 +200,8 @@ angular.module('myApp.publicProfilePageView', ['ngRoute'])
                 var currFriendObj = $firebaseObject(database.ref('users/' + currFriendID));
 
                 //console.log("curr friend: "+currFriendObj);
-                $scope.friends[j] = currFriendObj;
+                if(currFriendObj.$id !== "STORMTROUPERS_ADMIN")
+                    $scope.friends[j] = currFriendObj;
 
             }
 
@@ -375,6 +378,10 @@ angular.module('myApp.publicProfilePageView', ['ngRoute'])
                 });
             }
             else console.log("trouper già inserito");
+        };
+
+        $scope.refresh=function () {
+            $route.reload();
         };
 
         $scope.calculateAge = function () {

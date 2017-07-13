@@ -22,15 +22,14 @@ angular.module('myApp.chatView', ['ngRoute'])
         $scope.dati = {};
         $scope.auth = Auth;
 
+        $scope.dati.userId = currentAuth.uid;
         $scope.dati.reminders = ReminderService.getReminders();
         $scope.dati.currentDate = CurrentDateService.getCurrentDate();
-
-        $scope.dati.userId = currentAuth.uid;
 
         var database = firebase.database();
         $scope.dati.friends=[];
 
-        $scope.profile = $firebaseObject(database.ref('users/' + $scope.dati.userId));
+        $scope.profile = UsersChatService.getUserInfo($scope.dati.userId);
         $scope.profile.$loaded().then(function () {
             //console.log("nome other user: "+$scope.otherUser.name+" ID: "+otherUserID+" DESCR: "+$scope.otherUser.description);
             var length = $scope.profile.friends.length;

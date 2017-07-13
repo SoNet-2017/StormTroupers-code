@@ -2,7 +2,7 @@
 
 angular.module('myApp.applicationService', [])
 
-    .factory('ApplicationsService', function usersChatService($firebaseArray, $firebaseObject) {
+    .factory('ApplicationsService', function applicationService($firebaseArray, $firebaseObject) {
         var ref = firebase.database().ref().child("applications");
         return {
             getApplications: function() {

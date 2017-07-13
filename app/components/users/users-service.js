@@ -2,7 +2,7 @@
 
 angular.module('myApp.users.usersService', [])
 
-    .factory('Users', function($firebaseArray) {
+    .factory('Users', function($firebaseArray, $firebaseObject) {
         return {
             registerLogin: function (userId, email) {
                 //add the user to list of users and set the logged value to true
