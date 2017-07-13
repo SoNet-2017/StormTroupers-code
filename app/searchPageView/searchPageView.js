@@ -64,6 +64,8 @@ angular.module('myApp.searchPageView', ['ngRoute'])
         console.log(localStorage.attLast);
         console.log(localStorage.attEmail);
 
+
+        $scope.ignoreKeywordField=false;
         $scope.cbch=false;
 /*
         document.getElementById("userNameHome").innerHTML=localStorage.attName;
@@ -74,7 +76,11 @@ angular.module('myApp.searchPageView', ['ngRoute'])
         };
 
         $scope.launchSearchSpecial=function(){
-
+            localStorage.immediateSearch=true;
+            localStorage.immediateSearchKeyword=document.getElementById("searchItemHomeKeyword").value;
+            console.log("Special Search Launched")
+            $scope.launchSearch();
+            //$scope.ignoreKeywordField=true;
         };
 
         /*$scope.showSearchItem = function () {
@@ -322,6 +328,7 @@ angular.module('myApp.searchPageView', ['ngRoute'])
             if (localStorage.immediateSearch.toString()==="true") {
                 localStorage.immediateSearch=false;
                 kw = localStorage.immediateSearchKeyword;
+                console.log("Mi sto prendendo la searchKeyword dalla barra sopra, che è: "+localStorage.immediateSearchKeyword);
             }
             else {
                 kw = document.getElementById("searchKeyword").value;
@@ -716,6 +723,8 @@ angular.module('myApp.searchPageView', ['ngRoute'])
             var length=$scope.filterUsers.length;
             var j=0;
             for(var i=0; i<length; i++){ //si scorre tutto l'array
+
+                console.log("In sto ciclo sto ceccando "+$scope.filterUsers[i].$id);
 
                 resultIsOkFlag=false;
 
