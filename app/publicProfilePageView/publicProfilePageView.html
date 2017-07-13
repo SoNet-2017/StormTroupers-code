@@ -247,8 +247,7 @@
                 <ul style="list-style: none; padding: 0; display: inline-block;">
                     <li ng-repeat="proj in followingProjects" class="w3-col s12 m12 l12"
                         style="margin-right: 40px; margin-bottom: 20px">
-                        <div ng-click="goToPublicProjectPage(proj.$id)" id="projectPic2" class=" w3-container w3-card-2"
-                             style="cursor: pointer;padding: 10px; border-radius: 4mm; background-color: #b7c3b8;">
+                        <div ng-click="goToPublicProjectPage(proj.$id)" id="projectPic2" class=" w3-container w3-card-2" style="cursor:pointer;background-image:url({{proj.img_url}});">
 
                             <div class="w3-container w3-row">
                                 <h2 style="color: white;

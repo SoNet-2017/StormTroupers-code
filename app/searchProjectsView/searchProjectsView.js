@@ -18,7 +18,7 @@ angular.module('myApp.searchProjectsView', ['ngRoute'])
         });
     }])
 
-    .controller('searchProjectsCtrl', ['$scope', '$location', 'Auth', '$firebaseObject','UiService','Users', 'CurrentDateService', 'ReminderService', 'currentAuth', '$firebaseAuth', '$firebaseArray', function ($scope,$location, Auth, $firebaseObject,UiService, Users, CurrentDateService, ReminderService, currentAuth, $firebaseAuth, $firebaseArray) {
+    .controller('searchProjectsCtrl', ['$scope', '$location', 'Auth', '$firebaseObject','UiService','Users', 'ProfileService', 'ProjectService', 'CurrentDateService', 'ReminderService', 'currentAuth', '$firebaseAuth', '$firebaseArray', function ($scope,$location, Auth, $firebaseObject,UiService, Users, ProfileService, ProjectService, CurrentDateService, ReminderService, currentAuth, $firebaseAuth, $firebaseArray) {
         $scope.dati = {};
         $scope.auth = Auth;
 
@@ -231,14 +231,11 @@ angular.module('myApp.searchProjectsView', ['ngRoute'])
         var UID = localStorage.UID;
         var database = firebase.database();
 
-        var projectBase = database.ref('projects/');
-        $scope.allProjects = $firebaseArray(projectBase);
+        $scope.allProjects = ProjectService.getProjects();
 
-
-        var obj = $firebaseObject(database.ref('users/' + UID));
-        obj.$loaded().then(function () {
-            $scope.profile = obj;
-            var role = Object.values(obj.roles);
+        $scope.profile = ProfileService.getUserInfo(UID);
+        $scope.profile.$loaded().then(function () {
+            var role = Object.values($scope.profile.roles);
             for (var i = 0; i < role.length; i++) {
                 document.getElementById("userRolesHome").innerHTML += role[i];
                 if (i < role.length - 1) {
@@ -255,7 +252,7 @@ angular.module('myApp.searchProjectsView', ['ngRoute'])
 
         $scope.addUserToFriends = function (otherUserID) {
             if ($scope.profile.friends.indexOf(otherUserID) < 0) {
-                $scope.otherUser = $firebaseObject(database.ref('users/' + otherUserID));
+                $scope.otherUser = ProfileService.getUserInfo(otherUserID);
                 $scope.otherUser.$loaded().then(function () {
                     //aggiorno il vettore anche nell'amico
                     $scope.otherUser.friends.push(UID);

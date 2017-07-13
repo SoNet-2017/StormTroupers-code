@@ -18,7 +18,7 @@ angular.module('myApp.searchPageView', ['ngRoute'])
         });
     }])
 
-    .controller('searchPageCtrl', ['$scope', '$location', 'Auth', '$firebaseObject','UiService','Users', 'CurrentDateService', 'ReminderService', 'currentAuth', '$firebaseAuth', '$firebaseArray','$http', function ($scope,$location, Auth, $firebaseObject,UiService, Users, CurrentDateService, ReminderService, currentAuth, $firebaseAuth, $firebaseArray, $http) {
+    .controller('searchPageCtrl', ['$scope', '$location', 'Auth', '$firebaseObject','UiService','Users', 'UserList', 'ProfileService', 'ProjectService', 'CurrentDateService', 'ReminderService', 'currentAuth', '$firebaseAuth', '$firebaseArray','$http', function ($scope,$location, Auth, $firebaseObject,UiService, Users, UserList, ProfileService, ProjectService, CurrentDateService, ReminderService, currentAuth, $firebaseAuth, $firebaseArray, $http) {
         $scope.dati={};
         $scope.auth=Auth;
 
@@ -182,7 +182,7 @@ angular.module('myApp.searchPageView', ['ngRoute'])
                 }
             });
 
-        }
+        };
 
 
 
@@ -203,7 +203,7 @@ angular.module('myApp.searchPageView', ['ngRoute'])
             d=d/1000;
 
             return d; //ritorna la distanza in kilometri
-        }
+        };
 
 
             var UID=localStorage.UID;
@@ -213,10 +213,9 @@ angular.module('myApp.searchPageView', ['ngRoute'])
         $scope.filterUsers=$firebaseArray(userQuery);
 
 
-        var obj = $firebaseObject(database.ref('users/'+UID));
-        obj.$loaded().then(function () {
-            $scope.profile=obj;
-            var role = Object.values(obj.roles);
+        $scope.profile = ProfileService.getUserInfo(UID);
+        $scope.profile.$loaded().then(function () {
+            var role = Object.values($scope.profile.roles);
             for(var i=0; i<role.length; i++){
                 document.getElementById("userRolesHome").innerHTML+=role[i];
                 if(i<role.length-1) {
@@ -271,7 +270,7 @@ angular.module('myApp.searchPageView', ['ngRoute'])
             console.log("trouper eliminato: "+friendToRemove);
 
             //lo elimino anche dall'altro?
-            $scope.otherUser = $firebaseObject(database.ref('users/' + friendToRemove));
+            $scope.otherUser = ProfileService.getUserInfo(friendToRemove);
             $scope.otherUser.$loaded().then(function () {
                 $scope.otherUser.friends.splice($scope.otherUser.friends.indexOf(UID),1);
                 $scope.otherUser.$save();
@@ -284,7 +283,7 @@ angular.module('myApp.searchPageView', ['ngRoute'])
         $scope.addUserToFriends=function(otherUserID){
             if($scope.profile.friends.indexOf(otherUserID)<0) {
                 $scope.alreadyFriend = false;
-                $scope.otherUser = $firebaseObject(database.ref('users/' + otherUserID));
+                $scope.otherUser = ProfileService.getUserInfo(otherUserID);
                 $scope.otherUser.$loaded().then(function () {
                     //aggiorno il vettore anche nell'amico
                     $scope.otherUser.friends.push(UID);
@@ -595,7 +594,7 @@ angular.module('myApp.searchPageView', ['ngRoute'])
                     }
                 }
 
-                //CASO IN CUI L'UTENTE FACCIA IL PIRLA E NON SEGNI NIENTE, CI PENSA IL CODICE A INCLUDERE TUTTI E DUE
+                //CASO IN CUI L'UTENTE NON SEGNI NIENTE, CI PENSA IL CODICE A INCLUDERE TUTTI E DUE
                 if (document.getElementById("checkMal").checked===false && document.getElementById("checkFem").checked===false) {
                     includeM=true;
                     includeF=true;

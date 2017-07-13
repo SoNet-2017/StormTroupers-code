@@ -98,7 +98,7 @@ angular.module('myApp.editProfileView', ['ngRoute'])
         $scope.profile.$loaded().then(function () {
 
             //carica i ruoli professionali nella sidebar dell'utente loggato
-            var role = Object.values(obj.roles);
+            var role = Object.values($scope.profile.roles);
             for(var i=0; i<role.length; i++){
                 document.getElementById("userRolesHome").innerHTML+=role[i];
                 if(i<role.length-1) {
@@ -418,10 +418,11 @@ angular.module('myApp.editProfileView', ['ngRoute'])
                     dateOfBirth: newDateOfBirth,
                     equipment: newEquipment
                 }).then(function () {
+                    localStorage.otherUserID=UID;
+                    $location.path("/publicProfilePageView");
                     var nObj=$firebaseObject(database.ref('users/'+UID));
                     nObj.$loaded().then(function () {
                         $scope.profile=nObj;
-                        $scope.goToDashboard();
                     }).catch(function (error) {
                         $scope.error=error;
                     })

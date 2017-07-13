@@ -198,7 +198,9 @@ angular.module('myApp.editProjectView', ['ngRoute'])
         });
 
 
-        $scope.addTroupers=function (userID) {
+        $scope.addTroupers=function (userID, userName) {
+            $scope.userName=userName;
+            $scope.removed=false;
             //popolare il vettore troupers
             if($scope.projectTroupers.indexOf(userID)<0) {
                 console.log("Trouper aggiunto: " +  userID);
@@ -207,7 +209,9 @@ angular.module('myApp.editProjectView', ['ngRoute'])
             else console.log("trouper già inserito");
         };
 
-        $scope.removeTroupers=function (userID) {
+        $scope.removeTroupers=function (userID, userName) {
+            $scope.userName=userName;
+            $scope.removed=true;
             $scope.projectTroupers.splice($scope.projectTroupers.indexOf(userID),1);
             console.log("trouper "+userID+" eliminato");
         };
@@ -344,6 +348,7 @@ angular.module('myApp.editProjectView', ['ngRoute'])
                 img_url: newImage
             }).then(function () {
                 console.log("salvate le modifiche al project in DB; PID: " + PID);
+                $scope.goToMyProjects();
                 var obj = $firebaseObject(database.ref('projects/' + PID));
                 obj.$loaded().then(function () {
                     $scope.project = obj;
@@ -356,7 +361,6 @@ angular.module('myApp.editProjectView', ['ngRoute'])
                     localStorage.attDateOfCreation = obj.dateOfCreation;
                     localStorage.imgURL=obj.img_url;
                     //localStorage.attTroupers=JSON.stringify(obj.troupers);
-                    $scope.goToMyProjects();
                 }).catch(function (error) {
                     $scope.error = error;
                 })

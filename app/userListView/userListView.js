@@ -18,7 +18,7 @@ angular.module('myApp.userListView', ['ngRoute'])
         });
     }])
 
-    .controller('userListViewCtrl', ['$scope', '$location', 'Auth', '$firebaseObject','UiService', 'Users', 'CurrentDateService', 'ReminderService', 'UserList', 'currentAuth', '$firebaseAuth', '$firebaseArray', function ($scope, $location, Auth, $firebaseObject,UiService, Users, CurrentDateService, ReminderService, UserList, currentAuth, $firebaseAuth, $firebaseArray) {
+    .controller('userListViewCtrl', ['$scope', '$location', 'Auth', '$firebaseObject','UiService', 'Users', 'ProfileService', 'CurrentDateService', 'ReminderService', 'UserList', 'currentAuth', '$firebaseAuth', '$firebaseArray', function ($scope, $location, Auth, $firebaseObject,UiService, Users, ProfileService, CurrentDateService, ReminderService, UserList, currentAuth, $firebaseAuth, $firebaseArray) {
         $scope.dati = {};
         $scope.auth = Auth;
 
@@ -29,24 +29,12 @@ angular.module('myApp.userListView', ['ngRoute'])
         //availableUsers = UserList.getListOfUsers();
         $scope.dati.userId = currentAuth.uid;
 
-        var database = firebase.database();
         $scope.dati.friends=[];
 
-        $scope.profile = $firebaseObject(database.ref('users/' + $scope.dati.userId));
+        $scope.profile = ProfileService.getUserInfo($scope.dati.userId);
         $scope.profile.$loaded().then(function () {
-            //console.log("nome other user: "+$scope.otherUser.name+" ID: "+otherUserID+" DESCR: "+$scope.otherUser.description);
-            var length = $scope.profile.friends.length;
-            var currFriendID;
-            //console.log("length: "+length);
-            for (var j = 0; j < length; j++) {
-                currFriendID = $scope.profile.friends[j];
-                //console.log("curFriendID: "+currFriendID);
-                var currFriendObj = $firebaseObject(database.ref('users/' + currFriendID));
-                if(currFriendObj.$id !== "STORMTROUPERS_ADMIN") {
-                    //console.log("curr friend: "+currFriendObj);
-                    $scope.dati.friends[j] = currFriendObj;
-                }
-            }
+
+            $scope.dati.friends = UserList.getFriends($scope.profile);
         });
 
         $scope.showLogoItem=function() {
@@ -200,10 +188,9 @@ angular.module('myApp.userListView', ['ngRoute'])
             $scope.error = error;
         });
 
-        var obj = $firebaseObject(database.ref('users/' + UID));
-        obj.$loaded().then(function () {
-            $scope.profile = obj;
-            var role = Object.values(obj.roles);
+        $scope.profile = ProfileService.getUserInfo(UID);
+        $scope.profile.$loaded().then(function () {
+            var role = Object.values($scope.profile.roles);
             for (var i = 0; i < role.length; i++) {
                 document.getElementById("userRolesHome").innerHTML += role[i];
                 if (i < role.length - 1) {
@@ -259,7 +246,7 @@ angular.module('myApp.userListView', ['ngRoute'])
 
         $scope.addUserToFriends=function(otherUserID){
             if($scope.profile.friends.indexOf(otherUserID)<0) {
-                $scope.otherUser = $firebaseObject(database.ref('users/' + otherUserID));
+                $scope.otherUser = ProfileService.getUserInfo(otherUserID);
                 $scope.otherUser.$loaded().then(function () {
                     //aggiorno il vettore anche nell'amico
                     $scope.otherUser.friends.push(UID);

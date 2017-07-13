@@ -196,7 +196,6 @@ angular.module('myApp.portfolioView', ['ngRoute'])
 
             };
 
-
             $scope.addVideo=function () {
                 var newVideoTitle=document.getElementById("addVideoTitle").value;
                 var newVideoUrl=document.getElementById("addAVideoInput").value;
@@ -228,7 +227,6 @@ angular.module('myApp.portfolioView', ['ngRoute'])
                     $scope.error = error;
                 });
             }
-
 
         }).catch(function (error) {
             $scope.error = error;

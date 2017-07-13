@@ -104,7 +104,8 @@ angular.module('myApp.newProjectView', ['ngRoute'])
         var troupers = [];
         troupers[0]=UID;
 
-        $scope.addTroupers = function (userID) {
+        $scope.addTroupers = function (userID, userName) {
+            $scope.userName = userName;
             //popolare il vettore troupers
             if (troupers.indexOf(userID) < 0) {
                 console.log("Trouper aggiunto: " + userID);
@@ -263,8 +264,6 @@ angular.module('myApp.newProjectView', ['ngRoute'])
 
             console.log("roles needed: "+rolesNeeded);
 
-
-
             var projType = document.getElementById("projectType").value;
             var projGenre = document.getElementById('projectGenre').value;
 
@@ -318,6 +317,8 @@ angular.module('myApp.newProjectView', ['ngRoute'])
                 img_url: $scope.imgPath
             }).then(function () {
                 console.log("creato project in DB; PID: " + PID);
+                $scope.goToMyProjects();
+                //$location.path("/myProjectsView");
                 $scope.project = ProjectService.getProjectInfo(PID);
                 $scope.project.$loaded().then(function () {
                     localStorage.attPID = PID;
@@ -330,7 +331,6 @@ angular.module('myApp.newProjectView', ['ngRoute'])
                     localStorage.attCity = obj.city;
                     localStorage.attURL=obj.img_url;
                     //localStorage.attTroupers=JSON.stringify(obj.troupers);
-                    $scope.goToMyProjects();
                 }).catch(function (error) {
                     $scope.error = error;
                 })
