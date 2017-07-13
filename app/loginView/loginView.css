@@ -153,7 +153,7 @@ h1{
 
 #searchImage{
     /* The image used */
-    background-image: url("../../images/Kim-Jong-n2000.jpg");
+    background-image: url("../../images/theSearch.jpg");
 
     /* Set a specific height */
     min-height: 300px;
@@ -195,7 +195,7 @@ h1{
 
 #flowImage{
     /* The image used */
-    background-image: url("../../images/troopers.jpg");
+    background-image: url("../../images/followTheFlow.jpg");
 
     /* Set a specific height */
     min-height: 300px;

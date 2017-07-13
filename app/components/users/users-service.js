@@ -9,7 +9,6 @@ angular.module('myApp.users.usersService', [])
                 var ref = firebase.database().ref().child("users").child(userId);
                 // create a synchronized array
                 ref.update({
-                    email: email,
                     logged: true
                 });
             },
