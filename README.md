@@ -2,7 +2,8 @@
 
 Buongiorno,
 usiamo il README per ricordarvi le credenziali d'accesso: lo username è "otto@tedesco.de" e la password è "ottone".
-Se volete testarla la funzionalità d'iscrizione funziona anche se per semplicità abbiamo limitato la selezione funzionante delle
+
+Se volete potete testare la funzionalità d'iscrizione. Per semplicità abbiamo limitato la selezione funzionante delle
 province con cui è possibilie iscriversi a quella di Torino e alle sue città.
 
 FUNZIONALITA' IMPERFETTE:
@@ -15,3 +16,12 @@ di caricamento asincrono da firebase.
 
 La console restituisce degli errori da googleapis relativi alla chiave ma anche sostituendola con una nuova ottenuta da Google selezionando
 il nostro progetto continua a dare lo stesso errore.
+
+È possibile che la libreria che implementa l'editor dei documenti per i progetti restituisca degli errori: l'editor è funzionante nonostante
+tali errori che essendo su una librearia esterna non sono di nostra competenza.
+
+Grazie per la visione e buon lavoro.
+
+Matilde Ugolini
+Edoardo Battegazzorre
+Giancarlo Avalle
