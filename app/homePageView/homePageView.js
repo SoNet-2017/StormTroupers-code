@@ -26,6 +26,7 @@ angular.module('myApp.homePageView', ['ngRoute'])
         $scope.dati.currentDate = CurrentDateService.getCurrentDate();
 
         localStorage.immediateSearch=false;
+        localStorage.immediateSearchKeyword="";
 
         $scope.showLogoItem=function() {
             UiService.showLogoItem();

@@ -73,8 +73,8 @@ angular.module('myApp.searchPageView', ['ngRoute'])
             UiService.showLogoItem();
         };
 
-        $scope.launchSearchInSearchPage=function(){
-            UiService.launchSearchInSearchPage();
+        $scope.launchSearchSpecial=function(){
+
         };
 
         /*$scope.showSearchItem = function () {
