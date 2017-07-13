@@ -137,3 +137,15 @@
     padding-right: 5px;
     max-width: 90%;
 }
+
+#projPicContainer{
+    margin-left: 20px;
+    margin-bottom: 10px;
+    width: 35%;
+}
+
+#projInfoContainer{
+    width: 60%;
+    float: left
+}
+

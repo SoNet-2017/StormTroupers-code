@@ -93,8 +93,7 @@
 </div>
 
 <div id="bodyHome" class="w3-container w3-col l12 s12 m12">
-    <div id="sideUserHome" class="w3-col l3 m3 s3 w3-card-2"
-         style="background: linear-gradient(rgba(0,0,0,.5), rgba(0,0,0,.5));">
+    <div id="sideUserHome" class="w3-col l3 m3 s3 w3-card-2">
         <h3 id="userNameAndLastHome">{{profile.name}} {{profile.lastName}}</h3>
         <p id="userRolesHome"></p>
         <p id="userCityHome"></p>
@@ -160,9 +159,8 @@
         </div>
 
         <div>
-            <div id="projInfoContainer" class="w3-animate-opacity" style="width: 60%; float: left">
-            <span id="projPicContainer" class="w3-left w3-animate-opacity"
-                  style="margin-left: 20px; margin-bottom: 10px; width: 35%">
+            <div id="projInfoContainer" class="w3-animate-opacity">
+            <span id="projPicContainer" class="w3-left w3-animate-opacity">
                 <img class="media-object"  ng-src="../{{prjUrl}}" ng-if="!(prjUrl.includes('https://firebasestorage.googleapis.com')) && prjUrl!=''">
                 <img class="media-object"  ng-src="{{prjUrl}}" ng-if="prjUrl.includes('https://firebasestorage.googleapis.com')">
                 <img class="media-object"  ng-src="../images/upload_pic.jpg" ng-if="prjUrl == ''">

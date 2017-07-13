@@ -7,10 +7,6 @@
 
 }
 
-#aroundYouContainer h2{
-    color: #636466;
-}
-
 #newProjectShow{
     /*Per centrare il contenuto*/
     text-align: center;
@@ -30,7 +26,6 @@
     text-align: center;
     align-items:center;
     vertical-align: middle;
-    background-color: #636466;
 }
 
 #onlineUsersTitle{

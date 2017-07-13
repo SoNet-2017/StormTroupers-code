@@ -124,30 +124,27 @@
 
     <div id="aroundYouContainer" class="w3-col l8 m8 s8">
         <div class="w3-container">
-            <div class="w3-col l12 m12 s12" style="margin-left: 30px;">
-                <h2 class="w3-col s11 m11 l11" style="color: white; margin-top: 0;">AROUND YOU...</h2>
-                <div id="newProjectShow" class="w3-container w3-card-2 w3-col l6 m6 s6"
-                     style="background: linear-gradient(rgba(0,0,0,.5), rgba(0,0,0,.5));">
+            <div id="aroundYouInterContainer" class="w3-col l12 m12 s12">
+                <h2 id="aroundYouTitle" class="w3-col s11 m11 l11">AROUND YOU...</h2>
+                <div id="newProjectShow" class="w3-container w3-card-2 w3-col l6 m6 s6">
                     <div class="w3-container" id="newProjectTitle">
-                        <h4>New Projects</h4>
+                        <h4>Projects</h4>
                     </div>
                     <div class="w3-container">
-                        <ul style="list-style: none; padding: 0;">
+                        <ul id="projectHomeList">
                             <li ng-repeat="project in filterProjects">
                                 <div ng-click="goToPublicProjectPage(project.$id)" id="projectPic" class=" w3-container w3-card-2"
                                      style="cursor: pointer;padding: 10px; border-radius: 4mm;background-image:url({{project.img_url}});">
                                     <div class="w3-container w3-row w3-col s10 m10 l10">
-                                        <h4 style="color: white;
-                                                text-shadow: 2px 2px 2px #333333;">{{project.title}}</h4>
+                                        <h4 id="projectTitleOnHome">{{project.title}}</h4>
                                     </div>
-                                    <div id="likePanel" class="w3-container w3-row w3-right"
-                                         style="min-height:20px; background: linear-gradient(rgba(0,0,0,.5), rgba(0,0,0,.9)); margin-top: 150px;">
+                                    <div id="likePanel" class="w3-container w3-row w3-right">
                                         <div id="newPDesc">
                                             <div class="w3-container w3-row w3-col s3 m3 l3">
-                                                <h5 style="color: white;">{{project.genre}}</h5>
+                                                <h5 class="likePanelButton">{{project.genre}}</h5>
                                             </div>
                                             <div class="w3-container w3-row w3-col s7 m7 l7">
-                                                <h5 style="color: white;">{{project.progress}}</h5>
+                                                <h5 class="likePanelButton">{{project.progress}}</h5>
                                             </div>
                                             <a ng-click="goToPublicProjectPage(project.$id)"><i
                                                     class="glyphicon glyphicon-eye-open w3-xlarge w3-col s1 m1 l1"
@@ -164,16 +161,14 @@
                         </ul>
                     </div>
                 </div>
-                <div id="newUsersShow" class="w3-container w3-card-2 w3-col l5 m5 s5"
-                     style="background: linear-gradient(rgba(0,0,0,.5), rgba(0,0,0,.5));">
+                <div id="newUsersShow" class="w3-container w3-card-2 w3-col l5 m5 s5">
                     <div class="w3-container" id="newUserTitle">
-                        <h4>New Users</h4>
+                        <h4>Users</h4>
                     </div>
                     <div class="w3-container">
-                        <ul style="list-style: none">
+                        <ul id="usersHomeList">
                             <li ng-repeat="user in filterSearch">
-                                <div class=" w3-container w3-card-2"
-                                     style="padding: 10px; border-radius: 4mm; background-color: #333333;">
+                                <div id="usersCard" class=" w3-container w3-card-2">
                                     <div class="w3-left" id="newUImgContainer">
                                         <img class="media-object w3-left w3-circle" ng-src="../{{user.img_url}}"
                                              alt="{{user.img_alt}}"

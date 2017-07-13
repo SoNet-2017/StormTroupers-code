@@ -7,10 +7,6 @@
 
 }
 
-#aroundYouContainer h2{
-    color: #636466;
-}
-
 #newProjectShow{
     /*Per centrare il contenuto*/
     text-align: center;
@@ -31,7 +27,6 @@
     align-items:center;
     vertical-align: middle;
     background: linear-gradient(rgba(0,0,0,.5), rgba(0,0,0,.5));
-    background-color: #636466;
     padding: 10px;
     margin-left: 10px;
 }

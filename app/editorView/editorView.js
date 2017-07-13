@@ -194,6 +194,11 @@ angular.module('myApp.editorView', ['ngRoute'])
             document.getElementById("campoDiTesto").style.display="block";
         };
 
+        $scope.switchDocuments=function () {
+            document.getElementById("templateSelection").style.display="block";
+            document.getElementById("campoDiTesto").style.display="none";
+        }
+
         $scope.saveDocument=function () {
             localStorage.content=$scope.tinymceModel;
             console.log(localStorage.content);
@@ -207,7 +212,7 @@ angular.module('myApp.editorView', ['ngRoute'])
                             $scope.prj=obj;
                             console.log("Screenplay su database:"+$scope.prj.screenplay);
                             //localStorage.attTroupers=JSON.stringify(obj.troupers);
-                            $scope.goToMyProjects();
+                            $scope.switchDocuments();
                         }).catch(function (error) {
                             $scope.error = error;
                         })
@@ -225,7 +230,7 @@ angular.module('myApp.editorView', ['ngRoute'])
                             $scope.prj=obj;
                             console.log("Storyboard: "+$scope.prj.storyboard);
                             //localStorage.attTroupers=JSON.stringify(obj.troupers);
-                            $scope.goToMyProjects();
+                            $scope.switchDocuments();
                         }).catch(function (error) {
                             $scope.error = error;
                         })
@@ -243,7 +248,7 @@ angular.module('myApp.editorView', ['ngRoute'])
                             $scope.prj=obj;
                             console.log("Script: "+$scope.prj.script);
                             //localStorage.attTroupers=JSON.stringify(obj.troupers);
-                            $scope.goToMyProjects();
+                            $scope.switchDocuments();
                         }).catch(function (error) {
                             $scope.error = error;
                         })
@@ -261,7 +266,7 @@ angular.module('myApp.editorView', ['ngRoute'])
                             $scope.prj=obj;
                             console.log("Call sheet: "+$scope.prj.callSheet);
                             //localStorage.attTroupers=JSON.stringify(obj.troupers);
-                            $scope.goToMyProjects();
+                            $scope.switchDocuments();
                         }).catch(function (error) {
                             $scope.error = error;
                         })
@@ -279,7 +284,7 @@ angular.module('myApp.editorView', ['ngRoute'])
                             $scope.prj=obj;
                             console.log("Shot list: "+$scope.prj.shotList);
                             //localStorage.attTroupers=JSON.stringify(obj.troupers);
-                            $scope.goToMyProjects();
+                            $scope.switchDocuments();
                         }).catch(function (error) {
                             $scope.error = error;
                         })
@@ -297,7 +302,7 @@ angular.module('myApp.editorView', ['ngRoute'])
                             $scope.prj=obj;
                             console.log("Object List: "+$scope.prj.objectList);
                             //localStorage.attTroupers=JSON.stringify(obj.troupers);
-                            $scope.goToMyProjects();
+                            $scope.switchDocuments();
                         }).catch(function (error) {
                             $scope.error = error;
                         })
@@ -310,7 +315,7 @@ angular.module('myApp.editorView', ['ngRoute'])
         };
 
         $scope.cancelOperation=function () {
-            $scope.goToMyProjects();
+            $scope.switchDocuments();
         };
 
         /*$scope.getContent = function() {

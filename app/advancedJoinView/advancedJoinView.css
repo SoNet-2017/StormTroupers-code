@@ -23,6 +23,7 @@ h1{
     font-family: "ADAM.CG PRO";
     color: white;
     position: relative;
+    margin-bottom: 0;
     /*db928b  red*/
 }
 
@@ -146,4 +147,12 @@ textarea{
 #raceBox label{
     color: white;
     padding-left:7px;
+}
+
+#chooseAreaTitle{
+    color: white;
+}
+
+#aboutMeTitle{
+    color: white;
 }
