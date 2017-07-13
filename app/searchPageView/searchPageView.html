@@ -279,9 +279,6 @@
             <button class="w3-button w3-round-large" id="searchCrewButton" ng-click="launchSearch()">SEARCH!</button>
             <br>
             <br>
-            <button class="w3-button w3-round-large" id="GetCoordinates" ng-click="askapi()">TRY API</button>
-            <button class="w3-button w3-round-large" id="oneTimeScriptButton" ng-click="oneTimeScript()">RUN SCRIPT</button>
-
         </div>
     </div>
 
@@ -314,8 +311,21 @@
                                             {{user.country}}</h5>
                                     </div>
                                     <div style="color: lightgray;">
+                                        <div ng-if="user.roles.length > 1">
                                         <i class="w3-col s1 m1 l1 glyphicon glyphicon-briefcase w3-small" style="color: white;"></i>
-                                        <h5><p id="friendRoles" ng-repeat="role in user.roles">{{role}} </p></h5>
+                                        <h5 ><p id="friendRoles" ng-repeat="role in user.first3Roles">{{role}} </p>
+                                        <div style="color: darkcyan" ng-if="user.roles.length > 3">
+                                            +{{user.roles.length-3}} other roles.
+                                        </div>
+                                        </h5>
+                                        </div>
+                                        <div ng-if="user.roles.length == 1">
+                                            <i class="w3-col s1 m1 l1 glyphicon glyphicon-briefcase w3-small" style="color: white;"></i>
+                                            <h5 ><p id="friendRoles2" ng-repeat="role in user.roles">{{role}} </p>
+                                                <br>
+                                                <br>
+                                            </h5>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
