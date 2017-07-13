@@ -22,6 +22,6 @@ tali errori che essendo su una librearia esterna non sono di nostra competenza.
 
 Grazie per la visione e buon lavoro.
 
-Matilde Ugolini
-Edoardo Battegazzorre
+Matilde Ugolini,
+Edoardo Battegazzorre,
 Giancarlo Avalle
