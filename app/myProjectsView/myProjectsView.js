@@ -22,7 +22,7 @@ angular.module('myApp.myProjectsView', ['ngRoute'])
         });
     }])
 
-    .controller('myProjectsViewCtrl', ['$scope', '$location', 'Auth', '$firebaseObject', 'Users', 'CurrentDateService', 'ReminderService', 'currentAuth', '$firebaseAuth', '$firebaseArray', function ($scope, $location, Auth, $firebaseObject, Users, CurrentDateService, ReminderService, currentAuth, $firebaseAuth, $firebaseArray) {
+    .controller('myProjectsViewCtrl', ['$scope', '$location', 'Auth', '$firebaseObject','UiService', 'Users', 'ProfileService', 'ProjectService', 'CurrentDateService', 'ReminderService', 'currentAuth', '$firebaseAuth', '$firebaseArray', function ($scope, $location, Auth, $firebaseObject,UiService, Users, ProfileService, ProjectService, CurrentDateService, ReminderService, currentAuth, $firebaseAuth, $firebaseArray) {
         $scope.dati = {};
         $scope.auth = Auth;
 
@@ -30,27 +30,21 @@ angular.module('myApp.myProjectsView', ['ngRoute'])
         $scope.dati.currentDate = CurrentDateService.getCurrentDate();
         //console.log("current date: "+$scope.dati.currentDate);
 
-        $scope.showLogoItem = function () {
-            var x = document.getElementById("logoBarContentHome");
-            if (x.className.indexOf("w3-show") == -1)
-                x.className += " w3-show";
-            else
-                x.className = x.className.replace(" w3-show", "");
+        $scope.showLogoItem=function() {
+            UiService.showLogoItem();
         };
 
-        $scope.launchSearchInSearchPage = function () {
-            $location.path("/searchPageView");
-            localStorage.immediateSearch=true;
-            localStorage.immediateSearchKeyword=document.getElementById("searchItemHomeKeyword").value;
+        $scope.launchSearchInSearchPage=function(){
+            UiService.launchSearchInSearchPage();
         };
 
-        $scope.showSearchItem = function () {
-            var x = document.getElementById("typeSearchContentHome");
-            if (x.className.indexOf("w3-show") == -1)
-                x.className += " w3-show";
-            else
-                x.className = x.className.replace(" w3-show", "");
-        };
+        /*$scope.showSearchItem = function () {
+         var x = document.getElementById("typeSearchContentHome");
+         if (x.className.indexOf("w3-show") == -1)
+         x.className += " w3-show";
+         else
+         x.className = x.className.replace(" w3-show", "");
+         };*/
 
         $scope.goToDashboard = function () {
             $location.path("/homePageView")
@@ -112,7 +106,7 @@ angular.module('myApp.myProjectsView', ['ngRoute'])
         var UID = localStorage.UID;
         var database = firebase.database();
 
-        $scope.profile = $firebaseObject(database.ref('users/' + UID));
+        $scope.profile = ProfileService.getUserInfo(UID);
         $scope.profile.$loaded().then(function () {
             var role = Object.values($scope.profile.roles);
             for (var i = 0; i < role.length; i++) {
@@ -127,12 +121,9 @@ angular.module('myApp.myProjectsView', ['ngRoute'])
         });
 
         $scope.getProjectsFromDB={};
-        var PID = localStorage.PID;
-        var projectsBase = database.ref('projects/');
         $scope.filterProjects={};
 
-        $scope.getProjectsFromDB = $firebaseArray(projectsBase);
-
+        $scope.getProjectsFromDB = ProjectService.getProjects();
         $scope.getProjectsFromDB.$loaded().then(function () {
             //resetta il filtersearch
 
@@ -156,59 +147,8 @@ angular.module('myApp.myProjectsView', ['ngRoute'])
             //console.log("getProjectsFromDB["+i+"]="+$scope.getProjectsFromDB[i].title);
         });
 
-        $scope.popolaMyProjects=function () {
-            $scope.getProjectsFromDB={};
-            var PID = localStorage.PID;
-            var projectsBase = database.ref('projects/');
-            $scope.getProjectsFromDB = $firebaseArray(projectsBase);
-
-            var projObj = $firebaseObject(database.ref('projects/' + PID));
-            projObj.$loaded().then(function () {
-                //resetta il filtersearch
-                $scope.filterProjects={};
-
-                var length=$scope.getProjectsFromDB.length;
-                var j=0;
-                for(var i=0; i<length; i++){ //si scorre tutto l'array
-                    if($scope.getProjectsFromDB[i].owner === UID) {
-                        $scope.filterProjects[j]=$scope.getProjectsFromDB[i];
-                        j++;
-                    }
-                    var length2=$scope.getProjectsFromDB[i].troupers.length;
-                    for(var k=0;k<length2; k++) {
-                        if($scope.getProjectsFromDB[i].troupers[k] === UID) {
-                            $scope.filterProjects[j]=$scope.getProjectsFromDB[i];
-                            console.log("trovato");
-                            j++;
-                            break;
-                        }
-                    }
-                    console.log("getProjectsFromDB["+i+"]="+$scope.getProjectsFromDB[i].title);
-                }
-
-                console.log("sono fuori dal primo ciclo");
-                for(var i=0; i< $scope.filterProjects.length; i++){
-                    console.log("titolo progetto quiiiZ: " + $scope.filterProjects[i].title);
-                    console.log("$scope.prj.troupers: "+$scope.filterProjects[i].troupers);
-
-                    var length = $scope.filterProjects[i].troupers.length;
-                    for(var k=0; k<length; k++){
-                        console.log("$scope.prj.troupers[i]: "+$scope.filterProjects[i].troupers[k]);
-
-                        var currTrouperUID = $scope.filterProjects[i].troupers[k];
-                        var trouperObj = $firebaseObject(database.ref('users/' + currTrouperUID));
-                        //console.log("indirizzo: "+database.ref('users/' + trouperUID));
-
-                        $scope.projTroupers[k] = trouperObj;
-                        console.log(($scope.projTroupers[k]));
-                    }
-
-                }
-            });
-        };
-
         $scope.saveCurrentProject=function(projID, projName){
-            // Salvo i dati per il nuovo reminder
+            // Salvo i dati per creare il reminder sul project selezionato
             $scope.dati.projectIDReminder = projID;
 
             $scope.dati.projectNameReminder = projName;

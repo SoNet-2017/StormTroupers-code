@@ -22,34 +22,28 @@ angular.module('myApp.newProjectView', ['ngRoute'])
         });
     }])
 
-    .controller('newProjectViewCtrl', ['$scope', '$location', 'Auth', '$firebaseObject', 'Users', 'CurrentDateService', 'ReminderService', 'currentAuth', '$firebaseAuth', '$firebaseArray', function ($scope, $location, Auth, $firebaseObject, Users, CurrentDateService, ReminderService, currentAuth, $firebaseAuth, $firebaseArray) {
+    .controller('newProjectViewCtrl', ['$scope', '$location', 'Auth', '$firebaseObject','UiService', 'Users', 'UserList', 'ProfileService', 'ProjectService', 'CurrentDateService', 'ReminderService', 'currentAuth', '$firebaseAuth', '$firebaseArray', function ($scope, $location, Auth, $firebaseObject,UiService, Users, UserList, ProfileService, ProjectService, CurrentDateService, ReminderService, currentAuth, $firebaseAuth, $firebaseArray) {
         $scope.dati = {};
         $scope.auth = Auth;
 
         $scope.dati.reminders = ReminderService.getReminders();
         $scope.dati.currentDate = CurrentDateService.getCurrentDate();
 
-        $scope.showLogoItem = function () {
-            var x = document.getElementById("logoBarContentHome");
-            if (x.className.indexOf("w3-show") == -1)
-                x.className += " w3-show";
-            else
-                x.className = x.className.replace(" w3-show", "");
+        $scope.showLogoItem=function() {
+            UiService.showLogoItem();
         };
 
-        $scope.launchSearchInSearchPage = function () {
-            $location.path("/searchPageView");
-            localStorage.immediateSearch=true;
-            localStorage.immediateSearchKeyword=document.getElementById("searchItemHomeKeyword").value;
+        $scope.launchSearchInSearchPage=function(){
+            UiService.launchSearchInSearchPage();
         };
 
-        $scope.showSearchItem = function () {
-            var x = document.getElementById("typeSearchContentHome");
-            if (x.className.indexOf("w3-show") == -1)
-                x.className += " w3-show";
-            else
-                x.className = x.className.replace(" w3-show", "");
-        };
+        /*$scope.showSearchItem = function () {
+         var x = document.getElementById("typeSearchContentHome");
+         if (x.className.indexOf("w3-show") == -1)
+         x.className += " w3-show";
+         else
+         x.className = x.className.replace(" w3-show", "");
+         };*/
 
         $scope.goToDashboard = function () {
             $location.path("/homePageView")
@@ -90,7 +84,7 @@ angular.module('myApp.newProjectView', ['ngRoute'])
 
         $scope.suggestedFriends = {};
 
-        $scope.profile = $firebaseObject(database.ref('users/' + UID));
+        $scope.profile = ProfileService.getUserInfo(UID);
         $scope.profile.$loaded().then(function () {
             var role = Object.values($scope.profile.roles);
             for (var i = 0; i < role.length; i++) {
@@ -100,19 +94,8 @@ angular.module('myApp.newProjectView', ['ngRoute'])
                 }
             }
 
-            // per popolare suggestedFriends da aggiungere al progetto
-            var length = $scope.profile.friends.length;
-            var currFriendID;
-            //console.log("length: "+length);
-            for (var j = 0; j < length; j++) {
-                currFriendID = $scope.profile.friends[j];
-                //console.log("curFriendID: "+currFriendID);
-                var currFriendObj = $firebaseObject(database.ref('users/' + currFriendID));
-                if(currFriendObj.$id !== "STORMTROUPERS_ADMIN") {
-                    //console.log("curr friend: "+currFriendObj);
-                    $scope.suggestedFriends[j] = currFriendObj;
-                }
-            }
+            $scope.suggestedFriends = UserList.getFriends($scope.profile);
+
         }).catch(function (error) {
             $scope.error = error;
         });
@@ -331,9 +314,8 @@ angular.module('myApp.newProjectView', ['ngRoute'])
                 img_url: $scope.imgPath
             }).then(function () {
                 console.log("creato project in DB; PID: " + PID);
-                var obj = $firebaseObject(database.ref('projects/' + PID));
-                obj.$loaded().then(function () {
-                    $scope.project = obj;
+                $scope.project = ProjectService.getProjectInfo(PID);
+                $scope.project.$loaded().then(function () {
                     localStorage.attPID = PID;
                     localStorage.attOwner = UID;
                     localStorage.attTitle = obj.title;

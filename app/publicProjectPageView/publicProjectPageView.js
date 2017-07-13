@@ -22,7 +22,7 @@ angular.module('myApp.publicProjectPageView', ['ngRoute'])
         });
     }])
 
-    .controller('publicProjectPageViewCtrl', ['$scope', '$location', 'Auth', '$firebaseObject','Users', 'CurrentDateService', 'ReminderService', 'ApplicationsService', 'currentAuth', '$firebaseAuth', '$firebaseArray', function ($scope,$location, Auth, $firebaseObject, Users, CurrentDateService, ReminderService, ApplicationsService, currentAuth, $firebaseAuth, $firebaseArray) {
+    .controller('publicProjectPageViewCtrl', ['$scope', '$location', 'Auth', '$firebaseObject','UiService','Users', 'CurrentDateService', 'ReminderService', 'ApplicationsService', 'currentAuth', '$firebaseAuth', '$firebaseArray', function ($scope,$location, Auth, $firebaseObject,UiService, Users, CurrentDateService, ReminderService, ApplicationsService, currentAuth, $firebaseAuth, $firebaseArray) {
         document.body.scrollTop = 0;
 
         $scope.dati={};
@@ -31,27 +31,21 @@ angular.module('myApp.publicProjectPageView', ['ngRoute'])
         $scope.dati.reminders = ReminderService.getReminders();
         $scope.dati.currentDate = CurrentDateService.getCurrentDate();
 
-        $scope.showLogoItem=function () {
-            var x = document.getElementById("logoBarContentHome");
-            if (x.className.indexOf("w3-show") == -1)
-                x.className += " w3-show";
-            else
-                x.className = x.className.replace(" w3-show", "");
+        $scope.showLogoItem=function() {
+            UiService.showLogoItem();
         };
 
-        $scope.launchSearchInSearchPage = function () {
-            $location.path("/searchPageView");
-            localStorage.immediateSearch=true;
-            localStorage.immediateSearchKeyword=document.getElementById("searchItemHomeKeyword").value;
+        $scope.launchSearchInSearchPage=function(){
+            UiService.launchSearchInSearchPage();
         };
 
-        $scope.showSearchItem=function () {
-            var x = document.getElementById("typeSearchContentHome");
-            if (x.className.indexOf("w3-show") == -1)
-                x.className += " w3-show";
-            else
-                x.className = x.className.replace(" w3-show", "");
-        };
+        /*$scope.showSearchItem = function () {
+         var x = document.getElementById("typeSearchContentHome");
+         if (x.className.indexOf("w3-show") == -1)
+         x.className += " w3-show";
+         else
+         x.className = x.className.replace(" w3-show", "");
+         };*/
 
         $scope.goToDashboard=function () {
             $location.path("/homePageView")

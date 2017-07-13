@@ -30,36 +30,17 @@ angular.module('myApp.advancedJoinView', ['ngRoute'])
         });
     }])
 
-    .controller('adJoinCtrl', ['$scope', 'Auth', '$location', '$firebaseObject', '$http', function ($scope, Auth, $location, $firebaseObject, $http) {
+    .controller('adJoinCtrl', ['$scope', 'Auth', '$location', '$firebaseObject', '$http', 'ProfileService', function ($scope, Auth, $location, $firebaseObject, $http, ProfileService) {
         $scope.dati = {};
         $scope.countries = countries_list;
 
         $scope.loadProvinces = function (selectedCountry) {
-
-            //console.log("ng-change: selezionata nazione: " + selectedCountry);
-
-            var provinces_array;
-            provinces_array = provinces_list[selectedCountry].split('|');
-            for (var i = 0; i < provinces_array.length; i++) {
-                provinces_array[i].trim();
-                //console.log("province: " + provinces_array[i]);
-            }
-            $scope.provinces = provinces_array;
+            $scope.provinces = ProfileService.loadProvinces(selectedCountry);
 
         };
 
         $scope.loadCities = function (selectedProvince) {
-            //console.log("ng-change: selezionata provincia: " + selectedProvince.toString());
-
-            var province_str = selectedProvince.toString();
-            //console.log("provincia_str: " + province_str);
-            var cities_array;
-            cities_array = cities_list[province_str].split('|');
-            for (var i = 0; i < cities_array.length; i++) {
-                cities_array[i].trim();
-                //console.log("city: " + cities_array[i]);
-            }
-            $scope.cities = cities_array;
+            $scope.cities = ProfileService.loadCities(selectedProvince);
         };
 
         $scope.openHome = function () {

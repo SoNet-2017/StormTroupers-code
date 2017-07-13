@@ -22,34 +22,28 @@ angular.module('myApp.editProjectView', ['ngRoute'])
         });
     }])
 
-    .controller('editProjectViewCtrl', ['$scope', '$location', 'Auth', '$firebaseObject','Users', 'EditProjectService', 'CurrentDateService', 'ReminderService', 'currentAuth', '$firebaseAuth', '$firebaseArray', function ($scope,$location, Auth, $firebaseObject, EditProjectService, Users, CurrentDateService, ReminderService, currentAuth, $firebaseAuth, $firebaseArray) {
+    .controller('editProjectViewCtrl', ['$scope', '$location', 'Auth', '$firebaseObject', 'UiService', 'Users','ProjectService','ReminderService', 'CurrentDateService', 'ProfileService',  'currentAuth', '$firebaseAuth', '$firebaseArray', function ($scope,$location, Auth, $firebaseObject,UiService, Users, ProjectService, ReminderService, CurrentDateService, ProfileService,  currentAuth, $firebaseAuth, $firebaseArray) {
         $scope.dati={};
         $scope.auth=Auth;
 
         $scope.dati.reminders = ReminderService.getReminders();
         $scope.dati.currentDate = CurrentDateService.getCurrentDate();
 
-        $scope.showLogoItem=function () {
-            var x = document.getElementById("logoBarContentHome");
-            if (x.className.indexOf("w3-show") == -1)
-                x.className += " w3-show";
-            else
-                x.className = x.className.replace(" w3-show", "");
+        $scope.showLogoItem=function() {
+            UiService.showLogoItem();
         };
 
-        $scope.launchSearchInSearchPage = function () {
-            $location.path("/searchPageView");
-            localStorage.immediateSearch=true;
-            localStorage.immediateSearchKeyword=document.getElementById("searchItemHomeKeyword").value;
+        $scope.launchSearchInSearchPage=function(){
+            UiService.launchSearchInSearchPage();
         };
 
-        $scope.showSearchItem=function () {
-            var x = document.getElementById("typeSearchContentHome");
-            if (x.className.indexOf("w3-show") == -1)
-                x.className += " w3-show";
-            else
-                x.className = x.className.replace(" w3-show", "");
-        };
+        /*$scope.showSearchItem = function () {
+         var x = document.getElementById("typeSearchContentHome");
+         if (x.className.indexOf("w3-show") == -1)
+         x.className += " w3-show";
+         else
+         x.className = x.className.replace(" w3-show", "");
+         };*/
 
         $scope.goToDashboard=function () {
             $location.path("/homePageView")
@@ -90,8 +84,7 @@ angular.module('myApp.editProjectView', ['ngRoute'])
         console.log("PID arrivato da myProjView: " + localStorage.PID);
 
         var PID = localStorage.PID;
-        var projObj = $firebaseObject(database.ref('projects/' + PID));
-        //var projObj=EditProjectService.getProjectInfo(PID);
+        var projObj = ProjectService.getProjectInfo(PID);
         projObj.$loaded().then(function () {
             console.log("caricato proj con pid: "+projObj.$id);
             $scope.projectID = projObj.$id;
@@ -173,7 +166,7 @@ angular.module('myApp.editProjectView', ['ngRoute'])
         $scope.suggestedFriends = {};
         $scope.sharingFriends = {};
 
-        $scope.profile = $firebaseObject(database.ref('users/' + UID));
+        $scope.profile = ProfileService.getUserInfo(UID);
         $scope.profile.$loaded().then(function () {
             var role = Object.values($scope.profile.roles);
             for (var i = 0; i < role.length; i++) {
@@ -314,7 +307,6 @@ angular.module('myApp.editProjectView', ['ngRoute'])
 
             $scope.error = null;
 
-
             var projType = document.getElementById("projectType").value;
             var projGenre = document.getElementById('projectGenre').value;
             var projProgress = document.getElementById('projectProgress').value;
@@ -376,9 +368,7 @@ angular.module('myApp.editProjectView', ['ngRoute'])
 
         // per cancellare i progetti
         $scope.deleteProject = function (prjID) {
-            console.log("sto per cancellare il progetto con PID: " + prjID);
-            database.ref('projects/' + prjID).remove();
-            $location.path("/myProjectsView");
+            ProjectService.deleteProject(prjID);
         };
 
         $scope.logout = function () {

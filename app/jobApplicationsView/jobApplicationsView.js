@@ -18,7 +18,7 @@ angular.module('myApp.jobApplicationsView', ['ngRoute'])
         });
     }])
 
-    .controller('jobApplicationsViewCtrl', ['$scope', '$rootScope', '$location', 'Auth', '$firebaseObject', 'Users', 'CurrentDateService', 'ReminderService', 'ApplicationsService', 'currentAuth', '$firebaseAuth', '$firebaseArray', function ($scope, $rootScope, $location, Auth, $firebaseObject, Users, CurrentDateService, ReminderService, ApplicationsService, currentAuth, $firebaseAuth, $firebaseArray) {
+    .controller('jobApplicationsViewCtrl', ['$scope', '$rootScope', '$location', 'Auth', '$firebaseObject','UiService', 'Users', 'CurrentDateService', 'ReminderService', 'ProfileService', 'ApplicationsService', 'currentAuth', '$firebaseAuth', '$firebaseArray', function ($scope, $rootScope, $location, Auth, $firebaseObject,UiService, Users, CurrentDateService, ReminderService, ProfileService, ApplicationsService, currentAuth, $firebaseAuth, $firebaseArray) {
         $scope.dati = {};
         $scope.auth = Auth;
 
@@ -30,27 +30,21 @@ angular.module('myApp.jobApplicationsView', ['ngRoute'])
 
         $scope.dati.filterProjects = ApplicationsService.getProjects();
 
-        $scope.showLogoItem = function () {
-            var x = document.getElementById("logoBarContentHome");
-            if (x.className.indexOf("w3-show") == -1)
-                x.className += " w3-show";
-            else
-                x.className = x.className.replace(" w3-show", "");
+        $scope.showLogoItem=function() {
+            UiService.showLogoItem();
         };
 
-        $scope.launchSearchInSearchPage = function () {
-            $location.path("/searchPageView");
-            localStorage.immediateSearch=true;
-            localStorage.immediateSearchKeyword=document.getElementById("searchItemHomeKeyword").value;
+        $scope.launchSearchInSearchPage=function(){
+            UiService.launchSearchInSearchPage();
         };
 
-        $scope.showSearchItem = function () {
-            var x = document.getElementById("typeSearchContentHome");
-            if (x.className.indexOf("w3-show") == -1)
-                x.className += " w3-show";
-            else
-                x.className = x.className.replace(" w3-show", "");
-        };
+        /*$scope.showSearchItem = function () {
+         var x = document.getElementById("typeSearchContentHome");
+         if (x.className.indexOf("w3-show") == -1)
+         x.className += " w3-show";
+         else
+         x.className = x.className.replace(" w3-show", "");
+         };*/
 
         $scope.goToDashboard = function () {
             $location.path("/homePageView")
@@ -100,12 +94,9 @@ angular.module('myApp.jobApplicationsView', ['ngRoute'])
         };
 
         var UID = localStorage.UID;
-        var database = firebase.database();
 
         // UID dell'utente di cui si vuole vedere il profilo pubblico
-        var otherUserID = localStorage.otherUserID;
-
-        $scope.profile = $firebaseObject(database.ref('users/' + UID));
+        $scope.profile = ProfileService.getUserInfo(UID);
         $scope.profile.$loaded().then(function () {
             var role = Object.values($scope.profile.roles);
             for (var i = 0; i < role.length; i++) {

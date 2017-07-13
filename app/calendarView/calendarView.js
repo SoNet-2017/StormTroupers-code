@@ -18,7 +18,7 @@ angular.module('myApp.calendarView', ['ngRoute','myApp.calendar', 'myApp.insertA
         });
     }])
 
-    .controller('calendarViewCtrl', ['$scope', '$location', '$route', 'Auth', '$firebaseObject', 'Users', 'ReminderService', 'CurrentDateService', 'Agenda', 'InsertAgendaService', 'currentAuth', '$firebaseAuth', '$firebaseArray', function ($scope, $location, $route, Auth, $firebaseObject, Users, ReminderService, CurrentDateService, Agenda, InsertAgendaService, currentAuth, $firebaseAuth, $firebaseArray) {
+    .controller('calendarViewCtrl', ['$scope', '$location', '$route', 'Auth', '$firebaseObject','UiService', 'Users', 'UsersChatService','ProjectService', 'ReminderService', 'CurrentDateService', 'Agenda', 'InsertAgendaService', 'currentAuth', '$firebaseAuth', '$firebaseArray', function ($scope, $location, $route, Auth, $firebaseObject, UiService, Users,UsersChatService, ProjectService, ReminderService, CurrentDateService, Agenda, InsertAgendaService, currentAuth, $firebaseAuth, $firebaseArray) {
         $scope.dati = {};
         $scope.auth = Auth;
 
@@ -26,19 +26,11 @@ angular.module('myApp.calendarView', ['ngRoute','myApp.calendar', 'myApp.insertA
         $scope.dati.currentDate = CurrentDateService.getCurrentDate();
 
 
-        // controller del calendario
+        // controller del calendario FULLCALENDAR
         var date = new Date();
         var d = date.getDate();
         var m = date.getMonth();
         var y = date.getFullYear();
-
-        /* event source that contains custom events on the scope */
-        /*$scope.events = [
-            {title: 'All Day Event',start: new Date(y, m, 1)},
-            {title: 'Long Event',start: new Date(y, m, d - 5),end: new Date(y, m, d - 2)},
-            {title: 'Birthday Party',start: new Date(y, m, d + 1, 19, 0),end: new Date(y, m, d + 1, 22, 30),allDay: false},
-            {title: 'Click for Google',start: new Date(y, m, 28),end: new Date(y, m, 29),url: 'http://google.com/'}
-        ];*/
 
         /* event source that calls a function on every view switch */
         $scope.eventsF = function (start, end, timezone, callback) {
@@ -214,27 +206,22 @@ angular.module('myApp.calendarView', ['ngRoute','myApp.calendar', 'myApp.insertA
 
         /////////////////////////////////////////// fine controller calendario
 
-        $scope.showLogoItem = function () {
-            var x = document.getElementById("logoBarContentHome");
-            if (x.className.indexOf("w3-show") == -1)
-                x.className += " w3-show";
-            else
-                x.className = x.className.replace(" w3-show", "");
+        $scope.showLogoItem=function() {
+            UiService.showLogoItem();
+
         };
 
-        $scope.launchSearchInSearchPage = function () {
-            $location.path("/searchPageView");
-            localStorage.immediateSearch=true;
-            localStorage.immediateSearchKeyword=document.getElementById("searchItemHomeKeyword").value;
+        $scope.launchSearchInSearchPage=function(){
+            UiService.launchSearchInSearchPage();
         };
 
-        $scope.showSearchItem = function () {
-            var x = document.getElementById("typeSearchContentHome");
-            if (x.className.indexOf("w3-show") == -1)
-                x.className += " w3-show";
-            else
-                x.className = x.className.replace(" w3-show", "");
-        };
+        /*$scope.showSearchItem = function () {
+         var x = document.getElementById("typeSearchContentHome");
+         if (x.className.indexOf("w3-show") == -1)
+         x.className += " w3-show";
+         else
+         x.className = x.className.replace(" w3-show", "");
+         };*/
 
         $scope.goToDashboard = function () {
             $location.path("/homePageView")
@@ -279,7 +266,8 @@ angular.module('myApp.calendarView', ['ngRoute','myApp.calendar', 'myApp.insertA
         var UID = localStorage.UID;
         var database = firebase.database();
 
-        $scope.profile = $firebaseObject(database.ref('users/' + UID));
+        $scope.profile = UsersChatService.getUserInfo(UID);
+        //$scope.profile = $firebaseObject(database.ref('users/' + UID));
         $scope.profile.$loaded().then(function () {
             var role = Object.values($scope.profile.roles);
             for (var i = 0; i < role.length; i++) {
@@ -294,7 +282,8 @@ angular.module('myApp.calendarView', ['ngRoute','myApp.calendar', 'myApp.insertA
 
         var PID = localStorage.PID;
         console.log("PID: "+PID);
-        var prjObj = $firebaseObject(database.ref('projects/' + PID));
+        //var prjObj = $firebaseObject(database.ref('projects/' + PID));
+        var prjObj = ProjectService.getProjectInfo(PID);
         prjObj.$loaded().then(function () {
             $scope.project = prjObj;
 

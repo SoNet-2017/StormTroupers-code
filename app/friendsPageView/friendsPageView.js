@@ -18,7 +18,7 @@ angular.module('myApp.friendsPageView', ['ngRoute'])
         });
     }])
 
-    .controller('friendsPageViewCtrl', ['$scope', '$location', '$route', 'Auth', '$firebaseObject', 'Users', 'ApplicationsService', 'CurrentDateService', 'ReminderService', 'currentAuth', '$firebaseAuth', '$firebaseArray', function ($scope, $location, $route, Auth, $firebaseObject, Users, ApplicationsService, CurrentDateService, ReminderService, currentAuth, $firebaseAuth, $firebaseArray) {
+    .controller('friendsPageViewCtrl', ['$scope', '$location', '$route', 'Auth', '$firebaseObject','UiService', 'Users', 'UserList', 'ApplicationsService','ReminderService', 'CurrentDateService', 'ProfileService', 'currentAuth', '$firebaseAuth', '$firebaseArray', function ($scope, $location, $route, Auth, $firebaseObject,UiService, Users,UserList, ApplicationsService,ReminderService, CurrentDateService, ProfileService, currentAuth, $firebaseAuth, $firebaseArray) {
         document.body.scrollTop = 0;
 
         $scope.dati = {};
@@ -34,27 +34,21 @@ angular.module('myApp.friendsPageView', ['ngRoute'])
         };*/
 
 
-        $scope.showLogoItem = function () {
-            var x = document.getElementById("logoBarContentHome");
-            if (x.className.indexOf("w3-show") == -1)
-                x.className += " w3-show";
-            else
-                x.className = x.className.replace(" w3-show", "");
+        $scope.showLogoItem=function() {
+            UiService.showLogoItem();
         };
 
-        $scope.launchSearchInSearchPage = function () {
-            $location.path("/searchPageView");
-            localStorage.immediateSearch=true;
-            localStorage.immediateSearchKeyword=document.getElementById("searchItemHomeKeyword").value;
+        $scope.launchSearchInSearchPage=function(){
+            UiService.launchSearchInSearchPage();
         };
 
-        $scope.showSearchItem = function () {
-            var x = document.getElementById("typeSearchContentHome");
-            if (x.className.indexOf("w3-show") == -1)
-                x.className += " w3-show";
-            else
-                x.className = x.className.replace(" w3-show", "");
-        };
+        /*$scope.showSearchItem = function () {
+         var x = document.getElementById("typeSearchContentHome");
+         if (x.className.indexOf("w3-show") == -1)
+         x.className += " w3-show";
+         else
+         x.className = x.className.replace(" w3-show", "");
+         };*/
 
         $scope.goToDashboard = function () {
             $location.path("/homePageView")
@@ -98,9 +92,8 @@ angular.module('myApp.friendsPageView', ['ngRoute'])
         };
 
         var UID = localStorage.UID;
-        var database = firebase.database();
 
-        $scope.profile = $firebaseObject(database.ref('users/' + UID));
+        $scope.profile = ProfileService.getUserInfo(UID);
         $scope.profile.$loaded().then(function () {
             var role = Object.values($scope.profile.roles);
             for (var i = 0; i < role.length; i++) {
@@ -122,22 +115,9 @@ angular.module('myApp.friendsPageView', ['ngRoute'])
             $scope.myTroupersPage=false;
 
         $scope.friends = {};
-        $scope.otherUser = $firebaseObject(database.ref('users/' + otherUserID));
+        $scope.otherUser = ProfileService.getUserInfo(otherUserID);
         $scope.otherUser.$loaded().then(function () {
-            //console.log("nome other user: "+$scope.otherUser.name+" ID: "+otherUserID+" DESCR: "+$scope.otherUser.description);
-                var length = $scope.otherUser.friends.length;
-                var currFriendID;
-                //console.log("length: "+length);
-                for (var j = 0; j < length; j++) {
-                    currFriendID = $scope.otherUser.friends[j];
-                    //console.log("curFriendID: "+currFriendID);
-                    var currFriendObj = $firebaseObject(database.ref('users/' + currFriendID));
-
-                    //console.log("curr friend: "+currFriendObj);
-                    if(currFriendObj.$id !== "STORMTROUPERS_ADMIN")
-                        $scope.friends[j] = currFriendObj;
-
-            }
+            $scope.friends = UserList.getFriends($scope.otherUser);
         });
 
         $scope.removeUserFromFriends=function(friendToRemove){
@@ -147,7 +127,7 @@ angular.module('myApp.friendsPageView', ['ngRoute'])
             console.log("trouper eliminato: "+friendToRemove);
 
             //lo elimino anche dall'altro?
-            $scope.otherUser = $firebaseObject(database.ref('users/' + friendToRemove));
+            $scope.otherUser = ProfileService.getUserInfo(friendToRemove);
             $scope.otherUser.$loaded().then(function () {
                 $scope.otherUser.friends.splice($scope.otherUser.friends.indexOf(UID),1);
                 $scope.otherUser.$save();
@@ -160,7 +140,7 @@ angular.module('myApp.friendsPageView', ['ngRoute'])
 
         $scope.addUserToFriends=function(otherUserID){
             if($scope.profile.friends.indexOf(otherUserID)<0) {
-                $scope.otherUser = $firebaseObject(database.ref('users/' + otherUserID));
+                $scope.otherUser = ProfileService.getUserInfo(otherUserID);
                 $scope.otherUser.$loaded().then(function () {
                     //aggiorno il vettore anche nell'amico
                     $scope.otherUser.friends.push(UID);

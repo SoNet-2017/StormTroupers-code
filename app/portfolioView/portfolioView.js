@@ -24,34 +24,28 @@ angular.module('myApp.portfolioView', ['ngRoute'])
         };
     }])
 
-    .controller('portfolioViewCtrl', ['$scope', '$location', 'Auth', '$firebaseObject', 'Users', 'CurrentDateService', 'ReminderService', 'UsersChatService', 'currentAuth', '$firebaseAuth', '$firebaseArray', function ($scope, $location, Auth, $firebaseObject, Users, CurrentDateService, ReminderService, UsersChatService, currentAuth, $firebaseAuth, $firebaseArray) {
+    .controller('portfolioViewCtrl', ['$scope', '$location', 'Auth', '$firebaseObject', 'UiService', 'Users', 'ProfileService', 'CurrentDateService', 'ReminderService', 'UsersChatService', 'currentAuth', '$firebaseAuth', '$firebaseArray', function ($scope, $location, Auth, $firebaseObject, UiService, Users, ProfileService, CurrentDateService, ReminderService, UsersChatService, currentAuth, $firebaseAuth, $firebaseArray) {
         $scope.dati = {};
         $scope.auth = Auth;
 
         $scope.dati.reminders = ReminderService.getReminders();
         $scope.dati.currentDate = CurrentDateService.getCurrentDate();
 
-        $scope.showLogoItem = function () {
-            var x = document.getElementById("logoBarContentHome");
-            if (x.className.indexOf("w3-show") == -1)
-                x.className += " w3-show";
-            else
-                x.className = x.className.replace(" w3-show", "");
+        $scope.showLogoItem=function() {
+            UiService.showLogoItem();
         };
 
-        $scope.launchSearchInSearchPage = function () {
-            $location.path("/searchPageView");
-            localStorage.immediateSearch=true;
-            localStorage.immediateSearchKeyword=document.getElementById("searchItemHomeKeyword").value;
+        $scope.launchSearchInSearchPage=function(){
+            UiService.launchSearchInSearchPage();
         };
 
-        $scope.showSearchItem = function () {
-            var x = document.getElementById("typeSearchContentHome");
-            if (x.className.indexOf("w3-show") == -1)
-                x.className += " w3-show";
-            else
-                x.className = x.className.replace(" w3-show", "");
-        };
+        /*$scope.showSearchItem = function () {
+         var x = document.getElementById("typeSearchContentHome");
+         if (x.className.indexOf("w3-show") == -1)
+         x.className += " w3-show";
+         else
+         x.className = x.className.replace(" w3-show", "");
+         };*/
 
         $scope.goToDashboard = function () {
             $location.path("/homePageView")
@@ -115,7 +109,7 @@ angular.module('myApp.portfolioView', ['ngRoute'])
             document.getElementById("addANewPhotoForm").style.display="none";
         }
 
-        $scope.profile = $firebaseObject(database.ref('users/' + UID));
+        $scope.profile = ProfileService.getUserInfo(UID);
         $scope.profile.$loaded().then(function () {
             var role = Object.values($scope.profile.roles);
             for (var i = 0; i < role.length; i++) {
@@ -142,7 +136,7 @@ angular.module('myApp.portfolioView', ['ngRoute'])
 
         $scope.friends = {};
 
-        $scope.otherUser = $firebaseObject(database.ref('users/' + otherUserID));
+        $scope.otherUser = ProfileService.getUserInfo(otherUserID);
         $scope.otherUser.$loaded().then(function () {
 
 
@@ -171,7 +165,7 @@ angular.module('myApp.portfolioView', ['ngRoute'])
             };
 
             $scope.addImageToDB=function () {
-                $scope.otherUser = $firebaseObject(database.ref('users/' + otherUserID));
+                $scope.otherUser = ProfileService.getUserInfo(otherUserID);
                 $scope.otherUser.$loaded().then(function () {
 
                     var newPortfolio=[];
@@ -189,7 +183,7 @@ angular.module('myApp.portfolioView', ['ngRoute'])
                     database.ref('users/' + otherUserID).update({
                         portfolioImages: newPortfolio
                     }).then(function () {
-                        var nObj = $firebaseObject(database.ref('users/' + otherUserID));
+                        var nObj = ProfileService.getUserInfo(otherUserID);
                         nObj.$loaded().then(function () {
                             $scope.goToDashboard();
                         }).catch(function (error) {
