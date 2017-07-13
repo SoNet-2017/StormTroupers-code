@@ -24,7 +24,7 @@ angular.module('myApp.portfolioView', ['ngRoute'])
         };
     }])
 
-    .controller('portfolioViewCtrl', ['$scope', '$location', 'Auth', '$firebaseObject', 'UiService', 'Users', 'ProfileService', 'CurrentDateService', 'ReminderService', 'UsersChatService', 'currentAuth', '$firebaseAuth', '$firebaseArray', function ($scope, $location, Auth, $firebaseObject, UiService, Users, ProfileService, CurrentDateService, ReminderService, UsersChatService, currentAuth, $firebaseAuth, $firebaseArray) {
+    .controller('portfolioViewCtrl', ['$scope', '$location', '$route', 'Auth', '$firebaseObject', 'UiService', 'Users', 'ProfileService', 'CurrentDateService', 'ReminderService', 'UsersChatService', 'currentAuth', '$firebaseAuth', '$firebaseArray', function ($scope, $location, $route, Auth, $firebaseObject, UiService, Users, ProfileService, CurrentDateService, ReminderService, UsersChatService, currentAuth, $firebaseAuth, $firebaseArray) {
         $scope.dati = {};
         $scope.auth = Auth;
 

@@ -105,7 +105,7 @@ angular.module('myApp.homePageView', ['ngRoute'])
             $scope.filterSearch = {};
             $scope.filterProjects = {};
 
-            //seconda versione algoritmo (Algoritmo Cazzo di Marte)
+            //seconda versione algoritmo (Algoritmo Mazzo di Carte)
             var tempCont;
             var rand1 = 0;
             var rand2 = 0;
@@ -183,13 +183,12 @@ angular.module('myApp.homePageView', ['ngRoute'])
         });
 
         $scope.profile = ProfileService.getUserInfo(UID);
-        console.log($scope.profile.roles);
         $scope.profile.$loaded().then(function () {
             var role = Object.values($scope.profile.roles);
-            for(var i=0; i<role.length; i++){
-                document.getElementById("userRolesHome").innerHTML+=role[i];
-                if(i<role.length-1) {
-                    document.getElementById("userRolesHome").innerHTML+=", ";
+            for (var i = 0; i < role.length; i++) {
+                document.getElementById("userRolesHome").innerHTML += role[i];
+                if (i < role.length - 1) {
+                    document.getElementById("userRolesHome").innerHTML += ", ";
                 }
             }
 

@@ -95,6 +95,7 @@ angular.module('myApp.editProjectView', ['ngRoute'])
             $scope.projectDescription = projObj.description;
             $scope.projectTroupers = projObj.troupers;
             $scope.rolesNeeded = projObj.rolesNeeded;
+            $scope.projectProgress = projObj.progress;
             $scope.prjUrl=projObj.img_url;
             console.log("vettore troupers: "+$scope.projectTroupers);
             console.log("vettore rolesNeeded: "+$scope.rolesNeeded+" | length: "+$scope.rolesNeeded.length);
@@ -196,7 +197,6 @@ angular.module('myApp.editProjectView', ['ngRoute'])
         }).catch(function (error) {
             $scope.error = error;
         });
-
 
         $scope.addTroupers=function (userID, userName) {
             $scope.userName=userName;
@@ -317,6 +317,51 @@ angular.module('myApp.editProjectView', ['ngRoute'])
 
             var projDesc = document.getElementById('projectDescription').value;
 
+            //costruisco un vettore roles per creare un elenco di stringhe dentro il JSON
+            var newRolesNeeded = [];
+            if (document.getElementById("checkAnim").checked) {
+                newRolesNeeded.push("Animation");
+            }
+            if (document.getElementById("checkAudio").checked) {
+                newRolesNeeded.push("Audio/Music/Sound");
+            }
+            if (document.getElementById("checkDP").checked) {
+                newRolesNeeded.push("Camera Crew/DP");
+            }
+            if (document.getElementById("checkArt").checked) {
+                newRolesNeeded.push("Crew art/Design/Scenic/Construction");
+            }
+            if (document.getElementById("checkDirect").checked) {
+                newRolesNeeded.push("Director");
+            }
+            if (document.getElementById("checkGraphicDes").checked) {
+                newRolesNeeded.push("Graphic designer");
+            }
+            if (document.getElementById("checkLight").checked) {
+                newRolesNeeded.push("Lighting/Electric");
+            }
+            if (document.getElementById("checkPhot").checked) {
+                newRolesNeeded.push("Photographers");
+            }
+            if (document.getElementById("checkPostProd").checked) {
+                newRolesNeeded.push("Post Production People");
+            }
+            if (document.getElementById("checkProducers").checked) {
+                newRolesNeeded.push("Producers");
+            }
+            if (document.getElementById("checkFX").checked) {
+                newRolesNeeded.push("Special Effects Crew");
+            }
+            if (document.getElementById("checkStyle").checked) {
+                newRolesNeeded.push("Stylist/Vanities");
+            }
+            if (document.getElementById("checkActor").checked) {
+                newRolesNeeded.push("Talent/Actors");
+            }
+            if (document.getElementById("checkCast").checked) {
+                newRolesNeeded.push("Talent/Casting - People");
+            }
+
             console.log("Title: " + projTitle);
             console.log("Type: " + projType);
             console.log("Genre: " + projGenre);
@@ -344,6 +389,7 @@ angular.module('myApp.editProjectView', ['ngRoute'])
                 genre: projGenre,
                 description: projDesc,
                 progress: projProgress,
+                rolesNeeded: newRolesNeeded,
                 troupers: $scope.projectTroupers,
                 img_url: newImage
             }).then(function () {
