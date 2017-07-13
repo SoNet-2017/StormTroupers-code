@@ -66,15 +66,27 @@
 
 <div id="bodyHome" class="w3-container w3-col l12 s12 m12">
 
-    <h2>{{prj.title}}</h2>
 
-
-
-    <div id="campoDiTesto" class="w3-container w3-col l12 m12 s12 w3-card-2">
+    <h2 style="color: white; margin-top: 20px; margin-left: 20px">
+        Editor: <strong>{{prj.title}}</strong></h2>
+    <br>
+    <div id="templateSelection">
+        <button class="w3-button" ng-click="setTemplate(0)"><i class="glyphicon glyphicon-file w3-xxlarge"></i><br>Screenplay</button>
+        <button class="w3-button" ng-click="setTemplate(1)"><i class="glyphicon glyphicon-file w3-xxlarge"></i><br>Storyboard</button>
+        <button class="w3-button" ng-click="setTemplate(2)"><i class="glyphicon glyphicon-file w3-xxlarge"></i><br>Script</button>
+        <button class="w3-button" ng-click="setTemplate(3)"><i class="glyphicon glyphicon-file w3-xxlarge"></i><br>Call sheet</button>
+        <button class="w3-button" ng-click="setTemplate(4)"><i class="glyphicon glyphicon-file w3-xxlarge"></i><br>Shot-list</button>
+        <button class="w3-button" ng-click="setTemplate(5)"><i class="glyphicon glyphicon-file w3-xxlarge"></i><br>Objects list</button>
+    </div>
+    <br><br>
+    <div id="campoDiTesto" class="w3-container w3-col l12 m12 s12">
         <form method="post">
             <textarea ui-tinymce="tinymceOptions" ng-model="tinymceModel" style="height: 700px"></textarea>
-            <button ng-click="getContent()">Get content</button>
-            <button ng-click="setContent()">Set content</button>
+            <br><br>
+            <button id="cancelTextButton" class="w3-button w3-round-large w3-right" ng-click="cancelOperation()">Cancel</button>
+            <button id="saveTextButton" class="w3-button w3-round-large w3-right" ng-click="saveDocument()">Save</button>
+            <!--<button ng-click="getContent()">Get content</button>
+            <button ng-click="setContent()">Set content</button>-->
         </form>
     </div>
 
