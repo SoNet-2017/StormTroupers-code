@@ -32,9 +32,11 @@ angular.module('myApp.homePageView', ['ngRoute'])
             UiService.showLogoItem();
         };
 
+
         $scope.launchSearchInSearchPage=function(){
             UiService.launchSearchInSearchPage();
         };
+
 
         /*$scope.showSearchItem = function () {
          var x = document.getElementById("typeSearchContentHome");
@@ -98,7 +100,7 @@ angular.module('myApp.homePageView', ['ngRoute'])
         var UID = localStorage.UID;
         var database = firebase.database();
         var usersBase = database.ref('users/');
-        var userQuery = usersBase.orderByChild("dateOfJoin").limitToLast(10);
+        var userQuery = usersBase.orderByChild("dateOfJoin").limitToLast(15);
         $scope.filterUsers = $firebaseArray(userQuery);
         $scope.filterUsers.$loaded().then(function () {
             ////////////////////////////////////////////////////////////////////////////////////
@@ -118,7 +120,9 @@ angular.module('myApp.homePageView', ['ngRoute'])
                 $scope.filterUsers[rand2] = tempCont;
             }
 
-            for (var n = 0; n < 10; n++) { //pesca le prime 5 carte del mazzo
+            var sub_n = 0;
+            for (var n = 0; n < 5; n++) { //pesca le prime 5 carte del mazzo
+                sub_n++;
                 //evitiamo che appaia se stesso nei new users
                 if (($scope.filterUsers[n].name !== $scope.profile.name) && ($scope.filterUsers[n].lastName !== $scope.profile.lastName)) {
 
@@ -138,6 +142,10 @@ angular.module('myApp.homePageView', ['ngRoute'])
                         $scope.filterSearch[n] = $scope.filterUsers[n];
                     }
                 }
+                else {
+                    if (sub_n>=15) {}
+                    else {n--;}
+                    }
             }
 
         }).catch(function (error) {
