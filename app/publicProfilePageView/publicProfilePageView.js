@@ -24,7 +24,7 @@ angular.module('myApp.publicProfilePageView', ['ngRoute'])
         };
     }])
 
-    .controller('publicProfilePageViewCtrl', ['$scope', '$location', '$route', 'Auth', '$firebaseObject', 'UiService','Users', 'CurrentDateService', 'ReminderService', 'UsersChatService', 'currentAuth', '$firebaseAuth', '$firebaseArray', function ($scope, $location, $route, Auth, $firebaseObject,UiService, Users, CurrentDateService, ReminderService, UsersChatService, currentAuth, $firebaseAuth, $firebaseArray) {
+    .controller('publicProfilePageViewCtrl', ['$scope', '$location', '$route', 'Auth', '$firebaseObject', 'UiService','Users', 'UserList', 'ProfileService', 'ProjectService', 'CurrentDateService', 'ReminderService', 'UsersChatService', 'currentAuth', '$firebaseAuth', '$firebaseArray', function ($scope, $location, $route, Auth, $firebaseObject,UiService, Users, UserList, ProfileService, ProjectService, CurrentDateService, ReminderService, UsersChatService, currentAuth, $firebaseAuth, $firebaseArray) {
         document.body.scrollTop = 0;
 
         $scope.dati = {};
@@ -118,7 +118,7 @@ angular.module('myApp.publicProfilePageView', ['ngRoute'])
         // UID dell'utente di cui si vuole vedere il profilo pubblico
         var otherUserID = localStorage.otherUserID;
 
-        $scope.profile = $firebaseObject(database.ref('users/' + UID));
+        $scope.profile = ProfileService.getUserInfo(UID);
         $scope.profile.$loaded().then(function () {
             if($scope.profile.friends.indexOf(otherUserID) < 0) {
                 $scope.alreadyFriend = false;
@@ -173,7 +173,7 @@ angular.module('myApp.publicProfilePageView', ['ngRoute'])
 
         $scope.friends = {};
 
-        $scope.otherUser = $firebaseObject(database.ref('users/' + otherUserID));
+        $scope.otherUser = ProfileService.getUserInfo(otherUserID);
         $scope.otherUser.$loaded().then(function () {
             //console.log("nome other user: "+$scope.otherUser.name+" ID: "+otherUserID+" DESCR: "+$scope.otherUser.description);
             var userRoles = Object.values($scope.otherUser.roles);
@@ -185,19 +185,7 @@ angular.module('myApp.publicProfilePageView', ['ngRoute'])
             }
             $scope.calculateAge();
 
-            var length = $scope.otherUser.friends.length;
-            var currFriendID;
-            //console.log("length: "+length);
-            for (var j = 0; j < length; j++) {
-                currFriendID = $scope.otherUser.friends[j];
-                //console.log("curFriendID: "+currFriendID);
-                var currFriendObj = $firebaseObject(database.ref('users/' + currFriendID));
-
-                //console.log("curr friend: "+currFriendObj);
-                if(currFriendObj.$id !== "STORMTROUPERS_ADMIN")
-                    $scope.friends[j] = currFriendObj;
-
-            }
+            $scope.friends = UserList.getFriends($scope.otherUser);
 
             $scope.getPortfolioFromDB = {};
             $scope.filterPortfolio={};
@@ -232,8 +220,7 @@ angular.module('myApp.publicProfilePageView', ['ngRoute'])
             }
 
             $scope.getProjectsFromDB = {};
-            var projectsBase = database.ref('projects/');
-            $scope.getProjectsFromDB = $firebaseArray(projectsBase);
+            $scope.getProjectsFromDB = ProjectService.getProjects();
             $scope.getProjectsFromDB.$loaded().then(function () {
 
                 console.log("projects[0]: " + $scope.getProjectsFromDB[0].troupers.length);
@@ -298,7 +285,7 @@ angular.module('myApp.publicProfilePageView', ['ngRoute'])
 
         $scope.addFeedback = function () {
             console.log($scope.otherUser.name);
-            $scope.otherUser = $firebaseObject(database.ref('users/' + otherUserID));
+            $scope.otherUser = ProfileService.getUserInfo(otherUserID);
             $scope.otherUser.$loaded().then(function () {
                 var feedback = document.getElementById("feedbackText").value;
                 var utenteFeedback = $scope.profile.name + " " + $scope.profile.lastName;
@@ -324,7 +311,7 @@ angular.module('myApp.publicProfilePageView', ['ngRoute'])
                         total: total
                     }
                 }).then(function () {
-                    var nObj = $firebaseObject(database.ref('users/' + otherUserID));
+                    var nObj = ProfileService.getUserInfo(otherUserID);
                     nObj.$loaded().then(function () {
                         $scope.goToDashboard();
                     }).catch(function (error) {
@@ -343,7 +330,7 @@ angular.module('myApp.publicProfilePageView', ['ngRoute'])
             console.log("trouper eliminato: " + friendToRemove);
 
             //lo elimino anche dall'altro?
-            $scope.otherUser = $firebaseObject(database.ref('users/' + friendToRemove));
+            $scope.otherUser = ProfileService.getUserInfo(friendToRemove);
             $scope.otherUser.$loaded().then(function () {
                 $scope.otherUser.friends.splice($scope.otherUser.friends.indexOf(UID), 1);
                 $scope.otherUser.$save();
@@ -355,7 +342,7 @@ angular.module('myApp.publicProfilePageView', ['ngRoute'])
 
         $scope.addUserToFriends = function (otherUserID) {
             if ($scope.profile.friends.indexOf(otherUserID) < 0) {
-                $scope.otherUser = $firebaseObject(database.ref('users/' + otherUserID));
+                $scope.otherUser = ProfileService.getUserInfo(otherUserID);
                 $scope.otherUser.$loaded().then(function () {
                     //aggiorno il vettore anche nell'amico
                     $scope.otherUser.friends.push(UID);

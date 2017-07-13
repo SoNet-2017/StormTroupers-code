@@ -235,7 +235,6 @@ angular.module('myApp.portfolioView', ['ngRoute'])
             console.log("sono in errore2: " + error);
         });
 
-
         $scope.openImage=function (element) {
             for(var key in element) {
                 if(element.hasOwnProperty(key)) {
