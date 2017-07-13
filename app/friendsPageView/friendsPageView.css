@@ -1,6 +1,9 @@
 #friendsContainer{
+    /*
     padding-top: 30px;
-    padding-bottom: 30px;
+    padding-bottom: 30px;*/
+    padding-top: 0px;
+    padding-right: 0px
 }
 
 #userDesc{
@@ -15,4 +18,27 @@
 #friendsPicture {
     content: url("../../images/upload_pic.jpg");
     max-width: 90%;
+}
+
+#superFriendContainer{
+    padding-right: 0px;
+}
+
+#friendsGeneralCard{
+    padding-left: 40px;
+    margin-left: 20px;
+    background: linear-gradient(rgba(0,0,0,.5), rgba(0,0,0,.5));
+}
+
+#friendsListBlock{
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+#friendsListCardFriendPage{
+    padding: 10px;
+    border-radius: 4mm;
+    background-color: #333333;
+    margin-right:50px;
 }

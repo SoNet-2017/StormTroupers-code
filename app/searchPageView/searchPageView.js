@@ -214,6 +214,7 @@ angular.module('myApp.searchPageView', ['ngRoute'])
 
 
         $scope.profile = ProfileService.getUserInfo(UID);
+        console.log($scope.profile.roles);
         $scope.profile.$loaded().then(function () {
             var role = Object.values($scope.profile.roles);
             for(var i=0; i<role.length; i++){

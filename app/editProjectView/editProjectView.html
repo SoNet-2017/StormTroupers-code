@@ -204,15 +204,13 @@
                 <br>
                 <div class="w3-container">
                     <input class="w3-left w3-animate-opacity" type="file" id="projPicUpload"
-                           multiple="multiple"
-                           style="margin-left: 10px; color: white;"/>
+                           multiple="multiple"/>
                     <br>
                 </div>
                 <br>
                 <div class="w3-container">
             <textarea type="text" ng-model="projectDescription" id="projectDescription"
-                      class="w3-input w3-border w3-left w3-animate-opacity" placeholder="Description"
-                      style="margin-left: 10px; margin-right: 20px; width: 95%"></textarea>
+                      class="w3-input w3-border w3-left w3-animate-opacity" placeholder="Description"></textarea>
                     <br>
 
                 </div>
@@ -272,13 +270,11 @@
                     <br>
                 </div>
             </div>
-            <div id="projTroupersContainer" class="w3-animate-opacity w3-card-2"
-                 style="width: 35%; float: left; margin-right: 5px; margin-left: 10px; background-color: #333333">
+            <div id="projTroupersContainer" class="w3-animate-opacity w3-card-2">
                 <h4 style="text-align: center; padding-left: 20px; color: white">INVITE FRIENDS TO COLLABORATE:</h4>
-                <ul style="list-style: none; text-align: left">
+                <ul id="friendListAdded">
                     <li ng-repeat="user in sharingFriends" style="list-style: none; padding-top: 8px">
-                        <div class=" w3-container w3-card-2"
-                             style="padding: 10px;background: linear-gradient(rgba(255,255,255,.5), rgba(255,255,255,.5));">
+                        <div id="friendListAddedCard" class=" w3-container w3-card-2">
                             <div class="w3-left" id="newUImgContainer">
                                 <a id="troupeUserImgLink">
                                     <img class="media-object w3-left w3-circle" ng-click="goToPublicProfile(user.uid)"
@@ -309,8 +305,7 @@
                         </div>
                     </li>
                     <li ng-repeat="user in suggestedFriends" style="list-style: none; padding-top: 8px">
-                        <div class=" w3-container w3-card-2"
-                             style="padding: 10px; background: linear-gradient(rgba(0,0,0,.5), rgba(0,0,0,.5));">
+                        <div id="friendListToAddCard" class=" w3-container w3-card-2">
                             <div class="w3-left" id="newUImgContainer2">
                                 <a id="troupeUserImgLink2">
                                     <img class="media-object w3-left w3-circle" ng-click="goToPublicProfile(user.uid)"
@@ -347,9 +342,9 @@
                 </ul>
 
             </div>
-            <div class="w3-row w3-left" style="margin-top: 30px; margin-bottom: 15px; width: 60%;">
-                <button ng-click="addImage()" class="w3-button w3-large w3-dark-gray">Save changes</button>
-                <button ng-click="goToMyProjects()" class="w3-button w3-large w3-dark-gray w3-opacity">Cancel
+            <div id="editProjectButtonContainer" class="w3-row w3-left">
+                <button ng-click="addImage()" class="w3-button w3-round-large w3-dark-gray">Save changes</button>
+                <button ng-click="goToMyProjects()" class="w3-button w3-round-large w3-dark-gray w3-opacity">Cancel
                 </button>
             </div>
         </div>

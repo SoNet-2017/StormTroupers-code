@@ -183,12 +183,13 @@ angular.module('myApp.homePageView', ['ngRoute'])
         });
 
         $scope.profile = ProfileService.getUserInfo(UID);
+        console.log($scope.profile.roles);
         $scope.profile.$loaded().then(function () {
-            var role = Object.values(obj.roles);
-            for (var i = 0; i < role.length; i++) {
-                document.getElementById("userRolesHome").innerHTML += role[i];
-                if (i < role.length - 1) {
-                    document.getElementById("userRolesHome").innerHTML += ", ";
+            var role = Object.values($scope.profile.roles);
+            for(var i=0; i<role.length; i++){
+                document.getElementById("userRolesHome").innerHTML+=role[i];
+                if(i<role.length-1) {
+                    document.getElementById("userRolesHome").innerHTML+=", ";
                 }
             }
 

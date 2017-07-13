@@ -108,18 +108,16 @@
 
     </div>
 
-    <div class="w3-container w3-col l8 m8 s8" style="padding-right: 0px">
+    <div id="superFriendContainer" class="w3-container w3-col l8 m8 s8">
 
-        <div id="friendsContainer" class="w3-container w3-row w3-col l12 m12 s12"
-             style="padding-top: 0px; padding-right: 0px">
-            <div class="w3-container" style="padding-left: 40px; margin-left: 20px; background: linear-gradient(rgba(0,0,0,.5), rgba(0,0,0,.5));">
+        <div id="friendsContainer" class="w3-container w3-row w3-col l12 m12 s12">
+            <div id="friendsGeneralCard" class="w3-container">
                 <h2 ng-if="!myTroupersPage" style="color: white; margin-top: 20px; margin-bottom: 0"><strong>{{otherUser.name}}</strong>'s connections</h2>
                 <h2 ng-if="myTroupersPage" style="color: white; margin-top: 20px; margin-bottom: 0"><strong>MY</strong> connections</h2>
                 <br>
-                <ul style="list-style: none; margin: 0; padding: 0;">
+                <ul id="friendsListBlock">
                     <li ng-repeat="friend in friends" class="w3-col s6 m6 l6" style="padding-top: 0px">
-                        <div class=" w3-container w3-card-2"
-                             style="padding: 10px; border-radius: 4mm; background-color: #333333; margin-right:50px">
+                        <div id="friendsListCardFriendPage" class=" w3-container w3-card-2">
                             <div class="w3-left" id="newUImgContainer">
                                 <img class="media-object w3-left w3-circle" ng-src="../{{friend.img_url}}" alt="{{friend.img_alt}}" ng-if="!(friend.img_url.includes('https://firebasestorage.googleapis.com')) && friend.img_url!=''">
                                 <img class="media-object w3-left w3-circle" ng-src="{{friend.img_url}}" alt="{{friend.img_alt}}" ng-if="friend.img_url.includes('https://firebasestorage.googleapis.com')">
