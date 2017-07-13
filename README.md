@@ -1,7 +1,7 @@
 # StormTroupers-code
 
 Buongiorno,
-usiamo il README per ricordarci le credenziali d'accesso: lo username è "otto@tedesco.de" e la password è "ottone".
+usiamo il README per ricordarvi le credenziali d'accesso: lo username è "otto@tedesco.de" e la password è "ottone".
 Se volete testarla la funzionalità d'iscrizione funziona anche se per semplicità abbiamo limitato la selezione funzionante delle
 province con cui è possibilie iscriversi a quella di Torino e alle sue città.
 
