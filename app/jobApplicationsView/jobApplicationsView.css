@@ -1,8 +1,12 @@
-#mainContainerProfile h4{
+#mainContainerApplications h4{
     color: white;
 }
 
-#profileGeneralInfoContainer{
+#mainContainerApplications{
+    margin-left: 30px;
+}
+
+#applicationGeneralInfoContainer{
     padding-top: 30px;
     padding-bottom: 30px;
     background-color: #b7c3b8;
@@ -20,8 +24,21 @@
     background-color: #b7c3b8;
 }
 
-#profilePortfolioContainer{
-    padding-top: 30px;
+#applicationContainer{
     padding-bottom: 30px;
+    margin-top: 30px;
+    padding-top: 20px;
+    background: linear-gradient(rgba(0,0,0,.5), rgba(0,0,0,.5));
+    background-color:#333333;
+}
+
+#applicationGeneralInfoContainer{
+    background: linear-gradient(rgba(0,0,0,.5), rgba(0,0,0,.5));
+}
+
+#projectApplicationPic{
+    margin-bottom:20px;
+    padding: 10px;
+    border-radius: 4mm;
     background-color: #b7c3b8;
 }

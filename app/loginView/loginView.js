@@ -135,7 +135,7 @@ angular.module('myApp.loginView', ['ngRoute'])
             }else if (document.getElementById("joinFemale").checked){
                 jGender=document.getElementById("joinFemale").value;
             }
-            var birth = document.getElementById('dateOfBirth').value;
+            var birth = document.getElementById('joinDateOfBirth').value;
             localStorage.joinEmail=joinEm;
             localStorage.joinPassword=joinP;
             localStorage.joinName=firstName;

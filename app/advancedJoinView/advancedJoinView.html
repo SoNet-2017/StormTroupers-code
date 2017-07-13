@@ -1,7 +1,7 @@
 
 <div class="w3-container" id="adJoinMain">
-    <h1 class="titleJoin" style="margin-bottom: 0">STORM<strong>TROUPERS</strong></h1>
-    <h2 class="titleJoin" style="margin-top: 0">Working info</h2>
+    <h1 class="titleJoin">STORM<strong>TROUPERS</strong></h1>
+    <h2 class="titleJoin">Working info</h2>
     <br>
     <div class="w3-container" id="mainContainer">
         <div class="w3-container">
@@ -43,9 +43,9 @@
             <div class="w3-col s4 m4 l4 w3-left w3-animate-opacity" id="checkCarContainer">
                 <h4 style="color: white;">Do you have a car?</h4>
                 <form class="w3-container" role="form" id="checkCar">
-                    <input type="radio" value="1" class="w3-radio" ng-model="carInfo" id="carYes"><label style="color: white;padding-left: 7px">Yes</label>
+                    <input type="radio" value="1" class="w3-radio" ng-model="carInfo" id="carYes"><label style="color: white; padding-left: 7px">Yes</label>
                     <br>
-                    <input type="radio" value="0" class="w3-radio" ng-model="carInfo" id="carNo"><label style="color: white;padding-left: 7px">No</label>
+                    <input type="radio" value="0" class="w3-radio" ng-model="carInfo" id="carNo"><label style="color: white; padding-left: 7px">No</label>
                 </form>
             </div>
             <div class="w3-col s4 m4 l4 w3-left w3-animate-opacity" id="chePayment">
@@ -61,7 +61,7 @@
         <br><br>
         <div class="w3-container">
             <div class="w3-col s12 m12 l12 w3-left w3-animate-opacity">
-                <h4 style="color: white;">Choose the areas that suit you the most</h4>
+                <h4 id="chooseAreaTitle">Choose the areas that suit you the most</h4>
                 <br>
                 <div class="w3-col s3 m3 l3 w3-animate-opacity" id="advancedJoinCheckboxes">
                     <form class="w3-container">
@@ -132,7 +132,7 @@
             <div class="w3-col s12 m12 l12 w3-left w3-animate-opacity" id="aboutMe">
                 <br>
                 <br>
-                <h4 style="color: white;">About me</h4>
+                <h4 id="aboutMeTitle">About me</h4>
                 <br>
                 <form id="aboutMeForm">
                     <textarea placeholder="Describe yourself" id="aboutMeText"></textarea>

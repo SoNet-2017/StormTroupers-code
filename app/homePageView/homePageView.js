@@ -185,7 +185,7 @@ angular.module('myApp.homePageView', ['ngRoute'])
 
         $scope.profile = ProfileService.getUserInfo(UID);
         $scope.profile.$loaded().then(function () {
-            var role = Object.values(obj.roles);
+            var role = Object.values($scope.profile.roles);
             for (var i = 0; i < role.length; i++) {
                 document.getElementById("userRolesHome").innerHTML += role[i];
                 if (i < role.length - 1) {

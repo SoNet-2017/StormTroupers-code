@@ -36,6 +36,7 @@
     font-family: "ADAM.CG PRO";
     color: white;
     text-align: right;
+    font-size: 15pt;
 }
 
 #logoBarHome:hover{
@@ -48,6 +49,7 @@
     top: 60px;
     right:0px;
     width: 200px;
+    font-size: 10pt;
 }
 
 #logoBarContentHome a:hover{
@@ -78,12 +80,14 @@
     text-transform: uppercase;
     color: white;
     text-decoration: none;
+    font-size: 15pt;
 }
 
 #projectsLinkHome{
     text-transform: uppercase;
     color: white;
     text-decoration: none;
+    font-size: 15pt;
 }
 
 #searchItemHome{
@@ -149,16 +153,12 @@
 
 }
 
-#aroundYouContainer h2{
-    color: #636466;
-}
-
 #newProjectShow{
     /*Per centrare il contenuto*/
     text-align: center;
     align-items:center;
     vertical-align: middle;
-    background-color: #636466;
+    background: linear-gradient(rgba(0,0,0,.5), rgba(0,0,0,.5));
     margin-right: 5%;
 }
 
@@ -172,7 +172,7 @@
     text-align: center;
     align-items:center;
     vertical-align: middle;
-    background-color: #636466;
+    background: linear-gradient(rgba(0,0,0,.5), rgba(0,0,0,.5));
 }
 
 #newUserTitle{
@@ -296,4 +296,44 @@
     color: white;
     background-color: rgba(80,80,80,165);
     border: none;
+}
+
+#aroundYouInterContainer{
+    margin-left: 30px;
+}
+
+#aroundYouTitle{
+    font-family: "ADAM.CG PRO";
+    color: white;
+    margin-top: 0;
+}
+
+#projectHomeList{
+    list-style: none;
+    padding: 0;
+}
+
+#projectTitleOnHome{
+    color: white;
+    text-shadow: 2px 2px 2px #333333;
+}
+
+#likePanel{
+    min-height:20px;
+    background: linear-gradient(rgba(0,0,0,.5), rgba(0,0,0,.9));
+    margin-top: 150px;
+}
+
+.likePanelButton{
+    color:white;
+}
+
+#usersHomeList{
+    list-style: none;
+}
+
+#usersCard{
+    padding: 10px;
+    border-radius: 4mm;
+    background-color: #333333;
 }

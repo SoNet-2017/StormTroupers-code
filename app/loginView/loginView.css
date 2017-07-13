@@ -81,7 +81,7 @@ h1{
 }
 
 #login{
-    background-color: #b7c3b8;
+    background: linear-gradient(rgba(0,0,0,.5), rgba(0,0,0,.5));
     height: 500px;
     /*Per centrare il contenuto*/
     display:flex;
@@ -118,7 +118,7 @@ h1{
 }
 
 #join{
-    background-color: #b7c3b8;
+    background: linear-gradient(rgba(0,0,0,.5), rgba(0,0,0,.5));
     height: 500px;
     /*Per centrare il contenuto*/
     justify-content:center;
@@ -261,7 +261,7 @@ h1{
 }
 
 #joinShift{
-    color: #636466;
+    color: white;
     text-decoration: none;
     margin-left: 5px;
 }
@@ -272,7 +272,7 @@ h1{
 }
 
 #loginShift{
-    color: #636466;
+    color: white;
     text-decoration: none;
     margin-left: 5px;
 }
@@ -280,4 +280,8 @@ h1{
 #loginShift:hover{
     text-decoration: underline;
     cursor: pointer;
+}
+
+#joinDateOfBirth{
+    color: #333333;
 }

@@ -32,11 +32,11 @@ angular.module('myApp.chatView', ['ngRoute'])
             UiService.launchSearchInSearchPage();
         };
 
-        //carica i ruoli professionali nella sidebar dell'utente loggato
+        //caricano i ruoli professionali nella sidebar dell'utente loggato
         var UID = localStorage.UID;
         $scope.profile = UsersChatService.getUserInfo(UID);
         $scope.profile.$loaded().then(function () {
-            var role = Object.values(obj.roles);
+            var role = Object.values($scope.profile.roles);
             for (var i = 0; i < role.length; i++) {
                 document.getElementById("userRolesHome").innerHTML += role[i];
                 if (i < role.length - 1) {
