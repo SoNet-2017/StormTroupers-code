@@ -307,6 +307,8 @@ angular.module('myApp.newProjectView', ['ngRoute'])
 
             var project_province = $scope.profile.province;
             console.log("proj city: " + project_province);
+            var prj_lat = $scope.profile.lat;
+            var prj_lon = $scope.profile.lon;
 
             var database = firebase.database();
 
@@ -323,6 +325,8 @@ angular.module('myApp.newProjectView', ['ngRoute'])
                 genre: projGenre,
                 description: projDesc,
                 dateOfCreation: dateOfCreation,
+                lat: prj_lat,
+                lon: prj_lon,
                 progress: 'In Progress',
                 city: project_province,
                 troupers: troupers,

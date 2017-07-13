@@ -125,15 +125,15 @@ angular.module('myApp.advancedJoinView', ['ngRoute'])
                 console.log(response);
             });
 
-            promise.then(function(culo) {
+            promise.then(function(coolback) {
                 // receives the data returned from the http handler
 
-                console.log(culo[0]);
-                console.log("latitude: "+culo[0].geometry.location.lat.toString());
-                console.log("longitude: "+culo[0].geometry.location.lng.toString());
+                console.log(coolback[0]);
+                console.log("latitude: "+coolback[0].geometry.location.lat.toString());
+                console.log("longitude: "+coolback[0].geometry.location.lng.toString());
 
-                latR=culo[0].geometry.location.lat;
-                lonR=culo[0].geometry.location.lng;
+                latR=coolback[0].geometry.location.lat;
+                lonR=coolback[0].geometry.location.lng;
 
                 database.ref('users/' + UID).update({
                     lat: latR,

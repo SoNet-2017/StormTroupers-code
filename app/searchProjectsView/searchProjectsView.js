@@ -135,6 +135,69 @@ angular.module('myApp.searchProjectsView', ['ngRoute'])
             localStorage.PID = projectID;
         };
 
+
+        $scope.askAPI = function(city, returnType) {
+            delete $http.defaults.headers.common['X-Requested-With'];
+            var promise = $http({
+                method: 'GET',
+                url: 'https://maps.googleapis.com/maps/api/geocode/json?address=' + city + ',+Italy&key=AIzaSyDE8j_aPc1gVS_lVn-c3qnO0YlRL7iMiqg'
+            }).then(function successCallback(response) {
+
+                console.log("SUCCESS");
+
+
+                console.log(response);
+                console.log(response.data);
+                console.log("parsing JSON");
+                var temp_data = angular.fromJson(response.data.results);
+
+                return temp_data;
+
+
+            }, function errorCallback(response) {
+                console.log("ERROR OCCURRED");
+                console.log(response);
+            });
+
+            promise.then(function (coolback) {
+
+                console.log(coolback[0]);
+                console.log("latitude: " + coolback[0].geometry.location.lat.toString());
+                console.log("longitude: " + coolback[0].geometry.location.lng.toString());
+
+                switch (returnType) {
+                    case 0:
+                        return coolback[0].geometry.location.lat;
+                        break;
+                    case 1:
+                        return coolback[0].geometry.location.lng;
+                        break;
+                }
+            });
+
+        }
+
+
+
+        $scope.calculateDistance = function(lat1, lon1, lat2, lon2) {
+            var R = 6371e3; // metres
+            var φ1 = lat1/57.29578;  // divider per 57.3 equivale a conversione in radianti (più o meno)
+            var φ2 = lat2/57.29578;
+            var Δφ = (lat2-lat1)/57.29578;
+            var Δλ = (lon2-lon1)/57.29578;
+
+            var a = Math.sin(Δφ/2) * Math.sin(Δφ/2) +
+                Math.cos(φ1) * Math.cos(φ2) *
+                Math.sin(Δλ/2) * Math.sin(Δλ/2);
+            var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+
+            var d = R * c;
+
+            d=d/1000;
+
+            return d; //ritorna la distanza in kilometri
+        }
+
         var UID = localStorage.UID;
         var database = firebase.database();
 
@@ -158,6 +221,7 @@ angular.module('myApp.searchProjectsView', ['ngRoute'])
         }).catch(function (error) {
             $scope.error = error;
         });
+
 
         $scope.addUserToFriends = function (otherUserID) {
             if ($scope.profile.friends.indexOf(otherUserID) < 0) {
@@ -507,6 +571,16 @@ angular.module('myApp.searchProjectsView', ['ngRoute'])
                 includeProg = true;
             }
 
+            //step95678bis checca il range
+            var filterByRange=false;
+            if ($scope.slider.value>0) {
+
+                var rng_YourLat = 0;
+                var rng_YourLng = 0;
+
+                filterByRange=true;
+                console.log("filterbyRange==true!");
+            }
 
             //parte il coso per davvero
             var length = $scope.allProjects.length;
@@ -807,16 +881,56 @@ angular.module('myApp.searchProjectsView', ['ngRoute'])
                     console.log("Filter by Progress = false!")
                 }
 
+                //controllo sul range
+                if (filterByRange===true && (kw_Found===true || checkKeyword===false)) {
+
+                    var rng_Found=false;
+
+                    if (checkCityword===true) {  ///in questo caso devi fare una richiesta JSON
+
+                        console.log("Calculating distance from position in City field.");
+
+                        if (rng_YourLat===0) {
+
+                            rng_YourLat = $scope.askAPI(ct, 0);
+                            rng_YourLng = $scope.askAPI(ct, 1);
+                        }
+
+                    }
+                    else { // in questo caso banalmente legge le tue coordinate dal localStorage
+
+                        console.log("Calculating distance from your position...");
+
+                        rng_YourLat = $scope.profile.lat;
+                        rng_YourLng = $scope.profile.lon;
+
+                    }
+
+                    var rng_SearchLat = $scope.allProjects[i].lat;
+                    var rng_SearchLng = $scope.allProjects[i].lon;
+
+                    var rng_distance = $scope.calculateDistance(rng_YourLat, rng_YourLng, rng_SearchLat, rng_SearchLng);
+                    var rng_distance = Math.ceil(rng_distance);
+
+                    console.log("Found distance: "+rng_distance.toString()+"km");
+
+                    if (rng_distance<=$scope.slider.value) {
+                        rng_Found=true;
+                    }
+
+                }
+
 
                 //check finale, se corrisponde tutto allora aggiungi a filterSearch
                 //CORRENTI: Keyword, City, Genre, Needed Roles, Progress State
                 //cerca solo se hai compilato almeno un campo
-                if ((checkKeyword===true || checkCityword===true || filterByRole===true || filterByGenre===true || filterByProgress===true) &&
+                if ((checkKeyword===true || checkCityword===true || filterByRole===true || filterByGenre===true || filterByProgress===true || filterByRange===true) &&
                     (kw_Found === true || checkKeyword === false) &&
                     (ct_Found === true || checkCityword === false) &&
                     (gen_Found === true || filterByGenre === false) &&
                     (rl_Found === true || filterByRole === false) &&
-                    (prg_Found === true || filterByProgress === false)) {
+                    (prg_Found === true || filterByProgress === false) &&
+                    (rng_Found === true || filterByRange === false)) {
 
                     $scope.filterSearch[j] = $scope.allProjects[i];
                     j++;
