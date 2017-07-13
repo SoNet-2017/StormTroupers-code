@@ -63,6 +63,10 @@ angular.module('myApp.searchProjectsView', ['ngRoute'])
         console.log(localStorage.attName);
         console.log(localStorage.attLast);
         console.log(localStorage.attEmail);
+
+        $scope.cbch =  false;
+        $scope.cbch2 = false;
+
         /*
          document.getElementById("userNameHome").innerHTML=localStorage.attName;
          document.getElementById("userNameAndLastHome").innerHTML=localStorage.attName+" "+localStorage.attLast;*/
@@ -135,6 +139,37 @@ angular.module('myApp.searchProjectsView', ['ngRoute'])
             localStorage.PID = projectID;
         };
 
+        $scope.checkAllRoles = function() {
+            var checkboxes = document.getElementsByName('cbg');
+            var cbl=checkboxes.length;
+            for(var a=0; a<cbl; a++)
+                checkboxes[a].checked = true;
+            $scope.cbch=true;
+        };
+
+        $scope.uncheckAllRoles = function() {
+            var checkboxes = document.getElementsByName('cbg');
+            var cbl=checkboxes.length;
+            for(var a=0; a<cbl; a++)
+                checkboxes[a].checked = false;
+            $scope.cbch=false;
+        };
+
+        $scope.checkAllRoles2 = function() {
+            var checkboxes = document.getElementsByName('rcb');
+            var cbl=checkboxes.length;
+            for(var a=0; a<cbl; a++)
+                checkboxes[a].checked = true;
+            $scope.cbch2=true;
+        };
+
+        $scope.uncheckAllRoles2 = function() {
+            var checkboxes = document.getElementsByName('rcb');
+            var cbl=checkboxes.length;
+            for(var a=0; a<cbl; a++)
+                checkboxes[a].checked = false;
+            $scope.cbch2=false;
+        };
 
         $scope.askAPI = function(city, returnType) {
             delete $http.defaults.headers.common['X-Requested-With'];

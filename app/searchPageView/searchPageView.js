@@ -63,6 +63,8 @@ angular.module('myApp.searchPageView', ['ngRoute'])
         console.log(localStorage.attName);
         console.log(localStorage.attLast);
         console.log(localStorage.attEmail);
+
+        $scope.cbch=false;
 /*
         document.getElementById("userNameHome").innerHTML=localStorage.attName;
         document.getElementById("userNameAndLastHome").innerHTML=localStorage.attName+" "+localStorage.attLast;*/
@@ -127,6 +129,24 @@ angular.module('myApp.searchPageView', ['ngRoute'])
         $scope.goToMyPublicProfile=function () {
             $location.path("/publicProfilePageView");
             localStorage.otherUserID=UID;
+        };
+
+        $scope.checkAllRoles = function() {
+            var checkboxes = document.getElementsByName('rcb');
+            var cbl=checkboxes.length;
+            for(var a=0; a<cbl; a++)
+                checkboxes[a].checked = true;
+            $scope.showActorSpec = true;
+            $scope.cbch=true;
+        };
+
+        $scope.uncheckAllRoles = function() {
+            var checkboxes = document.getElementsByName('rcb');
+            var cbl=checkboxes.length;
+            for(var a=0; a<cbl; a++)
+                checkboxes[a].checked = false;
+            $scope.showActorSpec = false;
+            $scope.cbch=false;
         };
 
         $scope.askAPI = function(city, returnType) {
