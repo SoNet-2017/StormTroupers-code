@@ -1226,7 +1226,22 @@ angular.module('myApp.searchPageView', ['ngRoute'])
 
                     $scope.filterSearch[j] = $scope.filterUsers[i];
                     j++;
-                    console.log($scope.filterUsers[i].name + "added to results.");
+                    console.log($scope.filterUsers[i].name + " added to results.");
+                    console.log("ID: "+$scope.filterUsers[i].$id);
+
+                    var l = $scope.filterSearch[j-1].length;
+
+                    switch (l) {
+                        case 1:
+                            $scope.filterSearch[j-1].first3Roles = [$scope.filterSearch[j-1].roles[0], " ", " "];
+                            break;
+                        case 2:
+                            $scope.filterSearch[j-1].first3Roles = [$scope.filterSearch[j-1].roles[0],$scope.filterSearch[j-1].roles[1], " "];
+                            break;
+                        default:
+                            $scope.filterSearch[j-1].first3Roles = [$scope.filterSearch[j-1].roles[0],$scope.filterSearch[j-1].roles[1],$scope.filterSearch[j-1].roles[2]];
+                            break;
+                    }
                 }
 
                 if (resultIsOkFlag==true) {
