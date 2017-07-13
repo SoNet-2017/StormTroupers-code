@@ -18,7 +18,7 @@ angular.module('myApp.searchPageView', ['ngRoute'])
         });
     }])
 
-    .controller('searchPageCtrl', ['$scope', '$location', 'Auth', '$firebaseObject','Users', 'CurrentDateService', 'ReminderService', 'currentAuth', '$firebaseAuth', '$firebaseArray','$http', function ($scope,$location, Auth, $firebaseObject, Users, CurrentDateService, ReminderService, currentAuth, $firebaseAuth, $firebaseArray, $http) {
+    .controller('searchPageCtrl', ['$scope', '$location', 'Auth', '$firebaseObject','UiService','Users', 'CurrentDateService', 'ReminderService', 'currentAuth', '$firebaseAuth', '$firebaseArray','$http', function ($scope,$location, Auth, $firebaseObject,UiService, Users, CurrentDateService, ReminderService, currentAuth, $firebaseAuth, $firebaseArray, $http) {
         $scope.dati={};
         $scope.auth=Auth;
 
@@ -63,31 +63,27 @@ angular.module('myApp.searchPageView', ['ngRoute'])
         console.log(localStorage.attName);
         console.log(localStorage.attLast);
         console.log(localStorage.attEmail);
+
+        $scope.cbch=false;
 /*
         document.getElementById("userNameHome").innerHTML=localStorage.attName;
         document.getElementById("userNameAndLastHome").innerHTML=localStorage.attName+" "+localStorage.attLast;*/
 
-        $scope.showLogoItem=function () {
-            var x = document.getElementById("logoBarContentHome");
-            if (x.className.indexOf("w3-show") == -1)
-                x.className += " w3-show";
-            else
-                x.className = x.className.replace(" w3-show", "");
+        $scope.showLogoItem=function() {
+            UiService.showLogoItem();
         };
 
-        $scope.launchSearchInSearchPage = function () {
-            $location.path("/searchPageView");
-            localStorage.immediateSearch=true;
-            localStorage.immediateSearchKeyword=document.getElementById("searchItemHomeKeyword").value;
+        $scope.launchSearchInSearchPage=function(){
+            UiService.launchSearchInSearchPage();
         };
 
-        $scope.showSearchItem=function () {
-            var x = document.getElementById("typeSearchContentHome");
-            if (x.className.indexOf("w3-show") == -1)
-                x.className += " w3-show";
-            else
-                x.className = x.className.replace(" w3-show", "");
-        };
+        /*$scope.showSearchItem = function () {
+         var x = document.getElementById("typeSearchContentHome");
+         if (x.className.indexOf("w3-show") == -1)
+         x.className += " w3-show";
+         else
+         x.className = x.className.replace(" w3-show", "");
+         };*/
 
         $scope.goToDashboard=function () {
             $location.path("/homePageView")
@@ -127,6 +123,24 @@ angular.module('myApp.searchPageView', ['ngRoute'])
         $scope.goToMyPublicProfile=function () {
             $location.path("/publicProfilePageView");
             localStorage.otherUserID=UID;
+        };
+
+        $scope.checkAllRoles = function() {
+            var checkboxes = document.getElementsByName('rcb');
+            var cbl=checkboxes.length;
+            for(var a=0; a<cbl; a++)
+                checkboxes[a].checked = true;
+            $scope.showActorSpec = true;
+            $scope.cbch=true;
+        };
+
+        $scope.uncheckAllRoles = function() {
+            var checkboxes = document.getElementsByName('rcb');
+            var cbl=checkboxes.length;
+            for(var a=0; a<cbl; a++)
+                checkboxes[a].checked = false;
+            $scope.showActorSpec = false;
+            $scope.cbch=false;
         };
 
         $scope.askAPI = function(city, returnType) {
@@ -1226,7 +1240,22 @@ angular.module('myApp.searchPageView', ['ngRoute'])
 
                     $scope.filterSearch[j] = $scope.filterUsers[i];
                     j++;
-                    console.log($scope.filterUsers[i].name + "added to results.");
+                    console.log($scope.filterUsers[i].name + " added to results.");
+                    console.log("ID: "+$scope.filterUsers[i].$id);
+
+                    var l = $scope.filterSearch[j-1].length;
+
+                    switch (l) {
+                        case 1:
+                            $scope.filterSearch[j-1].first3Roles = [$scope.filterSearch[j-1].roles[0], " ", " "];
+                            break;
+                        case 2:
+                            $scope.filterSearch[j-1].first3Roles = [$scope.filterSearch[j-1].roles[0],$scope.filterSearch[j-1].roles[1], " "];
+                            break;
+                        default:
+                            $scope.filterSearch[j-1].first3Roles = [$scope.filterSearch[j-1].roles[0],$scope.filterSearch[j-1].roles[1],$scope.filterSearch[j-1].roles[2]];
+                            break;
+                    }
                 }
 
                 if (resultIsOkFlag==true) {

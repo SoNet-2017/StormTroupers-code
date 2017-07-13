@@ -18,7 +18,7 @@ angular.module('myApp.homePageView', ['ngRoute'])
         });
     }])
 
-    .controller('homePageCtrl', ['$scope', '$location', 'Auth', '$firebaseObject', 'Users', 'CurrentDateService', 'ReminderService', 'currentAuth', '$firebaseAuth', '$firebaseArray', '$route', function ($scope, $location, Auth, $firebaseObject, Users, CurrentDateService, ReminderService, currentAuth, $firebaseAuth, $firebaseArray, $route) {
+    .controller('homePageCtrl', ['$scope', '$location', 'Auth', '$firebaseObject','UiService', 'Users', 'UserList', 'ProjectService', 'ReminderService','CurrentDateService', 'ProfileService', 'currentAuth', '$firebaseAuth', '$firebaseArray', '$route', function ($scope, $location, Auth, $firebaseObject,UiService, Users, UserList, ProjectService, ReminderService, CurrentDateService, ProfileService, currentAuth, $firebaseAuth, $firebaseArray, $route) {
         $scope.dati = {};
         $scope.auth = Auth;
 
@@ -27,30 +27,21 @@ angular.module('myApp.homePageView', ['ngRoute'])
 
         localStorage.immediateSearch=false;
 
-        $scope.showLogoItem = function () {
-            var x = document.getElementById("logoBarContentHome");
-            if (x.className.indexOf("w3-show") == -1)
-                x.className += " w3-show";
-            else
-                x.className = x.className.replace(" w3-show", "");
+        $scope.showLogoItem=function() {
+            UiService.showLogoItem();
         };
 
-        $scope.showSearchItem = function () {
-            var x = document.getElementById("typeSearchContentHome");
-            if (x.className.indexOf("w3-show") == -1)
-                x.className += " w3-show";
-            else
-                x.className = x.className.replace(" w3-show", "");
+        $scope.launchSearchInSearchPage=function(){
+            UiService.launchSearchInSearchPage();
         };
 
-        $scope.launchSearchInSearchPage = function () {
-            $location.path("/searchPageView");
-            localStorage.immediateSearch=true;
-            localStorage.immediateSearchKeyword=document.getElementById("searchItemHomeKeyword").value;
-            console.log("Variabili passate.");
-            console.log("immediateSearch = "+localStorage.immediateSearch.toString());
-            console.log("ImmediateSearchKeyword = "+localStorage.immediateSearchKeyword);
-        };
+        /*$scope.showSearchItem = function () {
+         var x = document.getElementById("typeSearchContentHome");
+         if (x.className.indexOf("w3-show") == -1)
+         x.className += " w3-show";
+         else
+         x.className = x.className.replace(" w3-show", "");
+         };*/
 
         $scope.goToDashboard = function () {
             $location.path("/homePageView")
@@ -79,6 +70,10 @@ angular.module('myApp.homePageView', ['ngRoute'])
 
         $scope.goToMyApplications=function() {
             $location.path("/jobApplicationsView");
+        };
+
+        $scope.goToEditor=function(){
+            $location.path("/editorView");
         };
 
         // CAMBIARE URL
@@ -148,8 +143,7 @@ angular.module('myApp.homePageView', ['ngRoute'])
             $scope.error = error;
         });
 
-        var projectBase = database.ref('projects/');
-        $scope.allProjects = $firebaseArray(projectBase);
+        $scope.allProjects = ProjectService.getProjects();
         $scope.allProjects.$loaded().then(function () {
             ////////////////////////////////////////////////////////////////////////////////////
             //popolazione con i progetti around you
@@ -188,9 +182,8 @@ angular.module('myApp.homePageView', ['ngRoute'])
             $scope.error = error;
         });
 
-        var obj = $firebaseObject(database.ref('users/' + UID));
-        obj.$loaded().then(function () {
-            $scope.profile = obj;
+        $scope.profile = ProfileService.getUserInfo(UID);
+        $scope.profile.$loaded().then(function () {
             var role = Object.values(obj.roles);
             for (var i = 0; i < role.length; i++) {
                 document.getElementById("userRolesHome").innerHTML += role[i];
@@ -203,51 +196,9 @@ angular.module('myApp.homePageView', ['ngRoute'])
             $scope.error = error;
         });
 
-        /*
-         var UID=localStorage.UID;
-         var database=firebase.database();
-         var usersBase=database.ref('users/');
-         var userQuery=usersBase.orderByChild("dateOfJoin").limitToLast(3);
-         $scope.filterUsers=$firebaseArray(userQuery);
-
-
-
-         var obj = $firebaseObject(database.ref('users/'+UID));
-         obj.$loaded().then(function () {
-         $scope.profile=obj;
-         var role = Object.values(obj.roles);
-         for(var i=0; i<role.length; i++){
-         document.getElementById("userRolesHome").innerHTML+=role[i];
-         if(i<role.length-1) {
-         document.getElementById("userRolesHome").innerHTML+=", ";
-         }
-         }
-
-         $scope.filterSearch={};
-
-         var length=$scope.filterUsers.length;
-         var arr=[];
-         var j=0;
-         for(var i=0; i<length; i++){
-         if($scope.filterUsers[i].name==="Branda"){
-         arr[j]=$scope.filterUsers[i];
-         $scope.filterSearch[j]=$scope.filterUsers[i];
-         console.log($scope.filterSearch[j]);
-         j++;
-         }
-         }
-
-
-
-
-         }).catch(function (error) {
-         $scope.error=error;
-         });
-         */
-
         $scope.addUserToFriends=function(otherUserID){
             if($scope.profile.friends.indexOf(otherUserID)<0) {
-                $scope.otherUser = $firebaseObject(database.ref('users/' + otherUserID));
+                $scope.otherUser = ProfileService.getUserInfo(otherUserID);
                 $scope.otherUser.$loaded().then(function () {
                     //aggiorno il vettore anche nell'amico
                     $scope.otherUser.friends.push(UID);

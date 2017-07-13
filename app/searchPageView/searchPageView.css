@@ -71,6 +71,11 @@
     font-size: 9pt;
 }
 
+#helpCaption5 {
+    font-size: 9pt;
+    color: indianred;
+}
+
 #raceCheckBoxes{
     display: inline-block;
     justify-content:left;
@@ -150,6 +155,39 @@
     color: white;
     background-color: black;
     text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#checkallButtonContainer {
+    width: 20%;
+    display: block;
+    align-items: left;
+    horiz-align: left;
+}
+
+#uncheckallButtonContainer {
+    width: 20%;
+    display: block;
+    align-items: left;
+    horiz-align: left;
+}
+
+
+#checkallButton {
+    display: flex;
+    color: white;
+    background-color: black;
+    text-align: left;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#uncheckallButton {
+    display: flex;
+    color: white;
+    background-color: black;
+    text-align: left;
     margin-left: auto;
     margin-right: auto;
 }

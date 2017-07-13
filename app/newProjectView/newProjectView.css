@@ -30,7 +30,25 @@
     max-width: 90%;
     padding-right: 20px;
 }
+
 #rolesNeededContainer{
     margin-left: 40px;
     margin-top: 10px;
+}
+
+#searchCrewButtonContainer {
+    width: 100%;
+    display: inline-block;
+    align-items: center;
+    horiz-align: center;
+}
+
+
+#searchCrewButton {
+    display: flex;
+    color: white;
+    background-color: black;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
 }
