@@ -139,11 +139,190 @@ angular.module('myApp.editorView', ['ngRoute'])
             $scope.error=error;
         });
 
-        $scope.tinymceModel = "";
 
+        var templateObj=$firebaseObject(database.ref('template'));
+        templateObj.$loaded().then(function () {
+            $scope.template=templateObj;
+            localStorage.screenplay=$scope.template.screenplay;
+            localStorage.storyboard=$scope.template.storyboard;
+            localStorage.script=$scope.template.script;
+            localStorage.shotList=$scope.template.shotList;
+            localStorage.callSheet=$scope.template.callSheet;
+            localStorage.objectList=$scope.template.objectsList;
+        });
 
+        var templateStyle;
 
-        $scope.getContent = function() {
+        $scope.setTemplate=function (number) {
+            templateStyle=number;
+            switch(templateStyle){
+                case 0:
+                    if($scope.prj.screenplay!==undefined){
+                        $scope.tinymceModel=$scope.prj.screenplay;
+                    }else{
+                        $scope.tinymceModel=localStorage.screenplay;
+                    }
+                    break;
+                case 1:
+                    if($scope.prj.storyboard!==undefined){
+                        $scope.tinymceModel=$scope.prj.storyboard;
+                    }else{
+                        $scope.tinymceModel=localStorage.storyboard;
+                    }
+                    break;
+                case 2:
+                    if($scope.prj.script!==undefined){
+                        $scope.tinymceModel=$scope.prj.script;
+                    }else{
+                        $scope.tinymceModel=localStorage.script;
+                    }
+                    break;
+                case 3:
+                    if($scope.prj.callSheet!==undefined){
+                        $scope.tinymceModel=$scope.prj.callSheet;
+                    }else{
+                        $scope.tinymceModel=localStorage.callSheet;
+                    }
+                    break;
+                case 4:
+                    if($scope.prj.shotList!==undefined){
+                        $scope.tinymceModel=$scope.prj.shotList;
+                    }else{
+                        $scope.tinymceModel=localStorage.shotList;
+                    }
+                    break;
+                case 5:
+                    if($scope.prj.objectList!==undefined){
+                        $scope.tinymceModel=$scope.prj.objectList;
+                    }else{
+                        $scope.tinymceModel=localStorage.objectList;
+                    }
+                    break;
+            }
+            document.getElementById("templateSelection").style.display="none";
+            document.getElementById("campoDiTesto").style.display="block";
+        };
+
+        $scope.saveDocument=function () {
+            localStorage.content=$scope.tinymceModel;
+            console.log(localStorage.content);
+            switch(templateStyle){
+                case 0:
+                    database.ref('projects/'+PID).update({
+                        screenplay: localStorage.content
+                    }).then(function () {
+                        var obj = $firebaseObject(database.ref('projects/'+PID));
+                        obj.$loaded().then(function () {
+                            $scope.prj=obj;
+                            console.log("Screenplay su database:"+$scope.prj.screenplay);
+                            //localStorage.attTroupers=JSON.stringify(obj.troupers);
+                            $scope.goToMyProjects();
+                        }).catch(function (error) {
+                            $scope.error = error;
+                        })
+
+                    }).catch(function (error) {
+                        $scope.error = error;
+                    });
+                    break;
+                case 1:
+                    database.ref('projects/'+PID).update({
+                        storyboard: $scope.tinymceModel
+                    }).then(function () {
+                        var obj = $firebaseObject(database.ref('projects/'+PID));
+                        obj.$loaded().then(function () {
+                            $scope.prj=obj;
+                            console.log("Storyboard: "+$scope.prj.storyboard);
+                            //localStorage.attTroupers=JSON.stringify(obj.troupers);
+                            $scope.goToMyProjects();
+                        }).catch(function (error) {
+                            $scope.error = error;
+                        })
+
+                    }).catch(function (error) {
+                        $scope.error = error;
+                    });
+                    break;
+                case 2:
+                    database.ref('projects/'+PID).update({
+                        script: $scope.tinymceModel
+                    }).then(function () {
+                        var obj = $firebaseObject(database.ref('projects/'+PID));
+                        obj.$loaded().then(function () {
+                            $scope.prj=obj;
+                            console.log("Script: "+$scope.prj.script);
+                            //localStorage.attTroupers=JSON.stringify(obj.troupers);
+                            $scope.goToMyProjects();
+                        }).catch(function (error) {
+                            $scope.error = error;
+                        })
+
+                    }).catch(function (error) {
+                        $scope.error = error;
+                    });
+                    break;
+                case 3:
+                    database.ref('projects/'+PID).update({
+                        callSheet: $scope.tinymceModel
+                    }).then(function () {
+                        var obj = $firebaseObject(database.ref('projects/'+PID));
+                        obj.$loaded().then(function () {
+                            $scope.prj=obj;
+                            console.log("Call sheet: "+$scope.prj.callSheet);
+                            //localStorage.attTroupers=JSON.stringify(obj.troupers);
+                            $scope.goToMyProjects();
+                        }).catch(function (error) {
+                            $scope.error = error;
+                        })
+
+                    }).catch(function (error) {
+                        $scope.error = error;
+                    });
+                    break;
+                case 4:
+                    database.ref('projects/'+PID).update({
+                        shotList: $scope.tinymceModel
+                    }).then(function () {
+                        var obj = $firebaseObject(database.ref('projects/'+PID));
+                        obj.$loaded().then(function () {
+                            $scope.prj=obj;
+                            console.log("Shot list: "+$scope.prj.shotList);
+                            //localStorage.attTroupers=JSON.stringify(obj.troupers);
+                            $scope.goToMyProjects();
+                        }).catch(function (error) {
+                            $scope.error = error;
+                        })
+
+                    }).catch(function (error) {
+                        $scope.error = error;
+                    });
+                    break;
+                case 5:
+                    database.ref('projects/'+PID).update({
+                        objectList: $scope.tinymceModel
+                    }).then(function () {
+                        var obj = $firebaseObject(database.ref('projects/'+PID));
+                        obj.$loaded().then(function () {
+                            $scope.prj=obj;
+                            console.log("Object List: "+$scope.prj.objectList);
+                            //localStorage.attTroupers=JSON.stringify(obj.troupers);
+                            $scope.goToMyProjects();
+                        }).catch(function (error) {
+                            $scope.error = error;
+                        })
+
+                    }).catch(function (error) {
+                        $scope.error = error;
+                    });
+                    break;
+            }
+        };
+
+        $scope.cancelOperation=function () {
+            $scope.goToMyProjects();
+        };
+
+        /*$scope.getContent = function() {
             console.log('Editor content:', $scope.tinymceModel);
             localStorage.content=$scope.tinymceModel;
             database.ref('projects/' + PID).update({
@@ -172,12 +351,31 @@ angular.module('myApp.editorView', ['ngRoute'])
             }).catch(function (error) {
                 $scope.error = error;
             });
+        };*/
+
+        /*$scope.getContent=function () {
+            localStorage.content=$scope.tinymceModel;
+            database.ref('project/'+PID).update({
+                callSheet: $scope.tinymceModel
+            }).then(function () {
+                var obj = $firebaseObject(database.ref('project/'+PID));
+                obj.$loaded().then(function () {
+
+                    //localStorage.attTroupers=JSON.stringify(obj.troupers);
+                    $scope.goToMyProjects();
+                }).catch(function (error) {
+                    $scope.error = error;
+                })
+
+            }).catch(function (error) {
+                $scope.error = error;
+            });
         };
 
         $scope.setContent = function() {
             //$scope.tinymceModel = 'Time: ' + (new Date());
-            $scope.tinymceModel = $scope.prj.screenplay;
-        };
+            $scope.tinymceModel = localStorage.content;
+        };*/
 
 
 

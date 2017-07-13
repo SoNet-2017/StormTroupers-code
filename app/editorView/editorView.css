@@ -1,0 +1,22 @@
+#templateSelection{
+    text-align: center;
+    color: white;
+    display: block;
+}
+
+#campoDiTesto{
+    display: none;
+}
+
+#saveTextButton{
+    color: white;
+    background-color: black;
+    text-align: center;
+    margin-right: 10px;
+}
+
+#cancelTextButton{
+    color: white;
+    background-color: black;
+    text-align: center;
+}
