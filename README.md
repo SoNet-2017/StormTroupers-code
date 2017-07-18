@@ -1,27 +1,13 @@
-# StormTroupers-code
+Presentation of the StormTroupers project (ITA): [https://sonet-2017.github.io/StormTroupers/](https://sonet-2017.github.io/StormTroupers/)
 
-Buongiorno,
-usiamo il README per ricordarvi le credenziali d'accesso: lo username è "otto@tedesco.de" e la password è "ottone".
+Code of the StormTroupers project: [https://github.com/SoNet-2017/StormTroupers-code](https://github.com/SoNet-2017/StormTroupers-code)
 
-Se volete potete testare la funzionalità d'iscrizione. Per semplicità abbiamo limitato la selezione funzionante delle
-province con cui è possibilie iscriversi a quella di Torino e alle sue città.
+Demo (developed for DESKTOP devices) of the StormTroupers project: [https://sonet-2017.github.io/StormTroupers-code/app](https://sonet-2017.github.io/StormTroupers-code/app)
 
-FUNZIONALITA' IMPERFETTE:
+# Prototype of the StormTroupers project
 
-Nelle ricerche (Search Crew e Search Project) i campi City e Range NON funzionano insieme. Non siamo riusciti a implementare una ricerca
-che parta in modo asincrono dopo aver aspettato una risposta (sotto forma di file .json) da un server.
+This is a prototype of the [StormTroupers](https://sonet-2017.github.io/StormTroupers/) project presented at the exam of the [Social Networking](http://bit.ly/polito-sonet) course taken at Politecnico di Torino.
+It was made using the [AngularJS](http://angularjs.org/) framework and starting from the [Starter Kit](https://github.com/SoNet-2017/starter-kit) provided by the teachers of the course.
 
-Per motivi a noi ignoti la barra di ricerca della navbar funziona quasi sempre, a volte invece no. Crediamo sia legato di nuovo a problemi
-di caricamento asincrono da firebase.
-
-La console restituisce degli errori da googleapis relativi alla chiave ma anche sostituendola con una nuova ottenuta da Google selezionando
-il nostro progetto continua a dare lo stesso errore.
-
-È possibile che la libreria che implementa l'editor dei documenti per i progetti restituisca degli errori: l'editor è funzionante nonostante
-tali errori che essendo su una librearia esterna non sono di nostra competenza.
-
-Grazie per la visione e buon lavoro.
-
-Matilde Ugolini,
-Edoardo Battegazzorre,
-Giancarlo Avalle
+### Note
+This project was created for teaching purpose. AngularJS and Bootstrap should be installed with `npm` or `bower` instead of being downloaded in a `lib` folder. Due to some limitations on the lab computers, this was not possible.
